@@ -36,7 +36,7 @@
 <!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
 <?rfc sortrefs="yes" ?>
 <!-- sort the reference entries alphabetically -->
-<!-- control vertical white space 
+<!-- control vertical white space
     (using these PIs as follows is recommended by the RFC Editor) -->
 <?rfc compact="yes" ?>
 <!-- do not start each main section on a new page -->
@@ -47,13 +47,13 @@
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
-    you can add the attributes updates="NNNN" and obsoletes="NNNN" 
+    you can add the attributes updates="NNNN" and obsoletes="NNNN"
     they will automatically be output with "(if approved)" -->
 
  <!-- ***** FRONT MATTER ***** -->
 
  <front>
-   <!-- The abbreviated title is used in the page header - it is only necessary if the 
+   <!-- The abbreviated title is used in the page header - it is only necessary if the
         full title is longer than 39 characters -->
 
   <title abbrev="Useof6553">When to use RFC 6553, 6554</title>
@@ -82,7 +82,7 @@
      </postal>
       <email></email>
     </address>
-     
+
   </author>
 
   <date year="2015" />
@@ -97,8 +97,8 @@
 
    <abstract>
       <t>
-   This document states different cases where RFC 6553, RFC 6554 and IPv6-in-IPv6 encapsulation is required to set the 
-   bases to help defining the compression of RPL routing information in LLN environments. 
+   This document states different cases where RFC 6553, RFC 6554 and IPv6-in-IPv6 encapsulation is required to set the
+   bases to help defining the compression of RPL routing information in LLN environments.
      </t>
    </abstract>
  </front>
@@ -109,17 +109,17 @@
 		RPL <xref target="RFC6550"/> defines RPL Option to transmit routing information. RFC 6553 <xref target="RFC6553"/> defines how to transmit in a Hop-By-Hop Option RPL Information,such as 			information to avoid and detect loops. RFC 6554 <xref target="RFC6554"/> defines the use of Extension header for Source Routing.
 	    </t>
 	    <t>
-		Several discussions in ML took place focusing in the definition how to compress RPL Information in constrained environments, 
+		Several discussions in ML took place focusing in the definition how to compress RPL Information in constrained environments,
 		the Conclusion was that there is a need to define how to use RFC 6553, RFC6554 and tunneling (IP-in-IP) to be able to set the correct environment to define the compression on these 			techniques.
 		ROLL Virtual Interim Meeting (2014) concluded that a document stating the use of this Extension headers would be useful for further proccessing on it, e.g. to compress them.
 	    </t>
      </section>
 
-     <section title="Terminology and Requirements Language">     
+     <section title="Terminology and Requirements Language">
         <t>
            The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
            "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   	   document are to be interpreted as described 
+   	   document are to be interpreted as described
 	   in <xref target="RFC2119">RFC 2119</xref>.
         </t>
         <t>
@@ -127,7 +127,7 @@
         </t>
 
        </section>
-     
+
 
        <section title="sample/reference topology">
         	<t>
@@ -140,7 +140,7 @@
 	     <figure title="RPL Stack"
 
 		        anchor="fig_RPLStack" align="center">
-		<artwork><![CDATA[            
+		<artwork><![CDATA[
 +--------------+
 | Upper Layers |
 |              |
@@ -160,39 +160,39 @@
 |   PHY-MAC    |
 |              |
 +--------------+
-                           
- 
+
+
 		]]></artwork></figure>
 		 </t>
-	       <t> 
+	       <t>
 	     <figure title="A reference RPL Topology"
 		        anchor="fig_CommonTopology" align="center">
-		<artwork><![CDATA[            
-                                 +---------+             
-                             +---+Internet |             
-                             |   +---------+             
-                             |                           
-                        +----+--+                        
-                        |DODAG  |                        
-              +---------+Root   +----------+             
-              |         |6LBR   |          |             
-              |         +----+--+          |             
-              |              |             |             
-              |              |             |             
-              |              |             |             
-        +-----+-+         +--+---+      +--+---+         
-        |6LR    |         |      |      |      |         
-  +-----+       |         |      |      |      |         
-  |     |       |         |      |      |      +------+  
-  |     +-----+-+         +-+----+      +-+----+      |  
-  |           |             |             |           |  
-  |           |             |             |           |  
-  |           |             |             |           |  
+		<artwork><![CDATA[
+                                 +---------+
+                             +---+Internet |
+                             |   +---------+
+                             |
+                        +----+--+
+                        |DODAG  |
+              +---------+Root   +----------+
+              |         |6LBR   |          |
+              |         +----+--+          |
+              |              |             |
+              |              |             |
+              |              |             |
+        +-----+-+         +--+---+      +--+---+
+        |6LR    |         |      |      |      |
+  +-----+       |         |      |      |      |
+  |     |       |         |      |      |      +------+
+  |     +-----+-+         +-+----+      +-+----+      |
+  |           |             |             |           |
+  |           |             |             |           |
+  |           |             |             |           |
 +-+---+     +-+---+      +--+--+       +- --+     +---+-+
 |Leaf |     |     |      |     |       |    |     |     |
 |6LN  |     |     |      |     |       |    |     |     |
 +-----+     +-----+      +-----+       +----+     +-----+
- 
+
 		]]></artwork></figure>
 		 </t>
         	<t>
@@ -212,18 +212,18 @@
         	</t>
         	<t>
 		-Flow from leaf to root
-        	</t>		 
+        	</t>
        </section>
        <section title="Example flow from leaf to root">
         	<t>
-		A leaf node generates DAO and DIS messages and in general does not accept them. 
-		Additionally, this kind of nodes accepts DIO messages, but in general do not generate them. 
+		A leaf node generates DAO and DIS messages and in general does not accept them.
+		Additionally, this kind of nodes accepts DIO messages, but in general do not generate them.
 		(In inconsistency A leaf node generates DIO with infinite rank, to fix it).
 	       	</t>
 
         	<section title="Non-storing">
 		        <t>
-			In non-storing in this case the leaf node uses Hop-By-Hop option (RFC 6553) to indicate the routing information to send messages to the DODAG root, 
+			In non-storing in this case the leaf node uses Hop-By-Hop option (RFC 6553) to indicate the routing information to send messages to the DODAG root,
 			this message is going to be analyzed in each node until arrive the DODAG root.
 		        </t>
 		        <t>
@@ -231,71 +231,71 @@
 		        </t>
 		        <t>
 			TBD: Tunneling is necessary in case that there is information to send outside RPL Domain and other cases?
-        		</t> 
-	      		 <t> 
+        		</t>
+	      		 <t>
 	     		<figure title=" From leaf to Root - Non-Storing Mode "
 		        anchor="fig_leaf2rootNstoring" align="center">
-			<artwork><![CDATA[            
-   +------+                          
-   |      |                          
-   | 6LBR |                          
-   |      |                          
-   +---+--+                          
-       |                             
-       |  LoWPAN_HC                  
-       |  Route= 6LN-6LR-6LBR              
-^      |                             
-|  +---+-+                           
-|  |     |                           
-|  | 6LR | 
-|  |     |                           
-|  +--+--+                           
-|     |   LoWPAN_HC                  
-|     |   Route= 6LN-6LR-6LBR              
-|     |                              
-+     |                              
-   +--+--+                           
-   | 6LN |                           
-   |     |                           
-   |     |                           
-   +-----+                           
+			<artwork><![CDATA[
+   +------+
+   |      |
+   | 6LBR |
+   |      |
+   +---+--+
+       |
+       |  LoWPAN_HC
+       |  Route= 6LN-6LR-6LBR
+^      |
+|  +---+-+
+|  |     |
+|  | 6LR |
+|  |     |
+|  +--+--+
+|     |   LoWPAN_HC
+|     |   Route= 6LN-6LR-6LBR
+|     |
++     |
+   +--+--+
+   | 6LN |
+   |     |
+   |     |
+   +-----+
 			]]></artwork></figure>
 			 </t>
-           		
+
        		</section>
             	<section title="Storing">
         		<t>
-			IP6 6553{X,Y] ?ipip payload. 
-			In storing mode is suitable the use of RFC 6553 to send RPL Information through HBH field checking the routing table to find out where to send the message. 
+			IP6 6553{X,Y] ?ipip payload.
+			In storing mode is suitable the use of RFC 6553 to send RPL Information through HBH field checking the routing table to find out where to send the message.
 			It may include IP-in-IP encapsulation to transmit information not related with the RPL domain.
         		</t>
-	      		 <t> 
+	      		 <t>
 	    		 <figure title=" From leaf to Root - Storing Mode "
 		        anchor="fig_leaf2rootstoring" align="center">
-			<artwork><![CDATA[            
-   +------+                          
-   |      |                          
-   | 6LBR |                          
-   |      |                          
-   +---+--+                          
-       |                             
-       |  LoWPAN_HC                  
-       |  0x63|HBH Data              
-^      |                             
-|  +---+-+                           
-|  |     |                           
+			<artwork><![CDATA[
+   +------+
+   |      |
+   | 6LBR |
+   |      |
+   +---+--+
+       |
+       |  LoWPAN_HC
+       |  0x63|HBH Data
+^      |
+|  +---+-+
+|  |     |
 |  | 6LR | 6LR check in routing table
-|  |     |                           
-|  +--+--+                           
-|     |   LoWPAN_HC                  
-|     |   0x63|HBH Data              
-|     |                              
-+     |                              
-   +--+--+                           
-   | 6LN |                           
-   |     |                           
-   |     |                           
-   +-----+                           
+|  |     |
+|  +--+--+
+|     |   LoWPAN_HC
+|     |   0x63|HBH Data
+|     |
++     |
+   +--+--+
+   | 6LN |
+   |     |
+   |     |
+   +-----+
 			]]></artwork></figure>
 			 </t>
 
@@ -307,16 +307,16 @@
         	</t>
             	<section title="Non-storing">
         		<t>
-			In this case the IP-in-IP encapsulation should take place to send information not related to the RPL domain inside of the RPL domain. 
+			In this case the IP-in-IP encapsulation should take place to send information not related to the RPL domain inside of the RPL domain.
 		        </t>
 		        <t>
-			RPL information from RFC 6553 should not go out to Internet. The router sould take this information out before send the packet to Internet. 
+			RPL information from RFC 6553 should not go out to Internet. The router sould take this information out before send the packet to Internet.
 			The HBH Option is going to be analyzed in each node to the root.
 		        </t>
 		        <t>
 			Related to RFC 6554 the Source Header route is added and removed by DODAG root. However, RFC 6554 was created to strictly send information between
 			RPL routers in the same RPL routing domain. How it would be in 6554?
-			</t>          		
+			</t>
        		</section>
         	<section title="Storing">
         		<t>
@@ -329,7 +329,7 @@
 		can leafs insert appropriate headers, without ipip?
 		In <xref target="RFC6550"/> RPL allows a simple one-hop P2P optimization for both storing and non-storing networks.
 		A node may send a P2P packet destined to a one-hop neighbor direclty to that node. Section 9 in <xref target="RFC6550"/>.
-       		</t>       		
+       		</t>
             	<section title="Traditional storing">
         		<t>
 			The route go through an ancestor that knows the route to the destination, using HBH <xref target="RFC6553"/> to carry RPL Information.
@@ -343,7 +343,7 @@
             	<section title="P2P non-storing">
         		<t>
 			(p2p storing? I think it does not exist)
-	
+
 		        </t>
        		</section>
        </section>
@@ -375,7 +375,7 @@
 			DODAG root is going to add the source route header <xref target="RFC6554"/>
         		</t>
        		</section>
-       </section>	     
+       </section>
 	<section title="IANA Considerations">
 	   <t>
 	      There are no IANA considerations related to this document.
@@ -393,8 +393,8 @@
       TBD
    </t>
 
- </section> 
-   
+ </section>
+
 </middle>
 
  <back>
@@ -413,9 +413,9 @@
 
    <references title="Normative References">
 
-        
+
      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
-    
+
      &RFC6553;
      &RFC6554;
      &RFC2119;
