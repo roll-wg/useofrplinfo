@@ -1,24 +1,19 @@
-<?xml version="1.0" encoding="US-ASCII"?>
-<!-- This template is for creating an Internet Draft using xml2rfc,
-    which is available here: http://xml.resource.org. -->
+<?xml version="1.0"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
-<!-- One method to get references from the online citation libraries.
-    There has to be one entity for each item to be referenced.
-    An alternate method (rfc include) is described in the references. -->
 
 <!ENTITY RFC6550 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6550.xml">
 <!ENTITY RFC6553 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6553.xml">
 <!ENTITY RFC6554 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6554.xml">
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC7102 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7102.xml">
-<!ENTITY I-D.ietf-6man-default-iids SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6man-default-iids.xml">
-<!ENTITY I-D.thubert-6lo-rpl-nhc SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.thubert-6lo-rpl-nhc.xml">
+
+<!--<!ENTITY I-D.thubert-6lo-rpl-nhc SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.thubert-6lo-rpl-nhc.xml"> -->
 
 <!--<!ENTITY I-D.ietf-opsawg-coman-use-cases SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-opsawg-coman-use-cases.xml"> -->
 
 ]>
 
-<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<!--<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> -->
 <!-- used by XSLT processors -->
 <!-- For a complete list and description of processing instructions (PIs),
     please see http://xml.resource.org/authoring/README.html. -->
@@ -43,7 +38,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-wg-roll-caseofuserplinfo-01" ipr="trust200902">
+<rfc category="info" docName="draft-robles-roll-useofrplinfo-01" ipr="trust200902">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -56,9 +51,9 @@
    <!-- The abbreviated title is used in the page header - it is only necessary if the
         full title is longer than 39 characters -->
 
-  <title abbrev="Useof6553">When to use RFC 6553, 6554</title>
+  <title abbrev="Useof6553">When to use RFC 6553, 6554 and IPv6-in-IPv6</title>
 
-  <author fullname="Robles M. Ines" initials="M.I." surname="Robles">
+  <author  initials="M.I." surname="Robles" fullname="Maria Ines Robles">
      <organization abbrev="Ericsson">Ericsson</organization>
     <address>
      <postal>
@@ -71,17 +66,19 @@
     </address>
   </author>
 
-  <author initials='M.R.' surname="Richardson" fullname='Michael Richardson'>
-   <organization abbrev="Sandelman">Sandelman</organization>
-    <address>
-     <postal>
-       <street></street>
-       <city></city>
-       <code></code>
-       <country></country>
-     </postal>
-      <email></email>
-    </address>
+  <author initials="M." surname="Richardson" fullname="Michaelbl C. Richardson">
+    <organization abbrev="SSW">Sandelman Software Works</organization>
+     <address>
+	<postal>
+	<street>470 Dawson Avenue</street>
+	<city>Ottawa</city>
+	<region>ON</region>
+	<code>K1Z 5V7</code>
+	<country>CA</country>
+	</postal>
+	<email>mcr+ietf@sandelman.ca</email>
+	<uri>http://www.sandelman.ca/</uri>
+     </address>
 
   </author>
 
@@ -97,8 +94,8 @@
 
    <abstract>
       <t>
-   This document states different cases where RFC 6553, RFC 6554 and IPv6-in-IPv6 encapsulation is required to set the
-   bases to help defining the compression of RPL routing information in LLN environments.
+	This document states different cases where RFC 6553, RFC 6554 and IPv6-in-IPv6 encapsulation is required to set the
+        bases to help defining the compression of RPL routing information in LLN environments.
      </t>
    </abstract>
  </front>
@@ -106,12 +103,14 @@
 <middle>
   	<section title="Introduction">
 	     <t>
-		RPL <xref target="RFC6550"/> defines RPL Option to transmit routing information. RFC 6553 <xref target="RFC6553"/> defines how to transmit in a Hop-By-Hop Option RPL Information,such as 			information to avoid and detect loops. RFC 6554 <xref target="RFC6554"/> defines the use of Extension header for Source Routing.
+		RPL <xref target="RFC6550"/> is a routing protocol for constrained networks. RFC 6553 <xref target="RFC6553"/> defines the "RPL option", carried within the IPv6 Hop-by-Hop header to  			quickly identify inconsistencies in the routing topology. RFC 6554 <xref target="RFC6554"/> defines the "RPL Source Route Header", an IPv6 Extension Header to deliver datagrams within a 			RPL routing domain.
 	    </t>
 	    <t>
-		Several discussions in ML took place focusing in the definition how to compress RPL Information in constrained environments,
-		the Conclusion was that there is a need to define how to use RFC 6553, RFC6554 and tunneling (IP-in-IP) to be able to set the correct environment to define the compression on these 			techniques.
-		ROLL Virtual Interim Meeting (2014) concluded that a document stating the use of this Extension headers would be useful for further proccessing on it, e.g. to compress them.
+		Several discussions in the ROLL/6lo/6Tisch Mailing Lists took place focusing in the definition of how to compress RPL Information in constrained environment.
+		ROLL Virtual Interim Meeting (02-2015) concluded that there is a need to define how to use <xref target="RFC6553"/>, <xref target="RFC6554"/> and IP-in-IP encapsulation to be able to set 			the correct environment for compression.
+	    </t>
+	    <t>
+		This document is going to be focused in data plane messages and how can be transmitted within the above mentioned RFCs.
 	    </t>
      </section>
 
@@ -129,15 +128,16 @@
        </section>
 
 
-       <section title="sample/reference topology">
+       <section title="Sample/reference topology">
         	<t>
-		In a typical topology we found 6LBR (6LoWPAN Border Router), 6lR (6LoWPAN Router) and 6LN (6LoWPAN Node) as leaf connected in a DODAG (Destination Oriented Directed Acyclic Graph)
-		Between these entities messages such as DIS, DIO and DAO are transmitted.
-		RPL defines the RPL Control message as an ICMPv6 information message with a Type of 155.
-		RPL supports two modes of Downward traffic: Storing, it is fully stateful or Non-Storing it is fully source routed.  Any given RPL Instance is either storing or non-storing.
+		A RPL network is composed of a 6LBR (6LoWPAN Border Router), 6LR (6LoWPAN Router) and 6LN (6LoWPAN Node) as leaf logically organized in a DODAG structure (Destination Oriented 		Directed Acyclic Graph).
+		RPL defines the RPL Control messages (control plane ), a new ICMPv6 message with Type 155. DIS, DIO and DAO messages are all RPL Control messages but with different Code values.
+		RPL supports two modes of Downward traffic: Storing, it is fully stateful or Non-Storing it is fully source routed. A RPL Instance is either fully storing or fully
+		non-storing, i.e. a RPL Instance with a combination of storing and non-storing nodes is not supported with the current specifications.
+
      		</t>
         	<t>
-	     <figure title="RPL Stack"
+	     <figure title="RPL Stack."
 
 		        anchor="fig_RPLStack" align="center">
 		<artwork><![CDATA[
@@ -165,9 +165,9 @@
 		]]></artwork></figure>
 		 </t>
 	       <t>
-	     <figure title="A reference RPL Topology"
-		        anchor="fig_CommonTopology" align="center">
+	     <figure title="A reference RPL Topology" anchor="fig_CommonTopology" align="center">
 		<artwork><![CDATA[
+
                                  +---------+
                              +---+Internet |
                              |   +---------+
@@ -195,44 +195,1107 @@
 
 		]]></artwork></figure>
 		 </t>
-        	<t>
-		In different scenarios the use of RFC 6553, RFC 6554 and tunneling can take place:
-        	</t>
-        	<t>
-		-Flow from leaf to root
-        	</t>
-        	<t>
-		-Flow from leaf to Internet
-        	</t>
-        	<t>
-		-Flow from leaf to leaf
-        	</t>
-        	<t>
-		-Flow from Internet to leaf
-        	</t>
-        	<t>
-		-Flow from leaf to root
-        	</t>
+
        </section>
+
+
+       <section title="Use cases">
+         <t>
+	   In data plane context a combination of RFC6553, RFC6554 and IP-in-IP encapsulation is used for the following traffic flows:
+         </t>
+         <t>
+	   -Flow from RPL-aware-leaf to root
+	   -Flow from root to RPL-aware-leaf
+	   -Flow from not-RPL-aware-leaf to root
+	   -Flow from root to not-RPL-aware-leaf
+	   -Flow from RPL-aware-leaf to Internet
+	   -Flow from Internet to RPL-aware-leaf
+	   -Flow from not-RPL-aware-leaf to Internet
+	   -Flow from Internet to not-RPL-aware-leaf
+	   -Flow from RPL-aware-leaf to RPL-aware-leaf
+	   -Flow from RPL-aware-leaf to not-RPL-aware-leaf
+	   -Flow from not-RPL-aware-leaf to RPL-aware-leaf
+	   -Flow from not-RPL-aware-leaf to not-RPL-aware-leaf
+         </t>
+         <t>
+	   For Storing mode cases we have:
+         </t>
+
+	 <texttable anchor="table_ex" title="Posibility to transmit in Storing mode: RPI, RH3, IP-in-IP" >
+	   <ttcol> Use Case </ttcol>
+	   <ttcol> RPI (RFC 6553) </ttcol>
+	   <ttcol> RH3 (RFC 6554) </ttcol>
+	   <ttcol> IP-in-IP </ttcol>
+	   <c> RPL-aware-leaf to root</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> not-RPL-aware-leaf to root</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> root to RPL-aware-leaf</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> root to not-RPL-aware-leaf</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> RPL-aware-leaf to Internet</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Internet to RPL-aware-leaf</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> not-RPL-aware-leaf to Internet</c>
+	   <c> ?</c>
+	   <c> ?</c>
+	   <c> ?</c>
+	   <c> Internet to not-RPL-aware-leaf</c>
+	   <c> ?</c>
+	   <c> ?</c>
+	   <c> Yes</c>
+	   <c> RPL-aware-leaf to RPL-aware-leaf</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> RPL-aware-leaf to not-RPL-aware-leaf</c>
+	   <c> ?</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> not-RPL-aware-leaf to RPL-aware-leaf </c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> not-RPL-aware-leaf to not-RPL-aware-leaf</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	 </texttable>
+
+         <t>
+	   For not storing mode cases we have:
+         </t>
+
+	 <texttable title="Posibility to transmit in Non Storing mode: RPI, RH3, IP-in-IP">
+	   <ttcol> Use Case </ttcol>
+	   <ttcol> RPI (RFC 6553) </ttcol>
+	   <ttcol> RH3 (RFC 6554) </ttcol>
+	   <ttcol> IP-in-IP </ttcol>
+	   <c> RPL-aware-leaf to root</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> not-RPL-aware-leaf to root</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> root to RPL-aware-leaf</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> root to not-RPL-aware-leaf</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> RPL-aware-leaf to Internet</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Internet to RPL-aware-leaf</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> not-RPL-aware-leaf to Internet</c>
+	   <c> ?</c>
+	   <c> ?</c>
+	   <c> ?</c>
+	   <c> Internet to not-RPL-aware-leaf</c>
+	   <c> ?</c>
+	   <c> ?</c>
+	   <c> Yes</c>
+	   <c> RPL-aware-leaf to RPL-aware-leaf</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> RPL-aware-leaf to not-RPL-aware-leaf</c>
+	   <c> ?</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> not-RPL-aware-leaf to RPL-aware-leaf </c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> not-RPL-aware-leaf to not-RPL-aware-leaf</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	   <c> Yes</c>
+	 </texttable>
+
+       </section>
+
+
+       <section title=" Storing mode">
+
+	       <section title=" Example of Flow from RPL-aware-leaf to root">
+
+                 <t>
+		   TBD
+                 </t>
+
+       		<section title="Summary of the use of headers">
+
+		<texttable title="Storing: Summary of the use of headers from RPL-aware-leaf to root">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+
+		</texttable>
+
+
+       			</section>
+
+
+	       </section>
+
+	       <section title=" Example of Flow from root to RPL-aware-leaf">
+
+		 <t>TBD</t>
+
+       		<section title="Summary of the use of headers">
+
+		<texttable title="Storing: Summary of the use of headers from root to RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+       </section>
+	       </section>
+	       <section title=" Example of Flow from root to not-RPL-aware-leaf">
+		<t>TBD</t>
+
+       		<section title="Summary of the use of headers">
+
+		<texttable title="Storing: Summary of the use of headers from root to not-RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+       </section>
+
+	       </section>
+	       <section title=" Example of Flow from not-RPL-aware-leaf to root">
+		<t>TBD</t>
+
+       		<section title="Summary of the use of headers">
+
+		<texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to root">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+       </section>
+
+	       </section>
+	       <section title=" Example of Flow from RPL-aware-leaf to Internet">
+		<t>TBD</t>
+
+       		<section title="Summary of the use of headers">
+
+		<texttable title="Storing: Summary of the use of headers from RPL-aware-leaf to Internet">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+       </section>
+
+	       </section>
+	       <section title=" Example of Flow from Internet to RPL-aware-leaf">
+		<t>TBD</t>
+
+       		<section title="Summary of the use of headers">
+
+		<texttable title="Storing: Summary of the use of headers from Internet to RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+       </section>
+
+	       </section>
+	       <section title=" Example of Flow from not-RPL-aware-leaf to Internet">
+
+		<t>TBD</t>
+
+       		<section title="Summary of the use of headers">
+
+		<texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to Internet">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+       </section>
+	       </section>
+	       <section title=" Example of Flow from Internet to not-RPL-aware-leaf">
+
+		<t>TBD</t>
+
+       		<section title="Summary of the use of headers">
+
+		<texttable title="Storing: Summary of the use of headers from Internet to not-RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+       </section>
+	       </section>
+	       <section title=" Example of Flow from RPL-aware-leaf to RPL-aware-leaf">
+
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers for RPL-aware-leaf to RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	     		</section>
+	       </section>
+	       <section title=" Example of Flow from RPL-aware-leaf to not-RPL-aware-leaf">
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from RPL-aware-leaf to not-RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	     		</section>
+
+	       </section>
+	       <section title=" Example of Flow from not-RPL-aware-leaf to RPL-aware-leaf">
+
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	      		</section>
+	       </section>
+	       <section title=" Example of Flow from not-RPL-aware-leaf to not-RPL-aware-leaf">
+
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to not-RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	      		</section>
+	       </section>
+       </section>
+
+
+       <section title="Non Storing mode">
+
+	       <section title=" Example of Flow from RPL-aware-leaf to root">
+
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from RPL-aware-leaf to root">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	    		</section>
+
+
+	       </section>
+
+	       <section title=" Example of Flow from root to RPL-aware-leaf">
+
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from root to RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	      		</section>
+	       </section>
+	       <section title=" Example of Flow from root to not-RPL-aware-leaf">
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from root to not-RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	      		</section>
+
+	       </section>
+	       <section title=" Example of Flow from not-RPL-aware-leaf to root">
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to root">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	      		</section>
+
+	       </section>
+	       <section title=" Example of Flow from RPL-aware-leaf to Internet">
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from RPL-aware-leaf to Internet">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	      		</section>
+
+	       </section>
+	       <section title=" Example of Flow Internet to RPL-aware-leaf">
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers Flow Internet to RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	      		</section>
+
+	       </section>
+	       <section title=" Example of Flow from not-RPL-aware-leaf to Internet">
+
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to Internet">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	       		</section>
+	       </section>
+	       <section title=" Example of Flow from Internet to not-RPL-aware-leaf">
+
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from Internet to not-RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	      		</section>
+	       </section>
+	       <section title=" Example of Flow from RPL-aware-leaf to RPL-aware-leaf">
+
+		<t>TBD</t>
+
+		       		<section title="Summary of the use of headers">
+
+				<texttable title="Storing: Summary of the use of headers  from RPL-aware-leaf to RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+		       </section>
+	       </section>
+	       <section title=" Example of Flow from RPL-aware-leaf to not-RPL-aware-leaf">
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers  from RPL-aware-leaf to not-RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+	      	     </section>
+
+	       </section>
+	       <section title=" Example of Flow from not-RPL-aware-leaf to RPL-aware-leaf">
+
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+      			 </section>
+	       </section>
+	       <section title=" Example of Flow from not-RPL-aware-leaf to not-RPL-aware-leaf">
+
+		<t>TBD</t>
+
+	       		<section title="Summary of the use of headers">
+
+			<texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to not-RPL-aware-leaf">
+				  <ttcol> Header</ttcol>
+				  <ttcol> 6LN</ttcol>
+				  <ttcol> 6LR</ttcol>
+				  <ttcol> 6LBR</ttcol>
+				  <c> Inserted headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Removed headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> Re-added headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> Modified headers</c>
+				  <c> ?</c>
+				  <c>?</c>
+				  <c> ?</c>
+				  <c> Untouched headers</c>
+				  <c> ?</c>
+				  <c> ?</c>
+				  <c> ?</c>
+		</texttable>
+
+
+      			 </section>
+	       </section>
+       </section>
+
        <section title="Example flow from leaf to root">
         	<t>
-		A leaf node generates DAO and DIS messages and in general does not accept them.
-		Additionally, this kind of nodes accepts DIO messages, but in general do not generate them.
-		(In inconsistency A leaf node generates DIO with infinite rank, to fix it).
-	       	</t>
+ 		As states in Section 16.2 of <xref target="RFC6550"/>  a leaf node does not generally issue DIO messages, a leaf node accepts DIO messages
+		(In inconsistency a leaf node generates DIO with infinite rank, to fix it). It may issue DAO and DIS messages though it generally ignores DAO and DIS messages.
+		</t>
 
         	<section title="Non-storing">
 		        <t>
-			In non-storing in this case the leaf node uses Hop-By-Hop option (RFC 6553) to indicate the routing information to send messages to the DODAG root,
+			In non-storing mode the leaf node uses Hop-By-Hop option (RFC 6553) to indicate the routing information to send messages to the DODAG root,
 			this message is going to be analyzed in each node until arrive the DODAG root.
 		        </t>
 		        <t>
-			RFC 6554 was created to strictly send information between RPL routers in the same RPL routing domain. How it would be in 6554?
+			RFC 6554 was created to strictly send information between RPL routers in the same RPL routing domain. TODO: How it would be in 6554?
 		        </t>
 		        <t>
 			TBD: Tunneling is necessary in case that there is information to send outside RPL Domain and other cases?
         		</t>
 	      		 <t>
+ 			Datagrams sent between RPL routers MUST include a RPL Option or RPL Source Route Header ([RFC6554]) and MAY include both
+        		</t>
+	      		 <t>
+			<figure title=" From leaf to Root - Non-Storing Mode "
+		        anchor="fig_leaf2rootNstoring_hdr" align="center">
+			<artwork><![CDATA[
+
+
++------------------+
+|  Dispatch        |
+|                  |
++------------------+
+|  LowPAN_HC       |
+|                  |
++------------------+
+|  rpl_option      |
+|                  |
++------------------+
+|   SHR            |
+|                  |
++------------------+
+| IPv6 payload     |
+|                  |
++------------------+
+
+			]]></artwork></figure>
+			 </t>
+
+
+
+ 			<t>
+
+	     		<figure title=" From leaf to Root - Non-Storing Mode "
+
+		        anchor="fig_leaf2rootNstoring_shrhdr" align="center">
+			<artwork><![CDATA[
+
+
++------------------+
+|  Dispatch        |
+|                  |
++------------------+
+|  LowPAN_HC       |
+|                  |
++------------------+
+|   SHR            |
+|                  |
++------------------+
+|  IPv6 payload    |
+|                  |
++------------------+
+
+
+			]]></artwork></figure>
+			 </t>
+
+	      		 <t>
+
 	     		<figure title=" From leaf to Root - Non-Storing Mode "
 		        anchor="fig_leaf2rootNstoring" align="center">
 			<artwork><![CDATA[
@@ -265,10 +1328,34 @@
        		</section>
             	<section title="Storing">
         		<t>
-			IP6 6553{X,Y] ?ipip payload.
 			In storing mode is suitable the use of RFC 6553 to send RPL Information through HBH field checking the routing table to find out where to send the message.
 			It may include IP-in-IP encapsulation to transmit information not related with the RPL domain.
         		</t>
+        		<t>
+			Is the RPL Option added when go from leaf to the first RPL router?
+        		</t>
+	      		 <t>
+			<figure title=" From leaf to Root - Non-Storing Mode "
+		        anchor="fig_leaf2rootStoring_header" align="center">
+			<artwork><![CDATA[
+
++------------------+
+|  Dispatch        |
+|                  |
++------------------+
+|  LowPAN_HC       |
+|                  |
++------------------+
+|  rpl_option      |
+|                  |
++------------------+
+|  IPv6 payload    |
+|                  |
++------------------+
+
+
+			]]></artwork></figure>
+			 </t>
 	      		 <t>
 	    		 <figure title=" From leaf to Root - Storing Mode "
 		        anchor="fig_leaf2rootstoring" align="center">
@@ -301,7 +1388,8 @@
 
 
        		</section>
-       </section>
+	</section>
+
        <section title="Example flow from leaf to Internet">
        		<t>
         	</t>
@@ -310,7 +1398,7 @@
 			In this case the IP-in-IP encapsulation should take place to send information not related to the RPL domain inside of the RPL domain.
 		        </t>
 		        <t>
-			RPL information from RFC 6553 should not go out to Internet. The router sould take this information out before send the packet to Internet.
+			RPL information from RFC 6553 should not go out to Internet. The router should take this information out before send the packet to Internet.
 			The HBH Option is going to be analyzed in each node to the root.
 		        </t>
 		        <t>
@@ -328,7 +1416,7 @@
        		<t>
 		can leafs insert appropriate headers, without ipip?
 		In <xref target="RFC6550"/> RPL allows a simple one-hop P2P optimization for both storing and non-storing networks.
-		A node may send a P2P packet destined to a one-hop neighbor direclty to that node. Section 9 in <xref target="RFC6550"/>.
+		A node may send a P2P packet destined to a one-hop neighbor directly to that node. Section 9 in <xref target="RFC6550"/>.
        		</t>
             	<section title="Traditional storing">
         		<t>
@@ -342,7 +1430,7 @@
        		</section>
             	<section title="P2P non-storing">
         		<t>
-			(p2p storing? I think it does not exist)
+			(p2p storing? TBD)
 
 		        </t>
        		</section>
@@ -376,6 +1464,8 @@
         		</t>
        		</section>
        </section>
+
+
 	<section title="IANA Considerations">
 	   <t>
 	      There are no IANA considerations related to this document.
@@ -384,13 +1474,14 @@
 
 <section anchor="Security" title="Security Considerations">
    <t>
- TBD.
+ TODO.
   </t>
 </section>
 
-<section anchor="Acknowledgements" title="Acknowledgements">
+<section anchor="Acknowledgments" title="Acknowledgments">
    <t>
-      TBD
+   This work is partially funded by the FP7 Marie Curie Initial Training
+   Network (ITN) METRICS project (grant agreement No.  607728)
    </t>
 
  </section>
@@ -419,14 +1510,12 @@
      &RFC6553;
      &RFC6554;
      &RFC2119;
-     &RFC7102;
+     &RFC6550;
    </references>
 
    <references title="Informative References">
    <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
-      &RFC6550;
-   &I-D.ietf-6man-default-iids;
-   &I-D.thubert-6lo-rpl-nhc;
+     &RFC7102;
    </references>
 
    <!-- Change Log
