@@ -9,6 +9,7 @@
 <!ENTITY I-D.ietf-6lo-routing-dispatch SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6lo-routing-dispatch.xml">
 <!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">
 
+
 ]>
 
 <!--<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> -->
@@ -33,10 +34,10 @@
     (using these PIs as follows is recommended by the RFC Editor) -->
 <?rfc compact="yes" ?>
 <!-- do not start each main section on a new page -->
-<?rfc subcompact="no" ?>
+<?rfc subcompact="no" ?> 
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="info" docName="draft-ietf-roll-useofrplinfo-01" ipr="trust200902">
+<rfc category="info" docName="draft-ietf-roll-useofrplinfo-02" ipr="trust200902">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -546,6 +547,9 @@
 
                         It includes IPv6-in-IPv6 encapsulation to transmit information not related with the RPL domain. In the 6LBR the RPI header is inserted into an IPv6-in-IPv6 header addressed to the last 6LR, which removes the header before pass the packet to the IPv6 node.
                         </t>
+                        <t>
+
+                        </t>
                         <texttable title="Storing: Summary of the use of headers from root to not-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LBR</ttcol>
@@ -770,9 +774,9 @@
                         </t>
                         <t>
 
-                                6LBR get the packet from Internet and add a RPI header encapsulated in a IPv6-in-IPv6 header addressed to 6LR and send the packet down. The flow label is set to zero on inner IP. The last 6LR removes the RPI header. The IPv6 node might set the flow label since may arrive with zero value. The 6LBR does not know that the is attached to the last 6LR. The non-RPL-aware-leaf drops packet, because RPI has unknown header 0x63, and 0x63 has “01” = discard packet. If RPI had 0x23, it would “skip”.
-
+                                6LBR get the packet from Internet and add a RPI header encapsulated in a IPv6-in-IPv6 header addressed to 6LR and send the packet down. The flow label is set to zero on inner IP. The last 6LR removes the RPI header. The IPv6 node might set the flow label since may arrive with zero value. The RPI should be in IP-in-IP header.
                         </t>
+
 
                         <texttable title="Storing: Summary of the use of headers from Internet to non-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
@@ -1015,10 +1019,13 @@
                         In this case the flow comprises:
                         </t>
                         <t>
-                         not-RPL-aware 6LN --> 6LR --> root (6LBR) --> 6LR --> not-RPL-aware 6LN
+                         not-RPL-aware 6LN (IPv6 node)--> 6LR --> root (6LBR) --> 6LR --> not-RPL-aware 6LN (IPv6 node)
                         </t>
                         <t>
-                         The problem to solve is how to indicate where to send the packet when get into LLN. Should attributes be added to the border router indicating this?
+                         The problem to solve is how to indicate where to send the packet when get into LLN.  One approach is that the 6LBR should know in which 6LR the IPv6 node is attached. The RPI information is encapsulated in a IPv6-in-IPv6 header, each IPv6-in-IPv6 header needs to be added/removed at each hop..
+                        </t>
+                         <t>
+			 
                         </t>
                                 <texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to not-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
@@ -1629,7 +1636,7 @@
 
        </section>
 
-        <section title="Future RPL work">
+        <section title="Problem statement">
            <t>
              There are cases from above that are not clear how to send the information. It requires furhter analysis on how to proceed to send the information from source to destination.
            </t>
@@ -1642,11 +1649,35 @@
              - Flow from RPL-aware-leaf to non-RPL-aware-leaf: Somehow, the sender has to know that the receiver is not RPL aware, and needs to know 6LR,
         and not even the root knows where the 6LR is located.
            </t>
-
            <t>
-             - Flow from not-RPL-aware-leaf to not-RPL-aware-leaf: The problem to solve is how to indicate where to send the packet when get into LLN.
+             - Flow from not-RPL-aware-leaf to not-RPL-aware-leaf: The problem to solve is how to indicate where to send the packet when get into LLN. One approach is the 6LBR should be aware in which 6LR is the IPv6 node attached.
            </t>
+           <t>
+		As was mentioned above in the document, a possible solution could be adapted to all cases: An IPv6-in-IPv6 header can be used on a hop-by-hop basis, using either link-local addresses, or even IPv6 Global Unicast Addresses, but each IPv6-in-IPv6 header needs to be added/removed at each hop.
+           </t>
+
         </section>
+
+
+        <section title="6LoRH Compression cases">
+           <t>
+              The <xref target="I-D.ietf-6lo-routing-dispatch"/> proposes a compression method for RPI, RH3 and IPv6-in-IPv6. 
+           </t>
+           <t>
+             In Storing Mode, for the examples of Flow from RPL-aware-leaf to non-RPL-aware-leaf and non-RPL-aware-leaf to non-RPL-aware-leaf comprise an IP-in-IP and RPI compression headers. The type of this case is critical since IP-in-IP is encapsulating a RPI header.
+           </t>
+           <t>
+
+<figure title="Critical IP-in-IP (RPI)." anchor="rtghc"><artwork><![CDATA[
+
++--+-----+-----------+-----------------+-----------+-------------+-------------+
+|1 | 0|0 | TSE       | 6LoRH Type 6    | Hop Limit | RPI - 6LoRH | LOWPAN IPHC |
++--+-----+-----------+-----------------+-----------+-------------+-------------+
+
+]]></artwork></figure>
+
+           </t>
+      </section>
 
         <section title="IANA Considerations">
            <t>
@@ -1656,7 +1687,7 @@
 
         <section anchor="Security" title="Security Considerations">
            <t>
-         TODO.
+         The security considerations covering of <xref target="RFC6553"/> and <xref target="RFC6554"/> apply when the packets get into RPL Domain.
           </t>
         </section>
 
@@ -1667,11 +1698,7 @@
            </t>
            <t>
            The authors would like to acknowledge the review, feedback, and
-           comments of Thomas Watteyne, Xavier Vilajosana and Robert Cragie.</t>
-           <t>
-           To be completed with additional Acknowledgments.
-           </t>
-
+           comments of Thomas Watteyne, Xavier Vilajosana, Robert Cragie and Simon Duquennoy.</t>
          </section>
 
 
