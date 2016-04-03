@@ -108,8 +108,9 @@
 
    <abstract>
       <t>
-        This document states different cases where RFC 6553, RFC 6554 and IPv6-in-IPv6 encapsulation is required to set the
-        bases to help defining the compression of RPL routing information in LLN environments.
+        This document looks at different data flows through LLN networks where RPL is used to establish routing.
+        The document enumerates the cases where RFC 6553, RFC 6554 and IPv6-in-IPv6 encapsulation is required. This analysis
+        provides the basis on which to design efficient compression of these headers.
      </t>
    </abstract>
  </front>
