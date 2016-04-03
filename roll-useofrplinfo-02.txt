@@ -5,10 +5,10 @@
 ROLL Working Group                                             M. Robles
 Internet-Draft                                                  Ericsson
 Intended status: Informational                             M. Richardson
-Expires: September 14, 2016                                          SSW
+Expires: October 5, 2016                                             SSW
                                                               P. Thubert
                                                                    Cisco
-                                                          March 13, 2016
+                                                           April 3, 2016
 
 
               When to use RFC 6553, 6554 and IPv6-in-IPv6
@@ -36,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 14, 2016.
+   This Internet-Draft will expire on October 5, 2016.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Robles, et al.         Expires September 14, 2016               [Page 1]
+Robles, et al.           Expires October 5, 2016                [Page 1]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    the Trust Legal Provisions and are provided without warranty as
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Robles, et al.         Expires September 14, 2016               [Page 2]
+Robles, et al.           Expires October 5, 2016                [Page 2]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016               [Page 3]
+Robles, et al.           Expires October 5, 2016                [Page 3]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    Instance with a combination of storing and non-storing nodes is not
@@ -221,9 +221,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016               [Page 4]
+Robles, et al.           Expires October 5, 2016                [Page 4]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
                                     +---------+
@@ -277,9 +277,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016               [Page 5]
+Robles, et al.           Expires October 5, 2016                [Page 5]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
                   |
@@ -333,9 +333,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016               [Page 6]
+Robles, et al.           Expires October 5, 2016                [Page 6]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
       -Flow from RPL-aware-leaf to RPL-aware-leaf
@@ -389,9 +389,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016               [Page 7]
+Robles, et al.           Expires October 5, 2016                [Page 7]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    | root          |      |      |         |        |        |         |
@@ -445,9 +445,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016               [Page 8]
+Robles, et al.           Expires October 5, 2016                [Page 8]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    In storing mode is suitable the use of RFC 6553 to send RPL
@@ -501,9 +501,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016               [Page 9]
+Robles, et al.           Expires October 5, 2016                [Page 9]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
 5.3.  Example of Flow from root to not-RPL-aware-leaf
@@ -557,9 +557,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 10]
+Robles, et al.           Expires October 5, 2016               [Page 10]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
 5.5.  Example of Flow from RPL-aware-leaf to Internet
@@ -613,9 +613,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 11]
+Robles, et al.           Expires October 5, 2016               [Page 11]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +----------+----------+-------------------+-----+-------------------+
@@ -669,9 +669,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 12]
+Robles, et al.           Expires October 5, 2016               [Page 12]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +----------+-----+-------------------+-------------------+----------+
@@ -725,9 +725,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 13]
+Robles, et al.           Expires October 5, 2016               [Page 13]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +----------+---------+-------------------+-------------------+------+
@@ -781,9 +781,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 14]
+Robles, et al.           Expires October 5, 2016               [Page 14]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +-------------+-------+---------------+---------------+-----+-------+
@@ -837,9 +837,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 15]
+Robles, et al.           Expires October 5, 2016               [Page 15]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
                                 ,---.
@@ -893,9 +893,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 16]
+Robles, et al.           Expires October 5, 2016               [Page 16]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +-------+------------+------------+-------------+-------------+-----+
@@ -949,9 +949,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 17]
+Robles, et al.           Expires October 5, 2016               [Page 17]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +-------+----+------------+-------------+-------------+-------------+
@@ -1005,9 +1005,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 18]
+Robles, et al.           Expires October 5, 2016               [Page 18]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +---------+-----+----------------+---------+-----------------+------+
@@ -1061,9 +1061,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 19]
+Robles, et al.           Expires October 5, 2016               [Page 19]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
                  +-------------------+-----+------+------+
@@ -1117,9 +1117,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 20]
+Robles, et al.           Expires October 5, 2016               [Page 20]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
                  +-------------------+------+-----+------+
@@ -1173,9 +1173,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 21]
+Robles, et al.           Expires October 5, 2016               [Page 21]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    the 6LBR the flow label is computed if it is zero.  RPI remains
@@ -1229,9 +1229,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 22]
+Robles, et al.           Expires October 5, 2016               [Page 22]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +---------+--------+-------------------------+----------------+-----+
@@ -1285,9 +1285,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 23]
+Robles, et al.           Expires October 5, 2016               [Page 23]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +----------+-----+-------------------+-------------------+----------+
@@ -1341,9 +1341,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 24]
+Robles, et al.           Expires October 5, 2016               [Page 24]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +---------+--------+-------------------------+---------------+------+
@@ -1397,9 +1397,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 25]
+Robles, et al.           Expires October 5, 2016               [Page 25]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +---------+---------------+---------------+-----+-------------------+
@@ -1453,9 +1453,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 26]
+Robles, et al.           Expires October 5, 2016               [Page 26]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    +------------+-------------------+-------------+-------------+------+
@@ -1509,9 +1509,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 27]
+Robles, et al.           Expires October 5, 2016               [Page 27]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    RPI is added in 6LR until the root and then might be removed, then
@@ -1565,9 +1565,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 28]
+Robles, et al.           Expires October 5, 2016               [Page 28]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
 8.  6LoRH Compression cases
@@ -1581,9 +1581,9 @@ Internet-Draft                  Useof6553                     March 2016
    critical since IP-in-IP is encapsulating a RPI header.
 
 
-+--+-----+-----------+-----------------+-----------+-------------+-------------+
-|1 | 0|0 | TSE       | 6LoRH Type 6    | Hop Limit | RPI - 6LoRH | LOWPAN IPHC |
-+--+-----+-----------+-----------------+-----------+-------------+-------------+
+   +--+-----+---+--------------+-----------+-------------+-------------+
+   |1 | 0|0 |TSE| 6LoRH Type 6 | Hop Limit | RPI - 6LoRH | LOWPAN IPHC |
+   +--+-----+---+--------------+-----------+-------------+-------------+
 
 
                     Figure 5: Critical IP-in-IP (RPI).
@@ -1621,9 +1621,9 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 29]
+Robles, et al.           Expires October 5, 2016               [Page 29]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    [RFC6550]  Winter, T., Ed., Thubert, P., Ed., Brandt, A., Hui, J.,
@@ -1677,9 +1677,9 @@ Authors' Addresses
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 30]
+Robles, et al.           Expires October 5, 2016               [Page 30]
 
-Internet-Draft                  Useof6553                     March 2016
+Internet-Draft                  Useof6553                     April 2016
 
 
    Michael C. Richardson
@@ -1733,4 +1733,4 @@ Internet-Draft                  Useof6553                     March 2016
 
 
 
-Robles, et al.         Expires September 14, 2016              [Page 31]
+Robles, et al.           Expires October 5, 2016               [Page 31]

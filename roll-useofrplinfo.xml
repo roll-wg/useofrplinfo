@@ -34,7 +34,7 @@
     (using these PIs as follows is recommended by the RFC Editor) -->
 <?rfc compact="yes" ?>
 <!-- do not start each main section on a new page -->
-<?rfc subcompact="no" ?> 
+<?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
 <rfc category="info" docName="draft-ietf-roll-useofrplinfo-02" ipr="trust200902">
@@ -1670,9 +1670,9 @@
 
 <figure title="Critical IP-in-IP (RPI)." anchor="rtghc"><artwork><![CDATA[
 
-+--+-----+-----------+-----------------+-----------+-------------+-------------+
-|1 | 0|0 | TSE       | 6LoRH Type 6    | Hop Limit | RPI - 6LoRH | LOWPAN IPHC |
-+--+-----+-----------+-----------------+-----------+-------------+-------------+
++--+-----+---+--------------+-----------+-------------+-------------+
+|1 | 0|0 |TSE| 6LoRH Type 6 | Hop Limit | RPI - 6LoRH | LOWPAN IPHC |
++--+-----+---+--------------+-----------+-------------+-------------+
 
 ]]></artwork></figure>
 
