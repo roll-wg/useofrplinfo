@@ -118,31 +118,45 @@
 <middle>
           <section title="Introduction">
              <t>
-                RPL <xref target="RFC6550"/> is a routing protocol for constrained networks. RFC 6553 <xref target="RFC6553"/> defines the "RPL option", carried within the IPv6 Hop-by-Hop header to                          quickly identify inconsistencies in the routing topology. RFC 6554 <xref target="RFC6554"/> defines the "RPL Source Route Header", an IPv6 Extension Header to deliver datagrams within a RPL routing domain.
-            </t>
-            <t>
-                Several discussions in the ROLL/6lo/6TiSCH Mailing Lists took
-                place focusing in the definition of how to compress RPL
-                Information in constrained environment.
-
-                ROLL Virtual Interim Meeting (02-2015) concluded that there
-                is a need to define how to use <xref target="RFC6553"/>,
-                <xref target="RFC6554"/> and IPv6-in-IPv6 encapsulation to be
-                able to set the correct environment for compression <xref
+                RPL <xref target="RFC6550"/> is a routing protocol for
+                constrained networks. RFC 6553 <xref target="RFC6553"/>
+                defines the "RPL option" (RPI), carried within the IPv6 Hop-by-Hop
+                header to                          quickly identify
+                inconsistencies (loops) in the routing topology. RFC 6554 <xref
+                target="RFC6554"/> defines the "RPL Source Route Header" (RH3), an
+                IPv6 Extension Header to deliver datagrams within a RPL
+                routing domain, particularly in non-storing mode.
+             </t>
+             <t>
+                These various items are referred to as RPL artifacts, and
+                they are seen on all of the data-plane traffic that occurs in
+                RPL routed networks; they do not in general appear on the RPL
+                control plane traffic at all which is mostly hop-by-hop
+                traffic (one exception being DAO messages in non-storing mode).
+             </t>
+             <t>
+               It has become clear from attempts to do multi-vendor
+               interoperability, and from a desire to compress as many of
+               the above artifacts as possible that not all implementors
+               agree when artifacts are necessary, or when they can be safely
+               omitted, or removed.
+             </t>
+             <t>
+               An interim meeting went through the 24 cases defined here to
+               discover if there were any shortcuts, and this document is the
+               result of that discussion.  This document should not be
+               defining anything new, but it may clarify what is correct and
+               incorrect behaviour.
+             </t>
+             <t>
+               The related document  <xref
                 target="I-D.ietf-6lo-routing-dispatch"> A Routing Header
                 Dispatch for 6LoWPAN (6LoRH) </xref> defines a method to
                 compress RPL Option information and Routing Header type 3
                 (RFC6554) and an efficient IP-in-IP technique. Uses cases
                 proposed for the <xref target="Second6TischPlugtest"/>
-                involving 6loRH: When the packet travel inside the RPL
-                domain, the IP in IP 6LoRH is not be presented in the packet
-                and when the packet travel outside a RPL domain, Ip in IP
-                6LoRH is present in the packet.
+                involving 6loRH.
            </t>
-                   <t>
-                This document is going to be focused in data plane messages
-                and how can be transmitted within the above mentioned RFCs.
-            </t>
      </section>
 
      <section title="Terminology and Requirements Language">
@@ -216,7 +230,7 @@
                              |   +---------+
                              |
                         +----+--+
-                        |DODAG  |
+                        |DODAG  |  node:01
               +---------+Root   +----------+
               |         |6LBR   |          |
               |         +----+--+          |
@@ -227,11 +241,11 @@
         +-----+-+         +--+---+      +--+---+
         |6LR    |         |      |      |      |
   +-----+       |         |      |      |      |
-  |     |       |         |      |      |      +------+
+  |     |   11  |         |   12 |      |   13 +------+
   |     +-----+-+         +-+----+      +-+----+      |
   |           |             |             |           |
   |           |             |             |           |
-  |           |             |             |           |
+  | 21        | 22          | 23          | 24        | 25
 +-+---+     +-+---+      +--+--+       +- --+     +---+-+
 |Leaf |     |     |      |     |       |    |     |     |
 |6LN  |     |     |      |     |       |    |     |     |
@@ -339,41 +353,62 @@
           </list>
          </t>
           <t>
-          This document assumes a rule that a Header cannot be inserted or
-   removed on the fly inside an IPv6 packet that is being routed.
+            This document assumes a rule that a Header cannot be inserted or
+            removed on the fly inside an IPv6 packet that is being routed.
+            This is a fundamental precept of the IPv6 architecture as
+            outlined in <xref target="RFC2460" /> is that Extensions may not
+            be added or removed except by the sender or the receiver.
+          </t>
+          <t>
+            A second important thing is that packetrs with a Hop-by-Hop
+            option which are marked with option type 01 (<xref
+            target="RFC2460" /> section 4.2) must be discarded if received
+            by a host or router which does not understand that option.
+            This means that in general, any packet that leaves the RPL domain
+            of an LLN (or leaves the LLN entirely) is likely to be discarded
+            if it still contains an <xref target="RFC6553" /> RPL Option
+            Header known as the RPI.
+          </t>
+          <t>
+            The combination of these two rules means that the arrangement
+            of headers must be done so that traffic intended to exit the RPL
+            domain can have the RPI option removed prior to leaving the RPL
+            domain.
+          </t>
+          <t>
+            An intermediate router that needs to add a header must
+            encapsulate the packet in an (additional) outer IP header where
+            the new header can be placed.
          </t>
           <t>
-
-   - This means that an intermediate router that needs to add a header must
-   encapsulate the packet in an outer IP header where the new header can be
-   placed.
+            This also means that a Header can only be removed by an
+            intermediate router if it is placed in an encapsulating IPv6
+            Header, and in that case, the whole encapsulating header must be
+            removed - a replacement may be added. Further, an intermediate
+            router can only remove such an outer header if that outer header
+            has the router as the destination!
          </t>
           <t>
-
-   - This also means that a Header can only be removed by an intermediate router
-   if it is placed in an encapsulating IPv6 Header, and in that case, the whole
-   encapsulating header must be removed - a replacement may be added.
+            Both RPI and RH3 headers may be modified by routers on the path of the packet
+            without the need to add to remove an encapsulating header.  Both
+            headers were designed with this modification in mind, and both
+            the RPL RH and the RPL option are marked mutable but recoverable,
+            so an IPsec AH security header can be applied across these
+            headers, but it may not secure all the values in those headers.
          </t>
           <t>
-
-   This document recognizes that some headers such as a Routing Header or a
-   Hop-by-Hop header may be modified by routers on the path of the packet
-   without the need to add to remove an encapsulating header.
-         </t>
+            RPI should be present in every single RPL data packet. There is one
+            exception in non-storing mode: when a packet is going down from the
+            route.  In a downward non-storing mode, the entire route is
+            written, so there can be no loops by construction, nor any
+            confusion about which forwarding table to use.  There may be
+            cases (such as in 6tisch) where the instanceID may still be
+            needed to pick an appropriate priority or channel at each hop.
+          </t>
           <t>
-
-   The RPL RH and the RPL option are mutable but recoverable .
-         </t>
-          <t>
-        RPI should be present in every single RPL data packet. There is an
-        exception in non-storing mode, when a packet is going down from the
-        route: the entire route is written, so there are no loops of
-        confusion about which table to use (purpose of instanceID).
-        </t>
-         <t>
-           The applicability for storing (RPL-SN) and non-Storing (RPL-NSN)
-           modes for the previous cases is showed as follows:
-         </t>
+            The applicability for storing (RPL-SN) and non-Storing (RPL-NSN)
+            modes for the previous cases is showed as follows:
+          </t>
 
          <texttable anchor="table_ex" title="Posibility to transmit in Storing or Non-Storing mode: RPI, RH3, IP-in-IP encapsulation" >
            <ttcol> Use Case </ttcol>
@@ -1872,6 +1907,8 @@
      &RFC6553;
      &RFC6554;
      &RFC2119;
+     <?rfc include="reference.RFC.2460" ?>
+
      &RFC6550;
    </references>
 
