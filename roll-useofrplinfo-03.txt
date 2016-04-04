@@ -12,7 +12,7 @@ Expires: October 6, 2016                                             SSW
 
 
               When to use RFC 6553, 6554 and IPv6-in-IPv6
-                    draft-ietf-roll-useofrplinfo-02
+                    draft-ietf-roll-useofrplinfo-03
 
 Abstract
 
@@ -1486,9 +1486,10 @@ Internet-Draft                  Useof6553                     April 2016
    IPIP encapsulation, and it can never omit the IPIP encapsulation.
    See table Table 1
 
-   The simplest fully general sitaution is to always put in hop-by-hop
-   IPIP headers.  [I-D.ietf-roll-routing-dispatch] shows that this hop-
-   by-hop IPIP header can be compressed down to {TBD} bytes.
+   The simplest fully general stiaution for storing mode is to always
+   put in hop-by-hop IPIP headers.  [I-D.ietf-roll-routing-dispatch]
+   shows that this hop-by-hop IPIP header can be compressed down to
+   {TBD} bytes.
 
    There are potential significant advantages to having a single code
    path that always processes IPIP headers with no options.
@@ -1505,7 +1506,6 @@ Internet-Draft                  Useof6553                     April 2016
    in relatively closed systems such as in building or industrial
    automation.  Again, there are advantages to having a single code
    path.
-
 
 
 
@@ -1520,35 +1520,33 @@ Internet-Draft                  Useof6553                     April 2016
 
 7.2.  Non-Storing mode
 
-   XXX In the completely general storing case, which includes not-RPL
-   aware leaf nodes, it is not possible for a sending node to know if
-   the destination is RPL aware, and therefore it must always use hop-
-   by-hop IPIP encapsulation, and it can never omit the IPIP
-   encapsulation.  See table Table 1
+   This the non-storing case, dealing with non-RPL aware leaf nodes is
+   much easier as the 6LBR (DODAG root) has complete knowledge about the
+   connectivity of all nodes, and all traffic flows through the root
+   node.
 
-   The simplest fully general sitaution is to always put in hop-by-hop
-   IPIP headers.  [I-D.ietf-roll-routing-dispatch] shows that this hop-
-   by-hop IPIP header can be compressed down to {TBD} bytes.
+   The 6LBR can recognize non-RPL aware leaf nodes because it will
+   receive a DAO about that node from the 6LN immediately above that
+   node.  This means that the non-storing mode case can avoid ever using
+   hop-by-hop IPIP headers.
 
-   There are potential significant advantages to having a single code
-   path that always processes IPIP headers with no options.
+   It is unclear what it would mean for an RH3 header to be present in a
+   hop-by-hop IPIP header.  The receiving node ought to consume the IPIP
+   header, and therefore consume the RH3 as well, and then attempt to
+   send the packet again.  But intermediate 6LN nodes would not know how
+   to forward the packet, so the RH3 would need to be retained.  This is
+   a new kind of IPv6 packet processing.  Therefore it may be that on
+   the outbound leg of non-storing RPL networks, that hop-by-hop IPIP
+   header can NOT be used.
 
-   If all RPL aware nodes can be told/configured that there are no non-
-   RPL aware leaf nodes, then the only case where an IPIP header is
-   needed is when communicating outside the LLN.  The 6LBR knows well
-   when the communication is from the outside, and the 6LN can tell by
-   comparing the destination address to the prefix provided in the PIO.
-   If it is known that there are no communications outside the RPL
-   domain (noting that the RPL domain may well extend to outside the
-   LLN), then RPI headers can be included in all packets, and IPIP
-   headers are *never* needed.  This may be significantly advantageous
-   in relatively closed systems such as in building or industrial
-   automation.  Again, there are advantages to having a single code
-   path.
+   [I-D.ietf-roll-routing-dispatch] shows how the destination=root, and
+   destination=6LN IPIP header can be compressed down to {TBD} bytes.
 
-   In order to support the above two cases with full generality, the
-   different situations (always do IPIP vs never use IPIP) should be
-   signaled in the RPL protocol itself.
+   Unlike in the storing mode case, there are no need for all nodes to
+   know about the existence of non-RPL aware nodes.  Only the 6LBR needs
+   to change when there are non-RPL aware nodes.  Further, in the non-
+   storing case, the 6LBR is informed by the DAOs when there are non-RPL
+   aware nodes.
 
 8.  6LoRH Compression cases
 
@@ -1559,6 +1557,8 @@ Internet-Draft                  Useof6553                     April 2016
    RPL-aware-leaf and non-RPL-aware-leaf to non-RPL-aware-leaf comprise
    an IP-in-IP and RPI compression headers.  The type of this case is
    critical since IP-in-IP is encapsulating a RPI header.
+
+
 
 
 
