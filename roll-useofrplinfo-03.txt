@@ -96,16 +96,16 @@ Table of Contents
      6.11. Example of Flow from not-RPL-aware-leaf to RPL-aware-leaf  26
      6.12. Example of Flow from not-RPL-aware-leaf to not-RPL-aware-
            leaf  . . . . . . . . . . . . . . . . . . . . . . . . . .  26
-   7.  Problem statement . . . . . . . . . . . . . . . . . . . . . .  27
-   8.  6LoRH Compression cases . . . . . . . . . . . . . . . . . . .  27
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  28
-   10. Security Considerations . . . . . . . . . . . . . . . . . . .  28
-   11. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  28
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  28
-     12.2.  Informative References . . . . . . . . . . . . . . . . .  29
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  29
-
+   7.  Observations about the problem  . . . . . . . . . . . . . . .  27
+     7.1.  Storing mode  . . . . . . . . . . . . . . . . . . . . . .  27
+     7.2.  Non-Storing mode  . . . . . . . . . . . . . . . . . . . .  28
+   8.  6LoRH Compression cases . . . . . . . . . . . . . . . . . . .  28
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  29
+   10. Security Considerations . . . . . . . . . . . . . . . . . . .  29
+   11. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  29
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  29
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  29
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  30
 
 
 
@@ -113,6 +113,8 @@ Robles, et al.           Expires October 6, 2016                [Page 2]
 
 Internet-Draft                  Useof6553                     April 2016
 
+
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  30
 
 1.  Introduction
 
@@ -140,7 +142,7 @@ Internet-Draft                  Useof6553                     April 2016
    it may clarify what is correct and incorrect behaviour.
 
    The related document A Routing Header Dispatch for 6LoWPAN (6LoRH)
-   [I-D.ietf-6lo-routing-dispatch] defines a method to compress RPL
+   [I-D.ietf-roll-routing-dispatch] defines a method to compress RPL
    Option information and Routing Header type 3 (RFC6554) and an
    efficient IP-in-IP technique.  Uses cases proposed for the
    [Second6TischPlugtest] involving 6loRH.
@@ -159,8 +161,6 @@ Internet-Draft                  Useof6553                     April 2016
    Router (6BBR), 6LR (6LoWPAN Router) and 6LN (6LoWPAN Node) as leaf
    logically organized in a DODAG structure (Destination Oriented
    Directed Acyclic Graph).
-
-
 
 
 
@@ -1476,36 +1476,36 @@ Internet-Draft                  Useof6553                     April 2016
    Non Storing: Summary of the use of headers from not-RPL-aware-leaf to
                             not-RPL-aware-leaf
 
-7.  Problem statement
+7.  Observations about the problem
 
-   There are cases from above that are not clear how to send the
-   information.  It requires furhter analysis on how to proceed to send
-   the information from source to destination.
+7.1.  Storing mode
 
-   From the above cases, we have in storing mode:
+   In the completely general storing case, which includes not-RPL aware
+   leaf nodes, it is not possible for a sending node to know if the
+   destination is RPL aware, and therefore it must always use hop-by-hop
+   IPIP encapsulation, and it can never omit the IPIP encapsulation.
+   See table Table 1
 
-   - Flow from RPL-aware-leaf to non-RPL-aware-leaf: Somehow, the sender
-   has to know that the receiver is not RPL aware, and needs to know
-   6LR, and not even the root knows where the 6LR is located.
+   The simplest fully general sitaution is to always put in hop-by-hop
+   IPIP headers.  [I-D.ietf-roll-routing-dispatch] shows that this hop-
+   by-hop IPIP header can be compressed down to {TBD} bytes.
 
-   - Flow from not-RPL-aware-leaf to not-RPL-aware-leaf: The problem to
-   solve is how to indicate where to send the packet when get into LLN.
-   One approach is the 6LBR should be aware in which 6LR is the IPv6
-   node attached.
+   There are potential significant advantages to having a single code
+   path that always processes IPIP headers with no options.
 
-   As was mentioned above in the document, a possible solution could be
-   adapted to all cases: An IPv6-in-IPv6 header can be used on a hop-by-
-   hop basis, using either link-local addresses, or even IPv6 Global
-   Unicast Addresses, but each IPv6-in-IPv6 header needs to be added/
-   removed at each hop.
+   If all RPL aware nodes can be told/configured that there are no non-
+   RPL aware leaf nodes, then the only case where an IPIP header is
+   needed is when communicating outside the LLN.  The 6LBR knows well
+   when the communication is from the outside, and the 6LN can tell by
+   comparing the destination address to the prefix provided in the PIO.
+   If it is known that there are no communications outside the RPL
+   domain (noting that the RPL domain may well extend to outside the
+   LLN), then RPI headers can be included in all packets, and IPIP
+   headers are *never* needed.  This may be significantly advantageous
+   in relatively closed systems such as in building or industrial
+   automation.  Again, there are advantages to having a single code
+   path.
 
-8.  6LoRH Compression cases
-
-   The [I-D.ietf-6lo-routing-dispatch] proposes a compression method for
-   RPI, RH3 and IPv6-in-IPv6.
-
-   In Storing Mode, for the examples of Flow from RPL-aware-leaf to non-
-   RPL-aware-leaf and non-RPL-aware-leaf to non-RPL-aware-leaf comprise
 
 
 
@@ -1514,8 +1514,60 @@ Robles, et al.           Expires October 6, 2016               [Page 27]
 Internet-Draft                  Useof6553                     April 2016
 
 
+   In order to support the above two cases with full generality, the
+   different situations (always do IPIP vs never use IPIP) should be
+   signaled in the RPL protocol itself.
+
+7.2.  Non-Storing mode
+
+   XXX In the completely general storing case, which includes not-RPL
+   aware leaf nodes, it is not possible for a sending node to know if
+   the destination is RPL aware, and therefore it must always use hop-
+   by-hop IPIP encapsulation, and it can never omit the IPIP
+   encapsulation.  See table Table 1
+
+   The simplest fully general sitaution is to always put in hop-by-hop
+   IPIP headers.  [I-D.ietf-roll-routing-dispatch] shows that this hop-
+   by-hop IPIP header can be compressed down to {TBD} bytes.
+
+   There are potential significant advantages to having a single code
+   path that always processes IPIP headers with no options.
+
+   If all RPL aware nodes can be told/configured that there are no non-
+   RPL aware leaf nodes, then the only case where an IPIP header is
+   needed is when communicating outside the LLN.  The 6LBR knows well
+   when the communication is from the outside, and the 6LN can tell by
+   comparing the destination address to the prefix provided in the PIO.
+   If it is known that there are no communications outside the RPL
+   domain (noting that the RPL domain may well extend to outside the
+   LLN), then RPI headers can be included in all packets, and IPIP
+   headers are *never* needed.  This may be significantly advantageous
+   in relatively closed systems such as in building or industrial
+   automation.  Again, there are advantages to having a single code
+   path.
+
+   In order to support the above two cases with full generality, the
+   different situations (always do IPIP vs never use IPIP) should be
+   signaled in the RPL protocol itself.
+
+8.  6LoRH Compression cases
+
+   The [I-D.ietf-roll-routing-dispatch] proposes a compression method
+   for RPI, RH3 and IPv6-in-IPv6.
+
+   In Storing Mode, for the examples of Flow from RPL-aware-leaf to non-
+   RPL-aware-leaf and non-RPL-aware-leaf to non-RPL-aware-leaf comprise
    an IP-in-IP and RPI compression headers.  The type of this case is
    critical since IP-in-IP is encapsulating a RPI header.
+
+
+
+
+
+
+Robles, et al.           Expires October 6, 2016               [Page 28]
+
+Internet-Draft                  Useof6553                     April 2016
 
 
    +--+-----+---+--------------+-----------+-------------+-------------+
@@ -1565,7 +1617,11 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 28]
+
+
+
+
+Robles, et al.           Expires October 6, 2016               [Page 29]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1584,15 +1640,15 @@ Internet-Draft                  Useof6553                     April 2016
 
 12.2.  Informative References
 
-   [I-D.ietf-6lo-routing-dispatch]
-              Thubert, P., Bormann, C., Toutain, L., and R. Cragie,
-              "6LoWPAN Routing Header", draft-ietf-6lo-routing-
-              dispatch-05 (work in progress), February 2016.
-
    [I-D.ietf-6tisch-architecture]
               Thubert, P., "An Architecture for IPv6 over the TSCH mode
               of IEEE 802.15.4", draft-ietf-6tisch-architecture-09 (work
               in progress), November 2015.
+
+   [I-D.ietf-roll-routing-dispatch]
+              Thubert, P., Bormann, C., Toutain, L., and R. Cragie,
+              "6LoWPAN Routing Header", draft-ietf-roll-routing-
+              dispatch-00 (work in progress), March 2016.
 
    [RFC6997]  Goyal, M., Ed., Baccelli, E., Philipp, M., Brandt, A., and
               J. Martocci, "Reactive Discovery of Point-to-Point Routes
@@ -1621,7 +1677,7 @@ Authors' Addresses
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 29]
+Robles, et al.           Expires October 6, 2016               [Page 30]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1677,4 +1733,4 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 30]
+Robles, et al.           Expires October 6, 2016               [Page 31]

@@ -6,7 +6,6 @@
 <!ENTITY RFC6554 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6554.xml">
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC7102 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7102.xml">
-<!ENTITY I-D.ietf-6lo-routing-dispatch SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6lo-routing-dispatch.xml">
 <!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">
 
 
@@ -150,7 +149,7 @@
              </t>
              <t>
                The related document  <xref
-                target="I-D.ietf-6lo-routing-dispatch"> A Routing Header
+                target="I-D.ietf-roll-routing-dispatch"> A Routing Header
                 Dispatch for 6LoWPAN (6LoRH) </xref> defines a method to
                 compress RPL Option information and Routing Header type 3
                 (RFC6554) and an efficient IP-in-IP technique. Uses cases
@@ -1973,11 +1972,12 @@
             signaled in the RPL protocol itself.
           </t>
         </section>
+      </section>
 
 
         <section title="6LoRH Compression cases">
            <t>
-              The <xref target="I-D.ietf-6lo-routing-dispatch"/> proposes a compression method for RPI, RH3 and IPv6-in-IPv6.
+              The <xref target="I-D.ietf-roll-routing-dispatch"/> proposes a compression method for RPI, RH3 and IPv6-in-IPv6.
            </t>
            <t>
              In Storing Mode, for the examples of Flow from RPL-aware-leaf to
@@ -2045,7 +2045,7 @@
    <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
      &RFC7102;
      &I-D.ietf-6tisch-architecture;
-     &I-D.ietf-6lo-routing-dispatch;
+     <?rfc include="reference.I-D.ietf-roll-routing-dispatch" ?>
      <?rfc include="reference.RFC.6997" ?>
 
         <reference anchor="Second6TischPlugtest" target="http://www.ietf.org/mail-archive/web/6tisch/current/pdfgDMQcdCkRz.pdf">
