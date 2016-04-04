@@ -1925,36 +1925,53 @@
 
        </section>
 
-        <section title="Problem statement">
-           <t>
-             There are cases from above that are not clear how to send the
-             information. It requires furhter analysis on how to proceed to
-             send the information from source to destination.
-           </t>
+       <section title="Observations about the problem">
+         <section title="Storing mode">
+          <t>
+            In the completely general storing case, which includes not-RPL
+            aware leaf nodes, it is not possible for a sending node to know
+            if the destination is RPL aware, and therefore it must always use
+            hop-by-hop IPIP encapsulation, and it can never omit the IPIP
+            encapsulation.  See table <xref target="table_storing" />
+          </t>
+          <t>
+            The simplest fully general sitaution is to always put in
+            hop-by-hop IPIP headers.  <xref
+            target="I-D.ietf-roll-routing-dispatch" /> shows that this
+            hop-by-hop IPIP header can be compressed down to {TBD} bytes.
+          </t>
+          <t>
+            There are potential significant advantages to having a single
+            code path that always processes IPIP headers with no options.
+          </t>
 
-           <t>
-             From the above cases, we have in storing mode:
-           </t>
+          <t>
+            If all RPL aware nodes can be told/configured that there are no
+            non-RPL aware leaf nodes, then the only case where an IPIP header
+            is needed is when communicating outside the LLN.  The 6LBR knows
+            well when the communication is from the outside, and the 6LN
+            can tell by comparing the destination address to the prefix
+            provided in the PIO.  If it is known that there are no
+            communications outside the RPL domain (noting that the RPL domain
+            may well extend to outside the LLN), then RPI headers can be
+            included in all packets, and IPIP headers are *never* needed.
+            This may be significantly advantageous in relatively closed
+            systems such as in building or industrial automation.
+            Again, there are advantages to having a single code path.
+          </t>
 
-           <t>
-             - Flow from RPL-aware-leaf to non-RPL-aware-leaf: Somehow, the
-             sender has to know that the receiver is not RPL aware, and needs
-             to know 6LR, and not even the root knows where the 6LR is located.
-           </t>
-           <t>
-             - Flow from not-RPL-aware-leaf to not-RPL-aware-leaf: The
-             problem to solve is how to indicate where to send the packet
-             when get into LLN. One approach is the 6LBR should be aware in
-             which 6LR is the IPv6 node attached.
-           </t>
-           <t>
-		As was mentioned above in the document, a possible solution
-                could be adapted to all cases: An IPv6-in-IPv6 header can be
-                used on a hop-by-hop basis, using either link-local
-                addresses, or even IPv6 Global Unicast Addresses, but each
-                IPv6-in-IPv6 header needs to be added/removed at each hop.
-           </t>
+          <t>
+            In order to support the above two cases with full generality, the
+            different situations (always do IPIP vs never use IPIP) should be
+            signaled in the RPL protocol itself.
+          </t>
+         </section>
 
+          <t>
+            In order to support the above two cases with full generality, the
+            different situations (always do IPIP vs never use IPIP) should be
+            signaled in the RPL protocol itself.
+          </t>
         </section>
 
 
