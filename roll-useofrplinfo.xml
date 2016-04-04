@@ -320,40 +320,40 @@
 
           <list>
                  <t>
-                   -Flow from RPL-aware-leaf to root
+                   RPL-aware-leaf to root
                  </t>
                  <t>
-                   -Flow from root to RPL-aware-leaf
+                   root to RPL-aware-leaf
                  </t>
                  <t>
-                   -Flow from not-RPL-aware-leaf to root
+                   not-RPL-aware-leaf to root
                  </t>
                  <t>
-                   -Flow from root to not-RPL-aware-leaf
+                   root to not-RPL-aware-leaf
                  </t>
                  <t>
-                   -Flow from RPL-aware-leaf to Internet
+                   RPL-aware-leaf to Internet
                  </t>
                  <t>
-                   -Flow from Internet to RPL-aware-leaf
+                   Internet to RPL-aware-leaf
                  </t>
                  <t>
-                   -Flow from not-RPL-aware-leaf to Internet
+                   not-RPL-aware-leaf to Internet
                  </t>
                  <t>
-                   -Flow from Internet to not-RPL-aware-leaf
+                   Internet to not-RPL-aware-leaf
                  </t>
                  <t>
-                   -Flow from RPL-aware-leaf to RPL-aware-leaf
+                   RPL-aware-leaf to RPL-aware-leaf
                  </t>
                  <t>
-                   -Flow from RPL-aware-leaf to not-RPL-aware-leaf
+                   RPL-aware-leaf to not-RPL-aware-leaf
                  </t>
                  <t>
-                   -Flow from not-RPL-aware-leaf to RPL-aware-leaf
+                   not-RPL-aware-leaf to RPL-aware-leaf
                  </t>
                  <t>
-                   -Flow from not-RPL-aware-leaf to not-RPL-aware-leaf
+                   not-RPL-aware-leaf to not-RPL-aware-leaf
                  </t>
           </list>
          </t>
@@ -429,61 +429,95 @@
         </section>
 
 
-       <section title=" Storing mode">
+        <section title=" Storing mode">
+
+          <t>
+            This table summarizes what headers are needed in the following
+            scenarios, and indicates the IPIP header must be
+            inserted on a hop-by-hop basis, and when it can target the
+            destination node directly.  There are three possible situations:
+            hop-by-hop necessary (indicated by "hop"), or destination address
+            possible (indicated by "dst").  In all cases hop by hop can be
+            used. In cases where no IPIP header is needed, the column is left blank.
+          </t>
 
          <texttable anchor="table_storing" title="Headers needed in Storing mode: RPI, RH3, IP-in-IP encapsulation" >
            <ttcol> Use Case </ttcol>
            <ttcol> RPI (RFC 6553) </ttcol>
            <ttcol> RH3 (RFC 6554) </ttcol>
            <ttcol> IP-in-IP </ttcol>
+           <ttcol> IPIP dst </ttcol>
            <c> Raf to root</c>
            <c> Yes</c>
            <c> No</c>
            <c> No</c>
+           <c> -- </c>
+
            <c> root to Raf</c>
            <c> Yes</c>
            <c> No</c>
            <c> No</c>
-           <c> ~Raf to root</c>
-           <c> Yes</c>
-           <c> No</c>
-           <c> Yes</c>
+           <c> -- </c>
+
            <c> root to ~Raf</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
+           <c> hop </c>
+
+           <c> ~Raf to root</c>
+           <c> Yes</c>
+           <c> No</c>
+           <c> Yes</c>
+           <c> root </c>
+
            <c> Raf to Internet</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
+           <c> root </c>
+
            <c> Internet to Raf</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
+           <c> raf </c>
+
            <c> ~Raf to Internet</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
+           <c> root </c>
+
            <c> Internet to ~Raf</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
+           <c> hop </c>
+
            <c> Raf to Raf</c>
            <c> Yes</c>
            <c> No</c>
            <c> No</c>
+           <c> -- </c>
+
            <c> Raf to ~Raf</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
+           <c> hop </c>
+
            <c> ~Raf to Raf </c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
+           <c> dst </c>
+
            <c> ~Raf to ~Raf</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
+           <c> hop </c>
          </texttable>
 
                <section title="Example of Flow from RPL-aware-leaf to root">
