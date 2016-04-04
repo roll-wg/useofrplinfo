@@ -87,7 +87,7 @@ Table of Contents
      6.2.  Example of Flow from root to RPL-aware-leaf . . . . . . .  20
      6.3.  Example of Flow from root to not-RPL-aware-leaf . . . . .  20
      6.4.  Example of Flow from not-RPL-aware-leaf to root . . . . .  21
-     6.5.  Example of Flow from RPL-aware-leaf to Internet . . . . .  21
+     6.5.  Example of Flow from RPL-aware-leaf to Internet . . . . .  22
      6.6.  Example of Flow from Internet to RPL-aware-leaf . . . . .  22
      6.7.  Example of Flow from not-RPL-aware-leaf to Internet . . .  23
      6.8.  Example of Flow from Internet to non-RPL-aware-leaf . . .  23
@@ -1032,32 +1032,32 @@ Internet-Draft                  Useof6553                     April 2016
 
 6.  Non Storing mode
 
-   +------------------+--------------+--------------+------------------+
-   | Use Case         | RPL-NSN RPI  | RPL-NSN RH3  | RPL-NSN IP-in-IP |
-   +------------------+--------------+--------------+------------------+
-   | Raf to root      | Yes          | No           | No               |
-   | root to Raf      | Yes          | Yes          | No               |
-   | ~Raf to root     | Yes          | No           | Yes              |
-   | root to ~Raf     | Yes          | Yes          | Yes              |
-   | Raf to Internet  | Yes          | No           | Yes              |
-   | Internet to Raf  | Yes          | Yes          | Yes              |
-   | ~Raf to Internet | Yes          | No           | Yes              |
-   | Internet to ~Raf | Yes          | Yes          | Yes              |
-   | Raf to Raf       | Yes          | Yes          | Yes              |
-   | Raf to ~Raf      | Yes          | Yes          | Yes              |
-   | ~Raf to Raf      | Yes          | Yes          | Yes              |
-   | ~Raf to ~Raf     | Yes          | Yes          | Yes              |
-   +------------------+--------------+--------------+------------------+
+          +------------------+------+------+-------+-----------+
+          | Use Case         | RPI  | RH3  | IPIP  | IPIP dst  |
+          +------------------+------+------+-------+-----------+
+          | Raf to root      | Yes  | No   | No    | --        |
+          | root to Raf      | Yes  | Yes  | No    | --        |
+          | root to ~Raf     | No   | Yes  | Yes   | --        |
+          | ~Raf to root     | Yes  | No   | Yes   | root      |
+          | Raf to Internet  | Yes  | No   | Yes   | root      |
+          | Internet to Raf  | opt  | Yes  | Yes   | dst       |
+          | ~Raf to Internet | Yes  | No   | Yes   | root      |
+          | Internet to ~Raf | opt  | Yes  | Yes   | 6LR       |
+          | Raf to Raf       | Yes  | Yes  | Yes   | root/dst  |
+          | Raf to ~Raf      | Yes  | Yes  | Yes   | root/6LN  |
+          | ~Raf to Raf      | Yes  | Yes  | Yes   | root/6LN  |
+          | ~Raf to ~Raf     | Yes  | Yes  | Yes   | root/6LN  |
+          +------------------+------+------+-------+-----------+
 
       Table 2: Headers needed in Non-Storing mode: RPI, RH3, IP-in-IP
                                encapsulation
 
 6.1.  Example of Flow from RPL-aware-leaf to root
 
-   In non-storing mode the leaf node uses Hop-By-Hop option (RFC 6553)
-   to indicate the routing information to send messages to the DODAG
-   root, this message is going to be analyzed in each node until arrive
-   the DODAG root.
+   In non-storing mode the leaf node uses default routing to send
+   traffic to the root.  The RPI header must be included to avoid/detect
+   loops.
+
 
 
 
@@ -1066,12 +1066,9 @@ Robles, et al.           Expires October 6, 2016               [Page 19]
 Internet-Draft                  Useof6553                     April 2016
 
 
-   In this case not need to use IPv6-in-IPv6 because no header is not
-   going to be removed, neither RH3, the flow comprises:
-
    RPL-aware-leaf (6LN) --> 6LR --> root (6LBR)
 
-   This case is the same case as storing mode.
+   This situation is the same case as storing mode.
 
                  +-------------------+-----+-----+------+
                  | Header            | 6LN | 6LR | 6LBR |
@@ -1092,18 +1089,19 @@ Internet-Draft                  Useof6553                     April 2016
 
    root (6LBR)--> 6LR --> RPL-aware-leaf (6LN)
 
-   6LBR might instert RPI header, and the rute is indicated in RH3. 6LR
-   updated RH3 and 6LN remove these headers.
+   The 6LBR will insert an RH3, and may optionally insert an RPI header.
+   No IPIP header is necessary as the traffic originates with an RPL
+   aware node.
 
-      +-------------------+----------------------+------+----------+
-      | Header            | 6LBR                 | 6LR  | 6LN      |
-      +-------------------+----------------------+------+----------+
-      | Inserted headers  | (optional: RPI), RH3 | --   | --       |
-      | Removed headers   | --                   | --   | RH3,RPI  |
-      | Re-added headers  | --                   | --   | --       |
-      | Modified headers  | --                   | RH3  | --       |
-      | Untouched headers | --                   | --   | --       |
-      +-------------------+----------------------+------+----------+
+         +-------------------+-----------------+------+----------+
+         | Header            | 6LBR            | 6LR  | 6LN      |
+         +-------------------+-----------------+------+----------+
+         | Inserted headers  | (opt: RPI), RH3 | --   | --       |
+         | Removed headers   | --              | --   | RH3,RPI  |
+         | Re-added headers  | --              | --   | --       |
+         | Modified headers  | --              | RH3  | --       |
+         | Untouched headers | --              | --   | --       |
+         +-------------------+-----------------+------+----------+
 
     Non Storing: Summary of the use of headers from root to RPL-aware-
                                    leaf
@@ -1114,6 +1112,8 @@ Internet-Draft                  Useof6553                     April 2016
 
    root (6LBR)--> 6LR --> not-RPL-aware-leaf (IPv6 node)
 
+   In 6LBR the RH3 is added, and modified in 6LR where it is fully
+   consumed, but left there.  If the RPI is left present, the IPv6 node
 
 
 
@@ -1122,13 +1122,14 @@ Robles, et al.           Expires October 6, 2016               [Page 20]
 Internet-Draft                  Useof6553                     April 2016
 
 
-   In 6LBR the RH3 is added, and modified in 6LR where is fully
-   consumed, but left there.  If the RPI is present, the IPv6 node which
-   does not understand it will drop it.  To avoid it the RPI should be
-   removed before reach IPv6 node or it is recommended that RPI be
-   omitted.  An IPv6-in-IPv6 header should be necessary in this case.
-   The DAO from 6LR about IPv6 could say if that the final IPv6 is not
-   RPL (RPI) capable.
+   which does not understand it will drop it, therefore the RPI should
+   be removed before reaching the IPv6-only node.  To permit removal, an
+   IPIP header (hop-by-hop) or addressed to the last 6LR is necessary.
+   Due the complete knowledge of the topology at the root, the 6LBR is
+   able to address the IPIP header to the last 6LR.
+
+   Omitting the RPI entirely is therefore a better solution, as no IPIP
+   header is necessary.
 
                  +-------------------+------+-----+------+
                  | Header            | 6LBR | 6LR | IPv6 |
@@ -1149,8 +1150,9 @@ Internet-Draft                  Useof6553                     April 2016
 
    IPv6-node --> 6LR1 --> 6LR2 --> root (6LBR)
 
-   In this case the RPI is encapsulated in the first 6LR, and is not
-   modified in the followings 6LRs.
+   In this case the RPI is added by the first 6LR, encapsulated in an
+   IPIP header, and is not modified in the followings 6LRs.  The RPI and
+   entire packet is consumed by the root.
 
        +-------------------+------+------------+------+------------+
        | Header            | IPv6 | 6LR1       | 6LR2 | 6LBR       |
@@ -1165,11 +1167,9 @@ Internet-Draft                  Useof6553                     April 2016
    Non Storing: Summary of the use of headers from not-RPL-aware-leaf to
                                    root
 
-6.5.  Example of Flow from RPL-aware-leaf to Internet
 
-   In this case the flow comprises:
 
-   RPL-aware-leaf (6LN) --> 6LR --> root (6LBR) --> Internet
+
 
 
 
@@ -1178,10 +1178,19 @@ Robles, et al.           Expires October 6, 2016               [Page 21]
 Internet-Draft                  Useof6553                     April 2016
 
 
-   This case requires that the network is awareness of what is external
-   to the LLN.  Internet node never sees RPI or IPv6-in-IPv6 header.  In
-   the 6LBR the flow label is computed if it is zero.  RPI remains
-   unmodified.
+6.5.  Example of Flow from RPL-aware-leaf to Internet
+
+   In this case the flow comprises:
+
+   RPL-aware-leaf (6LN) --> 6LR --> root (6LBR) --> Internet
+
+   This case requires that the RPI be added, but remoted by the 6LBR.
+   The 6LN must therefore add the RPI inside an IPIP header, addressed
+   to the root.  This case is identical to storing-mode case.
+
+   The IPv6 flow label should be set to zero to aid in compression, and
+   the 6LBR will set it to a non-zero value when sending towards the
+   Internet.
 
      +-------------------+-----------+------+------------+----------+
      | Header            | 6LN       | 6LR  | 6LBR       | Internet |
@@ -1202,9 +1211,28 @@ Internet-Draft                  Useof6553                     April 2016
 
    Internet --> root (6LBR) --> 6LR --> RPL-aware-leaf (6LN)
 
-   If the last RH3 entry is the 6LR, then the IPv6-in-IPv6 will be
-   removed there, if the last entry is the 6LN, then the RH3 will go all
-   the way to the leaf.  In 6LBR the flow label should be set to zero.
+   The 6LBR must add an RH3 header.  As the 6LBR will know the path and
+   address of the target not, it can address the IPIP header to that
+   node.  The 6LBR will zero the flow label upon entry in order to aid
+   compression.
+
+   The RPI may be added or not.
+
+
+
+
+
+
+
+
+
+
+
+
+Robles, et al.           Expires October 6, 2016               [Page 22]
+
+Internet-Draft                  Useof6553                     April 2016
+
 
    +----------------+----------+--------------------+------------+-----+
    | Header         | Internet | 6LBR               | 6LR        | 6LN |
@@ -1224,16 +1252,6 @@ Internet-Draft                  Useof6553                     April 2016
      Non Storing: Summary of the use of headers from Internet to RPL-
                                 aware-leaf
 
-
-
-
-
-
-Robles, et al.           Expires October 6, 2016               [Page 22]
-
-Internet-Draft                  Useof6553                     April 2016
-
-
 6.7.  Example of Flow from not-RPL-aware-leaf to Internet
 
    In this case the flow comprises:
@@ -1241,9 +1259,10 @@ Internet-Draft                  Useof6553                     April 2016
    not-RPL-aware-leaf (6LN) --> 6LR --> root (6LBR) --> Internet
 
    In this case the flow label is recommended to be zero in the IPv6
-   node. no RPL headers are added in the IPv6 node, since it is ignorant
-   of RPL.  Internet node does not see special headers.  In 6LBR the
-   flow label is computed if it is zero.
+   node.  As RPL headers are added in the IPv6 node, the first 6LN will
+   add an RPI header inside a new IPIP header.  The IPIP header will be
+   addressed to the root.  This case is identical to the storing-mode
+   case.
 
      +-------------------+------+-----------+------------+----------+
      | Header            | IPv6 | 6LR       | 6LBR       | Internet |
@@ -1264,31 +1283,19 @@ Internet-Draft                  Useof6553                     April 2016
 
    Internet --> root (6LBR) --> 6LR --> not-RPL-aware-leaf (6LN)
 
-   In this case the flow label in 6LBR should be set zero in 6LBR, where
-   RH3 is inserted and optionally RHI.  RH3 must end at 6LR.
-
-   In Non-Storing mode, root knows that the non-RPL-aware-leaf is
-   attached to the parent 6LR, and builds RH3 with IPv6-in-IPv6 with
-   this 6LR as destination.
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Robles, et al.           Expires October 6, 2016               [Page 23]
 
 Internet-Draft                  Useof6553                     April 2016
 
+
+   The 6LBR must add an RH3 header inside an IPIP header.  The 6LBR will
+   know the path, and will recognize that the final node is not an RPL
+   capable node as it will have received the connectivity DAO from the
+   nearest 6LR.  The 6LBR can therefore make the IPIP header destination
+   be the last 6LR.  The 6LBR will zero the flow label upon entry in
+   order to aid compression.
 
    +--------------+----------+-------------------+--------------+------+
    | Header       | Internet | 6LBR              | 6LR          | IPv6 |
@@ -1314,28 +1321,21 @@ Internet-Draft                  Useof6553                     April 2016
 
    6LN --> 6LR --> root (6LBR) --> 6LR --> 6LN
 
-   This case comprises in the same RPL Domain.  In the 6LN the RPI
-   header is inserted.  In the 6LBR the RH3 header is inserted in a
-   IPv6-in-IPv6 header and removed at the 6LN destination.
+   This case involves only nodes in same RPL Domain.  The originating
+   node will add an RPI header to the original packet, and send the
+   packet upwards.
 
-   In case of the flow goes from RPL-aware-Leaf to RPL-aware-Leaf, the
-   RPI should be set in a IP-in-IP header, to avoid repetition of RPI
-   header.
+   The originating node could put the RPI into an IPIP header addressed
+   to the root, so that the 6LBR can remove that header.
+
+   The 6LBR will need to insert an RH3 header, which requires that it
+   add an IPIP header.  It may be able to remove the RPI if it was
+   contained in an IPIP header addressed to it.  Otherwise, there may be
+   an RPI header buried inside the inner IP header, which should get
+   ignored.
 
    Networks that use the RPL P2P extension [RFC6997] are essentially
    non-storing DODAGs and fall into this scenario.
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1370,10 +1370,10 @@ Internet-Draft                  Useof6553                     April 2016
 
    6LN --> 6LR --> root (6LBR) --> 6LR --> not-RPL-aware 6LN
 
-   The 6LN insert the RPI in a IPv6-in-IPv6 header, which is addressed
-   to 6LBR.  The 6LBR remove this RPI header and insert a RH3 header
-   with an optional RPI.  These headers are removed by 6LR before send
-   the packet to the IPv6 node.
+   As in the previous case, the 6LN will insert an RPI header which MUST
+   be in an IPIP header addressed to the root so that the 6LBR can
+   remove this RPI.  The 6LBR will then insert an RH3 inside a new IPIP
+   header addressed to the 6LN above the destination node.
 
    +---------------+-----------+---------------+----------------+------+
    | Header        | 6LN       | 6LBR          | 6LR            | IPv6 |
@@ -1408,8 +1408,10 @@ Internet-Draft                  Useof6553                     April 2016
 
    not-RPL-aware 6LN --> 6LR --> root (6LBR) --> 6LR --> 6LN
 
-   RPI is added in 6LR until the root and then removed, then RH3 is
-   added and removed at destination.
+   This scenario is mostly identical to the previous one.  The RPI is
+   added by the first 6LR inside an IPIP header addressed to the root.
+   The 6LBR will remove this RPI, and add it's own IPIP header
+   containing an RH3 header.
 
     +-------------------+------+------------+-----------+------------+
     | Header            | IPv6 | 6LR        | 6LBR      | 6LN        |
@@ -1431,9 +1433,7 @@ Internet-Draft                  Useof6553                     April 2016
    not-RPL-aware 6LN --> 6LR --> root (6LBR) --> 6LR --> not-RPL-aware
    6LN
 
-   RPI is added in 6LR until the root and then might be removed, then
-   RH3 is added.  These headers are removed at 6LR before go to
-   destination.
+   This scenario is the combination of the previous two cases.
 
 
 
