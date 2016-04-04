@@ -1955,8 +1955,8 @@
             encapsulation.  See table <xref target="table_storing" />
           </t>
           <t>
-            The simplest fully general sitaution is to always put in
-            hop-by-hop IPIP headers.  <xref
+            The simplest fully general stiaution for storing mode is to
+            always put in hop-by-hop IPIP headers.  <xref
             target="I-D.ietf-roll-routing-dispatch" /> shows that this
             hop-by-hop IPIP header can be compressed down to {TBD} bytes.
           </t>
@@ -1987,10 +1987,41 @@
           </t>
          </section>
 
+        <section title="Non-Storing mode">
           <t>
-            In order to support the above two cases with full generality, the
-            different situations (always do IPIP vs never use IPIP) should be
-            signaled in the RPL protocol itself.
+            This the non-storing case, dealing with non-RPL aware leaf nodes
+            is much easier as the 6LBR (DODAG root) has complete knowledge
+            about the connectivity of all nodes, and all traffic flows
+            through the root node.
+          </t>
+          <t>
+            The 6LBR can recognize non-RPL aware leaf nodes because it will
+            receive a DAO about that node from the 6LN immediately above that
+            node.  This means that the non-storing mode case can avoid ever
+            using hop-by-hop IPIP headers.
+          </t>
+          <t>
+            It is unclear what it would mean for an RH3 header to be present
+            in a hop-by-hop IPIP header.  The receiving node ought to consume
+            the IPIP header, and therefore consume the RH3 as well, and then
+            attempt to send the packet again.  But intermediate 6LN nodes
+            would not know how to forward the packet, so the RH3 would need
+            to be retained.  This is a new kind of IPv6 packet processing.
+            Therefore it may be that on the outbound leg of non-storing RPL
+            networks, that hop-by-hop IPIP header can NOT be used.
+          </t>
+          <t>
+            <xref target="I-D.ietf-roll-routing-dispatch" /> shows how the
+            destination=root, and destination=6LN IPIP header can be
+            compressed down to {TBD} bytes.
+          </t>
+
+          <t>
+            Unlike in the storing mode case, there are no need for all nodes
+            to know about the existence of non-RPL aware nodes.  Only the
+            6LBR needs to change when there are non-RPL aware nodes.
+            Further, in the non-storing case, the 6LBR is informed by the
+            DAOs when there are non-RPL aware nodes.
           </t>
         </section>
       </section>
