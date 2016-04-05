@@ -5,10 +5,10 @@
 ROLL Working Group                                             M. Robles
 Internet-Draft                                                  Ericsson
 Intended status: Informational                             M. Richardson
-Expires: October 6, 2016                                             SSW
+Expires: October 7, 2016                                             SSW
                                                               P. Thubert
                                                                    Cisco
-                                                           April 4, 2016
+                                                           April 5, 2016
 
 
               When to use RFC 6553, 6554 and IPv6-in-IPv6
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 6, 2016.
+   This Internet-Draft will expire on October 7, 2016.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Robles, et al.           Expires October 6, 2016                [Page 1]
+Robles, et al.           Expires October 7, 2016                [Page 1]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Robles, et al.           Expires October 6, 2016                [Page 2]
+Robles, et al.           Expires October 7, 2016                [Page 2]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -165,7 +165,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016                [Page 3]
+Robles, et al.           Expires October 7, 2016                [Page 3]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -221,7 +221,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016                [Page 4]
+Robles, et al.           Expires October 7, 2016                [Page 4]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -277,7 +277,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016                [Page 5]
+Robles, et al.           Expires October 7, 2016                [Page 5]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -333,7 +333,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016                [Page 6]
+Robles, et al.           Expires October 7, 2016                [Page 6]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -389,7 +389,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016                [Page 7]
+Robles, et al.           Expires October 7, 2016                [Page 7]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -445,32 +445,31 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016                [Page 8]
+Robles, et al.           Expires October 7, 2016                [Page 8]
 
 Internet-Draft                  Useof6553                     April 2016
 
 
-   +---------------+--------------+--------------+----------+----------+
-   | Use Case      | RPI (RFC     | RH3 (RFC     | IP-in-IP | IPIP dst |
-   |               | 6553)        | 6554)        |          |          |
-   +---------------+--------------+--------------+----------+----------+
-   | Raf to root   | Yes          | No           | No       | --       |
-   | root to Raf   | Yes          | No           | No       | --       |
-   | root to ~Raf  | Yes          | No           | Yes      | hop      |
-   | ~Raf to root  | Yes          | No           | Yes      | root     |
-   | Raf to        | Yes          | No           | Yes      | root     |
-   | Internet      |              |              |          |          |
-   | Internet to   | Yes          | No           | Yes      | raf      |
-   | Raf           |              |              |          |          |
-   | ~Raf to       | Yes          | No           | Yes      | root     |
-   | Internet      |              |              |          |          |
-   | Internet to   | Yes          | No           | Yes      | hop      |
-   | ~Raf          |              |              |          |          |
-   | Raf to Raf    | Yes          | No           | No       | --       |
-   | Raf to ~Raf   | Yes          | No           | Yes      | hop      |
-   | ~Raf to Raf   | Yes          | No           | Yes      | dst      |
-   | ~Raf to ~Raf  | Yes          | No           | Yes      | hop      |
-   +---------------+--------------+--------------+----------+----------+
+   +-------------+---------------+---------------+----------+----------+
+   | Use Case    | RPI (RFC      | RH3 (RFC      | IP-in-IP | IPIP dst |
+   |             | 6553)         | 6554)         |          |          |
+   +-------------+---------------+---------------+----------+----------+
+   | Raf to root | Yes           | No            | No       | --       |
+   | root to Raf | Yes           | No            | No       | --       |
+   | root to     | Yes           | No            | Yes      | hop      |
+   | ~Raf        |               |               |          |          |
+   | ~Raf to     | Yes           | No            | Yes      | root     |
+   | root        |               |               |          |          |
+   | Raf to Int  | Yes           | No            | Yes      | root     |
+   | Int to Raf  | Yes           | No            | Yes      | raf      |
+   | ~Raf to Int | Yes           | No            | Yes      | root     |
+   | Int to ~Raf | Yes           | No            | Yes      | hop      |
+   | Raf to Raf  | Yes           | No            | No       | --       |
+   | Raf to ~Raf | Yes           | No            | Yes      | hop      |
+   | ~Raf to Raf | Yes           | No            | Yes      | dst      |
+   | ~Raf to     | Yes           | No            | Yes      | hop      |
+   | ~Raf        |               |               |          |          |
+   +-------------+---------------+---------------+----------+----------+
 
         Table 1: Headers needed in Storing mode: RPI, RH3, IP-in-IP
                                encapsulation
@@ -501,7 +500,8 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016                [Page 9]
+
+Robles, et al.           Expires October 7, 2016                [Page 9]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -557,7 +557,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 10]
+Robles, et al.           Expires October 7, 2016               [Page 10]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -613,7 +613,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 11]
+Robles, et al.           Expires October 7, 2016               [Page 11]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -669,7 +669,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 12]
+Robles, et al.           Expires October 7, 2016               [Page 12]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -725,7 +725,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 13]
+Robles, et al.           Expires October 7, 2016               [Page 13]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -781,7 +781,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 14]
+Robles, et al.           Expires October 7, 2016               [Page 14]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -837,7 +837,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 15]
+Robles, et al.           Expires October 7, 2016               [Page 15]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -893,7 +893,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 16]
+Robles, et al.           Expires October 7, 2016               [Page 16]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -949,7 +949,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 17]
+Robles, et al.           Expires October 7, 2016               [Page 17]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 18]
+Robles, et al.           Expires October 7, 2016               [Page 18]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1032,22 +1032,22 @@ Internet-Draft                  Useof6553                     April 2016
 
 6.  Non Storing mode
 
-          +------------------+------+------+-------+-----------+
-          | Use Case         | RPI  | RH3  | IPIP  | IPIP dst  |
-          +------------------+------+------+-------+-----------+
-          | Raf to root      | Yes  | No   | No    | --        |
-          | root to Raf      | Yes  | Yes  | No    | --        |
-          | root to ~Raf     | No   | Yes  | Yes   | --        |
-          | ~Raf to root     | Yes  | No   | Yes   | root      |
-          | Raf to Internet  | Yes  | No   | Yes   | root      |
-          | Internet to Raf  | opt  | Yes  | Yes   | dst       |
-          | ~Raf to Internet | Yes  | No   | Yes   | root      |
-          | Internet to ~Raf | opt  | Yes  | Yes   | 6LR       |
-          | Raf to Raf       | Yes  | Yes  | Yes   | root/dst  |
-          | Raf to ~Raf      | Yes  | Yes  | Yes   | root/6LN  |
-          | ~Raf to Raf      | Yes  | Yes  | Yes   | root/6LN  |
-          | ~Raf to ~Raf     | Yes  | Yes  | Yes   | root/6LN  |
-          +------------------+------+------+-------+-----------+
+            +--------------+------+------+-------+-----------+
+            | Use Case     | RPI  | RH3  | IPIP  | IPIP dst  |
+            +--------------+------+------+-------+-----------+
+            | Raf to root  | Yes  | No   | No    | --        |
+            | root to Raf  | Yes  | Yes  | No    | --        |
+            | root to ~Raf | No   | Yes  | Yes   | --        |
+            | ~Raf to root | Yes  | No   | Yes   | root      |
+            | Raf to Int   | Yes  | No   | Yes   | root      |
+            | Int to Raf   | opt  | Yes  | Yes   | dst       |
+            | ~Raf to Int  | Yes  | No   | Yes   | root      |
+            | Int to ~Raf  | opt  | Yes  | Yes   | 6LR       |
+            | Raf to Raf   | Yes  | Yes  | Yes   | root/dst  |
+            | Raf to ~Raf  | Yes  | Yes  | Yes   | root/6LR  |
+            | ~Raf to Raf  | Yes  | Yes  | Yes   | root/6LN  |
+            | ~Raf to ~Raf | Yes  | Yes  | Yes   | root/6LR  |
+            +--------------+------+------+-------+-----------+
 
       Table 2: Headers needed in Non-Storing mode: RPI, RH3, IP-in-IP
                                encapsulation
@@ -1061,7 +1061,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 19]
+Robles, et al.           Expires October 7, 2016               [Page 19]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 20]
+Robles, et al.           Expires October 7, 2016               [Page 20]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 21]
+Robles, et al.           Expires October 7, 2016               [Page 21]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 22]
+Robles, et al.           Expires October 7, 2016               [Page 22]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 23]
+Robles, et al.           Expires October 7, 2016               [Page 23]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1341,7 +1341,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 24]
+Robles, et al.           Expires October 7, 2016               [Page 24]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1397,7 +1397,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 25]
+Robles, et al.           Expires October 7, 2016               [Page 25]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1453,7 +1453,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 26]
+Robles, et al.           Expires October 7, 2016               [Page 26]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1509,7 +1509,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 27]
+Robles, et al.           Expires October 7, 2016               [Page 27]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1565,7 +1565,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 28]
+Robles, et al.           Expires October 7, 2016               [Page 28]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1621,7 +1621,7 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 29]
+Robles, et al.           Expires October 7, 2016               [Page 29]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1677,7 +1677,7 @@ Authors' Addresses
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 30]
+Robles, et al.           Expires October 7, 2016               [Page 30]
 
 Internet-Draft                  Useof6553                     April 2016
 
@@ -1733,4 +1733,4 @@ Internet-Draft                  Useof6553                     April 2016
 
 
 
-Robles, et al.           Expires October 6, 2016               [Page 31]
+Robles, et al.           Expires October 7, 2016               [Page 31]

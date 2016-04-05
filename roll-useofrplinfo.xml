@@ -36,7 +36,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="info" docName="draft-ietf-roll-useofrplinfo-03" ipr="trust200902">
+<rfc category="info" docName="draft-ietf-roll-useofrplinfo-04" ipr="trust200902">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -442,8 +442,8 @@
 
          <texttable anchor="table_storing" title="Headers needed in Storing mode: RPI, RH3, IP-in-IP encapsulation" >
            <ttcol> Use Case </ttcol>
-           <ttcol> RPI (RFC 6553) </ttcol>
-           <ttcol> RH3 (RFC 6554) </ttcol>
+           <ttcol> RPI  </ttcol>
+           <ttcol> RH3  </ttcol>
            <ttcol> IP-in-IP </ttcol>
            <ttcol> IPIP dst </ttcol>
            <c> Raf to root</c>
@@ -470,25 +470,25 @@
            <c> Yes</c>
            <c> root </c>
 
-           <c> Raf to Internet</c>
+           <c> Raf to Int</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
            <c> root </c>
 
-           <c> Internet to Raf</c>
+           <c> Int to Raf</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
            <c> raf </c>
 
-           <c> ~Raf to Internet</c>
+           <c> ~Raf to Int</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
            <c> root </c>
 
-           <c> Internet to ~Raf</c>
+           <c> Int to ~Raf</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
@@ -1277,28 +1277,28 @@
            <c> No</c>
            <c> Yes</c>
            <c> Yes</c>
-           <c> --</c>
+           <c> 6LR </c>
            <c> ~Raf to root</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
            <c> root </c>
-           <c> Raf to Internet</c>
+           <c> Raf to Int</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
            <c> root </c>
-           <c> Internet to Raf</c>
+           <c> Int to Raf</c>
            <c> opt</c>
            <c> Yes</c>
            <c> Yes</c>
            <c> dst </c>
-           <c> ~Raf to Internet</c>
+           <c> ~Raf to Int</c>
            <c> Yes</c>
            <c> No</c>
            <c> Yes</c>
            <c> root </c>
-           <c> Internet to ~Raf</c>
+           <c> Int to ~Raf</c>
            <c> opt</c>
            <c> Yes</c>
            <c> Yes</c>
@@ -1312,7 +1312,7 @@
            <c> Yes</c>
            <c> Yes</c>
            <c> Yes</c>
-           <c> root/6LN</c>
+           <c> root/6LR</c>
            <c> ~Raf to Raf </c>
            <c> Yes</c>
            <c> Yes</c>
@@ -1322,7 +1322,7 @@
            <c> Yes</c>
            <c> Yes</c>
            <c> Yes</c>
-           <c> root/6LN</c>
+           <c> root/6LR</c>
          </texttable>
 
 
