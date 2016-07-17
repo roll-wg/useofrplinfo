@@ -12,7 +12,7 @@ Expires: October 7, 2016                                             SSW
 
 
               When to use RFC 6553, 6554 and IPv6-in-IPv6
-                    draft-ietf-roll-useofrplinfo-04
+                    draft-ietf-roll-useofrplinfo-03
 
 Abstract
 
@@ -70,13 +70,13 @@ Table of Contents
    4.  Use cases . . . . . . . . . . . . . . . . . . . . . . . . . .   6
    5.  Storing mode  . . . . . . . . . . . . . . . . . . . . . . . .   8
      5.1.  Example of Flow from RPL-aware-leaf to root . . . . . . .   9
-     5.2.  Example of Flow from root to RPL-aware-leaf . . . . . . .   9
+     5.2.  Example of Flow from root to RPL-aware-leaf . . . . . . .  10
      5.3.  Example of Flow from root to not-RPL-aware-leaf . . . . .  10
      5.4.  Example of Flow from not-RPL-aware-leaf to root . . . . .  11
-     5.5.  Example of Flow from RPL-aware-leaf to Internet . . . . .  11
+     5.5.  Example of Flow from RPL-aware-leaf to Internet . . . . .  12
      5.6.  Example of Flow from Internet to RPL-aware-leaf . . . . .  12
-     5.7.  Example of Flow from not-RPL-aware-leaf to Internet . . .  12
-     5.8.  Example of Flow from Internet to non-RPL-aware-leaf . . .  13
+     5.7.  Example of Flow from not-RPL-aware-leaf to Internet . . .  13
+     5.8.  Example of Flow from Internet to non-RPL-aware-leaf . . .  14
      5.9.  Example of Flow from RPL-aware-leaf to RPL-aware-leaf . .  14
      5.10. Example of Flow from RPL-aware-leaf to non-RPL-aware-leaf  15
      5.11. Example of Flow from not-RPL-aware-leaf to RPL-aware-leaf  17
@@ -422,25 +422,25 @@ Internet-Draft                  Useof6553                     April 2016
    all cases hop by hop can be used.  In cases where no IPIP header is
    needed, the column is left blank.
 
-         +--------------+-------+-------+-----------+-----------+
-         | Use Case     | RPI   | RH3   | IP-in-IP  | IPIP dst  |
-         +--------------+-------+-------+-----------+-----------+
-         | Raf to root  | Yes   | No    | No        | --        |
-         | root to Raf  | Yes   | No    | No        | --        |
-         | root to ~Raf | Yes   | No    | Yes       | hop       |
-         | ~Raf to root | Yes   | No    | Yes       | root      |
-         | Raf to Int   | Yes   | No    | Yes       | root      |
-         | Int to Raf   | Yes   | No    | Yes       | raf       |
-         | ~Raf to Int  | Yes   | No    | Yes       | root      |
-         | Int to ~Raf  | Yes   | No    | Yes       | hop       |
-         | Raf to Raf   | Yes   | No    | No        | --        |
-         | Raf to ~Raf  | Yes   | No    | Yes       | hop       |
-         | ~Raf to Raf  | Yes   | No    | Yes       | dst       |
-         | ~Raf to ~Raf | Yes   | No    | Yes       | hop       |
-         +--------------+-------+-------+-----------+-----------+
 
-        Table 1: Headers needed in Storing mode: RPI, RH3, IP-in-IP
-                               encapsulation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -449,6 +449,30 @@ Robles, et al.           Expires October 7, 2016                [Page 8]
 
 Internet-Draft                  Useof6553                     April 2016
 
+
+   +-------------+---------------+---------------+----------+----------+
+   | Use Case    | RPI (RFC      | RH3 (RFC      | IP-in-IP | IPIP dst |
+   |             | 6553)         | 6554)         |          |          |
+   +-------------+---------------+---------------+----------+----------+
+   | Raf to root | Yes           | No            | No       | --       |
+   | root to Raf | Yes           | No            | No       | --       |
+   | root to     | Yes           | No            | Yes      | hop      |
+   | ~Raf        |               |               |          |          |
+   | ~Raf to     | Yes           | No            | Yes      | root     |
+   | root        |               |               |          |          |
+   | Raf to Int  | Yes           | No            | Yes      | root     |
+   | Int to Raf  | Yes           | No            | Yes      | raf      |
+   | ~Raf to Int | Yes           | No            | Yes      | root     |
+   | Int to ~Raf | Yes           | No            | Yes      | hop      |
+   | Raf to Raf  | Yes           | No            | No       | --       |
+   | Raf to ~Raf | Yes           | No            | Yes      | hop      |
+   | ~Raf to Raf | Yes           | No            | Yes      | dst      |
+   | ~Raf to     | Yes           | No            | Yes      | hop      |
+   | ~Raf        |               |               |          |          |
+   +-------------+---------------+---------------+----------+----------+
+
+        Table 1: Headers needed in Storing mode: RPI, RH3, IP-in-IP
+                               encapsulation
 
 5.1.  Example of Flow from RPL-aware-leaf to root
 
@@ -472,6 +496,15 @@ Internet-Draft                  Useof6553                     April 2016
    The 6LN inserts the RPI header, and send the packet to 6LR which
    decrement the rank in RPI and send the packet up.  When the packet
    arrives to 6LBR, the RPI is removed and the packet is processed.
+
+
+
+
+
+Robles, et al.           Expires October 7, 2016                [Page 9]
+
+Internet-Draft                  Useof6553                     April 2016
+
 
    The RPI header can be removed by the 6LBR because the packet is
    addressed to the 6LBR.  The 6LN must know that it is communicating
@@ -497,15 +530,6 @@ Internet-Draft                  Useof6553                     April 2016
 
    root (6LBR)--> 6LR --> RPL-aware-leaf (6LN)
 
-
-
-
-
-Robles, et al.           Expires October 7, 2016                [Page 9]
-
-Internet-Draft                  Useof6553                     April 2016
-
-
    In this case the 6LBR insert RPI header and send the packet down, the
    6LR is going to increment the rank in RPI (examines instanceID for
    multiple tables), the packet is processed in 6LN and RPI removed.
@@ -530,6 +554,14 @@ Internet-Draft                  Useof6553                     April 2016
 
    root (6LBR)--> 6LR --> not-RPL-aware-leaf (6LN)
 
+
+
+
+Robles, et al.           Expires October 7, 2016               [Page 10]
+
+Internet-Draft                  Useof6553                     April 2016
+
+
    It includes IPv6-in-IPv6 encapsulation to transmit information not
    related with the RPL domain.  In the 6LBR the RPI header is inserted
    into an IPv6-in-IPv6 header addressed to the last 6LR, which removes
@@ -545,22 +577,6 @@ Internet-Draft                  Useof6553                     April 2016
    An alternative option is to add an attribute in the RPL Target Option
    to indicate that the target is not RPL aware: future work may explore
    this possibility.
-
-
-
-
-
-
-
-
-
-
-
-
-Robles, et al.           Expires October 7, 2016               [Page 10]
-
-Internet-Draft                  Useof6553                     April 2016
-
 
            +-------------------+-----------+-----------+------+
            | Header            | 6LBR      | 6LR       | IPv6 |
@@ -585,6 +601,22 @@ Internet-Draft                  Useof6553                     April 2016
    RPI header, encapsuladed in a IPv6-in-IPv6 header.  The IPv6-in-IPv6
    header can be addressed to the next hop, or to the root.  The root
    removes the header and process the packet.
+
+
+
+
+
+
+
+
+
+
+
+
+Robles, et al.           Expires October 7, 2016               [Page 11]
+
+Internet-Draft                  Useof6553                     April 2016
+
 
            +-------------------+------+------------+-----------+
            | Header            | IPv6 | 6LR        | 6LBR      |
@@ -611,13 +643,6 @@ Internet-Draft                  Useof6553                     April 2016
 
    RPL-aware-leaf (6LN) --> 6LR --> root (6LBR) --> Internet
 
-
-
-Robles, et al.           Expires October 7, 2016               [Page 11]
-
-Internet-Draft                  Useof6553                     April 2016
-
-
    The 6LN will insert the RPI in a IPv6-in-IPv6 in a outer header,
    which may be addressed to the 6LBR (root), or alternatively, it could
    be addressed hop-by-hop.
@@ -640,6 +665,14 @@ Internet-Draft                  Useof6553                     April 2016
    In this case the flow comprises:
 
    Internet --> root (6LBR) --> 6LR --> RPL-aware-leaf (6LN)
+
+
+
+
+Robles, et al.           Expires October 7, 2016               [Page 12]
+
+Internet-Draft                  Useof6553                     April 2016
+
 
    When the packet arrives from Internet to 6LBR the RPI header is added
    in a outer IPv6-in-IPv6 header and send to 6LR, which modifies the
@@ -665,15 +698,6 @@ Internet-Draft                  Useof6553                     April 2016
 
    not-RPL-aware-leaf (6LN) --> 6LR --> root (6LBR) --> Internet
 
-
-
-
-
-Robles, et al.           Expires October 7, 2016               [Page 12]
-
-Internet-Draft                  Useof6553                     April 2016
-
-
    The 6LR node will add an IPIP(RPI) header addressed either to the
    root, or hop-by-hop such that the root can remove the RPI header
    before passing upwards.
@@ -696,6 +720,16 @@ Internet-Draft                  Useof6553                     April 2016
      Storing: Summary of the use of headers from not-RPL-aware-leaf to
                                  Internet
 
+
+
+
+
+
+Robles, et al.           Expires October 7, 2016               [Page 13]
+
+Internet-Draft                  Useof6553                     April 2016
+
+
 5.8.  Example of Flow from Internet to non-RPL-aware-leaf
 
    In this case the flow comprises:
@@ -710,25 +744,6 @@ Internet-Draft                  Useof6553                     April 2016
    The 6LBR MAY set the flow label on the inner IPIP header to zero in
    order to aid in compression, as the packet will not emerge again from
    the LLN.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Robles, et al.           Expires October 7, 2016               [Page 13]
-
-Internet-Draft                  Useof6553                     April 2016
-
 
      +-------------------+----------+------------+------------+------+
      | Header            | Internet | 6LBR       | 6LR        | IPv6 |
@@ -762,6 +777,15 @@ Internet-Draft                  Useof6553                     April 2016
    this depends upon the sending know that the destination is: a) inside
    the LLN, and b) RPL capable.
 
+
+
+
+
+Robles, et al.           Expires October 7, 2016               [Page 14]
+
+Internet-Draft                  Useof6553                     April 2016
+
+
    The sender can determine if the destination is inside the LLN by
    looking if the destination address is matched by the DIO's PIO
    option.  This check may be modified by the use of backbone routers,
@@ -771,20 +795,6 @@ Internet-Draft                  Useof6553                     April 2016
    The other check, that the destination is RPL capable is not currently
    discernible by the sender.  This information is necessary to
    distinguish this test case from Section 5.10.
-
-
-
-
-
-
-
-
-
-
-Robles, et al.           Expires October 7, 2016               [Page 14]
-
-Internet-Draft                  Useof6553                     April 2016
-
 
    +-------------+-------+---------------+---------------+-----+-------+
    | Header      | 6LN   | 6LR           | 6LR (common   | 6LR | 6LN   |
@@ -816,16 +826,6 @@ Internet-Draft                  Useof6553                     April 2016
    aware, sends adds an RPI header inside an IPIP header.  The IPIP
    header needs to be addressed on a hop-by-hop basis so that the last
    6LR can remove the RPI header.
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1037,7 +1037,7 @@ Internet-Draft                  Useof6553                     April 2016
             +--------------+------+------+-------+-----------+
             | Raf to root  | Yes  | No   | No    | --        |
             | root to Raf  | Yes  | Yes  | No    | --        |
-            | root to ~Raf | No   | Yes  | Yes   | 6LR       |
+            | root to ~Raf | No   | Yes  | Yes   | --        |
             | ~Raf to root | Yes  | No   | Yes   | root      |
             | Raf to Int   | Yes  | No   | Yes   | root      |
             | Int to Raf   | opt  | Yes  | Yes   | dst       |
