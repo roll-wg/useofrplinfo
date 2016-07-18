@@ -673,74 +673,75 @@
                </section>
 
                <section title="Example of Flow from root to not-RPL-aware-leaf">
-                        <t>
-                        In this case the flow comprises:
-                        </t>
-                        <t>
+                 <t>
+                   In this case the flow comprises:
+                 </t>
+                 <t>
 
-                                root (6LBR)--> 6LR --> not-RPL-aware-leaf (6LN)
-                        </t>
-			<t>
-                          The question in this scenario is how can the root know
-                          what the previous RPL aware router is.  If it could
-                          tell, then it could address the IPv6-in-IPv6 header
-                          to the previous 6LR.
-                          The only way to do this is to insert hop-by-hop
-                          IPv6-in-IPv6 headers along the path from root to leaf.
-                        </t>
-                        <t>
-                          The root (6LBR) uses IPv6-in-IPv6 encapsulation to transmit
-                          information not related with the RPL domain. In the
-                          6LBR the RPI header is inserted into an IPv6-in-IPv6
-                          header addressed to the last 6LR, which removes the
-                          header before it passes the packet to the IPv6 node (6LN).
-                        </t>
+                   root (6LBR)--> 6LR --> not-RPL-aware-leaf (6LN)
+                 </t>
+		 <t>
+                   The question in this scenario is how can the root know
+                   what the previous RPL aware router is.  If it could
+                   tell, then it could address the IPv6-in-IPv6 header
+                   to the previous 6LR.
+                   The only way to do this is to insert hop-by-hop
+                   IPv6-in-IPv6 headers along the path from root to leaf.
+                 </t>
+                 <t>
+                   The root (6LBR) uses IPv6-in-IPv6 encapsulation to transmit
+                   information not related with the RPL domain. In the
+                   6LBR the RPI header is inserted into an IPv6-in-IPv6
+                   header addressed to the last 6LR, which removes the
+                   header before it passes the packet to the IPv6 node (6LN).
+                 </t>
 
-                        <t>
-                          An alternative option is to add an attribute in the
-                          RPL Target Option to indicate that the target is
-                          not RPL aware: future work may explore this possibility.  </t>
+                 <t>
+                   An alternative option is to add an attribute in the
+                   RPL Target Option to indicate that the target is
+                   not RPL aware: future work may explore this possibility.
+                 </t>
 
-                          <t> It has been suggested that this is an appropriate
-                          use of the RPL Transit Option's
-                          (<xref target="RFC6550" /> section 6.7.8) E-flag.
-                          If the E flag were to be set whenever a RPL 6LR
-                          learns of an adjacency from neighbor discovery, and
-                          these E flags are preserved by each layer of the
-                          mesh, then the root could know that the destination
-                          is not RPL capable.
-                          </t>
-                          <t>
-                            The root would not however, due to the layers of
-                            mesh, know what the actual parent of the leaf
-                            node is.
-                        </t>
-                        <texttable title="Storing: Summary of the use of headers from root to not-RPL-aware-leaf">
-                                          <ttcol> Header</ttcol>
-                                          <ttcol> 6LBR</ttcol>
-                                          <ttcol> 6LR</ttcol>
-                                          <ttcol> IPv6</ttcol>
-                                          <c> Inserted headers</c>
-                                          <c> IP-in-IP(RPI)</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> IP-in-IP(RPI)</c>
-                                          <c> -- </c>
-                                          <c> Re-added headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Modified headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                        </texttable>
+                 <t> It has been suggested that this is an appropriate
+                 use of the RPL Transit Option's
+                 (<xref target="RFC6550" /> section 6.7.8) E-flag.
+                 If the E flag were to be set whenever a RPL 6LR
+                 learns of an adjacency from neighbor discovery, and
+                 these E flags are preserved by each layer of the
+                 mesh, then the root could know that the destination
+                 is not RPL capable.
+                 </t>
+                 <t>
+                   The root would not however, due to the layers of
+                   mesh, know what the actual parent of the leaf
+                   node is.
+                 </t>
+                 <texttable title="Storing: Summary of the use of headers from root to not-RPL-aware-leaf">
+                   <ttcol> Header</ttcol>
+                   <ttcol> 6LBR</ttcol>
+                   <ttcol> 6LR</ttcol>
+                   <ttcol> IPv6</ttcol>
+                   <c> Inserted headers</c>
+                   <c> IP-in-IP(RPI)</c>
+                   <c> -- </c>
+                   <c> -- </c>
+                   <c> Removed headers</c>
+                   <c> -- </c>
+                   <c> IP-in-IP(RPI)</c>
+                   <c> -- </c>
+                   <c> Re-added headers</c>
+                   <c> -- </c>
+                   <c> -- </c>
+                   <c> -- </c>
+                   <c> Modified headers</c>
+                   <c> -- </c>
+                   <c> -- </c>
+                   <c> -- </c>
+                   <c> Untouched headers</c>
+                   <c> -- </c>
+                   <c> -- </c>
+                   <c> -- </c>
+                 </texttable>
                </section>
 
                <section title="Example of Flow from not-RPL-aware-leaf to root">
@@ -2114,7 +2115,8 @@
            <t>
            The authors would like to acknowledge the review, feedback, and
            comments of Robert Cragie, Simon Duquennoy, Cenk Gündogan, Peter
-           van der Stok, Xavier Vilajosana and Thomas Watteyne.</t>
+           van der Stok, Xavier Vilajosana and Thomas Watteyne.
+           </t>
          </section>
 
 
