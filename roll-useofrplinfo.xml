@@ -681,14 +681,12 @@
                                 root (6LBR)--> 6LR --> not-RPL-aware-leaf (6LN)
                         </t>
 			<t>
-                          The question in this scenario is how the root knows
-                          how to address the IPv6-in-IPv6 header.  It can not
-                          know that the destination isn't RPL aware, so it
-                          must insert an IPv6 header that can be removed on the last
-                          RPL aware node.  Since the root can not know in a
-                          storing network where the last RPL aware node is,
-                          the IPv6-in-IPv6 header must be added hop-by-hop along
-                          the path from root to leaf.
+                          The question in this scenario is how can the root know
+                          what the previous RPL aware router is.  If it could
+                          tell, then it could address the IPv6-in-IPv6 header
+                          to the previous 6LR.
+                          The only way to do this is to insert hop-by-hop
+                          IPv6-in-IPv6 headers along the path from root to leaf.
                         </t>
                         <t>
                           The root (6LBR) uses IPv6-in-IPv6 encapsulation to transmit
@@ -697,11 +695,26 @@
                           header addressed to the last 6LR, which removes the
                           header before it passes the packet to the IPv6 node (6LN).
                         </t>
-                        
+
                         <t>
                           An alternative option is to add an attribute in the
                           RPL Target Option to indicate that the target is
-                          not RPL aware: future work may explore this possibility.
+                          not RPL aware: future work may explore this possibility.  </t>
+
+                          <t> It has been suggested that this is an appropriate
+                          use of the RPL Transit Option's
+                          (<xref target="RFC6550" /> section 6.7.8) E-flag.
+                          If the E flag were to be set whenever a RPL 6LR
+                          learns of an adjacency from neighbor discovery, and
+                          these E flags are preserved by each layer of the
+                          mesh, then the root could know that the destination
+                          is not RPL capable.
+                          </t>
+                          <t>
+                            The root would not however, due to the layers of
+                            mesh, know what the actual parent of the leaf
+                            node is.
+                          </t>
                         </t>
                         <texttable title="Storing: Summary of the use of headers from root to not-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
