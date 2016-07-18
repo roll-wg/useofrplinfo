@@ -171,6 +171,19 @@
         Terminology defined in <xref target="RFC7102"/> applies to this document: LBR, LLN, RPL, RPL Domain and ROLL.
         </t>
 
+        <section title="hop-by-hop IPv6-in-IPv6 headers">
+        <t>
+          The term "hop-by-hop IPv6-in-IPv6" header refers to: adding a header
+          that originates from a node to an adjacent node, using the
+          addresses (usually the GUA or ULA, but could use the link-local addresses)
+          of each node.  If the packet must traverse multiple hops, then it
+          must be decapsulated at each hop, and then re-encapsulated again
+          in a similar fashion.
+        </t>
+        </section>
+
+
+
        </section>
 
 
