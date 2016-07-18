@@ -548,7 +548,7 @@
                         In storing mode, RFC 6553 (RPI) is used
                         to send RPL Information instanceID and rank
                         information.
-                        </t>                        
+                        </t>
 			<t>
                          As stated in Section 16.2 of <xref
                          target="RFC6550"/>  a RPL-aware-leaf node does not
@@ -2114,7 +2114,8 @@
            </t>
            <t>
            The authors would like to acknowledge the review, feedback, and
-           comments of Thomas Watteyne, Xavier Vilajosana, Robert Cragie, Simon Duquennoy and Peter van der Stok.</t>
+           comments of Robert Cragie, Simon Duquennoy, Cenk Gündogan, Peter
+           van der Stok, Xavier Vilajosana and Thomas Watteyne.</t>
          </section>
 
 
@@ -2137,7 +2138,7 @@
 
    <references title="Informative References">
    <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
-     
+
      &RFC6775;
      &RFC4443;
      &RFC7102;
@@ -2161,3 +2162,8 @@ v00 2011-03-07  BPa  Initial version
      -->
  </back>
 </rfc>
+<!--
+    Local Variables:
+    mode: xml
+    End:
+-->
