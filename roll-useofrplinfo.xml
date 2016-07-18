@@ -714,7 +714,6 @@
                             The root would not however, due to the layers of
                             mesh, know what the actual parent of the leaf
                             node is.
-                          </t>
                         </t>
                         <texttable title="Storing: Summary of the use of headers from root to not-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
