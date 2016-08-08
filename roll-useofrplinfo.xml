@@ -173,10 +173,14 @@
         Terminology defined in <xref target="RFC7102"/> applies to this document: LBR, LLN, RPL, RPL Domain and ROLL.
         </t>
         <t>
-        RPL-node: It is device which implements RPL, thus we can say that the device is RPL-capable or RPL-aware. Please note that the device can be found inside the LLN or outside LLN
+        RPL-node: It is device which implements RPL, thus we can say that the device is RPL-capable or RPL-aware. 
+	Please note that the device can be found inside the LLN or outside LLN.
+	In this document a RPL-node which is a leaf is called RPL-aware-leaf.
         </t>
         <t>
-        RPL-not-capable: It is device which do not implement RPL, thus we can say that the device is not-RPL-aware. Please note that the device can be found inside the LLN.
+        RPL-not-capable: It is device which do not implement RPL, thus we can say that the device is not-RPL-aware. 
+	Please note that the device can be found inside the LLN.
+	In this document a not-RPL-node which is a leaf is called not-RPL-aware-leaf.
         </t>
 
         <section title="hop-by-hop IPv6-in-IPv6 headers">
