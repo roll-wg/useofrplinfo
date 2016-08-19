@@ -173,12 +173,12 @@
         Terminology defined in <xref target="RFC7102"/> applies to this document: LBR, LLN, RPL, RPL Domain and ROLL.
         </t>
         <t>
-        RPL-node: It is device which implements RPL, thus we can say that the device is RPL-capable or RPL-aware. 
+        RPL-node: It is device which implements RPL, thus we can say that the device is RPL-capable or RPL-aware.
 	Please note that the device can be found inside the LLN or outside LLN.
 	In this document a RPL-node which is a leaf is called RPL-aware-leaf.
         </t>
         <t>
-        RPL-not-capable: It is device which do not implement RPL, thus we can say that the device is not-RPL-aware. 
+        RPL-not-capable: It is device which do not implement RPL, thus we can say that the device is not-RPL-aware.
 	Please note that the device can be found inside the LLN.
 	In this document a not-RPL-node which is a leaf is called not-RPL-aware-leaf.
         </t>
@@ -1227,7 +1227,7 @@
                    The 6LBR will insert an RH3, and may optionally insert an
                    RPI header.   No IP-in-IP header is necessary as the traffic
                    originates with an RPL aware node, the 6LBR.
-                  The destination is known to 6LBR because, the root knows the whole topology in non-storing mode.
+                  The destination is known to RPL-aware because, the root knows the whole topology in non-storing mode.
                  </t>
 
                         <texttable title="Non Storing: Summary of the use of headers from root to RPL-aware-leaf">
@@ -1269,14 +1269,19 @@
                         <t>
                           In 6LBR the RH3 is added, modified in each intermediate 6LR and
                           it is fully consumed in the last 6LR, but left there.
-                          If the RPI is left present, the IPv6 node which
-                          does not understand it will drop it, therefore the
+                          If RPI is left present, the IPv6 node which
+                          does not understand it could drop it (with
+                          rfc2460-strict interpretation), therefore the
                           RPI should be removed before reaching the IPv6-only
                           node.  To permit removal, an IP-in-IP header
                           (hop-by-hop) or addressed to the last 6LR is
                           necessary.  Due the complete knowledge of the
                           topology at the root, the 6LBR is able to address
                           the IP-in-IP header to the last 6LR.
+                        </t>
+                        <t>
+                          EDNOTE: given 2460bis, we could change this, or
+                          leave it alone. COMMENTS?
                         </t>
                         <t>
                           Omitting the RPI entirely is therefore a better
@@ -1365,14 +1370,16 @@
                                 In this case the flow comprises:
                         </t>
                         <t>
-                                RPL-aware-leaf (6LN) --> 6LR --> root (6LBR) --> Internet
+                                RPL-aware-leaf (6LN) --> 6LR --..--> root (6LBR) --> Internet
                         </t>
                         <t>
-                                This case requires that the RPI be added, but
-                                removed by the 6LBR.  The 6LN must therefore
-                                add the RPI inside an IP-in-IP header, addressed
-                                to the root.  This case is identical to
-                                storing-mode case.
+                                This case requires that the RPI be added by
+                                the 6LR connect to the leaf.  The IPIP header that is added by
+                                the 6LR will be addressed to the root, so
+                                the root will remove the RPI before
+                                forwarding to the Internet.
+                                removed by the 6LBR.
+                                This case is identical to storing-mode case.
                         </t>
                         <t>
                           The IPv6 flow label should be set to zero to aid
@@ -1423,13 +1430,14 @@
                         </t>
                         <t>
                           The 6LBR must add an RH3 header.  As the 6LBR will
-                          know the path and address of the target not, it can
+                          know the path and address of the target node, it can
                           address the IP-in-IP header to that node.
                           The 6LBR will zero the flow label upon entry in
                           order to aid compression.
                         </t>
                         <t>
-                          The RPI may be added or not.
+                          The RPI may be added or not, depending upon whether
+                          the instanceID is important.
                         </t>
 
                         <texttable title="Non Storing: Summary of the use of headers from Internet to RPL-aware-leaf">
