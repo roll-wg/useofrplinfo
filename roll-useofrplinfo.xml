@@ -78,7 +78,7 @@
         <country>CA</country>
         </postal>
         <email>mcr+ietf@sandelman.ca</email>
-        <uri>http://www.sandelman.ca/</uri>
+        <uri>http://www.sandelman.ca/mcr/</uri>
      </address>
 
   </author>
@@ -280,10 +280,10 @@
                 ]]></artwork></figure>
                  </t>
                  <t> In Figure 2 is showed the reference RPL Topology for this document.   The numbers in or above the nodes are there so that
-                 they may be referenced in subsequent sections. In the figure, a 6LN can be a router or a host. 
-		 The 6LN leafs marked as (21) is a RPL host that does not have forwarding capability and (25) is a RPL router. 
-		The leaf marked 6LN (24) is a device which does not speak RPL at all (not-RPL-aware), 
-		but uses Router-Advertisements, 6LowPAN DAR/DAC and efficient-ND only to participate in the network <xref target="RFC6775"/>. 
+                 they may be referenced in subsequent sections. In the figure, a 6LN can be a router or a host.
+		 The 6LN leafs marked as (21) is a RPL host that does not have forwarding capability and (25) is a RPL router.
+		The leaf marked 6LN (24) is a device which does not speak RPL at all (not-RPL-aware),
+		but uses Router-Advertisements, 6LowPAN DAR/DAC and efficient-ND only to participate in the network <xref target="RFC6775"/>.
 		In the document this leaf (24) is often named IPv6 node. The 6LBR in the figure is the root of the Global DODAG.
                  </t>
                 <t>
@@ -352,9 +352,8 @@
             inserted or removed on the fly inside an IPv6 packet that is
             being routed.
             This is a fundamental precept of the IPv6 architecture as
-            outlined in <xref target="RFC2460" /> is that Extensions may not
-            be added or removed except by the sender or the receiver.  (A
-            revision to RFC2460 considered changing this rule, but has kept it)
+            outlined in <xref target="RFC2460" />.  Extensions may not
+            be added or removed except by the sender or the receiver.
           </t>
           <t>
             But, options in the Hop-by-Hop option which are marked with
@@ -371,49 +370,55 @@
             Extension Header (S)RH3.
           </t>
           <t>
-            With abolition of one of these rules it means that the RPI
+            The recent change to the second of these rules it means that the RPI
             Hop-by-Hop option MAY be left in place even if the end host does not
-            understand it. 
+            understand it.
           </t>
           <t>
-            NOTE: It means that RPI information travelling outside Internet may introduces security risks. 
-	    Additionally, it means also a waste of resources, sending not useful information to a non-RPL-destination.
-	    
+            NOTE: There is some possible security risk when the RPI
+            information is released to the Internet.  At this point this is
+            a theoretical situation.  It is clear that the RPI option would
+            waste some network bandwidth when it escapes.
           </t>
           <t>
             An intermediate router that needs to add an extension header
             (SHR3 or RPI Option) must encapsulate the packet in an
-            (additional) outer IP header where the new header can be placed.
+            (additional) outer IP header. The new header can be placed is
+            placed after this new outer IP header.
          </t>
-          <t>
-            This also means that a Header can only be removed by an
+         <t>
+           A corollory is that an SHR3 or RPI Option can only be removed by an
             intermediate router if it is placed in an encapsulating IPv6
-            Header, and in that case, the whole encapsulating header must be
-            removed - a replacement may be added. Further, an intermediate
-            router can only remove such an outer header if that outer header
-            has the router as the destination!
+            Header, which is addressed to the intermediate router.
+            When it does so, the whole encapsulating header must be
+            removed. (A replacement may be added).  This sometimes can
+            result in outer IP headers being addressed to the next hop
+            router using link-local addresses.
           </t>
           <t>
-            Both RPI and RH3 headers may be modified by routers on the path
-            of the packet without the need to add to remove an encapsulating
-            header.  Both headers were designed with this modification in
+            Both RPI and RH3 headers may be modified in very specific ways
+            by routers on the path of the packet without the need to add to
+            remove an encapsulating header.  Both headers were designed with
+            this modification in
             mind, and both the RPL RH and the RPL option are marked mutable
-            but recoverable, so an IPsec AH security header can be applied
-            across these headers, but it may not secure all the values in
-            those headers.
+            but recoverable: so an IPsec AH security header can be applied
+            across these headers, but it can not secure the values which mutate.
          </t>
           <t>
             RPI should be present in every single RPL data packet. There is one
             exception in non-storing mode: when a packet is going down from the
             root.  In a downward non-storing mode, the entire route is
             written, so there can be no loops by construction, nor any
-            confusion about which forwarding table to use.  There may be
-            cases (such as in 6tisch) where the instanceID may still be
-            needed to pick an appropriate priority or channel at each hop.
+            confusion about which forwarding table to use (as the root has
+            already made all routing decisions).  There still may be
+            cases (such as in 6tisch) where the instanceID portion of the RPI
+            header may still be needed to pick an appropriate priority or
+            channel at each hop.
           </t>
 
           <t>
-            In the tables present in this document, the term "RPL aware leaf" is has been shortened to
+            In the tables present in this document, the term "RPL aware leaf"
+            is has been shortened to
             "Raf", and "not-RPL aware leaf" has been shortened to "~Raf" to
             make the table fit in available space.
           </t>
@@ -1149,7 +1154,7 @@
                  <t>
                    The 6LR receives the packet from the the IPv6 node and inserts
                    the RPI header (RPIa) encapsulated in IPv6-in-IPv6 header.
-                   The IPv6-in-IPv6 header is addressed to the 6LBR. The 6LBR remove the IPv6-in-IPv6 header and 
+                   The IPv6-in-IPv6 header is addressed to the 6LBR. The 6LBR remove the IPv6-in-IPv6 header and
 		   insert another one (RPIb) with destination to 6LRn node.
                  </t>
                  <texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to non-RPL-aware-leaf">
@@ -1314,7 +1319,7 @@
                         </texttable>
                </section>
 
-               <section title=" Example of Flow from root to RPL-aware-leaf">
+               <section anchor="nsroottoraf" title=" Example of Flow from root to RPL-aware-leaf">
                  <t>
                    In this case the flow comprises:
                  </t>
@@ -1691,15 +1696,17 @@
                           original packet, and send the packet upwards.
                         </t>
                         <t>
-                          The originating node could put the RPI into an IP-in-IP
+                          The originating node SHOULD put the RPI into an IP-in-IP
                           header addressed to the root, so that the 6LBR can
-                          remove that header.
+                          remove that header.  If it does not, then
+                          additional resources are wasted on the way down to
+                          carry the useless RPI option.
                         </t>
                         <t>
                           The 6LBR will need to insert an RH3 header, which
-                          requires that it add an IP-in-IP header.  It may be
-                          able to remove the RPI if it was contained in an
-                          IP-in-IP header addressed to it.  Otherwise, there may
+                          requires that it add an IP-in-IP header.  It SHOULD be
+                          able to remove the RPI, as it was contained in an
+                          IP-in-IP header addressed to it.  Otherwise, there MAY
                           be an RPI header buried inside the inner IP header,
                           which should get ignored.
                         </t>
@@ -1707,7 +1714,8 @@
                  <t>
                    Networks that use the RPL P2P extension <xref target="RFC6997" />
                    are essentially non-storing DODAGs and fall into this
-                   scenario.
+                   scenario or scenario <xref target="nsroottoraf"/>, with
+                   the originating node acting as 6LBR.
                  </t>
 
 
@@ -1935,18 +1943,15 @@
           </t>
 
           <t>
-            If all RPL aware nodes can be told/configured that there are no
-            non-RPL aware leaf nodes, then the only case where an IP-in-IP header
-            is needed is when communicating outside the LLN.  The 6LBR knows
-            well when the communication is from the outside, and the 6LN
-            can tell by comparing the destination address to the prefix
-            provided in the PIO.  If it is known that there are no
-            communications outside the RPL domain (noting that the RPL domain
-            may well extend to outside the LLN), then RPI headers can be
-            included in all packets, and IP-in-IP headers are *never* needed.
-            This may be significantly advantageous in relatively closed
-            systems such as in building or industrial automation.
-            Again, there are advantages to having a single code path.
+            Thanks to the relaxation of the RFC2406 rule about discarding
+            unknown Hop-by-Hop options, there is no longer any uncertainty
+            about when to use an IPIP header in the storing mode case.
+            The RPI header SHOULD always be added when 6LRs originate
+            packets (without IPIP headers), and IPIP headers should always
+            be added (addressed to the root when on the way up, to the
+            end-host when on the way down) when a 6LR finds it needs to
+            insert an RPI header.
+            (XXX - this is a problem for storing mode optimization)
           </t>
 
           <t>
@@ -1968,16 +1973,6 @@
             receive a DAO about that node from the 6LN immediately above that
             node.  This means that the non-storing mode case can avoid ever
             using hop-by-hop IP-in-IP headers.
-          </t>
-          <t>
-            It is unclear what it would mean for an RH3 header to be present
-            in a hop-by-hop IP-in-IP header.  The receiving node ought to consume
-            the IP-in-IP header, and therefore consume the RH3 as well, and then
-            attempt to send the packet again.  But intermediate 6LN nodes
-            would not know how to forward the packet (because they do not save the sate), so the RH3 would need
-            to be retained.  This is a new kind of IPv6 packet processing.
-            Therefore it may be that on the outbound leg of non-storing RPL
-            networks, that hop-by-hop IP-in-IP header can NOT be used.
           </t>
           <t>
             <xref target="I-D.ietf-roll-routing-dispatch" /> shows how the
