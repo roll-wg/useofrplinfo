@@ -39,7 +39,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="info" docName="draft-ietf-roll-useofrplinfo-08" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-09" ipr="trust200902" updates="6550">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -160,6 +160,14 @@
                 proposed for the <xref target="Second6TischPlugtest"/>
                 involving 6loRH.
            </t>
+             <t>
+            The related document updates <xref target="RFC6550"/>. In general, any packet that leaves the RPL domain
+            of an LLN (or leaves the LLN entirely) will NOT be discarded, when it has the <xref target="RFC6553" /> RPL Option
+            Header known as the RPI or <xref target="RFC6554" /> SRH3 Extension Header (S)RH3. 
+	    Due to changes to <xref
+           target="I-D.ietf-6man-rfc2460bis"/> the RPI Hop-by-Hop option MAY be left in place even if the end host does not
+            understand it.
+          </t>
      </section>
 
      <section title="Terminology and Requirements Language">
