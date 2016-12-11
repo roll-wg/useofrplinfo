@@ -1436,7 +1436,7 @@
                                           <ttcol> 6LN</ttcol>
                                           <c> Inserted headers</c>
                                           <c> (opt: RPI), RH3</c>
-                                          <c> -- </c>Flow from root to RPL-aware-leaf
+                                          <c> -- </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
                                           <c> -- </c>
@@ -2099,8 +2099,9 @@
           </t>
 -->
           <t>
-           <xref target="I-D.ietf-roll-routing-dispatch" /> shows that this
-            hop-by-hop IP-in-IP header can be compressed down to {TBD} bytes.
+           <xref target="I-D.ietf-roll-routing-dispatch" /> shows that the
+            hop-by-hop IP-in-IP header can be compressed using IP-in-IP 6LoRH (IP-in-IP-6LoRH) header
+            as described in Section 7 of the document.
           </t>
           <t>
             There are potential significant advantages to having a single
@@ -2116,7 +2117,7 @@
             be added (addressed to the root when on the way up, to the
             end-host when on the way down) when a 6LR finds it needs to
             insert an RPI header.
-            (XXX - this is a problem for storing mode optimization)
+<!--        (XXX - this is a problem for storing mode optimization)  -->
           </t>
 
           <t>
