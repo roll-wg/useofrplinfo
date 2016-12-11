@@ -183,12 +183,12 @@
         <t>
         RPL-node: It is device which implements RPL, thus we can say that the device is RPL-capable or RPL-aware.
 	Please note that the device can be found inside the LLN or outside LLN.
-	In this document a RPL-node which is a leaf is called RPL-aware-leaf.
+	In this document a RPL-node which is a leaf of a DODAG is called RPL-aware-leaf.
         </t>
         <t>
         RPL-not-capable: It is device which do not implement RPL, thus we can say that the device is not-RPL-aware.
 	Please note that the device can be found inside the LLN.
-	In this document a not-RPL-node which is a leaf is called not-RPL-aware-leaf.
+	In this document a not-RPL-node which is a leaf of a DODAG is called not-RPL-aware-leaf.
         </t>
 
         <section title="hop-by-hop IPv6-in-IPv6 headers">
@@ -287,7 +287,7 @@
 
                 ]]></artwork></figure>
                  </t>
-                 <t> In Figure 2 is showed the reference RPL Topology for this document.   The numbers in or above the nodes are there so that
+                 <t> Figure 2 shows the reference RPL Topology for this document.   The numbers in or above the nodes are there so that
                  they may be referenced in subsequent sections. In the figure, a 6LN can be a router or a host.
 		 The 6LN leafs marked as (21) is a RPL host that does not have forwarding capability and (25) is a RPL router.
 		The leaf marked 6LN (24) is a device which does not speak RPL at all (not-RPL-aware),
@@ -388,7 +388,7 @@
             Extension Header (S)RH3.
           </t>
           <t>
-            The recent change to the second of these rules it means that the RPI
+            The recent change to the second of these rules means that the RPI
             Hop-by-Hop option MAY be left in place even if the end host does not
             understand it.
           </t>
@@ -443,7 +443,7 @@
 
           <t>
             The earlier examples are more extensive to make sure that the
-            process is clear, while later examples are more consise.
+            process is clear, while later examples are more concise.
           </t>
         </section>
 
@@ -451,7 +451,7 @@
         <section title=" Storing mode">
 
           <t>
-	   In storing mode (fully stateful), the sender cannot determine whether the destination is RPL-capable and
+	         In storing mode (fully stateful), the sender cannot determine whether the destination is RPL-capable and
            thus would need an IP-in-IP header. The IP-in-IP
            header needs to be addressed on a hop-by-hop basis so that the last 6LR can remove
            the RPI header. Additionally, The sender can determine if the destination is inside the LLN by
@@ -462,7 +462,7 @@
             The following table summarizes what headers are needed in the following
             scenarios, and indicates when the IP-in-IP header must be
             inserted on a hop-by-hop basis, and when it can target the
-            destination node directly.  There are three possible situations:
+            destination node directly.  There are these possible situations:
             hop-by-hop necessary (indicated by "hop"), or destination address
             possible (indicated by "dst").  In all cases hop by hop can be
             used. In cases where no IP-in-IP header is needed, the column is left blank.
@@ -472,7 +472,7 @@
             In all cases the RH3 is not need because we do not indicate the route in stroing mode.
           </t>
           <t>
-            The leaf can be a router 6LR or a host, both indicated as 6LN.
+            The leaf can be a router 6LR or a host, both indicated as 6LN (Figure 2).
           </t>
 
          <texttable anchor="table_storing" title="IP-in-IP encapsulation in Storing mode" >
@@ -726,6 +726,8 @@
                           6LR_i are the intermediate routers from source to destination.
                           In this case, "1 &lt; i &gt;= n", n is the number of routers (6LR)
                           that the packet go through from source (IPv6) to destination (6LBR).
+                          For example, 6LR_1 (i=1) is the router that receives the packets from the
+                          IPv6 node.
                         </t>
                         <t>
                                 When the packet arrives from IPv6 node to
@@ -790,6 +792,10 @@
                         </t>
                         <t>
                           No IP-in-IP header is required.
+                        </t>
+                        <t>
+                          Note: In this use case we use a node as leaf, but this use case can be also
+                          applicable to any RPL-node type (e.g. 6LR)
                         </t>
 
                         <texttable title="Storing: Summary of the use of headers from RPL-aware-leaf to Internet">
@@ -905,8 +911,8 @@
                  </t>
                  <t>
                    The originating node will ideally leave the IPv6 flow
-                   label as zero so that it can be better compressed through
-                   the LLN, and the 6LBR will set the flow label to a
+                   label as zero so that the packet can be better compressed through
+                   the LLN. The 6LBR will set the flow label of the packet to a
                    non-zero value when sending to the Internet.
                  </t>
 
@@ -970,9 +976,8 @@
                         </t>
                         <t>
                           The 6LBR MAY set the flow label on the inner IP-in-IP
-                          header to zero in order to aid in compression, as
-                          the packet will not emerge again from the LLN.
-                        </t>
+                          header to zero in order to aid in compression.
+                       </t>
                         <texttable title="Storing: Summary of the use of headers from Internet to non-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> Internet</ttcol>
@@ -1049,7 +1054,7 @@
                  <texttable title="Storing: Summary of the use of headers for RPL-aware-leaf to RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LN src</ttcol>
-                                          <ttcol> 6LR_1</ttcol>
+                                          <ttcol> 6LR_ia</ttcol>
                                           <ttcol> 6LR_x (common parent)</ttcol>
                                           <ttcol> 6LR_id</ttcol>
                                           <ttcol> 6LN dst</ttcol>
@@ -1073,9 +1078,9 @@
                                           <c> -- </c>
                                           <c> Modified headers</c>
                                           <c> -- </c>
-                                          <c> RPI (decreasing rank) </c>
-                                          <c> RPI (increasing rank) </c>
-                                          <c> RPI (increasing rank) </c>
+                                          <c> RPI  </c>
+                                          <c> RPI  </c>
+                                          <c> RPI  </c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
                                           <c> -- </c>
