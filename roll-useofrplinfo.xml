@@ -689,8 +689,8 @@
                         <texttable title="Storing: Summary of the use of headers from root to not-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LBR</ttcol>
-                                          <ttcol> 6LR(1..N)</ttcol>
-                                          <ttcol> 6LN</ttcol>
+                                          <ttcol> 6LR_i</ttcol>
+                                          <ttcol> IPv6</ttcol>
                                           <c> Inserted headers</c>
                                           <c> RPI </c>
                                           <c> -- </c>
@@ -905,7 +905,7 @@
                    that the packet go through from source(IPv6) to 6LBR.
                  </t>
                  <t>
-                   The 6LR_i node will add an IP-in-IP(RPI) header addressed either
+                   The 6LR_1 (i=1) node will add an IP-in-IP(RPI) header addressed either
                    to the root, or hop-by-hop such that the root can remove
                    the RPI header before passing upwards.
                  </t>
@@ -920,7 +920,7 @@
                                           <ttcol> Header</ttcol>
                                           <ttcol> IPv6 </ttcol>
                                           <ttcol> 6LR_1</ttcol>
-                                          <ttcol> 6LR_i</ttcol>
+                                          <ttcol> 6LR_i [i=2,..,n]_</ttcol>
                                           <ttcol> 6LBR</ttcol>
                                           <ttcol> Internet</ttcol>
                                           <c> Inserted headers</c>
@@ -1116,9 +1116,9 @@
                  <texttable title="Storing: Summary of the use of headers for RPL-aware-leaf to RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LN src</ttcol>
-                                          <ttcol> 6LR1</ttcol>
-                                          <ttcol> 6LRx (common parent)</ttcol>
-                                          <ttcol> 6LRN</ttcol>
+                                          <ttcol> 6LR_ia</ttcol>
+                                          <ttcol> 6LR_x(common parent)</ttcol>
+                                          <ttcol> 6LR_id</ttcol>
                                           <ttcol> IPv6</ttcol>
                                           <c> Inserted headers</c>
                                           <c> RPI </c>
@@ -1140,9 +1140,9 @@
                                           <c> -- </c>
                                           <c> Modified headers</c>
                                           <c> -- </c>
-                                          <c> RPI (decreasing rank) </c>
-                                          <c> RPI (increasing rank)</c>
-                                          <c> RPI (increasing rank) </c>
+                                          <c> RPI  </c>
+                                          <c> RPI </c>
+                                          <c> RPI  </c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
                                           <c> -- </c>
@@ -1369,7 +1369,12 @@
                         </t>
 
                         <t>
-                        RPL-aware-leaf (6LN) --> 6LR --> root (6LBR)
+                        RPL-aware-leaf (6LN) --> 6LR_i --> root(6LBR)
+                        </t>
+                        <t>
+                          6LR_i are the intermediate routers from source to destination.
+                          In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
+                          that the packet go through from source (6LN) to destination (6LBR).
                         </t>
                         <t>
                         This situation is the same case as storing mode.
@@ -1378,7 +1383,7 @@
                         <texttable title="Non Storing: Summary of the use of headers from RPL-aware-leaf to root">
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LN</ttcol>
-                                          <ttcol> 6LR</ttcol>
+                                          <ttcol> 6LR_i</ttcol>
                                           <ttcol> 6LBR</ttcol>
                                           <c> Inserted headers</c>
                                           <c> RPI</c>
@@ -1410,7 +1415,12 @@
                  </t>
                  <t>
 
-                   root (6LBR)--> 6LR --> RPL-aware-leaf (6LN)
+                         root (6LBR) --> 6LR_i --> RPL-aware-leaf (6LN)
+                 </t>
+                 <t>
+                   6LR_i are the intermediate routers from source to destination.
+                   In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
+                   that the packet go through from source (6LBR) to destination (6LN).
                  </t>
                  <t>
                    The 6LBR will insert an RH3, and may optionally insert an
@@ -1422,11 +1432,11 @@
                         <texttable title="Non Storing: Summary of the use of headers from root to RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LBR</ttcol>
-                                          <ttcol> 6LR</ttcol>
+                                          <ttcol> 6LR_i</ttcol>
                                           <ttcol> 6LN</ttcol>
                                           <c> Inserted headers</c>
                                           <c> (opt: RPI), RH3</c>
-                                          <c> -- </c>
+                                          <c> -- </c>Flow from root to RPL-aware-leaf
                                           <c> -- </c>
                                           <c> Removed headers</c>
                                           <c> -- </c>
@@ -1452,24 +1462,27 @@
                                 In this case the flow comprises:
                         </t>
                         <t>
-
-                                root (6LBR)---> 6LR_i --> not-RPL-aware-leaf (IPv6)
+                                root (6LBR) --> 6LR_i --> not-RPL-aware-leaf (IPv6)
                         </t>
                         <t>
-                          In 6LBR the RH3 is added, modified in each intermediate 6LR (6LR1 and so on) and
-                          it is fully consumed in the last 6LR (6LRn), but left there.
+                          6LR_i are the intermediate routers from source to destination.
+                          In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
+                          that the packet go through from source (6LBR) to destination (IPv6).
+                        </t>
+                        <t>
+                          In 6LBR the RH3 is added, modified in each intermediate 6LR (6LR_1 and so on) and
+                          it is fully consumed in the last 6LR (6LR_n), but left there.
                           If RPI is left present, the IPv6 node which
                           does not understand it will ignore it (following 2460bis), thus encapsulation is not necesary.
-			  Due the complete knowledge of the
-                          topology at the root, the 6LBR is able to address
+			                    Due the complete knowledge of the topology at the root, the 6LBR is able to address
                           the IP-in-IP header to the last 6LR.
                         </t>
 
                                <texttable title=" Non Storing: Summary of the use of headers from root to not-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LBR</ttcol>
-                                          <ttcol> 6LR1</ttcol>
-                                          <ttcol> 6LRn</ttcol>
+                                          <ttcol> 6LR_i(i=1)</ttcol>
+                                          <ttcol> 6LR_n(i=n)</ttcol>
                                           <ttcol> IPv6</ttcol>
                                           <c> Inserted headers</c>
                                           <c> (opt: RPI), RH3 </c>
@@ -1505,7 +1518,14 @@
                         </t>
                         <t>
 
-                                IPv6-node --> 6LR_i --> root (6LBR)
+                                not-RPL-aware-leaf (IPv6) --> 6LR_1 --> 6LR_i --> root (6LBR)
+                        </t>
+                        <t>
+                          6LR_i are the intermediate routers from source to destination.
+                          In this case, "1 &lt; i &gt;= n", n is the number of routers (6LR)
+                          that the packet go through from source (IPv6) to destination (6LBR).
+                          For example, 6LR_1 (i=1) is the router that receives the packets from the
+                          IPv6 node.
                         </t>
                         <t>
                           In this case the RPI is added by the first
@@ -1517,8 +1537,8 @@
                         <texttable title="Non Storing: Summary of the use of headers from not-RPL-aware-leaf to root">
                                           <ttcol> Header</ttcol>
                                           <ttcol> IPv6</ttcol>
-                                          <ttcol> 6LR1</ttcol>
-                                          <ttcol> 6LR2</ttcol>
+                                          <ttcol> 6LR_1</ttcol>
+                                          <ttcol> 6LR_i</ttcol>
                                           <ttcol> 6LBR</ttcol>
                                           <c> Inserted headers</c>
                                           <c> -- </c>
@@ -1553,7 +1573,13 @@
                                 In this case the flow comprises:
                         </t>
                         <t>
+
                                 RPL-aware-leaf (6LN) --> 6LR_i --> root (6LBR) --> Internet
+                        </t>
+                        <t>
+                          6LR_i are the intermediate routers from source to destination.
+                          In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
+                          that the packet go through from source (6LN) to 6LBR.
                         </t>
                         <t>
                                 This case is identical to storing-mode case.
@@ -1567,7 +1593,7 @@
                         <texttable title="Non Storing: Summary of the use of headers from RPL-aware-leaf to Internet">
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LN</ttcol>
-                                          <ttcol> 6LR(1..N)</ttcol>
+                                          <ttcol> 6LR_i</ttcol>
                                           <ttcol> 6LBR</ttcol>
                                           <ttcol> Internet</ttcol>
                                           <c> Inserted headers</c>
@@ -1603,7 +1629,13 @@
                                 In this case the flow comprises:
                         </t>
                         <t>
+
                                 Internet --> root (6LBR) --> 6LR_i --> RPL-aware-leaf (6LN)
+                        </t>
+                        <t>
+                          6LR_i are the intermediate routers from source to destination.
+                          In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
+                          that the packet go through from 6LBR to destination(6LN).
                         </t>
                         <t>
                           The 6LBR must add an RH3 header.  As the 6LBR will
@@ -1620,7 +1652,7 @@
                           <ttcol> Header</ttcol>
                           <ttcol> Internet</ttcol>
                           <ttcol> 6LBR</ttcol>
-                          <ttcol> 6LR</ttcol>
+                          <ttcol> 6LR_i</ttcol>
                           <ttcol> 6LN</ttcol>
                           <c> Inserted headers</c>
                           <c> -- </c>
@@ -1655,13 +1687,17 @@
                                 In this case the flow comprises:
                         </t>
                         <t>
-
-                                not-RPL-aware-leaf (IPv6) --> 6LR_i --> root (6LBR) -->  Internet
+                          not-RPL-aware-leaf (IPv6) --> 6LR_1 --> 6LR_i -->root (6LBR) --> Internet
+                        </t>
+                        <t>
+                          6LR_i are the intermediate routers from source to destination.
+                          In this case, "1 &lt; i &gt;= n", n is the number of routers (6LR)
+                          that the packet go through from source(IPv6) to 6LBR. e.g 6LR_1 (i=1).
                         </t>
                         <t>
                                 In this case the flow label is recommended to
                                 be zero in the IPv6 node. As RPL headers are
-                                added in the IPv6 node, the first 6LN will
+                                added in the IPv6 node, the first 6LR (6LR_1) will
                                 add an RPI header inside a new IP-in-IP header.
                                 The IP-in-IP header will be addressed to the
                                 root.  This case is identical to the
@@ -1671,8 +1707,8 @@
                         <texttable title="Non Storing: Summary of the use of headers from not-RPL-aware-leaf to Internet">
                                           <ttcol> Header</ttcol>
                                           <ttcol> IPv6</ttcol>
-                                          <ttcol> 6LR1</ttcol>
-                                          <ttcol> 6LRn</ttcol>
+                                          <ttcol> 6LR_1</ttcol>
+                                          <ttcol> 6LR_i [i=2,..,n]_</ttcol>
                                           <ttcol> 6LBR</ttcol>
                                           <ttcol> Internet</ttcol>
                                           <c> Inserted headers</c>
@@ -1708,14 +1744,21 @@
                         </texttable>
                </section>
 
-               <section title=" Example of Flow from Internet to non-RPL-aware-leaf">
+               <section title=" Example of Flow from Internet to not-RPL-aware-leaf">
 
                         <t>
                                 In this case the flow comprises:
                         </t>
                         <t>
+
                                 Internet --> root (6LBR) --> 6LR_i --> not-RPL-aware-leaf (IPv6)
                         </t>
+                        <t>
+                          6LR_i are the intermediate routers from source to destination.
+                          In this case, "1 &lt; i &gt;= n", n is the number of routers (6LR)
+                          that the packet go through from 6LBR to not-RPL-aware-leaf (IPv6).
+                        </t>
+
                         <t>
                           The 6LBR must add an RH3 header inside an IP-in-IP
                           header.
@@ -1732,8 +1775,8 @@
                           <ttcol> Header</ttcol>
                           <ttcol> Internet</ttcol>
                           <ttcol> 6LBR</ttcol>
-                          <ttcol> 6LR1</ttcol>
-                          <ttcol> 6LRn</ttcol>
+                          <ttcol> 6LR_1</ttcol>
+                          <ttcol> 6LR_i(i=2,..,n)</ttcol>
                           <ttcol> IPv6</ttcol>
                           <c> Inserted headers</c>
                           <c> -- </c>
@@ -1773,7 +1816,17 @@
                         In this case the flow comprises:
                         </t>
                         <t>
-                         6LN --> 6LR_1 --> root (6LBR) --> 6LR_n -->  6LN
+                         6LN src --> 6LR_ia --> root (6LBR) --> 6LR_id -->  6LN dst
+                        </t>
+                        <t>
+                          6LR_ia are the intermediate routers from source to the root
+                          In this case, "1 &lt;= ia &gt;= n", n is the number of routers (6LR)
+                          that the packet go through from 6LN to the root.
+                        </t>
+                        <t>
+                          6LR_id are the intermediate routers from the root to the destination.
+                          In this case, "1 &lt;= ia &gt;= m", m is the number of the
+                          intermediate routers (6LR).
                         </t>
                         <t>
                           This case involves only nodes in same RPL Domain.
@@ -1807,9 +1860,9 @@
                  <texttable title="Non Storing: Summary of the use of headers for RPL-aware-leaf to RPL-aware-leaf">
                    <ttcol> Header</ttcol>
                    <ttcol> 6LN src</ttcol>
-                   <ttcol> 6LR1 </ttcol>
+                   <ttcol> 6LR_ia </ttcol>
                    <ttcol> 6LBR</ttcol>
-                   <ttcol> 6LRN</ttcol>
+                   <ttcol> 6LR_id</ttcol>
                    <ttcol> 6LN dst</ttcol>
                    <c> Inserted headers</c>
                    <c> IP-in-IP(RPI1) </c>
@@ -1852,31 +1905,40 @@
                          6LN --> 6LR_ia --> root (6LBR) --> 6LR_id -->  not-RPL-aware (IPv6)
                         </t>
                         <t>
-                          As in the previous case, the 6LN will insert an RPI (RPI1)
+                          6LR_ia are the intermediate routers from source to the root
+                          In this case, "1 &lt;= ia &gt;= n", n is the number of intermediate routers (6LR)
+                        </t>
+                        <t>
+                          6LR_id are the intermediate routers from the root to the destination.
+                          In this case, "1 &lt;= ia &gt;= m", m is the number of the
+                          intermediate routers (6LR).
+                        </t>
+                        <t>
+                          As in the previous case, the 6LN will insert an RPI (RPI_1)
                           header which MUST be in an IP-in-IP header addressed to
                           the root so that the 6LBR can remove this RPI.
                           The 6LBR will then insert an RH3 inside a new IP-in-IP
-                          header addressed to the 6LN destination node. The RPI is optional from 6LBR to 6LRn (RPI2).
+                          header addressed to the 6LN destination node. The RPI is optional from 6LBR to 6LR_id (RPI_2).
                         </t>
 
                                        <texttable title="Non Storing: Summary of the use of headers from RPL-aware-leaf to not-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LN</ttcol>
-                                          <ttcol> 6LR1</ttcol>
+                                          <ttcol> 6LR_1</ttcol>
                                           <ttcol> 6LBR</ttcol>
-                                          <ttcol> 6LRn</ttcol>
+                                          <ttcol> 6LR_id</ttcol>
                                           <ttcol> IPv6</ttcol>
                                           <c> Inserted headers</c>
                                           <c> IP-in-IP(RPI1) </c>
                                           <c> -- </c>
-                                          <c>  IP-in-IP(RH3, opt RPI2) </c>
+                                          <c>  IP-in-IP(RH3, opt RPI_2) </c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI1) </c>
-                                          <c> IP-in-IP(RH3, opt RPI2) </c>
+                                          <c> IP-in-IP(RPI_1) </c>
+                                          <c> IP-in-IP(RH3, opt RPI_2) </c>
                                           <c> -- </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
@@ -1886,16 +1948,16 @@
                                           <c> -- </c>
                                           <c> Modified headers</c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI1) </c>
+                                          <c> IP-in-IP(RPI_1) </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RH3, opt RPI2) </c>
+                                          <c> IP-in-IP(RH3, opt RPI_2) </c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> opt RPI2 </c>
+                                          <c> opt RPI_2 </c>
                         </texttable>
                </section>
 
@@ -1908,32 +1970,41 @@
                          not-RPL-aware 6LN (IPv6) --> 6LR_ia --> root (6LBR) --> 6LR_id -->  6LN
                         </t>
                         <t>
+                          6LR_ia are the intermediate routers from source to the root
+                          In this case, "1 &lt;= ia &gt;= n", n is the number of intermediate routers (6LR)
+                        </t>
+                        <t>
+                          6LR_id are the intermediate routers from the root to the destination.
+                          In this case, "1 &lt;= ia &gt;= m", m is the number of the
+                          intermediate routers (6LR).
+                        </t>
+                        <t>
                           This scenario is mostly identical to the previous
-                          one.  The RPI is added by the first 6LR (6LR1) inside an
+                          one.  The RPI is added by the first 6LR (6LR_1) inside an
                           IP-in-IP header addressed to the root.  The 6LBR will
                           remove this RPI, and add it's own IP-in-IP header
-                          containing an RH3 header and optional RPI (RPI2).
+                          containing an RH3 header and optional RPI (RPI_2).
                         </t>
 
                                 <texttable title="Non Storing: Summary of the use of headers from not-RPL-aware-leaf to RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> IPv6</ttcol>
-                                          <ttcol> 6LR1</ttcol>
+                                          <ttcol> 6LR_1</ttcol>
                                           <ttcol> 6LBR</ttcol>
-                                          <ttcol> 6LRn</ttcol>
+                                          <ttcol> 6LR_id</ttcol>
                                           <ttcol> 6LN</ttcol>
                                           <c> Inserted headers</c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI1) </c>
-                                          <c> IP-in-IP(RH3, opt RPI2)</c>
+                                          <c> IP-in-IP(RPI_1) </c>
+                                          <c> IP-in-IP(RH3, opt RPI_2)</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI1) </c>
+                                          <c> IP-in-IP(RPI_1) </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RH3, opt RPI2) </c>
+                                          <c> IP-in-IP(RH3, opt RPI_2) </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
@@ -1944,7 +2015,7 @@
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RH3, opt RPI2) </c>
+                                          <c> IP-in-IP(RH3, opt RPI_2) </c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
                                           <c> -- </c>
@@ -1964,26 +2035,35 @@
                          not-RPL-aware 6LN (IPv6 src)--> 6LR_ia --> root (6LBR) --> 6LR_id --> not-RPL-aware (IPv6 dst)
                         </t>
                         <t>
+                          6LR_ia are the intermediate routers from source to the root
+                          In this case, "1 &lt;= ia &gt;= n", n is the number of intermediate routers (6LR)
+                        </t>
+                        <t>
+                          6LR_id are the intermediate routers from the root to the destination.
+                          In this case, "1 &lt;= ia &gt;= m", m is the number of the
+                          intermediate routers (6LR).
+                        </t>
+                        <t>
                           This scenario is the combination of the previous two cases.
                         </t>
                                 <texttable title="Non Storing: Summary of the use of headers from not-RPL-aware-leaf to not-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> IPv6 src </ttcol>
-                                          <ttcol> 6LR1</ttcol>
+                                          <ttcol> 6LR_1</ttcol>
                                           <ttcol> 6LBR</ttcol>
-                                          <ttcol> 6LRn</ttcol>
+                                          <ttcol> 6LR_id</ttcol>
                                           <ttcol> IPv6 dst</ttcol>
                                           <c> Inserted headers</c>
                                           <c> -- </c>
-                                          <c>  IP-in-IP(RPI1) </c>
+                                          <c>  IP-in-IP(RPI_1) </c>
                                           <c>  IP-in-IP(RH3) </c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI1) </c>
-                                          <c> IP-in-IP(RH3, opt RPI2) </c>
+                                          <c> IP-in-IP(RPI_1) </c>
+                                          <c> IP-in-IP(RH3, opt RPI_2) </c>
                                           <c> -- </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
