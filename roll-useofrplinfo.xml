@@ -314,6 +314,16 @@
            <t>This version of the document assumes the changes in <xref
            target="I-D.ietf-6man-rfc2460bis"/> are passed (at the time to write this specification, the draft is on version 05).
            </t>
+           <t>
+             The uses cases describe the communication between RPL-aware-nodes, with the root (6LBR),  and with Internet.
+             This document also describe the communication between nodes acting as leaf that does not understand RPL and they are part of hte LLN.
+             We name these nodes as not-RPL-aware-leaf.(e.g. section 5.4- Flow from not-RPL-aware-leaf to root)
+             We describe also how is the communication inside of the LLN when it has the final destination addressed outside of the LLN e.g. with
+             destination to Internet. (e.g. section 5.7- Flow from not-RPL-aware-leaf to Internet)
+          </t>
+           <t>
+             The uses cases comprise as follow:
+           </t>
 
            <t>
            <list>
