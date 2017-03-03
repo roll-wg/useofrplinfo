@@ -8,10 +8,16 @@
 <!ENTITY RFC7102 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7102.xml">
 <!ENTITY RFC4443 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4443.xml">
 <!ENTITY RFC6775 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6775.xml">
+<!ENTITY RFC2473 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2473.xml">
+<!ENTITY RFC4302 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4302.xml">
+<!ENTITY RFC4301 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4301.xml">
+<!ENTITY RFC4303 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4303.xml">
+<!ENTITY RFC7321 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7321.xml">
+<!ENTITY RFC7416 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7416.xml">
 <!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">
 <!ENTITY I-D.ietf-6man-rfc2460bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6man-rfc2460bis.xml">
-
-
+<!ENTITY I-D.ietf-roll-routing-dispatch SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-routing-dispatch.xml">
+<!ENTITY I-D.moore-iot-security-bcp SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.moore-iot-security-bcp.xml">
 ]>
 
 <!--<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> -->
@@ -39,7 +45,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-10" ipr="trust200902" updates="6550">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-11" ipr="trust200902" updates="6550">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -98,7 +104,7 @@
 
   </author>
 
-  <date year="2016" />
+  <date year="2017" />
 
    <area>Internet</area>
 
@@ -2193,6 +2199,25 @@
          <xref target="RFC6554"/> apply when the packets get into RPL
          Domain.
           </t>
+          <t>
+            <xref target="RFC2473"/> describes a generic IPIP mechanism, and describes a number of concerns in the Security Considerations.
+            They are: securing the IPv6 path between the tunnel entry-point and exit-point node and a secure IPv6 tunnel
+            may act as a gateway-to-gateway.
+          </t>
+           <t>
+            Securing the IPv6 path between the tunnel entry-point and exit-point node applies to this document <xref target="RFC7321"/>.
+            An IPsec AH security header <xref target="RFC4302"/> can be applied across these headers, but it can not secure the values which mutate.
+            So for this draft, ESP <xref target="RFC4303"/> does not apply.
+          </t>
+           <t>
+            A secure IPv6 tunnel acting as a gateway-to-gateway applies to this document when two 6LBR are connected.<xref target="RFC4301"/>
+            As <xref target="RFC2473"/> states,  in case of nested tunnels, each inner tunnel may have its own set of security services,
+            independently from those of the outer tunnels, or of those between the source and destination of the original packet.
+          </t>
+          <t>
+          Additionally, it should be considered look into  <xref target="I-D.moore-iot-security-bcp"/> and <xref target="RFC7416"/>
+          to consider possibly threats.
+          </t>
         </section>
 
         <section anchor="Acknowledgments" title="Acknowledgments">
@@ -2224,6 +2249,12 @@
      <?ref include="reference.I-D.ietf-6man-rfc2460bis" ?>
 
      &RFC6550;
+     &RFC2473;
+     &RFC4302;
+     &RFC4303;
+     &RFC4301;
+     &RFC7321;
+     &RFC7416;
    </references>
 
    <references title="Informative References">
@@ -2234,6 +2265,7 @@
      &RFC7102;
      &I-D.ietf-6tisch-architecture;
      <?rfc include="reference.I-D.ietf-roll-routing-dispatch" ?>
+     <?rfc include="reference.I-D.moore-iot-security-bcp" ?>
      <?rfc include="reference.RFC.6997" ?>
 
         <reference anchor="Second6TischPlugtest" target="http://www.ietf.org/mail-archive/web/6tisch/current/pdfgDMQcdCkRz.pdf">
