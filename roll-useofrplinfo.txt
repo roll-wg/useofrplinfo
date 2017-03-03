@@ -104,8 +104,8 @@ Table of Contents
    8.  6LoRH Compression cases . . . . . . . . . . . . . . . . . . .  32
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  32
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  33
-   11. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  34
-   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  34
+   11. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  35
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  35
 
 
 
@@ -114,9 +114,9 @@ Robles, et al.          Expires September 4, 2017               [Page 2]
 Internet-Draft                  Useof6553                     March 2017
 
 
-     12.1.  Normative References . . . . . . . . . . . . . . . . . .  34
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  35
      12.2.  Informative References . . . . . . . . . . . . . . . . .  36
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  37
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  38
 
 1.  Introduction
 
@@ -1873,6 +1873,55 @@ Internet-Draft                  Useof6553                     March 2017
    would be cheaper should RPL be run in an environment where hostile
    nodes are likely to be a part of the LLN.
 
+   The RH3 header usage described here can be abused in equivalent ways
+   to the IPIP header.  In non-storing networks where an RH3 may be
+   acted upon, packets arriving into the LLN will be encapsulated with
+   an IPIP header in order to add the needed RH3 header.  As such, the
+   attacker's RH3 header will not be seen by the network until it
+   reaches the end host, which will decapsulate it.  An end-host SHOULD
+   be suspicious about a RH3 header which has additional hops which have
+   not yet been processed, and SHOULD ignore such a second RH3 header.
+
+   In addition, the LLN will likely use [I-D.ietf-roll-routing-dispatch]
+   to compress the IPIP and RH3 headers.  As such, the compressor at the
+   RPL-root will see the second RH3 header and MAY choose to discard the
+   packet if the RH3 header has not been completely consumed.  A
+   consumed (inert) RH3 header could be present in a packet that flows
+   from one LLN, crosses the Internet, and enters another LLN.  As per
+   the discussion in this document, such headers do not need to be
+   removed.  However, there is no case described in this document where
+   an RH3 is inserted in a non-storing network on traffic that is
+   leaving the LLN, but this document SHOULD NOT preclude such a future
+   innovation.  It should just be noted that an incoming RH3 must be
+   fully consumed, or very carefully inspected.
+
+   The RPI header, if permitted to enter the LLN, could be used by an
+   attacker to change the priority of a packet by selecting a different
+   RPL instanceID, perhaps one with a higher energy cost, for instance.
+
+
+
+Robles, et al.          Expires September 4, 2017              [Page 34]
+
+Internet-Draft                  Useof6553                     March 2017
+
+
+   It could also be that not all nodes are reachable in an LLN using the
+   default instanceID, but a change of instanceID would permit an
+   attacker to bypass such filtering.  Like the RH3, an RPI header is to
+   be inserted by the RPL root on traffic entering the LLN by first
+   inserting an IPIP header.  The attacker's RPI header therefore will
+   not be seen by the network.  Upon reaching the destination node the
+   RPI header has no further meaning and is just skipped; the presence
+   of a second RPI header will have no meaning to the end node as the
+   packet has already been identified as being at it's final
+   destination.
+
+   The RH3 and RPI headers could be abused by an attacker inside of the
+   network to route packets on non-obvious ways, perhaps eluding
+   observation.  This usage is in fact part of [RFC6997] and can not be
+   restricted at all.  This is a feature, not a bug.
+
    [RFC7416] deals with many other threats to LLNs not directly related
    to the use of IPIP headers, and this document does not change that
    analysis.
@@ -1895,17 +1944,6 @@ Internet-Draft                  Useof6553                     March 2017
               (IPv6) Specification", draft-ietf-6man-rfc2460bis-08 (work
               in progress), November 2016.
 
-
-
-
-
-
-
-Robles, et al.          Expires September 4, 2017              [Page 34]
-
-Internet-Draft                  Useof6553                     March 2017
-
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -1913,6 +1951,16 @@ Internet-Draft                  Useof6553                     March 2017
 
    [RFC2460]  Deering, S. and R. Hinden, "Internet Protocol, Version 6
               (IPv6) Specification", RFC 2460, December 1998.
+
+
+
+
+
+
+Robles, et al.          Expires September 4, 2017              [Page 35]
+
+Internet-Draft                  Useof6553                     March 2017
+
 
    [RFC2473]  Conta, A. and S. Deering, "Generic Packet Tunneling in
               IPv6 Specification", RFC 2473, DOI 10.17487/RFC2473,
@@ -1955,13 +2003,6 @@ Internet-Draft                  Useof6553                     March 2017
               (RPLs)", RFC 7416, DOI 10.17487/RFC7416, January 2015,
               <http://www.rfc-editor.org/info/rfc7416>.
 
-
-
-Robles, et al.          Expires September 4, 2017              [Page 35]
-
-Internet-Draft                  Useof6553                     March 2017
-
-
 12.2.  Informative References
 
    [DDOS-KREBS]
@@ -1969,6 +2010,13 @@ Internet-Draft                  Useof6553                     March 2017
               >145k hacked cameras", September 2016,
               <http://arstechnica.com/security/2016/09/botnet-of-145k-
               cameras-reportedly-deliver-internets-biggest-ddos-ever/>.
+
+
+
+Robles, et al.          Expires September 4, 2017              [Page 36]
+
+Internet-Draft                  Useof6553                     March 2017
+
 
    [I-D.ietf-6tisch-architecture]
               Thubert, P., "An Architecture for IPv6 over the TSCH mode
@@ -2008,16 +2056,6 @@ Internet-Draft                  Useof6553                     March 2017
               RFC 6775, DOI 10.17487/RFC6775, November 2012,
               <http://www.rfc-editor.org/info/rfc6775>.
 
-
-
-
-
-
-Robles, et al.          Expires September 4, 2017              [Page 36]
-
-Internet-Draft                  Useof6553                     March 2017
-
-
    [RFC6997]  Goyal, M., Ed., Baccelli, E., Philipp, M., Brandt, A., and
               J. Martocci, "Reactive Discovery of Point-to-Point Routes
               in Low-Power and Lossy Networks", RFC 6997,
@@ -2027,6 +2065,14 @@ Internet-Draft                  Useof6553                     March 2017
    [RFC7102]  Vasseur, JP., "Terms Used in Routing for Low-Power and
               Lossy Networks", RFC 7102, DOI 10.17487/RFC7102, January
               2014, <http://www.rfc-editor.org/info/rfc7102>.
+
+
+
+
+Robles, et al.          Expires September 4, 2017              [Page 37]
+
+Internet-Draft                  Useof6553                     March 2017
+
 
    [Second6TischPlugtest]
               "2nd 6Tisch Plugtest", <http://www.ietf.org/mail-
@@ -2069,4 +2115,14 @@ Authors' Addresses
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 37]
+
+
+
+
+
+
+
+
+
+
+Robles, et al.          Expires September 4, 2017              [Page 38]

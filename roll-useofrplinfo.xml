@@ -2195,9 +2195,9 @@
 
         <section anchor="Security" title="Security Considerations">
            <t>
-         The security considerations covering of <xref target="RFC6553"/> and
-         <xref target="RFC6554"/> apply when the packets get into RPL
-         Domain.
+             The security considerations covering of <xref target="RFC6553"/> and
+             <xref target="RFC6554"/> apply when the packets get into RPL
+             Domain.
           </t>
           <t>
             The IPIP mechanism described in this document is much more
@@ -2279,10 +2279,59 @@
             are likely to be a part of the LLN.
           </t>
           <t>
+            The RH3 header usage described here can be abused in equivalent
+            ways to the IPIP header.  In non-storing networks where an RH3
+            may be acted upon, packets arriving into the LLN will be
+            encapsulated with an IPIP header in order to add the needed RH3
+            header. As such, the attacker's RH3 header will not be seen by
+            the network until it reaches the end host, which will decapsulate
+            it.  An end-host SHOULD be suspicious about a RH3 header which
+            has additional hops which have not yet been processed, and SHOULD
+            ignore such a second RH3 header.
+          </t>
+          <t>
+            In addition, the LLN will likely use <xref
+            target="I-D.ietf-roll-routing-dispatch" /> to compress the IPIP
+            and RH3 headers. As such, the compressor at the RPL-root will see
+            the second RH3 header and MAY choose to discard the packet if the
+            RH3 header has not been completely consumed.  A consumed (inert)
+            RH3 header could be present in a packet that flows from one LLN,
+            crosses the Internet, and enters another LLN.  As per the
+            discussion in this document, such headers do not need to be
+            removed.  However, there is no case described in this document
+            where an RH3 is inserted in a non-storing network on traffic that
+            is leaving the LLN, but this document SHOULD NOT preclude such a
+            future innovation.  It should just be noted that an incoming RH3
+            must be fully consumed, or very carefully inspected.
+          </t>
+          <t>
+            The RPI header, if permitted to enter the LLN, could be used by
+            an attacker to change the priority of a packet by selecting a
+            different RPL instanceID, perhaps one with a higher energy cost,
+            for instance.  It could also be that not all nodes are reachable
+            in an LLN using the default instanceID, but a change of
+            instanceID would permit an attacker to bypass such filtering.
+            Like the RH3, an RPI header is to be inserted by the RPL root on
+            traffic entering the LLN by first inserting an IPIP header. The
+            attacker's RPI header therefore will not be seen by the network.
+            Upon reaching the destination node the RPI header has no further
+            meaning and is just skipped; the presence of a second RPI header
+            will have no meaning to the end node as the packet has already
+            been identified as being at it's final destination.
+          </t>
+          <t>
+            The RH3 and RPI headers could be abused by an attacker inside of
+            the network to route packets on non-obvious ways, perhaps eluding
+            observation.   This usage is in fact part of
+            <xref target="RFC6997" /> and can not be restricted at all. This
+            is a feature, not a bug.
+          </t>
+          <t>
             <xref target="RFC7416"/> deals with many other threats to LLNs
             not directly related to the use of IPIP headers, and this
             document does not change that analysis.
           </t>
+
         </section>
 
         <section anchor="Acknowledgments" title="Acknowledgments">
