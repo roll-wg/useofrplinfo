@@ -877,7 +877,7 @@
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI) </c>
+                                          <c> -- </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
@@ -1625,7 +1625,7 @@
                                           <c> Untouched headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> -- </c>
+                                          <c> RPI </c>
                                           <c> RPI (Ignored) </c>
                         </texttable>
                </section>
@@ -1890,9 +1890,9 @@
                    <c> -- </c>
                    <c> Modified headers</c>
                    <c> -- </c>
+                   <c> RPI1 </c>
                    <c> -- </c>
-                   <c> -- </c>
-                   <c> -- </c>
+                   <c> RPI2 </c>
                    <c> -- </c>
                    <c> Untouched headers</c>
                    <c> -- </c>
@@ -2115,7 +2115,7 @@
           </t>
 
           <t>
-            Thanks to the relaxation of the RFC2406 rule about discarding
+            Thanks to the relaxation of the RFC2460 rule about discarding
             unknown Hop-by-Hop options, there is no longer any uncertainty
             about when to use an IPIP header in the storing mode case.
             The RPI header SHOULD always be added when 6LRs originate

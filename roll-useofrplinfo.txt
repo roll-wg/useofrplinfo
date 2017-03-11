@@ -6,9 +6,9 @@ ROLL Working Group                                             M. Robles
 Internet-Draft                                                  Ericsson
 Updates: 6550 (if approved)                                M. Richardson
 Intended status: Standards Track                                     SSW
-Expires: September 4, 2017                                    P. Thubert
+Expires: September 12, 2017                                   P. Thubert
                                                                    Cisco
-                                                           March 3, 2017
+                                                          March 11, 2017
 
 
               When to use RFC 6553, 6554 and IPv6-in-IPv6
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 4, 2017.
+   This Internet-Draft will expire on September 12, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Robles, et al.          Expires September 4, 2017               [Page 1]
+Robles, et al.         Expires September 12, 2017               [Page 1]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Robles, et al.          Expires September 4, 2017               [Page 2]
+Robles, et al.         Expires September 12, 2017               [Page 2]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -165,7 +165,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017               [Page 3]
+Robles, et al.         Expires September 12, 2017               [Page 3]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -221,7 +221,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017               [Page 4]
+Robles, et al.         Expires September 12, 2017               [Page 4]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -277,7 +277,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017               [Page 5]
+Robles, et al.         Expires September 12, 2017               [Page 5]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -333,7 +333,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017               [Page 6]
+Robles, et al.         Expires September 12, 2017               [Page 6]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -389,7 +389,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017               [Page 7]
+Robles, et al.         Expires September 12, 2017               [Page 7]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -445,7 +445,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017               [Page 8]
+Robles, et al.         Expires September 12, 2017               [Page 8]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -501,7 +501,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017               [Page 9]
+Robles, et al.         Expires September 12, 2017               [Page 9]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -557,7 +557,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 10]
+Robles, et al.         Expires September 12, 2017              [Page 10]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -613,7 +613,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 11]
+Robles, et al.         Expires September 12, 2017              [Page 11]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -669,7 +669,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 12]
+Robles, et al.         Expires September 12, 2017              [Page 12]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -725,7 +725,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 13]
+Robles, et al.         Expires September 12, 2017              [Page 13]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -745,22 +745,20 @@ Internet-Draft                  Useof6553                     March 2017
    rank in the RPI.  When the packet arrives at 6LN the RPI header is
    removed and the packet processed.
 
-   +----------+---------+--------------+---------------+---------------+
-   | Header   | Interne | 6LBR         | 6LR_i         | 6LN           |
-   |          | t       |              |               |               |
-   +----------+---------+--------------+---------------+---------------+
-   | Inserted | --      | IP-in-       | --            | --            |
-   | headers  |         | IP(RPI)      |               |               |
-   | Removed  | --      | --           | --            | IP-in-IP(RPI) |
-   | headers  |         |              |               |               |
-   | Re-added | --      | --           | --            | --            |
-   | headers  |         |              |               |               |
-   | Modified | --      | --           | IP-in-IP(RPI) | --            |
-   | headers  |         |              |               |               |
-   | Untouche | --      | --           | --            | --            |
-   | d        |         |              |               |               |
-   | headers  |         |              |               |               |
-   +----------+---------+--------------+---------------+---------------+
+   +----------------+----------+----------------+----------------+-----+
+   | Header         | Internet | 6LBR           | 6LR_i          | 6LN |
+   +----------------+----------+----------------+----------------+-----+
+   | Inserted       | --       | IP-in-IP(RPI)  | --             | --  |
+   | headers        |          |                |                |     |
+   | Removed        | --       | --             | --             | --  |
+   | headers        |          |                |                |     |
+   | Re-added       | --       | --             | --             | --  |
+   | headers        |          |                |                |     |
+   | Modified       | --       | --             | IP-in-IP(RPI)  | --  |
+   | headers        |          |                |                |     |
+   | Untouched      | --       | --             | --             | --  |
+   | headers        |          |                |                |     |
+   +----------------+----------+----------------+----------------+-----+
 
     Storing: Summary of the use of headers from Internet to RPL-aware-
                                    leaf
@@ -776,19 +774,17 @@ Internet-Draft                  Useof6553                     March 2017
    this case, "1 < i >= n", n is the number of routers (6LR) that the
    packet go through from source(IPv6) to 6LBR.
 
-
-
-
-
-
-Robles, et al.          Expires September 4, 2017              [Page 14]
-
-Internet-Draft                  Useof6553                     March 2017
-
-
    The 6LR_1 (i=1) node will add an IP-in-IP(RPI) header addressed
    either to the root, or hop-by-hop such that the root can remove the
    RPI header before passing upwards.
+
+
+
+
+Robles, et al.         Expires September 12, 2017              [Page 14]
+
+Internet-Draft                  Useof6553                     March 2017
+
 
    The originating node will ideally leave the IPv6 flow label as zero
    so that the packet can be better compressed through the LLN.  The
@@ -837,7 +833,11 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 15]
+
+
+
+
+Robles, et al.         Expires September 12, 2017              [Page 15]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -893,7 +893,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 16]
+Robles, et al.         Expires September 12, 2017              [Page 16]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -949,7 +949,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 17]
+Robles, et al.         Expires September 12, 2017              [Page 17]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1005,7 +1005,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 18]
+Robles, et al.         Expires September 12, 2017              [Page 18]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1061,7 +1061,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 19]
+Robles, et al.         Expires September 12, 2017              [Page 19]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1117,7 +1117,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 20]
+Robles, et al.         Expires September 12, 2017              [Page 20]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1173,7 +1173,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 21]
+Robles, et al.         Expires September 12, 2017              [Page 21]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1229,7 +1229,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 22]
+Robles, et al.         Expires September 12, 2017              [Page 22]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1285,7 +1285,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 23]
+Robles, et al.         Expires September 12, 2017              [Page 23]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1331,7 +1331,7 @@ Internet-Draft                  Useof6553                     March 2017
        | Removed headers   | --   | --    | --   | --             |
        | Re-added headers  | --   | --    | --   | --             |
        | Modified headers  | --   | RPI   | --   | --             |
-       | Untouched headers | --   | --    | --   | RPI (Ignored)  |
+       | Untouched headers | --   | --    | RPI  | RPI (Ignored)  |
        +-------------------+------+-------+------+----------------+
 
      Non Storing: Summary of the use of headers from RPL-aware-leaf to
@@ -1341,7 +1341,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 24]
+Robles, et al.         Expires September 12, 2017              [Page 24]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1397,7 +1397,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 25]
+Robles, et al.         Expires September 12, 2017              [Page 25]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1453,7 +1453,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 26]
+Robles, et al.         Expires September 12, 2017              [Page 26]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1509,7 +1509,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 27]
+Robles, et al.         Expires September 12, 2017              [Page 27]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1540,7 +1540,7 @@ Internet-Draft                  Useof6553                     March 2017
    | Re-     | --          | --   | --           | --    | --          |
    | added   |             |      |              |       |             |
    | headers |             |      |              |       |             |
-   | Modifie | --          | --   | --           | --    | --          |
+   | Modifie | --          | RPI1 | --           | RPI2  | --          |
    | d       |             |      |              |       |             |
    | headers |             |      |              |       |             |
    | Untouch | --          | --   | --           | --    | --          |
@@ -1565,7 +1565,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 28]
+Robles, et al.         Expires September 12, 2017              [Page 28]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1621,7 +1621,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 29]
+Robles, et al.         Expires September 12, 2017              [Page 29]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1677,7 +1677,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 30]
+Robles, et al.         Expires September 12, 2017              [Page 30]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1718,7 +1718,7 @@ Internet-Draft                  Useof6553                     March 2017
    There are potential significant advantages to having a single code
    path that always processes IP-in-IP headers with no options.
 
-   Thanks to the relaxation of the RFC2406 rule about discarding unknown
+   Thanks to the relaxation of the RFC2460 rule about discarding unknown
    Hop-by-Hop options, there is no longer any uncertainty about when to
    use an IPIP header in the storing mode case.  The RPI header SHOULD
    always be added when 6LRs originate packets (without IPIP headers),
@@ -1733,7 +1733,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 31]
+Robles, et al.         Expires September 12, 2017              [Page 31]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1789,7 +1789,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 32]
+Robles, et al.         Expires September 12, 2017              [Page 32]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1845,7 +1845,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 33]
+Robles, et al.         Expires September 12, 2017              [Page 33]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1901,7 +1901,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 34]
+Robles, et al.         Expires September 12, 2017              [Page 34]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -1957,7 +1957,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 35]
+Robles, et al.         Expires September 12, 2017              [Page 35]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -2013,7 +2013,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 36]
+Robles, et al.         Expires September 12, 2017              [Page 36]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -2069,7 +2069,7 @@ Internet-Draft                  Useof6553                     March 2017
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 37]
+Robles, et al.         Expires September 12, 2017              [Page 37]
 
 Internet-Draft                  Useof6553                     March 2017
 
@@ -2125,4 +2125,4 @@ Authors' Addresses
 
 
 
-Robles, et al.          Expires September 4, 2017              [Page 38]
+Robles, et al.         Expires September 12, 2017              [Page 38]
