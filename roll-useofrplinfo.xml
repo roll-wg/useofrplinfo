@@ -18,6 +18,7 @@
 <!ENTITY I-D.ietf-6man-rfc2460bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6man-rfc2460bis.xml">
 <!ENTITY I-D.ietf-roll-routing-dispatch SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-routing-dispatch.xml">
 <!ENTITY I-D.moore-iot-security-bcp SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.moore-iot-security-bcp.xml">
+<!ENTITY I-D.ietf-roll-dao-projection SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-dao-projection.xml">
 ]>
 
 <!--<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> -->
@@ -45,7 +46,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-11" ipr="trust200902" updates="6550">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-12" ipr="trust200902" updates="6550">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -539,7 +540,7 @@
            <c> hop </c>
 
          </texttable>
-
+<!-- 5.1.  Example of Flow from RPL-aware-leaf to root !-->
                <section title="Example of Flow from RPL-aware-leaf to root">
 
 			<t>
@@ -622,6 +623,8 @@
                         </texttable>
                </section>
 
+               <!-- section 5.2.  !-->
+
                <section title="Example of Flow from root to RPL-aware-leaf">
 
                          <t>
@@ -674,6 +677,8 @@
                                           <c> -- </c>
                         </texttable>
                </section>
+
+              <!-- section 5.3. !-->
 
                <section title="Example of Flow from root to not-RPL-aware-leaf">
                         <t>
@@ -833,7 +838,7 @@
                                           <c> Untouched headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> -- </c>
+                                          <c> RPI </c>
                                           <c> RPI (Ignored) </c>
                         </texttable>
                </section>
@@ -877,7 +882,7 @@
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> -- </c>
+                                          <c> IP-in-IP(RPI) </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
@@ -974,6 +979,7 @@
                           6LR_i are the intermediate routers from source to destination.
                           In this case, "1 &lt; i &gt;= n", n is the number of routers (6LR)
                           that the packet go through from 6LBR to not-RPL-aware-leaf (IPv6).
+                          6LR_i updates the rank in the RPI.
                         </t>
                         <t>
                           The 6LBR will have to add an RPI header within an
@@ -998,7 +1004,7 @@
                                           <c> Removed headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c>IP-in-IP(RPI) </c>
+                                          <c> -- </c>
                                           <c> -- </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
@@ -1247,6 +1253,13 @@
                    the RPI header (RPIa) encapsulated in IPv6-in-IPv6 header.
                    The IPv6-in-IPv6 header is addressed to the 6LBR. The 6LBR remove the IPv6-in-IPv6 header and
 		               insert another one (RPIb) with destination to 6LR_m node.
+                 </t>
+                 <t>
+                   One of the side-effects of inserting IP-in-IP RPI header at 6LR_1, is that now all the packets will go through the 6LBR,
+                   even though there exists a shorter P2P path to the destination 6LN in storing mode.
+                   One possible solution is given by the work in <xref target="I-D.ietf-roll-dao-projection" />. Once we have route projection,
+                   the root can find that this traffic deserves optimization (based on volume and path length,
+                   or additional knowledge on that particular flow) and project a DAO into 6LR_1.
                  </t>
                  <texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to non-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
@@ -1563,7 +1576,7 @@
                                           <c> -- </c>
                                           <c> Modified headers</c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI) </c>
+                                          <c> -- </c>
                                           <c> IP-in-IP(RPI) </c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
@@ -2147,12 +2160,6 @@
             using hop-by-hop IP-in-IP headers.
           </t>
           <t>
-            <xref target="I-D.ietf-roll-routing-dispatch" /> shows how the
-            destination=root, and destination=6LN IP-in-IP header can be
-            compressed down to {TBD} bytes.
-          </t>
-
-          <t>
             Unlike in the storing mode case, there is no need for all nodes
             to know about the existence of non-RPL aware nodes.  Only the
             6LBR needs to change when there are non-RPL aware nodes.
@@ -2341,8 +2348,8 @@
            </t>
            <t>
            The authors would like to acknowledge the review, feedback, and
-           comments of Robert Cragie, Simon Duquennoy, Cenk Gündogan, Peter
-           van der Stok, Xavier Vilajosana and Thomas Watteyne.
+           comments of (alphabetical order): Robert Cragie, Simon Duquennoy, Cenk Gündogan,
+            Rahul Jadhav, Peter van der Stok, Xavier Vilajosana and Thomas Watteyne.
            </t>
          </section>
 
@@ -2381,6 +2388,7 @@
      <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
      <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
      <?rfc include="reference.I-D.ietf-roll-routing-dispatch" ?>
+     <?rfc include="reference.I-D.ietf-roll-dao-projection" ?>
      <?rfc include="reference.RFC.6997" ?>
 
      <reference anchor="DDOS-KREBS" target="http://arstechnica.com/security/2016/09/botnet-of-145k-cameras-reportedly-deliver-internets-biggest-ddos-ever/">
