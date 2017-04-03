@@ -2215,7 +2215,7 @@
           </t>
           <t>
             Nodes outside of the LLN will need to pass IPIP traffic through
-            the RPL root in order to exploit perform this attack, so the RPL
+            the RPL root in order to perform this attack. To counter the RPL
             root SHOULD either restrict ingress of IPIP packets (the simpler
             solution), or it SHOULD do a deep packet inspection wherein it
             walks the IP header extension chain until it can inspect the
@@ -2224,12 +2224,17 @@
             processing on the source addresses of all IP headers that it
             examines in both directions.
           </t>
+          <t>Note: there are some situations where a prefix will spread
+          across multiple LLNs via mechanisms such as
+          <xref target="I-D.ietf-6lo-backbone-router" />.
+          In this case the BCP38 filtering needs to take this into account.
+          </t>
           <t>
             Nodes with the LLN are able to use the IPIP mechanism to mount an
             attack on another part of the LLN, while disguising the origin of
             the attack.  The mechanism can even be abused to make it appear
             that the attack is coming from outside the LLN, and unless
-            countered, this could also be to mount a Distributed Denial of
+            countered, this could also permit a Distributed Denial of
             Service attack upon nodes elsewhere in the Internet. See <xref
             target="DDOS-KREBS" /> for an example of this.
           </t>
@@ -2237,7 +2242,7 @@
             While a typical LLN may be a very poor origin for attack traffic, as the
             networks tend to very slow, and the nodes often have very low
             duty cycles, given enough of them, they could still have a
-            significant impact, particularly on another LLN.
+            significant impact, particularly on another LLN!
             Additionally, not all uses of RPL involve large backbone ISP scale equipment <xref
             target="I-D.ietf-anima-autonomic-control-plane" />.
           </t>
@@ -2267,7 +2272,7 @@
             by a node within the LLN on another node within the LLN.  Such an
             attack could, of course, be done directly.  An attack of this
             kind is meaningful only if the source addresses are either fake
-            or if the point is for return traffic to be the attack.
+            or if the point is for (amplified) return traffic to be the attack.
             Such an attack, could also be done without the use of IPIP
             headers using forged source addresses.
             If the attack requires bi-directional communication, then IPIP
