@@ -46,7 +46,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-12" ipr="trust200902" updates="6550">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-13" ipr="trust200902" updates="6550">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -2395,6 +2395,7 @@
      <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
      <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
      <?rfc include="reference.I-D.ietf-roll-routing-dispatch" ?>
+     <?rfc include="reference.I-D.ietf-6lo-backbone-router" ?>
      <?rfc include="reference.I-D.ietf-roll-dao-projection" ?>
      <?rfc include="reference.RFC.6997" ?>
 

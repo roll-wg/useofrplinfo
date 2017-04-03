@@ -1,4 +1,4 @@
-VERSION=12
+VERSION=13
 roll-useofrplinfo-${VERSION}.txt: roll-useofrplinfo.txt
 	cp roll-useofrplinfo.txt roll-useofrplinfo-${VERSION}.txt
 
