@@ -2234,17 +2234,19 @@
             attack on another part of the LLN, while disguising the origin of
             the attack.  The mechanism can even be abused to make it appear
             that the attack is coming from outside the LLN, and unless
-            countered, this could also permit a Distributed Denial of
+            countered, this could be used to mount a Distributed Denial of
             Service attack upon nodes elsewhere in the Internet. See <xref
-            target="DDOS-KREBS" /> for an example of this.
+            target="DDOS-KREBS" /> for an example of such attacks already
+            seen in the real world.
           </t>
           <t>
             While a typical LLN may be a very poor origin for attack traffic, as the
             networks tend to very slow, and the nodes often have very low
             duty cycles, given enough of them, they could still have a
-            significant impact, particularly on another LLN!
-            Additionally, not all uses of RPL involve large backbone ISP scale equipment <xref
-            target="I-D.ietf-anima-autonomic-control-plane" />.
+            significant impact, particularly if the attack was on another LLN!
+            Additionally, some uses of RPL involve large backbone ISP scale
+            equipment <xref target="I-D.ietf-anima-autonomic-control-plane"/>,
+            which may be equipped with multiple 100Gb/s interfaces.
           </t>
           <t>
             Blocking or careful filtering of IPIP traffic entering the LLN as

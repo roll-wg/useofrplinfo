@@ -1816,9 +1816,9 @@ Internet-Draft                  Useof6553                     March 2017
 
    While a typical LLN may be a very poor origin for attack traffic, as
    the networks tend to very slow, and the nodes often have very low
-   duty cycles, given enough of them, they could still have a
-   significant impact, particularly on another LLN.  Additionally, not
-   all uses of RPL involve large backbone ISP scale equipment
+   duty cycles; given enough nodes, this could still have a
+   significant impact, particularly in the attack was on another LLN.
+   Additionally, some uses of RPL involve large backbone ISP scale equipment
    [I-D.ietf-anima-autonomic-control-plane].
 
    Blocking or careful filtering of IPIP traffic entering the LLN as
