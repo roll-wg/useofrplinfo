@@ -46,7 +46,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-13" ipr="trust200902" updates="6550">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-14" ipr="trust200902" updates="6550">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -196,6 +196,15 @@
         RPL-not-capable: It is device which do not implement RPL, thus we can say that the device is not-RPL-aware.
 	Please note that the device can be found inside the LLN.
 	In this document a not-RPL-node which is a leaf of a DODAG is called not-RPL-aware-leaf.
+        </t>
+
+        <t>
+          pledge: a new device which seeks admission to a network. (from <xref target="I-D.ietf-anima-bootstrapping-keyinfra" />)
+        </t>
+
+        <t>
+          Join Registrar and Coordinator (JRC): a device which brings new nodes
+          (pledges) into a network. (from <xref target="I-D.ietf-anima-bootstrapping-keyinfra" />)
         </t>
 
         <section title="hop-by-hop IPv6-in-IPv6 headers">
@@ -2210,12 +2219,12 @@
             The IPIP mechanism described in this document is much more
             limited than the general mechanism described in <xref
             target="RFC2473"/>.  The willingness of each node in the LLN to
-            decapsulate traffic and forward it could be exploited by nodes to
+            decapsulate packets and forward them could be exploited by nodes to
             disguise the origin of an attack.
           </t>
           <t>
             Nodes outside of the LLN will need to pass IPIP traffic through
-            the RPL root in order to perform this attack. To counter the RPL
+            the RPL root to perform this attack. To counter, the RPL
             root SHOULD either restrict ingress of IPIP packets (the simpler
             solution), or it SHOULD do a deep packet inspection wherein it
             walks the IP header extension chain until it can inspect the
@@ -2225,24 +2234,26 @@
             examines in both directions.
           </t>
           <t>Note: there are some situations where a prefix will spread
-          across multiple LLNs via mechanisms such as
+          across multiple LLNs via mechanisms such as described in
           <xref target="I-D.ietf-6lo-backbone-router" />.
           In this case the BCP38 filtering needs to take this into account.
           </t>
           <t>
-            Nodes with the LLN are able to use the IPIP mechanism to mount an
+            Nodes with the LLN can use the IPIP mechanism to mount an
             attack on another part of the LLN, while disguising the origin of
             the attack.  The mechanism can even be abused to make it appear
             that the attack is coming from outside the LLN, and unless
-            countered, this could be used to mount a Distributed Denial of
+            countered, this could be used to mount a Distributed Denial Of
             Service attack upon nodes elsewhere in the Internet. See <xref
             target="DDOS-KREBS" /> for an example of such attacks already
             seen in the real world.
           </t>
           <t>
-            While a typical LLN may be a very poor origin for attack traffic, as the
-            networks tend to very slow, and the nodes often have very low
-            duty cycles, given enough of them, they could still have a
+            While a typical LLN may be a very poor origin for attack traffic
+            (as the networks tend to be very slow,
+            and the nodes often have very low duty cycles) given enough
+            nodes,
+            they could still have a
             significant impact, particularly if the attack was on another LLN!
             Additionally, some uses of RPL involve large backbone ISP scale
             equipment <xref target="I-D.ietf-anima-autonomic-control-plane"/>,
@@ -2251,7 +2262,7 @@
           <t>
             Blocking or careful filtering of IPIP traffic entering the LLN as
             described above will make sure that any attack that is mounted
-            must be originated from compromised nodes within the LLN.
+            must originate compromised nodes within the LLN.
             The use of BCP38 filtering at the RPL root on egress traffic will
             both alert the operator to the existence of the attack, as well
             as drop the attack traffic.  As the RPL network is typically
@@ -2262,7 +2273,8 @@
           <t>
             There are some scenarios where IPIP traffic SHOULD be allowed to
             pass through the RPL root, such as the IPIP mediated
-            communications between a new Pledge and the Join Coordinator when
+            communications between a new Pledge and the Join
+            Registrar/Coordinator (JRC) when
             using <xref target="I-D.ietf-anima-bootstrapping-keyinfra" /> and
             <xref target="I-D.ietf-6tisch-dtsecurity-secure-join" />. This is
             the case for the RPL root to do careful filtering: it occurs only
@@ -2274,7 +2286,7 @@
             by a node within the LLN on another node within the LLN.  Such an
             attack could, of course, be done directly.  An attack of this
             kind is meaningful only if the source addresses are either fake
-            or if the point is for (amplified) return traffic to be the attack.
+            or if the point is to amplify return traffic.
             Such an attack, could also be done without the use of IPIP
             headers using forged source addresses.
             If the attack requires bi-directional communication, then IPIP
@@ -2296,7 +2308,7 @@
             The RH3 header usage described here can be abused in equivalent
             ways to the IPIP header.  In non-storing networks where an RH3
             may be acted upon, packets arriving into the LLN will be
-            encapsulated with an IPIP header in order to add the needed RH3
+            encapsulated with an IPIP header to add the needed RH3
             header. As such, the attacker's RH3 header will not be seen by
             the network until it reaches the end host, which will decapsulate
             it.  An end-host SHOULD be suspicious about a RH3 header which
