@@ -153,8 +153,7 @@
              <t>
                An interim meeting went through the 24 cases defined here to
                discover if there were any shortcuts, and this document is the
-               result of that discussion.  This document should not be
-               defining anything new, but it may clarify what is correct and
+               result of that discussion.  This document clarify what is correct and
                incorrect behaviour.
              </t>
              <t>
@@ -166,7 +165,11 @@
                 target="RFC6554"/>, an efficient IP-in-IP technique, and use cases
                 proposed for the <xref target="Second6TischPlugtest"/>
                 involving 6loRH.
+
            </t>
+         </section>
+
+         <section title="Update to RFC 6553">
              <t>
             The related document updates <xref target="RFC6553"/>. This RFC states
             that "...the two high order bits of the Option Type MUST be set to '01' and
