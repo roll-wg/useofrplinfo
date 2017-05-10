@@ -46,7 +46,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-14" ipr="trust200902" updates="6550">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-15" ipr="trust200902" updates="6553">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -168,11 +168,20 @@
                 involving 6loRH.
            </t>
              <t>
-            The related document updates <xref target="RFC6550"/>. In general, any packet that leaves the RPL domain
+            The related document updates <xref target="RFC6553"/>. This RFC states
+            that "...the two high order bits of the Option Type MUST be set to '01' and
+            the third bit is equal to '1'.  With these bits, according to
+            [RFC2460], nodes that do not understand this option on a received
+            packet MUST discard the packet...". Due to changes to
+            <xref target="I-D.ietf-6man-rfc2460bis"/>, the nodes that do not undersand
+            this option on a received packet MUST ignore the packet.
+          </t>
+          <t>
+            In general, any packet that leaves the RPL domain
             of an LLN (or leaves the LLN entirely) will NOT be discarded, when it has the <xref target="RFC6553" /> RPL Option
             Header known as the RPI or <xref target="RFC6554" /> SRH3 Extension Header (S)RH3.
-	    Due to changes to <xref
-           target="I-D.ietf-6man-rfc2460bis"/> the RPI Hop-by-Hop option MAY be left in place even if the end host does not
+	          Because of <xref target="I-D.ietf-6man-rfc2460bis"/> the RPI Hop-by-Hop option
+            MAY be left in place even if the end host does not
             understand it.
           </t>
      </section>
