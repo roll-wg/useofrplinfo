@@ -363,37 +363,6 @@ Internet-Draft                  Useof6553                      June 2017
                            Figure 2: RPL Stack.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Robles, et al.          Expires December 7, 2017                [Page 7]
-
-Internet-Draft                  Useof6553                      June 2017
-
-
                                     +---------+
                                 +---+Internet |
                                 |   +---------+
@@ -417,8 +386,68 @@ Internet-Draft                  Useof6553                      June 2017
      | 21        | 22          | 23          | 24        | 25
    +-+---+     +-+---+      +--+--+       +- --+     +---+-+
    |Leaf |     |     |      |     |       |Leaf|     |Leaf |
+
+
+
+Robles, et al.          Expires December 7, 2017                [Page 7]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
    | 6LN |     |     |      |     |       | 6LN|     | 6LN |
    +-----+     +-----+      +-----+       +----+     +-----+
+
+
+
+   PROPOSED DIAGRAM (Based on the graph presented at IETF )
+
+                     +------------+
+                     |  INTERNET  ----------+
+                     |            |         |
+                     +------------+         |
+                                            |
+                                            |
+                                            |
+                                          A |
+                                      +-------+
+                                      |6LBR   |
+                          +-----------|(root) |-------+
+                          |           +-------+       |
+                          |                           |
+                          |                           |
+                          |                           |
+                          |                           |
+                          | B                         |C
+                      +---|---+                   +---|---+
+                      |  6LR  |                   |  6LR  |
+            +-------->|       |--+             +---       ---+
+            |         +-------+  |             |  +-------+  |
+            |                    |             |             |
+            |                    |             |             |
+            |                    |             |             |
+            |                    |             |             |
+            | D                  |  E          |             |
+          +-|-----+          +---|---+         |             |
+          |  6LR  |          |  6LR  |         |             |
+          |       |    +------       |         |             |
+          +---|---+    |     +---|---+         |             |
+              |        |         |             |             |
+              |        |         +--+          |             |
+              |        |            |          |             |
+              |        |            |          |             |
+              |        |            |        I |          J  |
+           F  |        | G          | H        |             |
+        +-----+-+    +-|-----+  +---|--+   +---|---+     +---|---+
+        |  Raf  |    | ~Raf  |  | Raf  |   |  Raf  |     | ~Raf  |
+        |       |    |       |  |      |   |       |     |       |
+        +-------+    +-------+  +------+   +-------+     +-------+
+
+
+
+
+Robles, et al.          Expires December 7, 2017                [Page 8]
+
+Internet-Draft                  Useof6553                      June 2017
 
 
                     Figure 3: A reference RPL Topology.
@@ -438,17 +467,6 @@ Internet-Draft                  Useof6553                      June 2017
    6TiSCH working group.  The 6TiSCH architecture
    [I-D.ietf-6tisch-architecture] draft explains the network
    architecture of a 6TiSCH network.
-
-
-
-
-
-
-
-Robles, et al.          Expires December 7, 2017                [Page 8]
-
-Internet-Draft                  Useof6553                      June 2017
-
 
 5.  Use cases
 
@@ -480,6 +498,14 @@ Internet-Draft                  Useof6553                      June 2017
 
       not-RPL-aware-leaf to root
 
+
+
+
+Robles, et al.          Expires December 7, 2017                [Page 9]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
       root to not-RPL-aware-leaf
 
    Interaction between Leaf and Internet:
@@ -497,14 +523,6 @@ Internet-Draft                  Useof6553                      June 2017
       RPL-aware-leaf to RPL-aware-leaf (storing and non-storing)
 
       RPL-aware-leaf to not-RPL-aware-leaf (non-storing)
-
-
-
-
-Robles, et al.          Expires December 7, 2017                [Page 9]
-
-Internet-Draft                  Useof6553                      June 2017
-
 
       not-RPL-aware-leaf to RPL-aware-leaf (storing and non-storing)
 
@@ -535,6 +553,15 @@ Internet-Draft                  Useof6553                      June 2017
    situation.  It is clear that the RPI option would waste some network
    bandwidth when it escapes.
 
+
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 10]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
    An intermediate router that needs to add an extension header (SHR3 or
    RPI Option) must encapsulate the packet in an (additional) outer IP
    header.  The new header can be placed is placed after this new outer
@@ -554,13 +581,6 @@ Internet-Draft                  Useof6553                      June 2017
    marked mutable but recoverable: so an IPsec AH security header can be
    applied across these headers, but it can not secure the values which
    mutate.
-
-
-
-Robles, et al.          Expires December 7, 2017               [Page 10]
-
-Internet-Draft                  Useof6553                      June 2017
-
 
    RPI should be present in every single RPL data packet.  There is one
    exception in non-storing mode: when a packet is going down from the
@@ -590,6 +610,14 @@ Internet-Draft                  Useof6553                      June 2017
 
    The following table summarizes what headers are needed in the
    following scenarios, and indicates when the IP-in-IP header must be
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 11]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
    inserted on a hop-by-hop basis, and when it can target the
    destination node directly.  There are these possible situations: hop-
    by-hop necessary (indicated by "hop"), or destination address
@@ -603,20 +631,6 @@ Internet-Draft                  Useof6553                      June 2017
 
    The leaf can be a router 6LR or a host, both indicated as 6LN
    (Figure 2).
-
-
-
-
-
-
-
-
-
-
-Robles, et al.          Expires December 7, 2017               [Page 11]
-
-Internet-Draft                  Useof6553                      June 2017
-
 
     +----------------------+--------------+-----------+---------------+
     | Interaction between  | Use Case     | IP-in-IP  | IP-in-IP dst  |
@@ -639,20 +653,6 @@ Internet-Draft                  Useof6553                      June 2017
               Table 1: IP-in-IP encapsulation in Storing mode
 
    Optional format for the table
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
