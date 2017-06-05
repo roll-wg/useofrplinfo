@@ -572,63 +572,120 @@
           </t>
 
          <texttable anchor="table_storing" title="IP-in-IP encapsulation in Storing mode" >
+           <ttcol> Interaction between </ttcol>
            <ttcol> Use Case </ttcol>
            <ttcol> IP-in-IP </ttcol>
            <ttcol> IP-in-IP dst </ttcol>
 
+           <c> Leaf - Root </c>
            <c> Raf to root</c>
            <c> No</c>
            <c> -- </c>
 
+           <c>  -- </c>
            <c> root to Raf</c>
            <c> No</c>
            <c> -- </c>
 
+           <c>  -- </c>
            <c> root to ~Raf</c>
            <c> No </c>
            <c> -- </c>
 
+           <c>  -- </c>
            <c> ~Raf to root</c>
            <c> Yes</c>
            <c> root </c>
 
+           <c>  Leaf - Internet </c>
            <c> Raf to Int</c>
            <c> No</c>
            <c> -- </c>
 
+           <c>  -- </c>
            <c> Int to Raf</c>
            <c> Yes</c>
            <c> raf </c>
 
+           <c>  -- </c>
            <c> ~Raf to Int</c>
            <c> root </c>
            <c> raf </c>
 
+           <c>  -- </c>
            <c> ~Raf to Int</c>
            <c> Yes</c>
            <c> root </c>
 
+           <c>  -- </c>
            <c> Int to ~Raf</c>
            <c> Yes</c>
            <c> hop </c>
 
+           <c>  Leaf - Leaf </c>
            <c> Raf to Raf</c>
            <c> No</c>
            <c> -- </c>
 
+           <c>  -- </c>
            <c> Raf to ~Raf</c>
            <c> No</c>
            <c> -- </c>
 
+           <c>  -- </c>
            <c> ~Raf to Raf </c>
            <c> Yes</c>
            <c> dst </c>
 
+           <c>  -- </c>
            <c> ~Raf to ~Raf</c>
            <c> Yes</c>
            <c> hop </c>
 
          </texttable>
+
+         <t>
+          Optional format for the table
+         </t>
+
+         <t>
+      <!-- Figure saved with the name IP-in-IP_encapsulation_in_Storing_mode.tgn -->
+      <!-- to edit table, access to http://www.tablesgenerator.com/ and load the table  -->
+       <figure title="IP-in-IP encapsulation in Storing mode." anchor="fig_EncStoMode" align="center">
+         <artwork><![CDATA[
+
+           +---------------------+--------------+----------+--------------+
+           | Interaction between |   Use Case   | IP-in-IP | IP-in-IP dst |
+           +---------------------+--------------+----------+--------------+
+           |                     |  Raf to root |    No    |      --      |
+           +                     +--------------+----------+--------------+
+           |     Leaf - Root     |  root to Raf |    No    |      --      |
+           +                     +--------------+----------+--------------+
+           |                     | root to ~Raf |    No    |      --      |
+           +                     +--------------+----------+--------------+
+           |                     | ~Raf to root |    Yes   |     root     |
+           +---------------------+--------------+----------+--------------+
+           |                     |  Raf to Int  |    No    |      --      |
+           +                     +--------------+----------+--------------+
+           |   Leaf - Internet   |  Int to Raf  |   Yes    |      raf     |
+           +                     +--------------+----------+--------------+
+           |                     |  ~Raf to Int |    Yes   |     root     |
+           +                     +--------------+----------+--------------+
+           |                     |  Int to ~Raf |    Yes   |      hop     |
+           +---------------------+--------------+----------+--------------+
+           |                     |  Raf to Raf  |    No    |      --      |
+           +                     +--------------+----------+--------------+
+           |                     |  Raf to ~Raf |    No    |      --      |
+           +     Leaf - Leaf     +--------------+----------+--------------+
+           |                     |  ~Raf to Raf |    Yes   |      dst     |
+           +                     +--------------+----------+--------------+
+           |                     | ~Raf to ~Raf |    Yes   |      hop     |
+           +---------------------+--------------+----------+--------------+
+
+
+                         ]]></artwork></figure>
+                          </t>
+
 <!-- 5.1.  Example of Flow from RPL-aware-leaf to root !-->
                <section title="Example of Flow from RPL-aware-leaf to root">
 
