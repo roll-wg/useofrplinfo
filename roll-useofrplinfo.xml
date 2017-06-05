@@ -420,7 +420,9 @@
            <t>
              The uses cases comprise as follow:
            </t>
-
+           <t>
+             Interaction between Leaf and Root:
+           </t>
            <t>
            <list>
              <t>
@@ -435,6 +437,13 @@
              <t>
                root to not-RPL-aware-leaf
              </t>
+           </list>
+           </t>
+           <t>
+             Interaction between Leaf and Internet:
+           </t>
+           <t>
+           <list>
              <t>
                RPL-aware-leaf to Internet
              </t>
@@ -447,6 +456,13 @@
              <t>
                Internet to not-RPL-aware-leaf
              </t>
+           </list>
+           </t>
+           <t>
+             Interaction between Leafs:
+           </t>
+           <t>
+           <list>
              <t>
                RPL-aware-leaf to RPL-aware-leaf (storing and non-storing)
              </t>
@@ -685,16 +701,37 @@
 
                          ]]></artwork></figure>
                           </t>
+         <section title="Storing Mode: Interaction between Leaf and Root">
 
-<!-- 5.1.  Example of Flow from RPL-aware-leaf to root !-->
-               <section title="Example of Flow from RPL-aware-leaf to root">
+            <t>
+             In this section we are going to describe the communication flow
+             in storing mode (SM) between,
+            </t>
+            <t>
+             <list>
+               <t>
+                 RPL-aware-leaf to root
+               </t>
+               <t>
+                 root to RPL-aware-leaf
+               </t>
+               <t>
+                 not-RPL-aware-leaf to root
+               </t>
+               <t>
+                 root to not-RPL-aware-leaf
+               </t>
+             </list>
+            </t>
+              <!-- 5.1.  Example of Flow from RPL-aware-leaf to root !-->
+               <section title="SM: Example of Flow from RPL-aware-leaf to root">
 
-			<t>
+			                 <t>
                         In storing mode, RFC 6553 (RPI) is used
                         to send RPL Information instanceID and rank
                         information.
                         </t>
-			<t>
+			                  <t>
                          As stated in Section 16.2 of <xref
                          target="RFC6550"/>  a RPL-aware-leaf node does not
                          generally issue DIO messages; a leaf node accepts
@@ -771,7 +808,7 @@
 
                <!-- section 5.2.  !-->
 
-               <section title="Example of Flow from root to RPL-aware-leaf">
+               <section title="SM: Example of Flow from root to RPL-aware-leaf">
 
                          <t>
                                 In this case the flow comprises:
@@ -826,7 +863,7 @@
 
               <!-- section 5.3. !-->
 
-               <section title="Example of Flow from root to not-RPL-aware-leaf">
+               <section title="SM: Example of Flow from root to not-RPL-aware-leaf">
                         <t>
                         In this case the flow comprises:
                         </t>
@@ -871,7 +908,7 @@
                         </texttable>
                </section>
 
-               <section title="Example of Flow from not-RPL-aware-leaf to root">
+               <section title="SM: Example of Flow from not-RPL-aware-leaf to root">
                         <t>
                                 In this case the flow comprises:
                         </t>
@@ -928,8 +965,31 @@
                                           <c> -- </c>
                         </texttable>
                </section>
+         </section>
+        <section title=" Storing Mode: Interaction between Leaf and Internet">
 
-               <section title="Example of Flow from RPL-aware-leaf to Internet">
+                  <t>
+                   In this section we are going to describe the communication flow
+                   in storing mode (SM) between,
+                   </t>
+                 <t>
+                   <list>
+                     <t>
+                       RPL-aware-leaf to Internet
+                     </t>
+                     <t>
+                       Internet to RPL-aware-leaf
+                     </t>
+                     <t>
+                       not-RPL-aware-leaf to Internet
+                     </t>
+                     <t>
+                       Internet to not-RPL-aware-leaf
+                     </t>
+                   </list>
+                 </t>
+
+               <section title="SM: Example of Flow from RPL-aware-leaf to Internet">
                          <t>
                         RPL information from RFC 6553 MAY go out to
                         Internet as it will be ignored by nodes which have
@@ -990,7 +1050,7 @@
                </section>
 
                <!-- section 5.6 -->
-               <section title="Example of Flow from Internet to RPL-aware-leaf">
+               <section title="SM: Example of Flow from Internet to RPL-aware-leaf">
                         <t>
                                 In this case the flow comprises:
                         </t>
@@ -1049,7 +1109,7 @@
 
 
                <!-- section 5.6 -->
-               <section title="Example of Flow from not-RPL-aware-leaf to Internet">
+               <section title="SM: Example of Flow from not-RPL-aware-leaf to Internet">
                  <t>
                    In this case the flow comprises:
                  </t>
@@ -1113,7 +1173,7 @@
                         </texttable>
                </section>
 
-                       <section title=" Example of Flow from Internet to non-RPL-aware-leaf">
+                       <section title="SM: Example of Flow from Internet to non-RPL-aware-leaf">
                         <t>
                                 In this case the flow comprises:
                         </t>
@@ -1169,9 +1229,30 @@
                                           <c> RPI (Ignored) </c>
                         </texttable>
                </section>
-
+      </section>
+      <section title="Storing Mode: Interaction between Leaf and Leaf">
+        <t>
+         In this section we are going to describe the communication flow
+         in storing mode (SM) between,
+         </t>
+        <t>
+         <list>
+           <t>
+             RPL-aware-leaf to RPL-aware-leaf
+           </t>
+           <t>
+             RPL-aware-leaf to not-RPL-aware-leaf
+           </t>
+           <t>
+             not-RPL-aware-leaf to  RPL-aware-leaf
+           </t>
+           <t>
+             not-RPL-aware-leaf to not-RPL-aware-leaf
+           </t>
+         </list>
+       </t>
                <!-- section 5.9 -->
-               <section anchor="storingraftoraf" title="Example of Flow from RPL-aware-leaf to RPL-aware-leaf">
+               <section anchor="storingraftoraf" title="SM: Example of Flow from RPL-aware-leaf to RPL-aware-leaf">
                  <t>
                    In <xref target="RFC6550"/> RPL allows a simple one-hop
                    optimization for both storing and non-storing
@@ -1250,7 +1331,7 @@
                </section>
 
                <!-- section 5.10 -->
-               <section anchor="storingraftononraf" title="Example of Flow from RPL-aware-leaf to non-RPL-aware-leaf">
+               <section anchor="storingraftononraf" title="SM: Example of Flow from RPL-aware-leaf to non-RPL-aware-leaf">
                         <t>
                         In this case the flow comprises:
                         </t>
@@ -1271,7 +1352,7 @@
                           This situation is identical to the previous situation
                           <xref target="storingraftoraf" />
                         </t>
-                 <texttable title="Storing: Summary of the use of headers for RPL-aware-leaf to RPL-aware-leaf">
+                 <texttable title="Storing: Summary of the use of headers for RPL-aware-leaf to non-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LN src</ttcol>
                                           <ttcol> 6LR_ia</ttcol>
@@ -1311,7 +1392,7 @@
                         </texttable>
                </section>
 
-               <section anchor="storingnotraftoraf" title="Example of Flow from not-RPL-aware-leaf to RPL-aware-leaf">
+               <section anchor="storingnotraftoraf" title="SM: Example of Flow from not-RPL-aware-leaf to RPL-aware-leaf">
                  <t>
                    In this case the flow comprises:
                  </t>
@@ -1373,14 +1454,14 @@
                         </texttable>
                </section>
 
-               <section title="Example of Flow from not-RPL-aware-leaf to not-RPL-aware-leaf">
+               <section title="SM: Example of Flow from not-RPL-aware-leaf to not-RPL-aware-leaf">
                  <t>
                    In this case the flow comprises:
                  </t>
                  <t>
                    not-RPL-aware 6LN (IPv6 src)--> 6LR_1--> 6LR_ia --> root (6LBR) --> 6LR_id --> not-RPL-aware 6LN (IPv6 dst)
                  </t>
-                 <t>
+                 <t>Internet
                    6LR_ia are the intermediate routers from source (not-RPL-aware 6LN (IPv6 src)) to the root (6LBR)
                    In this case, "1 &lt; ia &gt;= n", n is the number of routers (6LR)
                    that the packet go through from IPv6 src to the root.
@@ -1453,7 +1534,7 @@
                         </texttable>
                </section>
        </section>
-
+  </section>
 
        <section title="Non Storing mode">
 
