@@ -381,7 +381,55 @@
 | 6LN |     |     |      |     |       | 6LN|     | 6LN |
 +-----+     +-----+      +-----+       +----+     +-----+
 
-                ]]></artwork></figure>
+
+
+PROPOSED DIAGRAM (Based on the graph presented at IETF )
+                                                             
+                  +------------+                                                                                                                               
+                  |  INTERNET  ----------+                                                                                                                     
+                  |            |         |                                                                                                                     
+                  +------------+         |                                                                                                                     
+                                         |                                                                                                                     
+                                         |                                                                                                                     
+                                         |                                                                                                                     
+                                       A |                                                                                                                     
+                                   +-------+                                                                                                                   
+                                   |6LBR   |                                                                                                                   
+                       +-----------|(root) |-------+                                                                                                           
+                       |           +-------+       |                                                                                                           
+                       |                           |                                                                                                           
+                       |                           |                                                                                                           
+                       |                           |                                                                                                           
+                       |                           |                                                                                                           
+                       | B                         |C                                                                                                          
+                   +---|---+                   +---|---+                                                                                                       
+                   |  6LR  |                   |  6LR  |                                                                                                       
+         +-------->|       |--+             +---       ---+                                                                                                    
+         |         +-------+  |             |  +-------+  |                                                                                                    
+         |                    |             |             |                                                                                                    
+         |                    |             |             |                                                                                                    
+         |                    |             |             |                                                                                                    
+         |                    |             |             |                                                                                                    
+         | D                  |  E          |             |                                                                                                    
+       +-|-----+          +---|---+         |             |                                                                                                    
+       |  6LR  |          |  6LR  |         |             |                                                                                                    
+       |       |    +------       |         |             |                                                                                                    
+       +---|---+    |     +---|---+         |             |                                                                                                    
+           |        |         |             |             |                                                                                                    
+           |        |         +--+          |             |                                                                                                    
+           |        |            |          |             |                                                                                                    
+           |        |            |          |             |                                                                                                    
+           |        |            |        I |          J  |                                                                                                    
+        F  |        | G          | H        |             |                                                                                                    
+     +-----+-+    +-|-----+  +---|--+   +---|---+     +---|---+                                                                                                
+     |  Raf  |    | ~Raf  |  | Raf  |   |  Raf  |     | ~Raf  |                                                                                                
+     |       |    |       |  |      |   |       |     |       |                                                                                                
+     +-------+    +-------+  +------+   +-------+     +-------+                                                                                                
+                                                                                                                                                               
+                                                                                                                                                               
+                                                                                                                                                                                                                                                            
+ 
+               ]]></artwork></figure>
                  </t>
                  <t> Figure 2 shows the reference RPL Topology for this document.   The numbers in or above the nodes are there so that
                  they may be referenced in subsequent sections. In the figure, a 6LN can be a router or a host.
