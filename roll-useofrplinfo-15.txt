@@ -6,9 +6,9 @@ ROLL Working Group                                             M. Robles
 Internet-Draft                                                  Ericsson
 Updates: 6553 (if approved)                                M. Richardson
 Intended status: Standards Track                                     SSW
-Expires: November 11, 2017                                    P. Thubert
+Expires: December 7, 2017                                     P. Thubert
                                                                    Cisco
-                                                            May 10, 2017
+                                                            June 5, 2017
 
 
               When to use RFC 6553, 6554 and IPv6-in-IPv6
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 11, 2017.
+   This Internet-Draft will expire on December 7, 2017.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Robles, et al.          Expires November 11, 2017               [Page 1]
+Robles, et al.          Expires December 7, 2017                [Page 1]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    to this document.  Code Components extracted from this document must
@@ -66,58 +66,68 @@ Internet-Draft                  Useof6553                       May 2017
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Update to RFC 6553  . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Terminology and Requirements Language . . . . . . . . . . . .   4
-     3.1.  hop-by-hop IPv6-in-IPv6 headers . . . . . . . . . . . . .   4
-   4.  Sample/reference topology . . . . . . . . . . . . . . . . . .   4
-   5.  Use cases . . . . . . . . . . . . . . . . . . . . . . . . . .   7
-   6.  Storing mode  . . . . . . . . . . . . . . . . . . . . . . . .   9
-     6.1.  Example of Flow from RPL-aware-leaf to root . . . . . . .  10
-     6.2.  Example of Flow from root to RPL-aware-leaf . . . . . . .  11
-     6.3.  Example of Flow from root to not-RPL-aware-leaf . . . . .  12
-     6.4.  Example of Flow from not-RPL-aware-leaf to root . . . . .  12
-     6.5.  Example of Flow from RPL-aware-leaf to Internet . . . . .  13
-     6.6.  Example of Flow from Internet to RPL-aware-leaf . . . . .  14
-     6.7.  Example of Flow from not-RPL-aware-leaf to Internet . . .  14
-     6.8.  Example of Flow from Internet to non-RPL-aware-leaf . . .  15
-     6.9.  Example of Flow from RPL-aware-leaf to RPL-aware-leaf . .  16
-     6.10. Example of Flow from RPL-aware-leaf to non-RPL-aware-leaf  17
-     6.11. Example of Flow from not-RPL-aware-leaf to RPL-aware-leaf  18
-     6.12. Example of Flow from not-RPL-aware-leaf to not-RPL-aware-
-           leaf  . . . . . . . . . . . . . . . . . . . . . . . . . .  19
-   7.  Non Storing mode  . . . . . . . . . . . . . . . . . . . . . .  20
-     7.1.  Example of Flow from RPL-aware-leaf to root . . . . . . .  21
-     7.2.  Example of Flow from root to RPL-aware-leaf . . . . . . .  22
-     7.3.  Example of Flow from root to not-RPL-aware-leaf . . . . .  22
-     7.4.  Example of Flow from not-RPL-aware-leaf to root . . . . .  23
-     7.5.  Example of Flow from RPL-aware-leaf to Internet . . . . .  24
-     7.6.  Example of Flow from Internet to RPL-aware-leaf . . . . .  25
-     7.7.  Example of Flow from not-RPL-aware-leaf to Internet . . .  25
-     7.8.  Example of Flow from Internet to not-RPL-aware-leaf . . .  26
-     7.9.  Example of Flow from RPL-aware-leaf to RPL-aware-leaf . .  27
-     7.10. Example of Flow from RPL-aware-leaf to not-RPL-aware-leaf  28
-     7.11. Example of Flow from not-RPL-aware-leaf to RPL-aware-leaf  29
-     7.12. Example of Flow from not-RPL-aware-leaf to not-RPL-aware-
-           leaf  . . . . . . . . . . . . . . . . . . . . . . . . . .  30
-   8.  Observations about the cases  . . . . . . . . . . . . . . . .  31
-     8.1.  Storing mode  . . . . . . . . . . . . . . . . . . . . . .  31
-     8.2.  Non-Storing mode  . . . . . . . . . . . . . . . . . . . .  32
-   9.  6LoRH Compression cases . . . . . . . . . . . . . . . . . . .  32
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  32
-   11. Security Considerations . . . . . . . . . . . . . . . . . . .  32
-   12. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  35
+   2.  Terminology and Requirements Language . . . . . . . . . . . .   4
+     2.1.  hop-by-hop IPv6-in-IPv6 headers . . . . . . . . . . . . .   4
+   3.  Update to RFC6553 and RFC 6550  . . . . . . . . . . . . . . .   4
+     3.1.  Update RFC 6553 . . . . . . . . . . . . . . . . . . . . .   4
+     3.2.  Update RFC 6550 . . . . . . . . . . . . . . . . . . . . .   5
+   4.  Sample/reference topology . . . . . . . . . . . . . . . . . .   6
+   5.  Use cases . . . . . . . . . . . . . . . . . . . . . . . . . .   9
+   6.  Storing mode  . . . . . . . . . . . . . . . . . . . . . . . .  11
+     6.1.  Storing Mode: Interaction between Leaf and Root . . . . .  13
+       6.1.1.  SM: Example of Flow from RPL-aware-leaf to root . . .  14
+       6.1.2.  SM: Example of Flow from root to RPL-aware-leaf . . .  15
+       6.1.3.  SM: Example of Flow from root to not-RPL-aware-leaf .  15
+       6.1.4.  SM: Example of Flow from not-RPL-aware-leaf to root .  16
+     6.2.  Storing Mode: Interaction between Leaf and Internet . . .  17
+       6.2.1.  SM: Example of Flow from RPL-aware-leaf to Internet .  17
+       6.2.2.  SM: Example of Flow from Internet to RPL-aware-leaf .  18
+       6.2.3.  SM: Example of Flow from not-RPL-aware-leaf to
+               Internet  . . . . . . . . . . . . . . . . . . . . . .  18
+       6.2.4.  SM: Example of Flow from Internet to non-RPL-aware-
+               leaf  . . . . . . . . . . . . . . . . . . . . . . . .  19
+     6.3.  Storing Mode: Interaction between Leaf and Leaf . . . . .  20
+       6.3.1.  SM: Example of Flow from RPL-aware-leaf to RPL-aware-
+               leaf  . . . . . . . . . . . . . . . . . . . . . . . .  20
+       6.3.2.  SM: Example of Flow from RPL-aware-leaf to non-RPL-
+               aware-leaf  . . . . . . . . . . . . . . . . . . . . .  21
+       6.3.3.  SM: Example of Flow from not-RPL-aware-leaf to RPL-
+               aware-leaf  . . . . . . . . . . . . . . . . . . . . .  22
+       6.3.4.  SM: Example of Flow from not-RPL-aware-leaf to not-
+               RPL-aware-leaf  . . . . . . . . . . . . . . . . . . .  23
+   7.  Non Storing mode  . . . . . . . . . . . . . . . . . . . . . .  24
+     7.1.  Example of Flow from RPL-aware-leaf to root . . . . . . .  25
+     7.2.  Example of Flow from root to RPL-aware-leaf . . . . . . .  26
+     7.3.  Example of Flow from root to not-RPL-aware-leaf . . . . .  26
+     7.4.  Example of Flow from not-RPL-aware-leaf to root . . . . .  27
+     7.5.  Example of Flow from RPL-aware-leaf to Internet . . . . .  28
+     7.6.  Example of Flow from Internet to RPL-aware-leaf . . . . .  29
+     7.7.  Example of Flow from not-RPL-aware-leaf to Internet . . .  29
+     7.8.  Example of Flow from Internet to not-RPL-aware-leaf . . .  30
+     7.9.  Example of Flow from RPL-aware-leaf to RPL-aware-leaf . .  31
+     7.10. Example of Flow from RPL-aware-leaf to not-RPL-aware-leaf  32
 
 
 
-Robles, et al.          Expires November 11, 2017               [Page 2]
+Robles, et al.          Expires December 7, 2017                [Page 2]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  35
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  35
-     13.2.  Informative References . . . . . . . . . . . . . . . . .  36
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  38
+     7.11. Example of Flow from not-RPL-aware-leaf to RPL-aware-leaf  33
+     7.12. Example of Flow from not-RPL-aware-leaf to not-RPL-aware-
+           leaf  . . . . . . . . . . . . . . . . . . . . . . . . . .  34
+   8.  Observations about the cases  . . . . . . . . . . . . . . . .  35
+     8.1.  Storing mode  . . . . . . . . . . . . . . . . . . . . . .  35
+     8.2.  Non-Storing mode  . . . . . . . . . . . . . . . . . . . .  36
+   9.  6LoRH Compression cases . . . . . . . . . . . . . . . . . . .  36
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  36
+   11. Security Considerations . . . . . . . . . . . . . . . . . . .  36
+   12. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  39
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  39
+     13.1.  Normative References . . . . . . . . . . . . . . . . . .  39
+     13.2.  Informative References . . . . . . . . . . . . . . . . .  40
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  42
 
 1.  Introduction
 
@@ -151,33 +161,16 @@ Internet-Draft                  Useof6553                       May 2017
    IP-in-IP technique, and use cases proposed for the
    [Second6TischPlugtest] involving 6loRH.
 
-2.  Update to RFC 6553
-
-   The related document updates [RFC6553].  This RFC states that "...the
-   two high order bits of the Option Type MUST be set to '01' and the
-   third bit is equal to '1'.  With these bits, according to [RFC2460],
-   nodes that do not understand this option on a received packet MUST
-   discard the packet...".  Due to changes to
-   [I-D.ietf-6man-rfc2460bis], the nodes that do not undersand this
-   option on a received packet MUST ignore the packet.
 
 
 
 
-
-Robles, et al.          Expires November 11, 2017               [Page 3]
+Robles, et al.          Expires December 7, 2017                [Page 3]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
-   In general, any packet that leaves the RPL domain of an LLN (or
-   leaves the LLN entirely) will NOT be discarded, when it has the
-   [RFC6553] RPL Option Header known as the RPI or [RFC6554] SRH3
-   Extension Header (S)RH3.  Because of [I-D.ietf-6man-rfc2460bis] the
-   RPI Hop-by-Hop option MAY be left in place even if the end host does
-   not understand it.
-
-3.  Terminology and Requirements Language
+2.  Terminology and Requirements Language
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -203,7 +196,11 @@ Internet-Draft                  Useof6553                       May 2017
    (pledges) into a network. (from
    [I-D.ietf-anima-bootstrapping-keyinfra])
 
-3.1.  hop-by-hop IPv6-in-IPv6 headers
+   Flag day: A "flag day" is a procedure in which the network, or a part
+   of it, is changed during a planned outage, or suddenly, causing an
+   outage while the network recovers [RFC4192]
+
+2.1.  hop-by-hop IPv6-in-IPv6 headers
 
    The term "hop-by-hop IPv6-in-IPv6" header refers to: adding a header
    that originates from a node to an adjacent node, using the addresses
@@ -212,19 +209,100 @@ Internet-Draft                  Useof6553                       May 2017
    be decapsulated at each hop, and then re-encapsulated again in a
    similar fashion.
 
+3.  Update to RFC6553 and RFC 6550
+
+3.1.  Update RFC 6553
+
+   [RFC6553] states that in the Option Type field of the RPL Option
+   header, the two high order bits MUST be set to '01' and the third bit
+   is equal to '1'.  The first two bits indicate that the IPv6 node MUST
+   discard the packet if it doesn't recognize the option type, and the
+
+
+
+
+Robles, et al.          Expires December 7, 2017                [Page 4]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
+   third bit indicates that the Option Data may change en route.  The
+   remaining bits serve as the option type.
+
+   On the other hand, due to changes to [I-D.ietf-6man-rfc2460bis], it
+   states: "it is now expected that nodes along a packet's delivery path
+   only examine and process the Hop-by-Hop Options header if explicitly
+   configured to do so", it means that the nodes that do not undersand a
+   Hop-by-Hop Option on a received packet MUST ignore the packet (do not
+   process it).
+
+   Thus, if an IPv6 node (RPL-not-capable) get a packet with an RPL
+   Option, it should ignore the HBH option.  To reflect this behaviour
+   into the RPL Option, we update the Option Type field to: the two high
+   order bits MUST be set to '00' and the third bit is equal to '1'.
+   So, these two high order bits indicate that the IPv6 node MUST skip
+   over this option and continue processing the header if it doesn't
+   recognize the option type, and the third bit indicates that the
+   Option Data may change en route.  The remaining bits serve as the
+   option type.  In that sense the related document updates [RFC6553].
+
+   In general, any packet that leaves the RPL domain of an LLN (or
+   leaves the LLN entirely) will NOT be discarded, when it has the
+   [RFC6553] RPL Option Header known as the RPI or [RFC6554] SRH3
+   Extension Header (S)RH3.  Because of [I-D.ietf-6man-rfc2460bis] the
+   RPI Hop-by-Hop option MAY be left in place even if the end host does
+   not understand it.
+
+   Having the RPL Option field to '00' may cause a "flag day" since all
+   nodes on the LLN need to be upgraded at the same time.  The flag day
+   can handle with 6LoRH techniques (RPI-6LoRH).
+
+3.2.  Update RFC 6550
+
+   To handle a flag day, we propose to indicate this behaviour trough a
+   DIO Option, or through a DIO flag (to be decided by the working
+   group)
+
+   DIO Option: 0x05 RPI flag day
+
+   Through, DIO Option flag.  RFC 6550 states: ""
+
+   Flags: 8-bit unused field reserved for flags.  The field MUST be
+   initialized to zero by the sender and MUST be ignored by the
+   receiver.
+
+   We propose to use a bit flag as follows:
+
+
+
+
+
+Robles, et al.          Expires December 7, 2017                [Page 5]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
+             +----+----+----+----+----+----+----+----+
+             |    |    |    |    |    |    |    |    |
+             |    |    |    |    |    |    |    | FR |
+             |    |    |    |    |    |    |    |    |
+             +----+----+----+----+----+----+----+----+
+
+
+
+
+            Figure 1: A DIO Flag to indicate the RPI-flag-day.
+
+   FR(RPI-flag-day): the flag with values of 1 indicates that RPL Option
+   field is set to "00", values of 0 indicates that RPL Option field is
+   set to "01"
+
 4.  Sample/reference topology
 
    A RPL network is composed of a 6LBR (6LoWPAN Border Router), Backbone
    Router (6BBR), 6LR (6LoWPAN Router) and 6LN (6LoWPAN Node) as leaf
-   logically organized in a DODAG structure (Destination Oriented
-   Directed Acyclic Graph).
-
-
-
-Robles, et al.          Expires November 11, 2017               [Page 4]
-
-Internet-Draft                  Useof6553                       May 2017
-
+   logically organized in a DODAG structureWe propose to use a bit flag
+   as follows: (Destination Oriented Directed Acyclic Graph).
 
    RPL defines the RPL Control messages (control plane), a new ICMPv6
    [RFC4443]  message with Type 155.  DIS (DODAG Information
@@ -238,6 +316,27 @@ Internet-Draft                  Useof6553                       May 2017
    storing, i.e. a RPL Instance with a combination of storing and non-
    storing nodes is not supported with the current specifications at the
    time of writing this document.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Robles, et al.          Expires December 7, 2017                [Page 6]
+
+Internet-Draft                  Useof6553                      June 2017
+
 
    +--------------+
    | Upper Layers |
@@ -261,7 +360,7 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-                           Figure 1: RPL Stack.
+                           Figure 2: RPL Stack.
 
 
 
@@ -277,9 +376,22 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017               [Page 5]
+
+
+
+
+
+
+
+
+
+
+
+
+
+Robles, et al.          Expires December 7, 2017                [Page 7]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
                                     +---------+
@@ -309,7 +421,7 @@ Internet-Draft                  Useof6553                       May 2017
    +-----+     +-----+      +-----+       +----+     +-----+
 
 
-                    Figure 2: A reference RPL Topology.
+                    Figure 3: A reference RPL Topology.
 
    Figure 2 shows the reference RPL Topology for this document.  The
    numbers in or above the nodes are there so that they may be
@@ -333,9 +445,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017               [Page 6]
+Robles, et al.          Expires December 7, 2017                [Page 8]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
 5.  Use cases
@@ -360,6 +472,8 @@ Internet-Draft                  Useof6553                       May 2017
 
    The uses cases comprise as follow:
 
+   Interaction between Leaf and Root:
+
       RPL-aware-leaf to root
 
       root to RPL-aware-leaf
@@ -367,6 +481,8 @@ Internet-Draft                  Useof6553                       May 2017
       not-RPL-aware-leaf to root
 
       root to not-RPL-aware-leaf
+
+   Interaction between Leaf and Internet:
 
       RPL-aware-leaf to Internet
 
@@ -376,9 +492,19 @@ Internet-Draft                  Useof6553                       May 2017
 
       Internet to not-RPL-aware-leaf
 
+   Interaction between Leafs:
+
       RPL-aware-leaf to RPL-aware-leaf (storing and non-storing)
 
       RPL-aware-leaf to not-RPL-aware-leaf (non-storing)
+
+
+
+
+Robles, et al.          Expires December 7, 2017                [Page 9]
+
+Internet-Draft                  Useof6553                      June 2017
+
 
       not-RPL-aware-leaf to RPL-aware-leaf (storing and non-storing)
 
@@ -386,14 +512,6 @@ Internet-Draft                  Useof6553                       May 2017
 
    This document assumes the rule that a Header cannot be inserted or
    removed on the fly inside an IPv6 packet that is being routed.  This
-
-
-
-Robles, et al.          Expires November 11, 2017               [Page 7]
-
-Internet-Draft                  Useof6553                       May 2017
-
-
    is a fundamental precept of the IPv6 architecture as outlined in
    [RFC2460].  Extensions may not be added or removed except by the
    sender or the receiver.
@@ -437,19 +555,18 @@ Internet-Draft                  Useof6553                       May 2017
    applied across these headers, but it can not secure the values which
    mutate.
 
+
+
+Robles, et al.          Expires December 7, 2017               [Page 10]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
    RPI should be present in every single RPL data packet.  There is one
    exception in non-storing mode: when a packet is going down from the
    root.  In a downward non-storing mode, the entire route is written,
    so there can be no loops by construction, nor any confusion about
    which forwarding table to use (as the root has already made all
-
-
-
-Robles, et al.          Expires November 11, 2017               [Page 8]
-
-Internet-Draft                  Useof6553                       May 2017
-
-
    routing decisions).  There still may be cases (such as in 6tisch)
    where the instanceID portion of the RPI header may still be needed to
    pick an appropriate priority or channel at each hop.
@@ -496,37 +613,124 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-
-
-
-
-
-Robles, et al.          Expires November 11, 2017               [Page 9]
+Robles, et al.          Expires December 7, 2017               [Page 11]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
-               +--------------+-----------+---------------+
-               | Use Case     | IP-in-IP  | IP-in-IP dst  |
-               +--------------+-----------+---------------+
-               | Raf to root  | No        | --            |
-               | root to Raf  | No        | --            |
-               | root to ~Raf | No        | --            |
-               | ~Raf to root | Yes       | root          |
-               | Raf to Int   | No        | --            |
-               | Int to Raf   | Yes       | raf           |
-               | ~Raf to Int  | root      | raf           |
-               | ~Raf to Int  | Yes       | root          |
-               | Int to ~Raf  | Yes       | hop           |
-               | Raf to Raf   | No        | --            |
-               | Raf to ~Raf  | No        | --            |
-               | ~Raf to Raf  | Yes       | dst           |
-               | ~Raf to ~Raf | Yes       | hop           |
-               +--------------+-----------+---------------+
+    +----------------------+--------------+-----------+---------------+
+    | Interaction between  | Use Case     | IP-in-IP  | IP-in-IP dst  |
+    +----------------------+--------------+-----------+---------------+
+    | Leaf - Root          | Raf to root  | No        | --            |
+    | --                   | root to Raf  | No        | --            |
+    | --                   | root to ~Raf | No        | --            |
+    | --                   | ~Raf to root | Yes       | root          |
+    | Leaf - Internet      | Raf to Int   | No        | --            |
+    | --                   | Int to Raf   | Yes       | raf           |
+    | --                   | ~Raf to Int  | root      | raf           |
+    | --                   | ~Raf to Int  | Yes       | root          |
+    | --                   | Int to ~Raf  | Yes       | hop           |
+    | Leaf - Leaf          | Raf to Raf   | No        | --            |
+    | --                   | Raf to ~Raf  | No        | --            |
+    | --                   | ~Raf to Raf  | Yes       | dst           |
+    | --                   | ~Raf to ~Raf | Yes       | hop           |
+    +----------------------+--------------+-----------+---------------+
 
               Table 1: IP-in-IP encapsulation in Storing mode
 
-6.1.  Example of Flow from RPL-aware-leaf to root
+   Optional format for the table
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 12]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
+           +---------------------+--------------+----------+--------------+
+           | Interaction between |   Use Case   | IP-in-IP | IP-in-IP dst |
+           +---------------------+--------------+----------+--------------+
+           |                     |  Raf to root |    No    |      --      |
+           +                     +--------------+----------+--------------+
+           |     Leaf - Root     |  root to Raf |    No    |      --      |
+           +                     +--------------+----------+--------------+
+           |                     | root to ~Raf |    No    |      --      |
+           +                     +--------------+----------+--------------+
+           |                     | ~Raf to root |    Yes   |     root     |
+           +---------------------+--------------+----------+--------------+
+           |                     |  Raf to Int  |    No    |      --      |
+           +                     +--------------+----------+--------------+
+           |   Leaf - Internet   |  Int to Raf  |   Yes    |      raf     |
+           +                     +--------------+----------+--------------+
+           |                     |  ~Raf to Int |    Yes   |     root     |
+           +                     +--------------+----------+--------------+
+           |                     |  Int to ~Raf |    Yes   |      hop     |
+           +---------------------+--------------+----------+--------------+
+           |                     |  Raf to Raf  |    No    |      --      |
+           +                     +--------------+----------+--------------+
+           |                     |  Raf to ~Raf |    No    |      --      |
+           +     Leaf - Leaf     +--------------+----------+--------------+
+           |                     |  ~Raf to Raf |    Yes   |      dst     |
+           +                     +--------------+----------+--------------+
+           |                     | ~Raf to ~Raf |    Yes   |      hop     |
+           +---------------------+--------------+----------+--------------+
+
+
+
+             Figure 4: IP-in-IP encapsulation in Storing mode.
+
+6.1.  Storing Mode: Interaction between Leaf and Root
+
+   In this section we are going to describe the communication flow in
+   storing mode (SM) between,
+
+      RPL-aware-leaf to root
+
+      root to RPL-aware-leaf
+
+      not-RPL-aware-leaf to root
+
+      root to not-RPL-aware-leaf
+
+
+
+
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 13]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
+6.1.1.  SM: Example of Flow from RPL-aware-leaf to root
 
    In storing mode, RFC 6553 (RPI) is used to send RPL Information
    instanceID and rank information.
@@ -555,13 +759,6 @@ Internet-Draft                  Useof6553                       May 2017
 
    No IP-in-IP header is required.
 
-
-
-Robles, et al.          Expires November 11, 2017              [Page 10]
-
-Internet-Draft                  Useof6553                       May 2017
-
-
    The RPI header can be removed by the 6LBR because the packet is
    addressed to the 6LBR.  The 6LN must know that it is communicating
    with the 6LBR to make use of this scenario.  The 6LN can know the
@@ -580,7 +777,16 @@ Internet-Draft                  Useof6553                       May 2017
 
     Storing: Summary of the use of headers from RPL-aware-leaf to root
 
-6.2.  Example of Flow from root to RPL-aware-leaf
+
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 14]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
+6.1.2.  SM: Example of Flow from root to RPL-aware-leaf
 
    In this case the flow comprises:
 
@@ -608,17 +814,7 @@ Internet-Draft                  Useof6553                       May 2017
 
     Storing: Summary of the use of headers from root to RPL-aware-leaf
 
-
-
-
-
-
-Robles, et al.          Expires November 11, 2017              [Page 11]
-
-Internet-Draft                  Useof6553                       May 2017
-
-
-6.3.  Example of Flow from root to not-RPL-aware-leaf
+6.1.3.  SM: Example of Flow from root to not-RPL-aware-leaf
 
    In this case the flow comprises:
 
@@ -630,6 +826,21 @@ Internet-Draft                  Useof6553                       May 2017
 
    As the RPI extension can be ignored by the not-RPL-aware leaf, this
    situation is identical to the previous scenario.
+
+
+
+
+
+
+
+
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 15]
+
+Internet-Draft                  Useof6553                      June 2017
+
 
            +-------------------+------+-------+----------------+
            | Header            | 6LBR | 6LR_i | IPv6           |
@@ -644,7 +855,7 @@ Internet-Draft                  Useof6553                       May 2017
     Storing: Summary of the use of headers from root to not-RPL-aware-
                                    leaf
 
-6.4.  Example of Flow from not-RPL-aware-leaf to root
+6.1.4.  SM: Example of Flow from not-RPL-aware-leaf to root
 
    In this case the flow comprises:
 
@@ -660,19 +871,6 @@ Internet-Draft                  Useof6553                       May 2017
    insert a RPI header, encapsuladed in a IPv6-in-IPv6 header.  The
    IPv6-in-IPv6 header can be addressed to the next hop, or to the root.
    The root removes the header and processes the packet.
-
-
-
-
-
-
-
-
-
-Robles, et al.          Expires November 11, 2017              [Page 12]
-
-Internet-Draft                  Useof6553                       May 2017
-
 
    +------------+------+---------------+---------------+---------------+
    | Header     | IPv6 | 6LR_1         | 6LR_i         | 6LBR          |
@@ -692,7 +890,28 @@ Internet-Draft                  Useof6553                       May 2017
      Storing: Summary of the use of headers from not-RPL-aware-leaf to
                                    root
 
-6.5.  Example of Flow from RPL-aware-leaf to Internet
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 16]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
+6.2.  Storing Mode: Interaction between Leaf and Internet
+
+   In this section we are going to describe the communication flow in
+   storing mode (SM) between,
+
+      RPL-aware-leaf to Internet
+
+      Internet to RPL-aware-leaf
+
+      not-RPL-aware-leaf to Internet
+
+      Internet to not-RPL-aware-leaf
+
+6.2.1.  SM: Example of Flow from RPL-aware-leaf to Internet
 
    RPL information from RFC 6553 MAY go out to Internet as it will be
    ignored by nodes which have not been configured to be RPI aware.
@@ -725,12 +944,17 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 13]
+
+
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 17]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
-6.6.  Example of Flow from Internet to RPL-aware-leaf
+6.2.2.  SM: Example of Flow from Internet to RPL-aware-leaf
 
    In this case the flow comprises:
 
@@ -765,7 +989,7 @@ Internet-Draft                  Useof6553                       May 2017
     Storing: Summary of the use of headers from Internet to RPL-aware-
                                    leaf
 
-6.7.  Example of Flow from not-RPL-aware-leaf to Internet
+6.2.3.  SM: Example of Flow from not-RPL-aware-leaf to Internet
 
    In this case the flow comprises:
 
@@ -781,9 +1005,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 14]
+Robles, et al.          Expires December 7, 2017               [Page 18]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    The 6LR_1 (i=1) node will add an IP-in-IP(RPI) header addressed
@@ -818,7 +1042,7 @@ Internet-Draft                  Useof6553                       May 2017
      Storing: Summary of the use of headers from not-RPL-aware-leaf to
                                  Internet
 
-6.8.  Example of Flow from Internet to non-RPL-aware-leaf
+6.2.4.  SM: Example of Flow from Internet to non-RPL-aware-leaf
 
    In this case the flow comprises:
 
@@ -837,9 +1061,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 15]
+Robles, et al.          Expires December 7, 2017               [Page 19]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    The 6LBR MAY set the flow label on the inner IP-in-IP header to zero
@@ -863,7 +1087,20 @@ Internet-Draft                  Useof6553                       May 2017
      Storing: Summary of the use of headers from Internet to non-RPL-
                                 aware-leaf
 
-6.9.  Example of Flow from RPL-aware-leaf to RPL-aware-leaf
+6.3.  Storing Mode: Interaction between Leaf and Leaf
+
+   In this section we are going to describe the communication flow in
+   storing mode (SM) between,
+
+      RPL-aware-leaf to RPL-aware-leaf
+
+      RPL-aware-leaf to not-RPL-aware-leaf
+
+      not-RPL-aware-leaf to RPL-aware-leaf
+
+      not-RPL-aware-leaf to not-RPL-aware-leaf
+
+6.3.1.  SM: Example of Flow from RPL-aware-leaf to RPL-aware-leaf
 
    In [RFC6550] RPL allows a simple one-hop optimization for both
    storing and non-storing networks.  A node may send a packet destined
@@ -878,6 +1115,13 @@ Internet-Draft                  Useof6553                       May 2017
    (6LR) that the packet go through from 6LN to the common parent
    (6LR_x).
 
+
+
+Robles, et al.          Expires December 7, 2017               [Page 20]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
    6LR_id are the intermediate routers from the common parent (6LR_x) to
    destination 6LN.  In this case, "1 <= id >= m", m is the number of
    routers (6LR) that the packet go through from the common parent
@@ -889,15 +1133,6 @@ Internet-Draft                  Useof6553                       May 2017
 
    While the 6LR nodes will update the RPI, no node needs to add or
    remove the RPI, so no IP-in-IP headers are necessary.  This may be
-
-
-
-
-Robles, et al.          Expires November 11, 2017              [Page 16]
-
-Internet-Draft                  Useof6553                       May 2017
-
-
    done regardless of where the destination is, as the included RPI will
    be ignored by the receiver.
 
@@ -920,7 +1155,7 @@ Internet-Draft                  Useof6553                       May 2017
      Storing: Summary of the use of headers for RPL-aware-leaf to RPL-
                                 aware-leaf
 
-6.10.  Example of Flow from RPL-aware-leaf to non-RPL-aware-leaf
+6.3.2.  SM: Example of Flow from RPL-aware-leaf to non-RPL-aware-leaf
 
    In this case the flow comprises:
 
@@ -934,25 +1169,19 @@ Internet-Draft                  Useof6553                       May 2017
 
    6LR_id are the intermediate routers from the common parent (6LR_x) to
    destination not-RPL-aware 6LN (IPv6).  In this case, "1 <= id >= m",
+
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 21]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
    m is the number of routers (6LR) that the packet go through from the
    common parent (6LR_x) to destination 6LN.
 
-   This situation is identical to the previous situation Section 6.9
-
-
-
-
-
-
-
-
-
-
-
-Robles, et al.          Expires November 11, 2017              [Page 17]
-
-Internet-Draft                  Useof6553                       May 2017
-
+   This situation is identical to the previous situation Section 6.3.1
 
    +-----------+------+--------+---------------+--------+--------------+
    | Header    | 6LN  | 6LR_ia | 6LR_x(common  | 6LR_id | IPv6         |
@@ -970,10 +1199,10 @@ Internet-Draft                  Useof6553                       May 2017
    | headers   |      |        |               |        |              |
    +-----------+------+--------+---------------+--------+--------------+
 
-     Storing: Summary of the use of headers for RPL-aware-leaf to RPL-
+   Storing: Summary of the use of headers for RPL-aware-leaf to non-RPL-
                                 aware-leaf
 
-6.11.  Example of Flow from not-RPL-aware-leaf to RPL-aware-leaf
+6.3.3.  SM: Example of Flow from not-RPL-aware-leaf to RPL-aware-leaf
 
    In this case the flow comprises:
 
@@ -1000,14 +1229,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-
-
-
-
-
-Robles, et al.          Expires November 11, 2017              [Page 18]
+Robles, et al.          Expires December 7, 2017               [Page 22]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    +--------+------+------------+------------+------------+------------+
@@ -1036,36 +1260,37 @@ Internet-Draft                  Useof6553                       May 2017
      Storing: Summary of the use of headers from not-RPL-aware-leaf to
                               RPL-aware-leaf
 
-6.12.  Example of Flow from not-RPL-aware-leaf to not-RPL-aware-leaf
+6.3.4.  SM: Example of Flow from not-RPL-aware-leaf to not-RPL-aware-
+        leaf
 
    In this case the flow comprises:
 
    not-RPL-aware 6LN (IPv6 src)--> 6LR_1--> 6LR_ia --> root (6LBR) -->
    6LR_id --> not-RPL-aware 6LN (IPv6 dst)
 
-   6LR_ia are the intermediate routers from source (not-RPL-aware 6LN
-   (IPv6 src)) to the root (6LBR) In this case, "1 < ia >= n", n is the
-   number of routers (6LR) that the packet go through from IPv6 src to
-   the root.
+   Internet 6LR_ia are the intermediate routers from source (not-RPL-
+   aware 6LN (IPv6 src)) to the root (6LBR) In this case, "1 < ia >= n",
+   n is the number of routers (6LR) that the packet go through from IPv6
+   src to the root.
 
    6LR_id are the intermediate routers from the root to destination
    (IPv6 dst).  In this case, "1 <= id >= m", m is the number of routers
    (6LR) that the packet go through from the root to destination (IPv6
    dst).
 
-   This flow is identical to Section 6.11
+   This flow is identical to Section 6.3.3
 
    The 6LR_1 receives the packet from the the IPv6 node and inserts the
    RPI header (RPIa) encapsulated in IPv6-in-IPv6 header.  The IPv6-in-
-   IPv6 header is addressed to the 6LBR.  The 6LBR remove the IPv6-in-
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 19]
+Robles, et al.          Expires December 7, 2017               [Page 23]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
+   IPv6 header is addressed to the 6LBR.  The 6LBR remove the IPv6-in-
    IPv6 header and insert another one (RPIb) with destination to 6LR_m
    node.
 
@@ -1116,10 +1341,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-
-Robles, et al.          Expires November 11, 2017              [Page 20]
+Robles, et al.          Expires December 7, 2017               [Page 24]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
         +--------------+------+------+-----------+---------------+
@@ -1173,9 +1397,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 21]
+Robles, et al.          Expires December 7, 2017               [Page 25]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
 7.2.  Example of Flow from root to RPL-aware-leaf
@@ -1229,9 +1453,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 22]
+Robles, et al.          Expires December 7, 2017               [Page 26]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    +---------------+-------------+---------------+--------------+------+
@@ -1285,9 +1509,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 23]
+Robles, et al.          Expires December 7, 2017               [Page 27]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    +------------+------+---------------+---------------+---------------+
@@ -1341,9 +1565,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 24]
+Robles, et al.          Expires December 7, 2017               [Page 28]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
 7.6.  Example of Flow from Internet to RPL-aware-leaf
@@ -1397,9 +1621,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 25]
+Robles, et al.          Expires December 7, 2017               [Page 29]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    6LR_i are the intermediate routers from source to destination.  In
@@ -1453,9 +1677,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 26]
+Robles, et al.          Expires December 7, 2017               [Page 30]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    destination be the last 6LR.  The 6LBR will set to zero the flow
@@ -1509,9 +1733,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 27]
+Robles, et al.          Expires December 7, 2017               [Page 31]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    it does not, then additional resources are wasted on the way down to
@@ -1565,9 +1789,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 28]
+Robles, et al.          Expires December 7, 2017               [Page 32]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    6LR_id are the intermediate routers from the root to the destination.
@@ -1621,9 +1845,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 29]
+Robles, et al.          Expires December 7, 2017               [Page 33]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    This scenario is mostly identical to the previous one.  The RPI is
@@ -1677,9 +1901,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 30]
+Robles, et al.          Expires December 7, 2017               [Page 34]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    +---------+-----+--------------+---------------+-------------+------+
@@ -1733,9 +1957,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 31]
+Robles, et al.          Expires December 7, 2017               [Page 35]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
 8.2.  Non-Storing mode
@@ -1772,7 +1996,7 @@ Internet-Draft                  Useof6553                       May 2017
    +--+-----+---+--------------+-----------+-------------+-------------+
 
 
-                    Figure 3: Critical IP-in-IP (RPI).
+                    Figure 5: Critical IP-in-IP (RPI).
 
 10.  IANA Considerations
 
@@ -1789,9 +2013,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 32]
+Robles, et al.          Expires December 7, 2017               [Page 36]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    of each node in the LLN to decapsulate packets and forward them could
@@ -1845,9 +2069,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 33]
+Robles, et al.          Expires December 7, 2017               [Page 37]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    RPL root to do careful filtering: it occurs only when the Join
@@ -1901,9 +2125,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 34]
+Robles, et al.          Expires December 7, 2017               [Page 38]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    default instanceID, but a change of instanceID would permit an
@@ -1932,17 +2156,17 @@ Internet-Draft                  Useof6553                       May 2017
 
    The authors would like to acknowledge the review, feedback, and
    comments of (alphabetical order): Robert Cragie, Simon Duquennoy,
-   Cenk Guendogan, Rahul Jadhav, Peter van der Stok, Xavier Vilajosana
-   and Thomas Watteyne.
+   Cenk Guendogan, C.  M.  Heard, Rahul Jadhav, Peter van der Stok,
+   Xavier Vilajosana and Thomas Watteyne.
 
 13.  References
 
 13.1.  Normative References
 
    [I-D.ietf-6man-rfc2460bis]
-              <>, S. and R. Hinden, "Internet Protocol, Version 6 (IPv6)
-              Specification", draft-ietf-6man-rfc2460bis-11 (work in
-              progress), April 2017.
+              Deering, S. and R. Hinden, "Internet Protocol, Version 6
+              (IPv6) Specification", draft-ietf-6man-rfc2460bis-13 (work
+              in progress), May 2017.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -1957,9 +2181,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 35]
+Robles, et al.          Expires December 7, 2017               [Page 39]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    [RFC2473]  Conta, A. and S. Deering, "Generic Packet Tunneling in
@@ -2013,9 +2237,9 @@ Internet-Draft                  Useof6553                       May 2017
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 36]
+Robles, et al.          Expires December 7, 2017               [Page 40]
 
-Internet-Draft                  Useof6553                       May 2017
+Internet-Draft                  Useof6553                      June 2017
 
 
    [DDOS-KREBS]
@@ -2047,7 +2271,7 @@ Internet-Draft                  Useof6553                       May 2017
               Pritikin, M., Richardson, M., Behringer, M., Bjarnason,
               S., and K. Watsen, "Bootstrapping Remote Secure Key
               Infrastructures (BRSKI)", draft-ietf-anima-bootstrapping-
-              keyinfra-05 (work in progress), March 2017.
+              keyinfra-06 (work in progress), May 2017.
 
    [I-D.ietf-roll-dao-projection]
               Thubert, P. and J. Pylakutty, "Root initiated routing
@@ -2059,20 +2283,26 @@ Internet-Draft                  Useof6553                       May 2017
               "6LoWPAN Routing Header", draft-ietf-roll-routing-
               dispatch-05 (work in progress), October 2016.
 
+   [RFC4192]  Baker, F., Lear, E., and R. Droms, "Procedures for
+              Renumbering an IPv6 Network without a Flag Day", RFC 4192,
+              DOI 10.17487/RFC4192, September 2005,
+              <http://www.rfc-editor.org/info/rfc4192>.
+
+
+
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 41]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
    [RFC4443]  Conta, A., Deering, S., and M. Gupta, Ed., "Internet
               Control Message Protocol (ICMPv6) for the Internet
               Protocol Version 6 (IPv6) Specification", RFC 4443,
               DOI 10.17487/RFC4443, March 2006,
               <http://www.rfc-editor.org/info/rfc4443>.
-
-
-
-
-
-Robles, et al.          Expires November 11, 2017              [Page 37]
-
-Internet-Draft                  Useof6553                       May 2017
-
 
    [RFC6775]  Shelby, Z., Ed., Chakrabarti, S., Nordmark, E., and C.
               Bormann, "Neighbor Discovery Optimization for IPv6 over
@@ -2115,6 +2345,15 @@ Authors' Addresses
    URI:   http://www.sandelman.ca/mcr/
 
 
+
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 42]
+
+Internet-Draft                  Useof6553                      June 2017
+
+
    Pascal Thubert
    Cisco Systems, Inc
    Village d'Entreprises Green Side 400, Avenue de Roumanille
@@ -2125,4 +2364,45 @@ Authors' Addresses
 
 
 
-Robles, et al.          Expires November 11, 2017              [Page 38]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Robles, et al.          Expires December 7, 2017               [Page 43]
