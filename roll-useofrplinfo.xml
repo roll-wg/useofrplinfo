@@ -14,6 +14,7 @@
 <!ENTITY RFC4303 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4303.xml">
 <!ENTITY RFC7321 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7321.xml">
 <!ENTITY RFC7416 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7416.xml">
+<!ENTITY RFC4192 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4192.xml">
 <!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">
 <!ENTITY I-D.ietf-6man-rfc2460bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6man-rfc2460bis.xml">
 <!ENTITY I-D.ietf-roll-routing-dispatch SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-routing-dispatch.xml">
@@ -169,27 +170,7 @@
            </t>
          </section>
 
-         <section title="Update to RFC 6553">
-             <t>
-            The related document updates <xref target="RFC6553"/>. This RFC states
-            that "...the two high order bits of the Option Type MUST be set to '01' and
-            the third bit is equal to '1'.  With these bits, according to
-            [RFC2460], nodes that do not understand this option on a received
-            packet MUST discard the packet...". Due to changes to
-            <xref target="I-D.ietf-6man-rfc2460bis"/>, the nodes that do not undersand
-            this option on a received packet MUST ignore the packet.
-          </t>
-          <t>
-            In general, any packet that leaves the RPL domain
-            of an LLN (or leaves the LLN entirely) will NOT be discarded, when it has the <xref target="RFC6553" /> RPL Option
-            Header known as the RPI or <xref target="RFC6554" /> SRH3 Extension Header (S)RH3.
-	          Because of <xref target="I-D.ietf-6man-rfc2460bis"/> the RPI Hop-by-Hop option
-            MAY be left in place even if the end host does not
-            understand it.
-          </t>
-     </section>
-
-     <section title="Terminology and Requirements Language">
+    <section title="Terminology and Requirements Language">
         <t>
            The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
            "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -218,7 +199,11 @@
           Join Registrar and Coordinator (JRC): a device which brings new nodes
           (pledges) into a network. (from <xref target="I-D.ietf-anima-bootstrapping-keyinfra" />)
         </t>
-
+        <t>
+          Flag day: A "flag day" is a procedure in which the network, or a part of it, is
+          changed during a planned outage, or suddenly, causing an outage while
+          the network recovers <xref target="RFC4192"/>
+        </t>
         <section title="hop-by-hop IPv6-in-IPv6 headers">
         <t>
           The term "hop-by-hop IPv6-in-IPv6" header refers to: adding a header
@@ -230,16 +215,99 @@
         </t>
         </section>
 
-
-
        </section>
 
+       <section title="Update to RFC6553 and RFC 6550">
+
+          <section title="Update RFC 6553">
+           <t>
+          <xref target="RFC6553"/> states that in the Option Type field of the RPL Option
+          header, the two high order bits MUST be set to '01' and the third bit is equal to '1'.
+          The first two bits indicate that the IPv6 node MUST discard the packet
+          if it doesn't recognize the option type,
+          and the third bit indicates that the Option Data may change en route.
+          The remaining bits serve as the option type.
+          </t>
+          <t>
+          On the other hand, due to changes to
+          <xref target="I-D.ietf-6man-rfc2460bis"/>, it states: "it is now expected that nodes
+          along a packet's delivery path only examine and process the Hop-by-Hop Options header
+          if explicitly configured to do so", it means that the nodes that do not undersand
+          a Hop-by-Hop Option on a received packet MUST ignore the
+          packet (do not process it).
+        </t>
+          <t>
+          Thus, if an IPv6 node (RPL-not-capable) get a packet with an RPL Option, it should
+          ignore the HBH option. To reflect this behaviour into the RPL Option, we update the
+          Option Type field to: the two high order bits MUST be set to '00' and
+          the third bit is equal to '1'.
+          So, these two high order bits indicate that the IPv6 node MUST skip over this option
+          and continue processing the header if it doesn't recognize the option type,
+          and the third bit indicates that the Option Data may change en route.
+          The remaining bits serve as the option type. In that sense the
+          related document updates <xref target="RFC6553"/>.
+        </t>
+
+        <t>
+          In general, any packet that leaves the RPL domain
+          of an LLN (or leaves the LLN entirely) will NOT be discarded, when it has the <xref target="RFC6553" /> RPL Option
+          Header known as the RPI or <xref target="RFC6554" /> SRH3 Extension Header (S)RH3.
+          Because of <xref target="I-D.ietf-6man-rfc2460bis"/> the RPI Hop-by-Hop option
+          MAY be left in place even if the end host does not
+          understand it.
+        </t>
+        <t>
+          Having the RPL Option field to '00' may cause a "flag day" since all nodes
+          on the LLN need to be upgraded at the same time. The flag day can handle with
+          6LoRH techniques (RPI-6LoRH).
+        </t>
+        </section>
+        <section title="Update RFC 6550">
+          <t>
+            To handle a flag day, we propose to indicate this behaviour  trough a DIO Option,
+            or through a DIO flag (to be decided by the working group)
+          </t>
+          <t>
+            DIO Option:
+            0x05 RPI flag day
+          </t>
+          <t>
+            Through, DIO Option flag. RFC 6550 states: ""
+          </t>
+          <t>
+          Flags: 8-bit unused field reserved for flags.  The field MUST be
+          initialized to zero by the sender and MUST be ignored by the
+          receiver.
+          </t>
+          <t>
+          We propose to use a bit flag as follows:
+          </t>
+          <t>
+        <figure title="A DIO Flag to indicate the RPI-flag-day." anchor="fig_RPIflagday" align="center">
+           <artwork> <![CDATA[
+
+          +----+----+----+----+----+----+----+----+
+          |    |    |    |    |    |    |    |    |
+          |    |    |    |    |    |    |    | FR |
+          |    |    |    |    |    |    |    |    |
+          +----+----+----+----+----+----+----+----+
+
+
+
+          ]]></artwork></figure>
+          </t>
+           <t>
+           FR(RPI-flag-day): the flag with values of 1 indicates that RPL Option field is set to "00",
+           values of 0 indicates that RPL Option field is set to "01"
+           </t>
+        </section>
+   </section>
 
        <section title="Sample/reference topology">
                 <t>
                 A RPL network is composed of a 6LBR (6LoWPAN Border Router),
                 Backbone Router (6BBR), 6LR (6LoWPAN Router) and 6LN (6LoWPAN
-                Node) as leaf logically organized in a DODAG structure
+                Node) as leaf logically organized in a DODAG structureWe propose to use a bit flag as follows:
                 (Destination Oriented Directed Acyclic Graph).
                 </t>
                 <t>
@@ -285,7 +353,7 @@
                  </t>
                <t>
              <figure title="A reference RPL Topology." anchor="fig_CommonTopology" align="center">
-                <artwork><![CDATA[
+               <artwork><![CDATA[
 
                                  +---------+
                              +---+Internet |
@@ -2380,7 +2448,7 @@
            <t>
            The authors would like to acknowledge the review, feedback, and
            comments of (alphabetical order): Robert Cragie, Simon Duquennoy, Cenk Gündogan,
-            Rahul Jadhav, Peter van der Stok, Xavier Vilajosana and Thomas Watteyne.
+           C. M. Heard, Rahul Jadhav, Peter van der Stok, Xavier Vilajosana and Thomas Watteyne.
            </t>
          </section>
 
@@ -2422,6 +2490,7 @@
      <?rfc include="reference.I-D.ietf-6lo-backbone-router" ?>
      <?rfc include="reference.I-D.ietf-roll-dao-projection" ?>
      <?rfc include="reference.RFC.6997" ?>
+     <?rfc include="reference.RFC.4192" ?>
 
      <reference anchor="DDOS-KREBS" target="http://arstechnica.com/security/2016/09/botnet-of-145k-cameras-reportedly-deliver-internets-biggest-ddos-ever/">
        <front>
