@@ -188,7 +188,8 @@
         <t>
         RPL-not-capable: It is device which do not implement RPL, thus we can say that the device is not-RPL-aware.
 	Please note that the device can be found inside the LLN.
-	In this document a not-RPL-node which is a leaf of a DODAG is called not-RPL-aware-leaf.
+	In this document a not-RPL-aware node which is a leaf of a DODAG is
+        called not-RPL-aware-leaf.
         </t>
 
         <t>
@@ -217,9 +218,9 @@
 
        </section>
 
-       <section title="Update to RFC6553 and RFC 6550">
+       <section title="Updates to RFC6553 and RFC 6550">
 
-          <section title="Update RFC 6553">
+          <section title="Updates to RFC 6553">
            <t>
           <xref target="RFC6553"/> states that in the Option Type field of the RPL Option
           header, the two high order bits MUST be set to '01' and the third bit is equal to '1'.
@@ -229,23 +230,49 @@
           The remaining bits serve as the option type.
           </t>
           <t>
-          On the other hand, due to changes to
-          <xref target="I-D.ietf-6man-rfc2460bis"/>, it states: "it is now expected that nodes
-          along a packet's delivery path only examine and process the Hop-by-Hop Options header
-          if explicitly configured to do so", it means that the nodes that do not undersand
-          a Hop-by-Hop Option on a received packet MUST ignore the
-          packet (do not process it).
-        </t>
+          Recent changes in
+          <xref target="I-D.ietf-6man-rfc2460bis"/>, state: "it is now
+          expected that nodes along a packet's delivery path only examine and
+          process the Hop-by-Hop Options header if explicitly configured to
+          do so". The mans that nodes that do not understand a particular
+          Hop-by-Hop Option in a received packet are unlikely to be
+          configured to process it.
+          </t>
           <t>
-          Thus, if an IPv6 node (RPL-not-capable) get a packet with an RPL Option, it should
-          ignore the HBH option. To reflect this behaviour into the RPL Option, we update the
-          Option Type field to: the two high order bits MUST be set to '00' and
-          the third bit is equal to '1'.
-          So, these two high order bits indicate that the IPv6 node MUST skip over this option
-          and continue processing the header if it doesn't recognize the option type,
-          and the third bit indicates that the Option Data may change en route.
-          The remaining bits serve as the option type. In that sense the
-          related document updates <xref target="RFC6553"/>.
+          Thus, if an IPv6 node (RPL-not-capable) receives a packet with an
+          RPL Option, it should ignore the HBH option. To further solidify
+          the desire for the RPL options to be ignored, this document updates
+          the Option Type field to:
+          the two high order bits MUST be set to '00' and the third bit is
+          equal to '1'.
+          </t>
+          <t>These two high order bits indicate that the IPv6 node MUST skip
+          over this option
+          and continue processing the header if it doesn't recognize the
+          option type.
+          </t>
+          <t>The third bit continues to be set to indicate that the Option
+          Data may change en route.
+          The remaining bits serve as the option type and remain as 0x3. This
+          an update to <xref target="RFC6553"/>.
+          </t>
+          <t>
+            This change creates a flag day for existing networks which are
+            currently using 0x63 as the RPI value.  A move to 0x43 will not
+            be understood by those networks.  It is suggested that
+            implementations accept both 0x63 and 0x43 when
+            processing.  When forwarding packets, implementations SHOULD use
+            the same value as we received.  When originating new packets,
+            implementations SHOULD have an option to determine which value to
+            originate with, this option is controlled by the DAO option
+            described below.
+          </t>
+        <t>
+          A network which is switching from straight 6lowpan compression
+          mechanism to those described in
+          <xref target="I-D.ietf-roll-routing-dispatch" />
+          will experience a flag day in the data compression anyway, and if
+          possible this change can be deployed at the same time.
         </t>
 
         <t>
@@ -256,28 +283,23 @@
           MAY be left in place even if the end host does not
           understand it.
         </t>
-        <t>
-          Having the RPL Option field to '00' may cause a "flag day" since all nodes
-          on the LLN need to be upgraded at the same time. The flag day can handle with
-          6LoRH techniques (RPI-6LoRH).
-        </t>
         </section>
-        <section title="Update RFC 6550">
+        <section title="Updates to RFC 6550">
           <t>
-            To handle a flag day, we propose to indicate this behaviour  trough a DIO Option,
-            or through a DIO flag (to be decided by the working group)
+            In order to avoid a flag day caused by lack of interoperation
+            between new RPI (0x43) and old RPI (0x63) nodes, the new nodes
+            need to be told that there are old RPI nodes present.
+            This can be done via a new DIO Option which will propogate
+            through the network. Failure to receive this flag will cause dual
+            mode nodes to originate traffic with the old-RPI (0x63) value.
           </t>
           <t>
-            DIO Option:
-            0x05 RPI flag day
+            DIO Option:      0x05 RPI 0x43 enable  MCRXXX
           </t>
           <t>
-            Through, DIO Option flag. RFC 6550 states: ""
-          </t>
-          <t>
-          Flags: 8-bit unused field reserved for flags.  The field MUST be
-          initialized to zero by the sender and MUST be ignored by the
-          receiver.
+            Flags: 8-bit unused field reserved for flags.  The field MUST be
+            initialized to zero by the sender and MUST be ignored by the
+            receiver.
           </t>
           <t>
           We propose to use a bit flag as follows:
@@ -384,51 +406,51 @@
 
 
 PROPOSED DIAGRAM (Based on the graph presented at IETF )
-                                                             
-                  +------------+                                                                                                                               
-                  |  INTERNET  ----------+                                                                                                                     
-                  |            |         |                                                                                                                     
-                  +------------+         |                                                                                                                     
-                                         |                                                                                                                     
-                                         |                                                                                                                     
-                                         |                                                                                                                     
-                                       A |                                                                                                                     
-                                   +-------+                                                                                                                   
-                                   |6LBR   |                                                                                                                   
-                       +-----------|(root) |-------+                                                                                                           
-                       |           +-------+       |                                                                                                           
-                       |                           |                                                                                                           
-                       |                           |                                                                                                           
-                       |                           |                                                                                                           
-                       |                           |                                                                                                           
-                       | B                         |C                                                                                                          
-                   +---|---+                   +---|---+                                                                                                       
-                   |  6LR  |                   |  6LR  |                                                                                                       
-         +-------->|       |--+             +---       ---+                                                                                                    
-         |         +-------+  |             |  +-------+  |                                                                                                    
-         |                    |             |             |                                                                                                    
-         |                    |             |             |                                                                                                    
-         |                    |             |             |                                                                                                    
-         |                    |             |             |                                                                                                    
-         | D                  |  E          |             |                                                                                                    
-       +-|-----+          +---|---+         |             |                                                                                                    
-       |  6LR  |          |  6LR  |         |             |                                                                                                    
-       |       |    +------       |         |             |                                                                                                    
-       +---|---+    |     +---|---+         |             |                                                                                                    
-           |        |         |             |             |                                                                                                    
-           |        |         +--+          |             |                                                                                                    
-           |        |            |          |             |                                                                                                    
-           |        |            |          |             |                                                                                                    
-           |        |            |        I |          J  |                                                                                                    
-        F  |        | G          | H        |             |                                                                                                    
-     +-----+-+    +-|-----+  +---|--+   +---|---+     +---|---+                                                                                                
-     |  Raf  |    | ~Raf  |  | Raf  |   |  Raf  |     | ~Raf  |                                                                                                
-     |       |    |       |  |      |   |       |     |       |                                                                                                
-     +-------+    +-------+  +------+   +-------+     +-------+                                                                                                
-                                                                                                                                                               
-                                                                                                                                                               
-                                                                                                                                                                                                                                                            
- 
+
+                  +------------+
+                  |  INTERNET  ----------+
+                  |            |         |
+                  +------------+         |
+                                         |
+                                         |
+                                         |
+                                       A |
+                                   +-------+
+                                   |6LBR   |
+                       +-----------|(root) |-------+
+                       |           +-------+       |
+                       |                           |
+                       |                           |
+                       |                           |
+                       |                           |
+                       | B                         |C
+                   +---|---+                   +---|---+
+                   |  6LR  |                   |  6LR  |
+         +-------->|       |--+             +---       ---+
+         |         +-------+  |             |  +-------+  |
+         |                    |             |             |
+         |                    |             |             |
+         |                    |             |             |
+         |                    |             |             |
+         | D                  |  E          |             |
+       +-|-----+          +---|---+         |             |
+       |  6LR  |          |  6LR  |         |             |
+       |       |    +------       |         |             |
+       +---|---+    |     +---|---+         |             |
+           |        |         |             |             |
+           |        |         +--+          |             |
+           |        |            |          |             |
+           |        |            |          |             |
+           |        |            |        I |          J  |
+        F  |        | G          | H        |             |
+     +-----+-+    +-|-----+  +---|--+   +---|---+     +---|---+
+     |  Raf  |    | ~Raf  |  | Raf  |   |  Raf  |     | ~Raf  |
+     |       |    |       |  |      |   |       |     |       |
+     +-------+    +-------+  +------+   +-------+     +-------+
+
+
+
+
                ]]></artwork></figure>
                  </t>
                  <t> Figure 2 shows the reference RPL Topology for this document.   The numbers in or above the nodes are there so that
@@ -438,25 +460,18 @@ PROPOSED DIAGRAM (Based on the graph presented at IETF )
 		but uses Router-Advertisements, 6LowPAN DAR/DAC and efficient-ND only to participate in the network <xref target="RFC6775"/>.
 		In the document this leaf (24) is often named IPv6 node. The 6LBR in the figure is the root of the Global DODAG.
                  </t>
-                <t>
-        This document is in part motivated by the work that is ongoing at the
-        6TiSCH working group.
-             The <xref target="I-D.ietf-6tisch-architecture">6TiSCH architecture
-        </xref> draft explains the network architecture of a 6TiSCH network.
-        </t>
-
-
        </section>
 
 
        <section title="Use cases">
          <t>
-           In data plane context a combination of RFC6553, RFC6554 and
-           IPv6-in-IPv6 encapsulation is going to be analyzed for the
-           following traffic flows.
+           In the data plane a combination of RFC6553, RFC6554 and
+           IPv6-in-IPv6 encapsulation is going to be analyzed for a number of
+           representative traffic flows.
            </t>
-           <t>This version of the document assumes the changes in <xref
-           target="I-D.ietf-6man-rfc2460bis"/> are passed (at the time to write this specification, the draft is on version 05).
+           <t>While this document assumes the HbH changes in
+           <xref target="I-D.ietf-6man-rfc2460bis"/> proceed, and/or that the
+           LLN is using the no-drop RPI option (0x43).
            </t>
            <t>
              The uses cases describe the communication between RPL-aware-nodes, with the root (6LBR),  and with Internet.
@@ -472,7 +487,7 @@ PROPOSED DIAGRAM (Based on the graph presented at IETF )
              Interaction between Leaf and Root:
            </t>
            <t>
-           <list>
+          <list>
              <t>
                RPL-aware-leaf to root
              </t>
@@ -2471,7 +2486,8 @@ PROPOSED DIAGRAM (Based on the graph presented at IETF )
 
         <section title="IANA Considerations">
            <t>
-              There are no IANA considerations related to this document.
+             This document updates the registration made in <xref target="RFC6553"/>
+             to the IPv6 Hop-by-Hop Registry from 0x43 to 0x63.
            </t>
         </section>
 
