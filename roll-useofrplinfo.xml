@@ -412,7 +412,7 @@
         F  |        | G          | H        |             |
      +-----+-+    +-|-----+  +---|--+   +---|---+     +---|---+
      |  Raf  |    | ~Raf  |  | Raf  |   |  Raf  |     | ~Raf  |
-     |       |    |       |  |      |   |       |     |       |
+     |  6LN  |    |  6LN  |  | 6LN  |   |  6LN  |     |  6LN  |
      +-------+    +-------+  +------+   +-------+     +-------+
 
                ]]>
@@ -421,7 +421,9 @@
           <t>
                 Figure 2 shows the reference RPL Topology for this document. The letters above the nodes are there so that
                 they may be referenced in subsequent sections. In the figure, a 6LR is a router.
-		            The 6LN leaves (Raf - "RPL aware leaf"-) marked as (F, H and I) is a RPL host that does not have forwarding capability.
+                A 6LN can be a router or a host. The 6LN leaves (Raf - "RPL aware leaf"-)
+                marked as (F and I) are RPL hosts that does not have forwarding capability.
+                The 6LN leaf (H) is a RPL router.
 		            The leafs marked as ~Raf "not-RPL aware leaf" (G and J) are devices which do not speak RPL at all (not-RPL-aware),
 		            but uses Router-Advertisements, 6LowPAN DAR/DAC and efficient-ND only to participate in the network <xref target="RFC6775"/>.
 		            In the document these leafs (G and J) are often named IPv6 node. The 6LBR in the figure is the root of the Global DODAG.
