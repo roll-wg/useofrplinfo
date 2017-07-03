@@ -47,7 +47,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-15" ipr="trust200902" updates="6553, 6550">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-16" ipr="trust200902" updates="6553, 6550">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -221,7 +221,7 @@
 
           <section title="Updates to RFC 6553">
            <t>
-          <xref target="RFC6553"/> states that in the Option Type field of the RPL Option
+          <xref target="RFC6553"/> states as showed below, that in the Option Type field of the RPL Option
           header, the two high order bits MUST be set to '01' and the third bit is equal to '1'.
           The first two bits indicate that the IPv6 node MUST discard the packet
           if it doesn't recognize the option type,
@@ -229,41 +229,67 @@
           The remaining bits serve as the option type.
           </t>
           <t>
+          <figure title="Option Type in RPL Option." anchor="fig_RPIOption" align="center">
+             <artwork> <![CDATA[
+
+          Hex Value     Binary Value
+                        act  chg  rest     Description        Reference
+          ---------     ---  ---  -------  -----------------  ----------
+            0x63         01    1   00011   RPL Option         [RFC6553]
+
+          ]]></artwork></figure>
+          </t>
+          <t>
           Recent changes in
           <xref target="I-D.ietf-6man-rfc2460bis"/>, state: "it is now
           expected that nodes along a packet's delivery path only examine and
           process the Hop-by-Hop Options header if explicitly configured to
-          do so". That means that nodes that do not understand a particular
-          Hop-by-Hop Option in a received packet are unlikely to be
-          configured to process it.
+          do so". Processing of the Hop-by-Hop Options header (by IPv6 intermediate nodes) is now optional,
+          but if they are configured to process the header,
+          and if such nodes encounter an option with the first two bits set to 01,
+          they will drop the packet (if they conform <xref target="I-D.ietf-6man-rfc2460bis"/>).
+          The hosts should do the same, irrespective of the configuration.
           </t>
           <t>
-          Thus, if an IPv6 node (RPL-not-capable) receives a packet with an
-          RPL Option, it should ignore the HBH option. To further solidify
-          the desire for the RPL options to be ignored, this document updates
-          the Option Type field to:
-          the two high order bits MUST be set to '00' and the third bit is
-          equal to '1'.
+          Based on That, if an IPv6 (intermediate) node (RPL-not-capable) receives a packet with an
+          RPL Option, it should ignore the HBH RPL option
+          (skip over this option and continue processing the header).
           </t>
-          <t>These two high order bits indicate that the IPv6 node MUST skip
-          over this option
-          and continue processing the header if it doesn't recognize the
-          option type.
+          <t>
+           Thus, this document updates the Option Type field to:
+           the two high order bits MUST be set to '00'
+           and the third bit is equal to '1'.
+           The first two bits indicate that the IPv6 node MUST
+           skip over this option and continue processing the header
+           (Section 4.2.<xref target="I-D.ietf-6man-rfc2460bis"/> )
+           if it doesn't recognize the option type,
+           and the third bit continues to be set to indicate that the Option
+           Data may change en route. The remaining bits serve as the option type and remain as 0x3.
+           This ensures that a packet that leaves the RPL domain of an LLN (or that
+           leaves the LLN entirely) will not be discarded when it contains the
+           [RFC6553] RPL Hop-by-Hop option known as RPI.
+           This is an update to <xref target="RFC6553"/>.
           </t>
-          <t>The third bit continues to be set to indicate that the Option
-          Data may change en route.
-          The remaining bits serve as the option type and remain as 0x3. This
-          an update to <xref target="RFC6553"/>.
+          <t>
+          <figure title="Proposed change to the Option Type in RPL Option." anchor="fig_RPIOption_new" align="center">
+             <artwork> <![CDATA[
+
+          Hex Value     Binary Value
+                        act  chg  rest     Description        Reference
+          ---------     ---  ---  -------  -----------------  ----------
+            0x23         00    1   00011   RPL Option         [RFCXXXX]
+
+          ]]></artwork></figure>
           </t>
           <t>
             This change creates a flag day for existing networks which are
-            currently using 0x63 as the RPI value.  A move to 0x43 will not
+            currently using 0x63 as the RPI value.  A move to 0x23 will not
             be understood by those networks.  It is suggested that
-            implementations accept both 0x63 and 0x43 when
+            implementations accept both 0x63 and 0x23 when
             processing.  When forwarding packets, implementations SHOULD use
-            the same value as we received.  When originating new packets,
+            the same value as it was received.  When originating new packets,
             implementations SHOULD have an option to determine which value to
-            originate with, this option is controlled by the DAO option
+            originate with, this option is controlled by the DIO option
             described below.
           </t>
         <t>
@@ -274,7 +300,7 @@
           possible this change can be deployed at the same time.
         </t>
 
-        <t>
+<!--        <t>
           In general, any packet that leaves the RPL domain
           of an LLN (or leaves the LLN entirely) will NOT be discarded, when it has the <xref target="RFC6553" /> RPL Option
           Header known as the RPI or <xref target="RFC6554" /> SRH3 Extension Header (S)RH3.
@@ -282,18 +308,19 @@
           MAY be left in place even if the end host does not
           understand it.
         </t>
+-->
         </section>
         <section title="Updates to RFC 6550">
           <t>
             In order to avoid a flag day caused by lack of interoperation
-            between new RPI (0x43) and old RPI (0x63) nodes, the new nodes
+            between new RPI (0x23) and old RPI (0x63) nodes, the new nodes
             need to be told that there are old RPI nodes present.
             This can be done via a new DIO Option which will propogate
             through the network. Failure to receive this flag will cause dual
             mode nodes to originate traffic with the old-RPI (0x63) value.
           </t>
           <t>
-            DIO Option:      0x05 RPI 0x43 enable  MCRXXX
+            DIO Option:      0x05 RPI 0x23 enable  MCRXXX
           </t>
           <t>
             Flags: 8-bit unused field reserved for flags.  The field MUST be
@@ -326,7 +353,7 @@
 
        <section title="Sample/reference topology">
                 <t>
-                A RPL network is composed of a 6LBR (6LoWPAN Border Router),
+                A RPL network in general is composed of a 6LBR (6LoWPAN Border Router),
                 Backbone Router (6BBR), 6LR (6LoWPAN Router) and 6LN (6LoWPAN
                 Node) as leaf logically organized in a DODAG structure.
                 (Destination Oriented Directed Acyclic Graph).
@@ -438,9 +465,7 @@
            representative traffic flows.
         </t>
         <t>
-          While this document assumes the HbH changes in
-           <xref target="I-D.ietf-6man-rfc2460bis"/> proceed, and/or that the
-           LLN is using the no-drop RPI option (0x43).
+          This document assumes that the LLN is using the no-drop RPI option (0x23).
         </t>
         <t>
              The uses cases describe the communication between RPL-aware-nodes, with the root (6LBR),  and with Internet.
@@ -518,23 +543,17 @@
             be added or removed except by the sender or the receiver.
           </t>
           <t>
-            But, options in the Hop-by-Hop option which are marked with
-            option type 01 (<xref target="RFC2460" /> section 4.2 and
-            <xref target="I-D.ietf-6man-rfc2460bis" />) SHOULD be ignored
-            when received by a host or router which does not understand that
-            option.
+            But, options in the Hop-by-Hop Option Header whose option type has
+            the first two bits set to '00' MUST ignored when received by a host
+            or router that does not understand that option
+            ( Section 4.2 <xref target="I-D.ietf-6man-rfc2460bis" />).
           </t>
           <t>
-            This means that in general, any packet that leaves the RPL domain
-            of an LLN (or leaves the LLN entirely) will NOT be discarded,
-            when it has the <xref target="RFC6553" /> RPL Option
-            Header known as the RPI or <xref target="RFC6554" /> SRH3
-            Extension Header (S)RH3.
-          </t>
-          <t>
-            The recent change to the second of these rules means that the RPI
-            Hop-by-Hop option MAY be left in place even if the end host does not
-            understand it.
+          This means that when the no-drop RPI option code 0x23 is used, a
+          packet that leaves the RPL domain of an LLN (or that leaves the LLN
+          entirely) will not be discarded when it contains the [RFC6553] RPL
+          Hop-by-Hop option known as RPI. Thus, the RPI Hop-by-Hop option MAY
+          be left in place even if the end host does not understand it.
           </t>
           <t>
             NOTE: There is some possible security risk when the RPI
@@ -595,10 +614,8 @@
         <section title="Storing mode">
 
           <t>
-	         In storing mode (fully stateful), the sender cannot determine whether the destination is RPL-capable and
-           thus would need an IP-in-IP header. The IP-in-IP
-           header needs to be addressed on a hop-by-hop basis so that the last 6LR can remove
-           the RPI header. Additionally, The sender can determine if the destination is inside the LLN by
+	         In storing mode (fully stateful), the sender can determine if
+           the destination is inside the LLN by
             looking if the destination address is matched by the DIO's PIO option.
           </t>
 
@@ -612,7 +629,8 @@
             used. In cases where no IP-in-IP header is needed, the column is left blank.
           </t>
           <t>
-            In all cases the RPI headers are needed, since it identifies inconsistencies (loops) in the routing topology.
+            In all cases the RPI headers are needed, since it identifies
+            inconsistencies (loops) in the routing topology.
             In all cases the RH3 is not need because we do not indicate the route in storing mode.
           </t>
           <t>
@@ -2437,15 +2455,15 @@
             code path that always processes IP-in-IP headers with no options.
           </t>
           <t>
-            Thanks to the relaxation of the RFC2460 rule about discarding
-            unknown Hop-by-Hop options, there is no longer any uncertainty
-            about when to use an IPIP header in the storing mode case.
-            The RPI header SHOULD always be added when 6LRs originate
-            packets (without IPIP headers), and IPIP headers should always
-            be added (addressed to the root when on the way up, to the
-            end-host when on the way down) when a 6LR finds it needs to
-            insert an RPI header.
-<!--        (XXX - this is a problem for storing mode optimization)  -->
+            Thanks to the change of the RPI option type from 0x63 to 0x23, there
+            is no longer any uncertainty about when to use an IP-in-IP header in the
+            storing mode. A Hop-by-Hop Options Header containing the RPI option
+            SHOULD always be added when 6LRs originate packets (without IP-in-IP
+            headers), and IP-in-IP headers should always be added (addressed to the
+            root when on the way up, to the end-host when on the way down) when
+            a 6LR find that it needs to insert a Hop-by-Hop Options Header
+            containing the RPI option.
+
           </t>
 
           <t>
@@ -2505,7 +2523,7 @@
         <section title="IANA Considerations">
            <t>
              This document updates the registration made in <xref target="RFC6553"/>
-             to the IPv6 Hop-by-Hop Registry from 0x43 to 0x63.
+             to the IPv6 Hop-by-Hop Registry from 0x63 to 0x23.
            </t>
         </section>
 
