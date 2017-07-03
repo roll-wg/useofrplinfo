@@ -2526,7 +2526,22 @@
         <section title="IANA Considerations">
            <t>
              This document updates the registration made in <xref target="RFC6553"/>
-             to the IPv6 Hop-by-Hop Registry from 0x63 to 0x23.
+             Destination Options and Hop-by-Hop Options registry from 0x63 to 0x23.
+           </t>
+           <t>
+           <figure title="Option Type in RPL Option." anchor="fig_IanaRPIOption" align="center">
+              <artwork> <![CDATA[
+
+Hex Value  Binary Value
+           act  chg  rest     Description              Reference
+---------  ---  ---  -------  -----------------       ----------
+ 0x23      00    1   00011   RPL Option                [RFCXXXX]
+ 0x63      01    1   00011   RPL Option(DEPRECATED) [RFC6553][RFCXXXX]
+
+           ]]></artwork></figure>
+           </t>
+           <t>
+             Todo: Add the Updates to RFC 6550.
            </t>
         </section>
 
