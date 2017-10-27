@@ -2,6 +2,7 @@
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 
 <!ENTITY RFC6550 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6550.xml">
+<!ENTITY RFC8138 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8138.xml">
 <!ENTITY RFC6553 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6553.xml">
 <!ENTITY RFC6554 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6554.xml">
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
@@ -47,7 +48,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-16" ipr="trust200902" updates="6553, 6550">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-17" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -220,7 +221,7 @@
 
        </section>
 
-       <section title="Updates to RFC6553 and RFC 8138">
+       <section title="Updates to RFC6553, RFC6550 and RFC 8138">
 
           <section title="Updates to RFC 6553">
            <t>
@@ -314,48 +315,73 @@
 -->
         </section>
         <section title="Updates to RFC 8138">
+          <t>
           RPI-6LoRH header provides a compressed form for the RPL RPI <xref target="RFC8138"/>.
           It should be considered when the Option Type in RPL Option is decompressed,
           should take the value of 0x23 instead of 0x63.
+        </t>
         </section>
-        <section title="Indicating the new RPI in the DODAG Configuration Option">
+        <section title="Updates to RFC 6550: Indicating the new RPI in the DODAG Configuration Option Flag. ">
           <t>
             In order to avoid a flag day caused by lack of interoperation
             between new RPI (0x23) and old RPI (0x63) nodes, the new nodes
             need to be told that there are old RPI nodes present.
-            This can be done via the DODAG Configuration Option which will propogate
-            through the network. Failure to receive this flag will cause dual
+            This can be done via the DODAG Configuration Option flag which will propogate
+            through the network. Failure to receive this information will cause dual
             mode nodes to originate traffic with the old-RPI (0x63) value.
           </t>
           <t>
-            DIO Option:      0x05 RPI 0x23 enable  MCRXXX
+            As states in <xref target="RFC6550"/> the DODAG Configuration option is present in DIO messages.
+            the DODAG Configuration option distribute configuration information which is generally static and
+            unchanging within the DODAG. This information is configured at the DODAG root and distributed
+            throughout the DODAG with the DODAG Configuration option.
+            Nodes other than the DODAG root must not modify this information when
+            propagating the DODAG Configuration option.
           </t>
           <t>
-            Flags: 8-bit unused field reserved for flags.  The field MUST be
-            initialized to zero by the sender and MUST be ignored by the
-            receiver.
+            The DODAG Configuration Option is as follow. We are interested in the Flag field.
+            The remaining fields states as defined in <xref target="RFC6550"/>.
           </t>
           <t>
-          We propose to use a bit flag as follows:
+              Flags: The 4-bits remaining unused in the Flags field are reserved
+              for flags. The field MUST be initialized to zero by the sender
+              and MUST be ignored by the receiver.
           </t>
           <t>
-        <figure title="A DIO Flag to indicate the RPI-flag-day." anchor="fig_RPIflagday" align="center">
+        <figure title="DODAG Configuration Option." anchor="fig_ConfOption" align="center">
            <artwork> <![CDATA[
-
-          +----+----+----+----+----+----+----+----+
-          |    |    |    |    |    |    |    |    |
-          |    |    |    |    |    |    |    | FR |
-          |    |    |    |    |    |    |    |    |
-          +----+----+----+----+----+----+----+----+
-
-
+             0                       1                    2                     3
+             +-----------------+---------------------------------------------------+
+             |  Type = 0x04    |  Opt Length = 14| Flags  | A | PCS| DIOIntDoubl.  |
+             +---------------------------------------------------------------------+
+             | DIOIntMin.      |  DIORedund.     |  MaxRankIncrease                |
+             +-----------------+---------------------------------------------------+
+             |  MinHopRankIncrease               |            OCP                  |
+             +-----------------+---------------------------------------------------+
+             |Reserved         | Def. Lifetime   |         Lifetime Unit           |
+             +-----------------+-----------------+---------------------------------+
 
           ]]></artwork></figure>
           </t>
-           <t>
-           FR(RPI-flag-day): the flag with values of 1 indicates that RPL Option field is set to "00",
-           values of 0 indicates that RPL Option field is set to "01"
-           </t>
+
+          <t>
+          We propose to use the flag in the DODAG Configuration option as follows:
+          </t>
+          <t>
+        <figure title="DODAG Configuration Option Flag to indicate the RPI-flag-day." anchor="fig_RPIflagday2" align="center">
+           <artwork> <![CDATA[
+
+             +------------+-----------------+---------------+
+             | Bit number |   Description   |   Reference   |
+             +------------+-----------------+---------------+
+             |      3     | RPI 0x23 enable | This document |
+             +------------+-----------------+---------------+
+
+          ]]></artwork></figure>
+          </t>
+          <t>
+            In case of rebooting, the DIO is sent with flag indicating the new RPI value.
+          </t>
         </section>
    </section>
 
@@ -2546,7 +2572,19 @@ Hex Value  Binary Value
            ]]></artwork></figure>
            </t>
            <t>
-             Todo: Add the Updates to RFC 6550.
+           We propose to use DODAG Configuration Option Flags in the DODAG Configuration option as follows:
+           </t>
+           <t>
+          <figure title="DODAG Configuration Option Flag to indicate the RPI-flag-day." anchor="fig_RPIflagdayConfOption" align="center">
+            <artwork> <![CDATA[
+
+              +------------+-----------------+---------------+
+              | Bit number |   Description   |   Reference   |
+              +------------+-----------------+---------------+
+              |      3     | RPI 0x23 enable | This document |
+              +------------+-----------------+---------------+
+
+           ]]></artwork></figure>
            </t>
         </section>
 
@@ -2723,6 +2761,7 @@ Hex Value  Binary Value
      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
 
      &RFC6553;
+     &RFC8138;
      &RFC6554;
      &RFC2119;
      <?rfc include="reference.RFC.2460" ?>
