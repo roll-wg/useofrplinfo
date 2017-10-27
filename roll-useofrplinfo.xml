@@ -157,8 +157,8 @@
              <t>
                An interim meeting went through the 24 cases defined here to
                discover if there were any shortcuts, and this document is the
-               result of that discussion.  This document clarify what is correct and
-               incorrect behaviour.
+               result of that discussion.  This document clarifies what is the correct and
+               the incorrect behaviour.
              </t>
              <t>
                The related document  <xref
@@ -188,7 +188,7 @@
 	        In this document a RPL-node which is a leaf of a DODAG is called RPL-aware-leaf.
         </t>
         <t>
-        RPL-not-capable: It is device which do not implement RPL, thus we can say that the device is not-RPL-aware.
+        RPL-not-capable: It is device which does not implement RPL, thus we can say that the device is not-RPL-aware.
 	       Please note that the device can be found inside the LLN.
 	        In this document a not-RPL-aware node which is a leaf of a DODAG is
         called not-RPL-aware-leaf.
@@ -220,7 +220,7 @@
 
        </section>
 
-       <section title="Updates to RFC6553 and RFC 6550">
+       <section title="Updates to RFC6553 and RFC 8138">
 
           <section title="Updates to RFC 6553">
            <t>
@@ -313,12 +313,17 @@
         </t>
 -->
         </section>
-        <section title="Updates to RFC 6550">
+        <section title="Updates to RFC 8138">
+          RPI-6LoRH header provides a compressed form for the RPL RPI <xref target="RFC8138"/>.
+          It should be considered when the Option Type in RPL Option is decompressed,
+          should take the value of 0x23 instead of 0x63.
+        </section>
+        <section title="Indicating the new RPI in the DODAG Configuration Option">
           <t>
             In order to avoid a flag day caused by lack of interoperation
             between new RPI (0x23) and old RPI (0x63) nodes, the new nodes
             need to be told that there are old RPI nodes present.
-            This can be done via a new DIO Option which will propogate
+            This can be done via the DODAG Configuration Option which will propogate
             through the network. Failure to receive this flag will cause dual
             mode nodes to originate traffic with the old-RPI (0x63) value.
           </t>
