@@ -183,12 +183,12 @@
         Terminology defined in <xref target="RFC7102"/> applies to this document: LBR, LLN, RPL, RPL Domain and ROLL.
         </t>
         <t>
-        RPL-node: It is device which implements RPL, thus we can say that the device is RPL-capable or RPL-aware.
+        RPL-node: A device which implements RPL, thus we can say that the device is RPL-capable or RPL-aware.
 	       Please note that the device can be found inside the LLN or outside LLN.
 	        In this document a RPL-node which is a leaf of a DODAG is called RPL-aware-leaf.
         </t>
         <t>
-        RPL-not-capable: It is device which does not implement RPL, thus we can say that the device is not-RPL-aware.
+        RPL-not-capable: A device which does not implement RPL, thus we can say that the device is not-RPL-aware.
 	       Please note that the device can be found inside the LLN.
 	        In this document a not-RPL-aware node which is a leaf of a DODAG is
         called not-RPL-aware-leaf.
