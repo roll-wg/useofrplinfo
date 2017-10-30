@@ -1451,7 +1451,7 @@
                  For example, a communication flow could be: Node G --> Node E --> Node B --> Node D --> Node F
                  </t>
                  <t>
-                   6LR_ia (Node E) are the intermediate routers from source (not-RPL-aware 6LN (IPv6)) (Node G) to the common parent (6LR_x) (Node B)
+                   6LR_ia (Node E) are the intermediate routers from source (not-RPL-aware 6LN (IPv6)) (Node G) to the common parent (6LR_x) (Node B).
                    In this case, "1 &lt;= ia &gt;= n", n is the number of routers (6LR)
                    that the packet go through from source to the common parent.
                  </t>
@@ -1510,78 +1510,69 @@
                    In this case the flow comprises:
                  </t>
                  <t>
-                   not-RPL-aware 6LN (IPv6 src)--> 6LR_1--> 6LR_ia --> root (6LBR) --> 6LR_id --> not-RPL-aware 6LN (IPv6 dst)
+                   not-RPL-aware 6LN (IPv6 src)--> 6LR_1--> 6LR_ia --> 6LR_id --> not-RPL-aware 6LN (IPv6 dst)
                  </t>
                  <t>
                  For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node C --> Node J
                  </t>
-                 <t>Internet
-                   6LR_ia (Node E and Node B) are the intermediate routers from source (not-RPL-aware 6LN (IPv6 src))(Node G) to the root (6LBR) (Node A)
+                 <t>
+                   Internal nodes 6LR_ia (e.g: Node E or Node B) are the
+                   intermediate routers from the not-RPL-aware source (Node G)
+                   to the root (6LBR) (Node A).
                    In this case, "1 &lt; ia &gt;= n", n is the number of routers (6LR)
                    that the packet go through from IPv6 src to the root.
                  </t>
                  <t>
-                   6LR_id (C) are the intermediate routers from the root (Node A) to destination (IPv6 dst) (Node J).
+                   6LR_id (C) are the intermediate routers from the root
+                   (Node A) to the destination Node J.
                    In this case, "1 &lt;= id &gt;= m", m is the number of routers (6LR)
                    that the packet go through from the root  to destination (IPv6 dst).
                  </t>
                  <t>
-                   This flow is identical to
-                   <xref target="storingnotraftoraf" />
+                   Note that this flow is identical to <xref target="storingnotraftoraf" />,
+                   except for where the IPIP header is inserted.
                  </t>
                  <t>
-                   The 6LR_1 (Node E) receives the packet from the the IPv6 node (Node G) and inserts
-                   the RPI header (RPIa) encapsulated in IPv6-in-IPv6 header.
-                   The IPv6-in-IPv6 header is addressed to the 6LBR. The 6LBR remove the IPv6-in-IPv6 header and
-		               insert another one (RPIb) with destination to 6LR_m (Node C) node.
-                 </t>
-                 <t>
-                   One of the side-effects of inserting IP-in-IP RPI header at 6LR_1, is that now all the packets will go through the 6LBR,
-                   even though there exists a shorter P2P path to the destination 6LN in storing mode.
-                   One possible solution is given by the work in <xref target="I-D.ietf-roll-dao-projection" />. Once we have route projection,
-                   the root can find that this traffic deserves optimization (based on volume and path length,
-                   or additional knowledge on that particular flow) and project a DAO into 6LR_1.
+                   The 6LR_1 (Node E) receives the packet from the the
+                   IPv6 node (Node G) and inserts  the RPI header (RPIa),
+                   encapsulated in an IPv6-in-IPv6 header.
+                   The IPv6-in-IPv6 header is addressed to the final
+                   destination.
                  </t>
                  <texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to non-RPL-aware-leaf">
                                           <ttcol> Header</ttcol>
                                           <ttcol> IPv6 src</ttcol>
                                           <ttcol> 6LR_1</ttcol>
                                           <ttcol> 6LR_ia</ttcol>
-                                          <ttcol> 6LBR</ttcol>
                                           <ttcol> 6LR_m</ttcol>
                                           <ttcol> IPv6 dst</ttcol>
                                           <c> Inserted headers</c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI_a) </c>
+                                          <c> IP-in-IP(RPI) </c>
                                           <c> --</c>
-                                          <c> IP-in-IP(RPI_b) </c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> --</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> --</c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI_b) </c>
+                                          <c> -- </c>
                                           <c> -- </c>
                                           <c> Modified headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI_a)</c>
-                                          <c> -- </c>
-                                          <c> IP-in-IP(RPI_b) </c>
+                                          <c> IP-in-IP(RPI)</c>
+                                          <c> IP-in-IP(RPI) </c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> --</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
