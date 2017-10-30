@@ -516,18 +516,24 @@
        <section title="Use cases">
          <t>
            In the data plane a combination of RFC6553, RFC6554 and
-           IPv6-in-IPv6 encapsulation is going to be analyzed for a number of
+           IPv6-in-IPv6 encapsulation are going to be analyzed for a number of
            representative traffic flows.
         </t>
         <t>
           This document assumes that the LLN is using the no-drop RPI option (0x23).
         </t>
         <t>
-             The uses cases describe the communication between RPL-aware-nodes, with the root (6LBR),  and with Internet.
-             This document also describe the communication between nodes acting as leaf that does not understand RPL and they are part of hte LLN.
-             We name these nodes as not-RPL-aware-leaf.(e.g. section 5.4- Flow from not-RPL-aware-leaf to root)
-             We describe also how is the communication inside of the LLN when it has the final destination addressed outside of the LLN e.g. with
-             destination to Internet. (e.g. section 5.7- Flow from not-RPL-aware-leaf to Internet)
+          The uses cases describe the communication between RPL-aware-nodes,
+          with the root (6LBR),  and with Internet.
+          This document also describe the communication between nodes
+          acting as leaves that do not understand RPL, but are part of the LLN.
+          We name these nodes as not-RPL-aware-leaf.
+          (e.g. <xref target="nRal2root" /> Flow from not-RPL-aware-leaf to root)
+
+          We describe also how is the communication inside of the LLN
+          when it has the final destination addressed outside of the LLN e.g. with
+          destination to Internet.
+          (e.g. <xref target="nRal2i" /> Flow from not-RPL-aware-leaf to Internet)
         </t>
          <t>
              The uses cases comprise as follow:
@@ -944,7 +950,7 @@
                         </texttable>
                </section>
 
-               <section title="SM: Example of Flow from not-RPL-aware-leaf to root">
+               <section anchor="nRal2root" title="SM: Example of Flow from not-RPL-aware-leaf to root">
                         <t>
                                 In this case the flow comprises:
                         </t>
@@ -1154,7 +1160,7 @@
 
 
                <!-- section 5.6 -->
-               <section title="SM: Example of Flow from not-RPL-aware-leaf to Internet">
+               <section anchor="nRal2i" title="SM: Example of Flow from not-RPL-aware-leaf to Internet">
                  <t>
                    In this case the flow comprises:
                  </t>
