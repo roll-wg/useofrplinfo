@@ -46,7 +46,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-17" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-18" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -2513,12 +2513,6 @@
             containing the RPI option.
 
           </t>
-
-          <t>
-            In order to support the above two cases with full generality, the
-            different situations (always do IP-in-IP vs never use IP-in-IP) should be
-            signaled in the RPL protocol itself.
-          </t>
          </section>
 
         <section title="Non-Storing mode">
@@ -2532,14 +2526,13 @@
             The 6LBR can recognize non-RPL aware leaf nodes because it will
             receive a DAO about that node from the 6LN immediately above that
             node.  This means that the non-storing mode case can avoid ever
-            using hop-by-hop IP-in-IP headers.
+            using hop-by-hop IP-in-IP headers for traffic originating from
+            the root to leafs.
           </t>
           <t>
-            Unlike in the storing mode case, there is no need for all nodes
-            to know about the existence of non-RPL aware nodes.  Only the
-            6LBR needs to change when there are non-RPL aware nodes.
-            Further, in the non-storing case, the 6LBR is informed by the
-            DAOs when there are non-RPL aware nodes.
+            The non-storing mode case does not require the type change from
+            0x63 to 0x23, as the root can always create the right packet.
+            The type change does not adversely affect the non-storing case.
           </t>
         </section>
       </section>
@@ -2586,7 +2579,8 @@ Hex Value  Binary Value
            ]]></artwork></figure>
            </t>
            <t>
-           We propose to use DODAG Configuration Option Flags in the DODAG Configuration option as follows:
+           The DODAG Configuration Option Flags in the DODAG Configuration
+           option is updated as follows:
            </t>
            <t>
           <figure title="DODAG Configuration Option Flag to indicate the RPI-flag-day." anchor="fig_RPIflagdayConfOption" align="center">
