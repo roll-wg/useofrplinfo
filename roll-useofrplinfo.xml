@@ -46,7 +46,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-18" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-19" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -299,7 +299,7 @@
         <t>
           A network which is switching from straight 6lowpan compression
           mechanism to those described in
-          <xref target="RFC8183" />
+          <xref target="RFC8138" />
           will experience a flag day in the data compression anyway, and if
           possible this change can be deployed at the same time.
         </t>
@@ -2494,7 +2494,7 @@
           </t>
 -->
           <t>
-           <xref target="RFC8183" /> shows that the
+           <xref target="RFC8138" /> shows that the
             hop-by-hop IP-in-IP header can be compressed using IP-in-IP 6LoRH (IP-in-IP-6LoRH) header
             as described in Section 7 of the document.
           </t>
@@ -2540,7 +2540,7 @@
 
         <section title="6LoRH Compression cases">
            <t>
-              The <xref target="RFC8183"/> proposes a compression method for RPI, RH3 and IPv6-in-IPv6.
+              The <xref target="RFC8138"/> proposes a compression method for RPI, RH3 and IPv6-in-IPv6.
            </t>
            <t>
              In Storing Mode, for the examples of Flow from RPL-aware-leaf to
@@ -2702,7 +2702,7 @@ Hex Value  Binary Value
           </t>
           <t>
             In addition, the LLN will likely use <xref
-            target="RFC8183" /> to compress the IPIP
+            target="RFC8138" /> to compress the IPIP
             and RH3 headers. As such, the compressor at the RPL-root will see
             the second RH3 header and MAY choose to discard the packet if the
             RH3 header has not been completely consumed.  A consumed (inert)
@@ -2769,11 +2769,11 @@ Hex Value  Binary Value
      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
 
      &RFC6553;
-     &RFC8138;
      &RFC6554;
      &RFC2119;
      <?rfc include="reference.RFC.2460" ?>
      <?ref include="reference.RFC.8200" ?>
+     <?rfc include="reference.RFC.8138" ?>
 
      &RFC6550;
      &RFC2473;
@@ -2793,7 +2793,6 @@ Hex Value  Binary Value
      <?rfc include="reference.I-D.ietf-6tisch-architecture" ?>
      <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
      <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
-     <?rfc include="reference.RFC.8183" ?>
      <?rfc include="reference.I-D.ietf-6lo-backbone-router" ?>
      <?rfc include="reference.I-D.ietf-roll-dao-projection" ?>
      <?rfc include="reference.I-D.ietf-6man-rfc6434-bis" ?>
