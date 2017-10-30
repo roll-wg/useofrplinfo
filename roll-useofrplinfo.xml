@@ -2007,14 +2007,14 @@
                           <ttcol> 6LN</ttcol>
                           <c> Inserted headers</c>
                           <c> -- </c>
-                          <c>  IP-in-IP(RH3,opt:RPI)  </c>
+                          <c>  IP-in-IP (RH3,opt:RPI)</c>
                           <c> -- </c>
                           <c> -- </c>
                           <c> Removed headers</c>
                           <c> -- </c>
                           <c> -- </c>
                           <c> -- </c>
-                          <c>  IP-in-IP(RH3,opt:RPI) </c>
+                          <c>  IP-in-IP (RH3,opt:RPI)</c>
                           <c> Re-added headers</c>
                           <c> -- </c>
                           <c> -- </c>
@@ -2023,7 +2023,7 @@
                           <c> Modified headers</c>
                           <c> -- </c>
                           <c> -- </c>
-                          <c>  IP-in-IP(RH3,opt:RPI) </c>
+                          <c>  IP-in-IP (RH3,opt:RPI)</c>
                           <c> -- </c>
                           <c> Untouched headers</c>
                           <c> -- </c>
