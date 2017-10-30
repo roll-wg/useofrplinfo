@@ -596,7 +596,7 @@
            </list>
            </t>
           <t>
-            This document assumes the rule that a Header cannot be
+            This document is consistent with the rule that a Header cannot be
             inserted or removed on the fly inside an IPv6 packet that is
             being routed.
             This is a fundamental precept of the IPv6 architecture as
@@ -604,34 +604,40 @@
             be added or removed except by the sender or the receiver.
           </t>
           <t>
-            But, options in the Hop-by-Hop Option Header whose option type has
-            the first two bits set to '00' MUST ignored when received by a host
+            However, unlike <xref target="RFC6553" />, the Hop-by-Hop Option
+            Header used for the RPI artifact has the first two bits set to
+            '00'.
+            This means that the RPI artifact will be ignored when received by a host
             or router that does not understand that option
             ( Section 4.2 <xref target="RFC8200" />).
           </t>
           <t>
-          This means that when the no-drop RPI option code 0x23 is used, a
-          packet that leaves the RPL domain of an LLN (or that leaves the LLN
-          entirely) will not be discarded when it contains the [RFC6553] RPL
-          Hop-by-Hop option known as RPI. Thus, the RPI Hop-by-Hop option MAY
-          be left in place even if the end host does not understand it.
+            This means that when the no-drop RPI option code 0x23 is used, a
+            packet that leaves the RPL domain of an LLN (or that leaves the LLN
+            entirely) will not be discarded when it contains the [RFC6553] RPL
+            Hop-by-Hop option known as RPI. Thus, the RPI Hop-by-Hop option MAY
+            be left in place even if the end host does not understand it.
           </t>
           <t>
             NOTE: There is some possible security risk when the RPI
             information is released to the Internet.  At this point this is
-            a theoretical situation.  It is clear that the RPI option would
-            waste some network bandwidth when it escapes.
+            a theoretical situation; no clear attack has been described.
+            At worst, it is clear that the RPI option would  waste some
+            network bandwidth when it escapes.  This is traded off against
+            the savings in the LLN by not having to encapsulate the packet in
+            order to remove the artifact.
           </t>
           <t>
-            An intermediate router that needs to add an extension header
-            (SHR3 or RPI Option) must encapsulate the packet in an
-            (additional) outer IP header. The new header can be placed is
-            placed after this new outer IP header.
+            Despite being legal to leave the RPI artifact in place,
+            an intermediate router that needs to add an extension header
+            (SHR3 or RPI Option) MUST still encapsulate the packet in an
+            (additional) outer IP header. The new header is placed after
+            this new outer IP header.
          </t>
          <t>
            A corollory is that an SHR3 or RPI Option can only be removed by an
             intermediate router if it is placed in an encapsulating IPv6
-            Header, which is addressed to the intermediate router.
+            Header, which is addressed TO the intermediate router.
             When it does so, the whole encapsulating header must be
             removed. (A replacement may be added).  This sometimes can
             result in outer IP headers being addressed to the next hop
@@ -652,8 +658,8 @@
             root.  In a downward non-storing mode, the entire route is
             written, so there can be no loops by construction, nor any
             confusion about which forwarding table to use (as the root has
-            already made all routing decisions).  There still may be
-            cases (such as in 6tisch) where the instanceID portion of the RPI
+            already made all routing decisions).  However, there are still
+            cases, such as in 6tisch, where the instanceID portion of the RPI
             header may still be needed to pick an appropriate priority or
             channel at each hop.
           </t>
@@ -681,21 +687,27 @@
           </t>
 
           <t>
-            The following table summarizes what headers are needed in the following
-            scenarios, and indicates when the IP-in-IP header must be
-            inserted on a hop-by-hop basis, and when it can target the
+            The following table itemizes which headers are needed in the following
+            scenarios, and indicates if the IP-in-IP header must be
+            inserted on a hop-by-hop basis, or when it can target the
             destination node directly.  There are these possible situations:
             hop-by-hop necessary (indicated by "hop"), or destination address
-            possible (indicated by "dst").  In all cases hop by hop can be
-            used. In cases where no IP-in-IP header is needed, the column is left blank.
+            possible (indicated by "dst").  In all cases hop by hop MAY be
+            used.
+          </t>
+          <t>
+            In cases where no IP-in-IP header is needed, the column is left
+            blank.
           </t>
           <t>
             In all cases the RPI headers are needed, since it identifies
             inconsistencies (loops) in the routing topology.
-            In all cases the RH3 is not need because we do not indicate the route in storing mode.
+            In all cases the RH3 is not need because we do not
+            indicate the route in storing mode.
           </t>
           <t>
-            The leaf can be a router 6LR or a host, both indicated as 6LN (Figure 2).
+            The leaf can be a router 6LR or a host, both indicated as 6LN
+            (<xref target="fig_CommonTopology" />).
           </t>
            <t>
       <!-- Figure saved with the name IP-in-IP_encapsulation_in_Storing_mode.tgn -->
