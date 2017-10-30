@@ -17,7 +17,6 @@
 <!ENTITY RFC7416 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7416.xml">
 <!ENTITY RFC4192 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4192.xml">
 <!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">
-<!ENTITY I-D.ietf-6man-rfc2460bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6man-rfc2460bis.xml">
 <!ENTITY I-D.moore-iot-security-bcp SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.moore-iot-security-bcp.xml">
 <!ENTITY I-D.ietf-roll-dao-projection SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-dao-projection.xml">
 ]>
@@ -244,14 +243,14 @@
           </t>
           <t>
           Recent changes in
-          <xref target="I-D.ietf-6man-rfc2460bis"/>, state: "it is now
+          <xref target="RFC8200"/> (section 4, page 8), states: "it is now
           expected that nodes along a packet's delivery path only examine and
           process the Hop-by-Hop Options header if explicitly configured to
           do so". Processing of the Hop-by-Hop Options header (by IPv6 intermediate nodes) is now optional,
           but if they are configured to process the header,
           and if such nodes encounter an option with the first two bits set to 01,
-          they will drop the packet (if they conform <xref target="I-D.ietf-6man-rfc2460bis"/>).
-          The hosts should do the same, irrespective of the configuration.
+          they will drop the packet (if they conform to <xref target="RFC8200"/>).
+          Host systems should do the same, irrespective of the configuration.
           </t>
           <t>
           Based on That, if an IPv6 (intermediate) node (RPL-not-capable) receives a packet with an
@@ -264,17 +263,19 @@
            and the third bit is equal to '1'.
            The first two bits indicate that the IPv6 node MUST
            skip over this option and continue processing the header
-           (Section 4.2.<xref target="I-D.ietf-6man-rfc2460bis"/> )
+           (<xref target="RFC8200"/> Section 4.2)
            if it doesn't recognize the option type,
            and the third bit continues to be set to indicate that the Option
            Data may change en route. The remaining bits serve as the option type and remain as 0x3.
            This ensures that a packet that leaves the RPL domain of an LLN (or that
            leaves the LLN entirely) will not be discarded when it contains the
            [RFC6553] RPL Hop-by-Hop option known as RPI.
-           This is an update to <xref target="RFC6553"/>.
           </t>
           <t>
-          <figure title="Proposed change to the Option Type in RPL Option." anchor="fig_RPIOption_new" align="center">
+           This is a significant update to <xref target="RFC6553"/>.
+          </t>
+          <t>
+          <figure title="Revised Option Type in RPL Option." anchor="fig_RPIOption_new" align="center">
              <artwork> <![CDATA[
 
           Hex Value     Binary Value
@@ -307,7 +308,7 @@
           In general, any packet that leaves the RPL domain
           of an LLN (or leaves the LLN entirely) will NOT be discarded, when it has the <xref target="RFC6553" /> RPL Option
           Header known as the RPI or <xref target="RFC6554" /> SRH3 Extension Header (S)RH3.
-          Because of <xref target="I-D.ietf-6man-rfc2460bis"/> the RPI Hop-by-Hop option
+          Because of <xref target="RFC8200"/> the RPI Hop-by-Hop option
           MAY be left in place even if the end host does not
           understand it.
         </t>
@@ -323,22 +324,30 @@
         <section title="Updates to RFC 6550: Indicating the new RPI in the DODAG Configuration Option Flag. ">
           <t>
             In order to avoid a flag day caused by lack of interoperation
-            between new RPI (0x23) and old RPI (0x63) nodes, the new nodes
-            need to be told that there are old RPI nodes present.
-            This can be done via the DODAG Configuration Option flag which will propogate
-            through the network. Failure to receive this information will cause dual
-            mode nodes to originate traffic with the old-RPI (0x63) value.
+            between new RPI (0x23) and old RPI (0x63) nodes, when there is a
+            mix of new nodes and old nodes, the new nodes may be put into a
+            compatibilit mode until all of the old nodes are replaced or
+            upgraded.
           </t>
           <t>
-            As states in <xref target="RFC6550"/> the DODAG Configuration option is present in DIO messages.
-            the DODAG Configuration option distribute configuration information which is generally static and
-            unchanging within the DODAG. This information is configured at the DODAG root and distributed
+            This can be done via a DODAG Configuration Option flag which will propogate
+            through the network.  Failure to receive this information will cause new
+            nodes to remain in compatibility mode, and originate traffic with
+            the old-RPI (0x63) value.
+          </t>
+          <t>
+            As stated in <xref target="RFC6550"/> the DODAG Configuration option is present in DIO messages.
+            The DODAG Configuration option distributes configuration
+            information.  It is generally static, and does not change within
+            the DODAG.
+            This information is configured at the DODAG root and distributed
             throughout the DODAG with the DODAG Configuration option.
-            Nodes other than the DODAG root must not modify this information when
+            Nodes other than the DODAG root do not modify this information when
             propagating the DODAG Configuration option.
           </t>
           <t>
-            The DODAG Configuration Option is as follow. We are interested in the Flag field.
+            The DODAG Configuration Option is as follows.
+            The Flag field is the interesting field.
             The remaining fields states as defined in <xref target="RFC6550"/>.
           </t>
           <t>
@@ -349,22 +358,23 @@
           <t>
         <figure title="DODAG Configuration Option." anchor="fig_ConfOption" align="center">
            <artwork> <![CDATA[
-             0                       1                    2                     3
-             +-----------------+---------------------------------------------------+
-             |  Type = 0x04    |  Opt Length = 14| Flags  | A | PCS| DIOIntDoubl.  |
-             +---------------------------------------------------------------------+
-             | DIOIntMin.      |  DIORedund.     |  MaxRankIncrease                |
-             +-----------------+---------------------------------------------------+
-             |  MinHopRankIncrease               |            OCP                  |
-             +-----------------+---------------------------------------------------+
-             |Reserved         | Def. Lifetime   |         Lifetime Unit           |
-             +-----------------+-----------------+---------------------------------+
+0                       1                    2                     3
++-----------------+---------------------------------------------------+
+|  Type = 0x04    |  Opt Length = 14| Flags  | A | PCS| DIOIntDoubl.  |
++---------------------------------------------------------------------+
+| DIOIntMin.      |  DIORedund.     |  MaxRankIncrease                |
++-----------------+---------------------------------------------------+
+|  MinHopRankIncrease               |            OCP                  |
++-----------------+---------------------------------------------------+
+|Reserved         | Def. Lifetime   |         Lifetime Unit           |
++-----------------+-----------------+---------------------------------+
 
           ]]></artwork></figure>
           </t>
 
           <t>
-          We propose to use the flag in the DODAG Configuration option as follows:
+           Bit number three of flag field in the DODAG Configuration option
+           is to be used as follows:
           </t>
           <t>
         <figure title="DODAG Configuration Option Flag to indicate the RPI-flag-day." anchor="fig_RPIflagday2" align="center">
@@ -401,7 +411,7 @@
                 </t>
                 <t>
                 RPL supports two modes of Downward traffic: in storing mode (RPL-SM),
-                it is fully stateful or an in non-storing (RPL-NSM), it is fully source
+                it is fully stateful; in non-storing (RPL-NSM), it is fully source
                 routed. A RPL Instance is either fully storing or fully
                 non-storing, i.e. a RPL Instance with a combination of
                 storing and non-storing nodes is not supported with the
@@ -479,14 +489,26 @@
              </artwork></figure>
           </t>
           <t>
-                Figure 2 shows the reference RPL Topology for this document. The letters above the nodes are there so that
-                they may be referenced in subsequent sections. In the figure, a 6LR is a router.
-                A 6LN can be a router or a host. The 6LN leaves (Raf - "RPL aware leaf"-)
-                marked as (F and I) are RPL hosts that does not have forwarding capability.
-                The 6LN leaf (H) is a RPL router.
-		            The leafs marked as ~Raf "not-RPL aware leaf" (G and J) are devices which do not speak RPL at all (not-RPL-aware),
-		            but uses Router-Advertisements, 6LowPAN DAR/DAC and efficient-ND only to participate in the network <xref target="RFC6775"/>.
-		            In the document these leafs (G and J) are often named IPv6 node. The 6LBR in the figure is the root of the Global DODAG.
+            Figure 2 shows the reference RPL Topology for this document. The
+            letters above the nodes are there so that
+            they may be referenced in subsequent sections. In the figure,
+            6LR represents a full router node.
+            The 6LN is a RPL aware router, or host.
+          </t>
+          <t>
+            But, the 6LN leaves (Raf - "RPL aware leaf"-)
+            marked as (F, H and I) are RPL nodes with no children hosts.
+          </t>
+          <t>
+	    The leafs marked as ~Raf "not-RPL aware leaf" (G and J) are
+            devices which do not speak RPL at all (not-RPL-aware),
+	    but uses Router-Advertisements, 6LowPAN DAR/DAC and
+            efficient-ND only to participate in the network <xref target="RFC6775"/>.
+	    In the document these leafs (G and J) are also refered to as
+            an IPv6 node.
+          </t>
+          <t>
+            The 6LBR ("A") in the figure is the root of the Global DODAG.
           </t>
        </section>
 
@@ -579,7 +601,7 @@
             But, options in the Hop-by-Hop Option Header whose option type has
             the first two bits set to '00' MUST ignored when received by a host
             or router that does not understand that option
-            ( Section 4.2 <xref target="I-D.ietf-6man-rfc2460bis" />).
+            ( Section 4.2 <xref target="RFC8200" />).
           </t>
           <t>
           This means that when the no-drop RPI option code 0x23 is used, a
@@ -2764,7 +2786,7 @@ Hex Value  Binary Value
      &RFC6554;
      &RFC2119;
      <?rfc include="reference.RFC.2460" ?>
-     <?ref include="reference.I-D.ietf-6man-rfc2460bis" ?>
+     <?ref include="reference.RFC.8200" ?>
 
      &RFC6550;
      &RFC2473;
