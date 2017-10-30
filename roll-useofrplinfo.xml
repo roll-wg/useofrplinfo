@@ -705,6 +705,12 @@
             In all cases the RH3 is not need because we do not
             indicate the route in storing mode.
           </t>
+
+          <t>
+            In each case, 6LR_i are the intermediate routers from source to destination.
+            In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
+            that the packet go through from source (6LN) to destination (6LBR).
+          </t>
           <t>
             The leaf can be a router 6LR or a host, both indicated as 6LN
             (see <xref target="fig_CommonTopology" />).
@@ -778,7 +784,7 @@
                         </t>
 			                  <t>
                          As stated in Section 16.2 of <xref
-                         target="RFC6550"/>  a RPL-aware-leaf node does not
+                         target="RFC6550"/>  an RPL-aware-leaf node does not
                          generally issue DIO messages; a leaf node accepts
                          DIO messages from upstream.
                         (When the inconsistency in routing occurs, a leaf
@@ -797,13 +803,8 @@
                         For example, the communication flow would be: Node F --> Node E --> Node B --> Node A root(6LBR)
                         </t>
                         <t>
-                          6LR_i (Node E and Node B) are the intermediate routers from source to destination.
-                          In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
-                          that the packet go through from source (6LN) to destination (6LBR).
-                        </t>
-                        <t>
-                        As it was mentioned In this document 6LRs, 6LBR are always
-                        full-fledge RPL routers.
+                        As it was mentioned in this document 6LRs, 6LBR are always
+                        full-fledged RPL routers.
                         </t>
                          <t>
                            The 6LN (Node F) inserts the RPI header, and sends the
@@ -869,16 +870,13 @@
                         For example, the communication flow would be: Node A root(6LBR) --> Node B --> Node D --> Node F
                         </t>
                         <t>
-                          6LR_i are the intermediate routers from source to destination.
-                          In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
-                          that the packet go through from source (6LBR) to destination (6LN).
-                        </t>
-                        <t>
                                 In this case the 6LBR inserts RPI header and
                                 sends the packet down, the 6LR is going to
-                                increment the rank in RPI (examines
-                                instanceID for multiple tables), the packet
-                                is processed in 6LN and RPI removed.
+                                increment the rank in RPI (it examines the
+                                instanceID to identify the right forwarding
+                                table),
+                                the packet
+                                is processed in the 6LN and the RPI removed.
                         </t>
                         <t>
                           No IP-in-IP header is required.
@@ -925,11 +923,6 @@
                         For example, the communication flow would be: Node A root(6LBR) --> Node B --> Node E --> Node G
                         </t>
                         <t>
-                          6LR_i  are the intermediate routers from source to destination.
-                          In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
-                          that the packet go through from source (6LBR) to destination (IPv6).
-                        </t>
-                        <t>
                           As the RPI extension can be ignored by the
                           not-RPL-aware leaf, this situation is identical to
                           the previous scenario.
@@ -972,13 +965,6 @@
                         </t>
                         <t>
                         For example, the communication flow would be: Node G --> Node E --> Node B --> Node A root(6LBR)
-                        </t>
-                        <t>
-                          6LR_i are the intermediate routers from source to destination.
-                          In this case, "1 &lt; i &gt;= n", n is the number of routers (6LR)
-                          that the packet go through from source (IPv6) to destination (6LBR).
-                          For example, 6LR_1 (i=1) is the router that receives the packets from the
-                          IPv6 node (Node G).
                         </t>
                         <t>
                                 When the packet arrives from IPv6 node (Node G) to
@@ -1063,11 +1049,6 @@
                         For example, the communication flow could be: Node F --> Node D --> Node B --> Node A root(6LBR) --> Internet
                         </t>
                         <t>
-                          6LR_i are the intermediate routers from source to destination.
-                          In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
-                          that the packet go through from source (6LN) to 6LBR.
-                        </t>
-                        <t>
                           No IP-in-IP header is required.
                         </t>
                         <t>
@@ -1120,11 +1101,6 @@
                         </t>
                         <t>
                         For example, the communication flow could be: Internet --> Node A root(6LBR) --> Node B --> Node D --> Node F
-                        </t>
-                        <t>
-                          6LR_i are the intermediate routers from source to destination.
-                          In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
-                          that the packet go through from 6LBR to destination(6LN).
                         </t>
                         <t>
 
@@ -1181,11 +1157,6 @@
                  </t>
                  <t>
                  For example, the communication flow could be: Node G --> Node E --> Node B --> Node A root(6LBR) --> Internet
-                 </t>
-                 <t>
-                   6LR_i are the intermediate routers from source to destination.
-                   In this case, "1 &lt; i &gt;= n", n is the number of routers (6LR)
-                   that the packet go through from source(IPv6) to 6LBR.
                  </t>
                  <t>
                    The 6LR_1 (i=1) node will add an IP-in-IP(RPI) header addressed either
@@ -1248,12 +1219,6 @@
                         </t>
                         <t>
                         For example, the communication flow could be: Internet --> Node A root(6LBR) --> Node B --> Node E --> Node G
-                        </t>
-                        <t>
-                          6LR_i are the intermediate routers from source to destination.
-                          In this case, "1 &lt; i &gt;= n", n is the number of routers (6LR)
-                          that the packet go through from 6LBR to not-RPL-aware-leaf (IPv6).
-                          6LR_i updates the rank in the RPI.
                         </t>
                         <t>
                           The 6LBR will have to add an RPI header within an
