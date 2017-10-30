@@ -1309,7 +1309,7 @@
                    6LN --> 6LR_ia --> common parent (6LR_x) --> 6LR_id -->  6LN
                  </t>
                  <t>
-                 For example, the communication flow could be: Node F --> Node D --> Node B --> Node E --> Node H
+                 For example, a communication flow could be: Node F --> Node D --> Node B --> Node E --> Node H
                  </t>
                  <t>
                    6LR_ia (Node D) are the intermediate routers from source to the common parent (6LR_x) (Node B)
@@ -1322,7 +1322,8 @@
                    that the packet go through from the common parent (6LR_x)  to destination 6LN.
                  </t>
                  <t>
-                   This case is assumed in the same RPL Domain. In the
+                   It is assume that the two nodes are in the same RPL Domain
+                   (that they share the same DODAG root). At the
                    common parent (Node B), the direction of RPI is changed (from
                    increasing to decreasing the rank).
                  </t>
@@ -1383,7 +1384,7 @@
                          6LN --> 6LR_ia --> common parent (6LR_x) --> 6LR_id -->  not-RPL-aware 6LN (IPv6)
                         </t>
                         <t>
-                        For example, the communication flow could be: Node F --> Node D --> Node B --> Node E --> Node G
+                        For example, a communication flow could be: Node F --> Node D --> Node B --> Node E --> Node G
                         </t>
                         <t>
                           6LR_ia are the intermediate routers from source (6LN) to the common parent (6LR_x)
@@ -1447,7 +1448,7 @@
                    not-RPL-aware 6LN (IPv6) --> 6LR_ia --> common parent (6LR_x) --> 6LR_id -->  6LN
                  </t>
                  <t>
-                 For example, the communication flow could be: Node G --> Node E --> Node B --> Node D --> Node F
+                 For example, a communication flow could be: Node G --> Node E --> Node B --> Node D --> Node F
                  </t>
                  <t>
                    6LR_ia (Node E) are the intermediate routers from source (not-RPL-aware 6LN (IPv6)) (Node G) to the common parent (6LR_x) (Node B)
@@ -1512,7 +1513,7 @@
                    not-RPL-aware 6LN (IPv6 src)--> 6LR_1--> 6LR_ia --> root (6LBR) --> 6LR_id --> not-RPL-aware 6LN (IPv6 dst)
                  </t>
                  <t>
-                 For example, the communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node C --> Node J
+                 For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node C --> Node J
                  </t>
                  <t>Internet
                    6LR_ia (Node E and Node B) are the intermediate routers from source (not-RPL-aware 6LN (IPv6 src))(Node G) to the root (6LBR) (Node A)
@@ -1680,7 +1681,7 @@
                         RPL-aware-leaf (6LN) --> 6LR_i --> root(6LBR)
                         </t>
                         <t>
-                        For example, the communication flow could be: Node F --> Node D --> Node B --> Node A (root)
+                        For example, a communication flow could be: Node F --> Node D --> Node B --> Node A (root)
                         </t>
                         <t>
                           6LR_i are the intermediate routers from source to destination.
@@ -1729,7 +1730,7 @@
                          root (6LBR) --> 6LR_i --> RPL-aware-leaf (6LN)
                  </t>
                  <t>
-                 For example, the communication flow could be: Node A (root) --> Node B --> Node D --> Node F
+                 For example, a communication flow could be: Node A (root) --> Node B --> Node D --> Node F
                  </t>
                  <t>
                    6LR_i are the intermediate routers from source to destination.
@@ -1779,7 +1780,7 @@
                                 root (6LBR) --> 6LR_i --> not-RPL-aware-leaf (IPv6)
                         </t>
                         <t>
-                        For example, the communication flow could be: Node A (root) --> Node B --> Node E --> Node G
+                        For example, a communication flow could be: Node A (root) --> Node B --> Node E --> Node G
                         </t>
                         <t>
                           6LR_i are the intermediate routers from source to destination.
@@ -1838,7 +1839,7 @@
                                 not-RPL-aware-leaf (IPv6) --> 6LR_1 --> 6LR_i --> root (6LBR)
                         </t>
                         <t>
-                        For example, the communication flow could be: Node G --> Node E --> Node B --> Node A (root)
+                        For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root)
                         </t>
                         <t>
                           6LR_i are the intermediate routers from source to destination.
@@ -1920,7 +1921,7 @@
                                 RPL-aware-leaf (6LN) --> 6LR_i --> root (6LBR) --> Internet
                         </t>
                         <t>
-                        For example, the communication flow could be: Node F --> Node D --> Node B --> Node A --> Internet
+                        For example, a communication flow could be: Node F --> Node D --> Node B --> Node A --> Internet
                         </t>
                         <t>
                           6LR_i are the intermediate routers from source to destination.
@@ -1979,7 +1980,7 @@
                                 Internet --> root (6LBR) --> 6LR_i --> RPL-aware-leaf (6LN)
                         </t>
                         <t>
-                        For example, the communication flow could be: Internet --> Node A (root) --> Node B --> Node D --> Node F
+                        For example, a communication flow could be: Internet --> Node A (root) --> Node B --> Node D --> Node F
                         </t>
                         <t>
                           6LR_i are the intermediate routers from source to destination.
@@ -2039,7 +2040,7 @@
                           not-RPL-aware-leaf (IPv6) --> 6LR_1 --> 6LR_i -->root (6LBR) --> Internet
                         </t>
                         <t>
-                        For example, the communication flow could be: Node G --> Node E --> Node B --> Node A --> Internet
+                        For example, a communication flow could be: Node G --> Node E --> Node B --> Node A --> Internet
                         </t>
                         <t>
                           6LR_i are the intermediate routers from source to destination.
@@ -2106,7 +2107,7 @@
                                 Internet --> root (6LBR) --> 6LR_i --> not-RPL-aware-leaf (IPv6)
                         </t>
                         <t>
-                        For example, the communication flow could be: Internet --> Node A (root) --> Node B --> Node E --> Node G
+                        For example, a communication flow could be: Internet --> Node A (root) --> Node B --> Node E --> Node G
                         </t>
                         <t>
                           6LR_i are the intermediate routers from source to destination.
@@ -2199,7 +2200,7 @@
                          6LN src --> 6LR_ia --> root (6LBR) --> 6LR_id -->  6LN dst
                         </t>
                         <t>
-                        For example, the communication flow could be: Node F --> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node H
+                        For example, a communication flow could be: Node F --> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node H
                         </t>
                         <t>
                           6LR_ia are the intermediate routers from source to the root
@@ -2288,7 +2289,7 @@
                          6LN --> 6LR_ia --> root (6LBR) --> 6LR_id -->  not-RPL-aware (IPv6)
                         </t>
                         <t>
-                        For example, the communication flow could be: Node F --> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node G
+                        For example, a communication flow could be: Node F --> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node G
                         </t>
                         <t>
                           6LR_ia are the intermediate routers from source to the root
@@ -2356,7 +2357,7 @@
                          not-RPL-aware 6LN (IPv6) --> 6LR_ia --> root (6LBR) --> 6LR_id -->  6LN
                         </t>
                         <t>
-                        For example, the communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node B --> Node E --> Node H
+                        For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node B --> Node E --> Node H
                         </t>
                         <t>
                           6LR_ia are the intermediate routers from source to the root
@@ -2424,7 +2425,7 @@
                          not-RPL-aware 6LN (IPv6 src)--> 6LR_ia --> root (6LBR) --> 6LR_id --> not-RPL-aware (IPv6 dst)
                         </t>
                         <t>
-                        For example, the communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node C --> Node J
+                        For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node C --> Node J
                         </t>
                         <t>
                           6LR_ia are the intermediate routers from source to the root
