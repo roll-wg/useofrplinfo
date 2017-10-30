@@ -708,8 +708,8 @@
 
           <t>
             In each case, 6LR_i are the intermediate routers from source to destination.
-            In this case, "1 &lt;= i &gt;= n", n is the number of routers (6LR)
-            that the packet go through from source (6LN) to destination (6LBR).
+            "1 &lt;= i &gt;= n", n is the number of routers (6LR)
+            that the packet go through from source (6LN) to destination.
           </t>
           <t>
             The leaf can be a router 6LR or a host, both indicated as 6LN
@@ -1100,7 +1100,7 @@
                                 Internet --> root (6LBR) --> 6LR_i --> RPL-aware-leaf (6LN)
                         </t>
                         <t>
-                        For example, the communication flow could be: Internet --> Node A root(6LBR) --> Node B --> Node D --> Node F
+                        For example, the communication flow would be: Internet --> Node A root(6LBR) --> Node B --> Node D --> Node F
                         </t>
                         <t>
 
@@ -1156,12 +1156,13 @@
                    not-RPL-aware-leaf (IPv6) --> 6LR_1 --> 6LR_i -->root (6LBR) --> Internet
                  </t>
                  <t>
-                 For example, the communication flow could be: Node G --> Node E --> Node B --> Node A root(6LBR) --> Internet
+                 For example, the communication flow would be: Node G --> Node E --> Node B --> Node A root(6LBR) --> Internet
                  </t>
                  <t>
                    The 6LR_1 (i=1) node will add an IP-in-IP(RPI) header addressed either
                    to the root, or hop-by-hop such that the root can remove
-                   the RPI header before passing upwards.
+                   the RPI header before passing upwards.  (EDNOTE: we SHOULD
+                   recommend one or the other)
                  </t>
                  <t>
                    The originating node will ideally leave the IPv6 flow
@@ -1218,12 +1219,18 @@
                                 Internet --> root (6LBR) --> 6LR_i --> not-RPL-aware-leaf (IPv6)
                         </t>
                         <t>
-                        For example, the communication flow could be: Internet --> Node A root(6LBR) --> Node B --> Node E --> Node G
+                        For example, the communication flow would be: Internet --> Node A root(6LBR) --> Node B --> Node E --> Node G
                         </t>
                         <t>
                           The 6LBR will have to add an RPI header within an
-                          IP-in-IP header. The IP-in-IP can be addressed to
+                          IP-in-IP header. The IP-in-IP is addressed to
                           the not-RPL-aware-leaf, leaving the RPI inside.
+                        </t>
+                        <t>
+                          Note that there is a requirement that the final
+                          node be able to remove one or more IPIP headers
+                          which are all addressed to it. (EDNOTE: this should
+                          go into <xref target="I-D.ietf-6man-rfc6434-bis" />)
                         </t>
                         <t>
                           The 6LBR MAY set the flow label on the inner IP-in-IP
@@ -2792,6 +2799,7 @@ Hex Value  Binary Value
      <?rfc include="reference.RFC.8183" ?>
      <?rfc include="reference.I-D.ietf-6lo-backbone-router" ?>
      <?rfc include="reference.I-D.ietf-roll-dao-projection" ?>
+     <?rfc include="reference.I-D.ietf-6man-rfc6434-bis" ?>
      <?rfc include="reference.RFC.6997" ?>
      <?rfc include="reference.RFC.4192" ?>
 
