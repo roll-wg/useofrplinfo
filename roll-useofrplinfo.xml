@@ -800,7 +800,7 @@
                         RPL-aware-leaf (6LN) --> 6LR_i --> root(6LBR)
                         </t>
                         <t>
-                        For example, the communication flow would be: Node F --> Node E --> Node B --> Node A root(6LBR)
+                        For example, a communication flow could be: Node F --> Node E --> Node B --> Node A root(6LBR)
                         </t>
                         <t>
                         As it was mentioned in this document 6LRs, 6LBR are always
@@ -867,7 +867,7 @@
                                 root (6LBR) --> 6LR_i --> RPL-aware-leaf (6LN)
                         </t>
                         <t>
-                        For example, the communication flow would be: Node A root(6LBR) --> Node B --> Node D --> Node F
+                        For example, a communication flow could be: Node A root(6LBR) --> Node B --> Node D --> Node F
                         </t>
                         <t>
                                 In this case the 6LBR inserts RPI header and
@@ -920,7 +920,7 @@
                                 root (6LBR) --> 6LR_i --> not-RPL-aware-leaf (IPv6)
                         </t>
                         <t>
-                        For example, the communication flow would be: Node A root(6LBR) --> Node B --> Node E --> Node G
+                        For example, a communication flow could be: Node A root(6LBR) --> Node B --> Node E --> Node G
                         </t>
                         <t>
                           As the RPI extension can be ignored by the
@@ -964,7 +964,7 @@
                                 not-RPL-aware-leaf (IPv6) --> 6LR_1 --> 6LR_i --> root (6LBR)
                         </t>
                         <t>
-                        For example, the communication flow would be: Node G --> Node E --> Node B --> Node A root(6LBR)
+                        For example, a communication flow could be: Node G --> Node E --> Node B --> Node A root(6LBR)
                         </t>
                         <t>
                                 When the packet arrives from IPv6 node (Node G) to
@@ -1100,7 +1100,7 @@
                                 Internet --> root (6LBR) --> 6LR_i --> RPL-aware-leaf (6LN)
                         </t>
                         <t>
-                        For example, the communication flow would be: Internet --> Node A root(6LBR) --> Node B --> Node D --> Node F
+                        For example, a communication flow could be: Internet --> Node A root(6LBR) --> Node B --> Node D --> Node F
                         </t>
                         <t>
 
@@ -1156,7 +1156,7 @@
                    not-RPL-aware-leaf (IPv6) --> 6LR_1 --> 6LR_i -->root (6LBR) --> Internet
                  </t>
                  <t>
-                 For example, the communication flow would be: Node G --> Node E --> Node B --> Node A root(6LBR) --> Internet
+                 For example, a communication flow could be: Node G --> Node E --> Node B --> Node A root(6LBR) --> Internet
                  </t>
                  <t>
                    The 6LR_1 (i=1) node will add an IP-in-IP(RPI) header addressed either
@@ -1219,7 +1219,7 @@
                                 Internet --> root (6LBR) --> 6LR_i --> not-RPL-aware-leaf (IPv6)
                         </t>
                         <t>
-                        For example, the communication flow would be: Internet --> Node A root(6LBR) --> Node B --> Node E --> Node G
+                        For example, a communication flow could be: Internet --> Node A root(6LBR) --> Node B --> Node E --> Node G
                         </t>
                         <t>
                           The 6LBR will have to add an RPI header within an
@@ -1298,11 +1298,12 @@
                    optimization for both storing and non-storing
                    networks.
                    A node may send a packet destined to a one-hop
-                   neighbor directly to that node. Section 9 in <xref
+                   neighbor directly to that node. See section 9 in <xref
                    target="RFC6550"/>.
                  </t>
                  <t>
-                   In this case the flow comprises:
+                   When the nodes are not directly connected, then in storing
+                   mode, the flow comprises:
                  </t>
                  <t>
                    6LN --> 6LR_ia --> common parent (6LR_x) --> 6LR_id -->  6LN
