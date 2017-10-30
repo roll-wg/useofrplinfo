@@ -528,12 +528,12 @@
           This document also describe the communication between nodes
           acting as leaves that do not understand RPL, but are part of the LLN.
           We name these nodes as not-RPL-aware-leaf.
-          (e.g. <xref target="nRal2root" /> Flow from not-RPL-aware-leaf to root)
+          (e.g. <xref target="sm-nRal2root" /> Flow from not-RPL-aware-leaf to root)
 
           We describe also how is the communication inside of the LLN
           when it has the final destination addressed outside of the LLN e.g. with
           destination to Internet.
-          (e.g. <xref target="nRal2i" /> Flow from not-RPL-aware-leaf to Internet)
+          (e.g. <xref target="sm-nRal2i" /> Flow from not-RPL-aware-leaf to Internet)
         </t>
          <t>
              The uses cases comprise as follow:
@@ -855,7 +855,7 @@
                         </texttable>
                </section>
 
-               <!-- section 5.2.  !-->
+               <!-- section 6.2.  !-->
 
                <section title="SM: Example of Flow from root to RPL-aware-leaf">
 
@@ -910,7 +910,7 @@
                         </texttable>
                </section>
 
-              <!-- section 5.3. !-->
+              <!-- section 6.3. !-->
 
                <section title="SM: Example of Flow from root to not-RPL-aware-leaf">
                         <t>
@@ -955,7 +955,7 @@
                         </texttable>
                </section>
 
-               <section anchor="nRal2root" title="SM: Example of Flow from not-RPL-aware-leaf to root">
+               <section anchor="sm-nRal2root" title="SM: Example of Flow from not-RPL-aware-leaf to root">
                         <t>
                                 In this case the flow comprises:
                         </t>
@@ -1090,7 +1090,7 @@
                         </texttable>
                </section>
 
-               <!-- section 5.6 -->
+               <!-- section 6.6 -->
                <section title="SM: Example of Flow from Internet to RPL-aware-leaf">
                         <t>
                                 In this case the flow comprises:
@@ -1147,8 +1147,8 @@
                </section>
 
 
-               <!-- section 5.6 -->
-               <section anchor="nRal2i" title="SM: Example of Flow from not-RPL-aware-leaf to Internet">
+               <!-- section 6.6 -->
+               <section anchor="sm-nRal2i" title="SM: Example of Flow from not-RPL-aware-leaf to Internet">
                  <t>
                    In this case the flow comprises:
                  </t>
@@ -1291,7 +1291,7 @@
            </t>
          </list>
        </t>
-               <!-- section 5.9 -->
+               <!-- section 6.9 -->
                <section anchor="storingraftoraf" title="SM: Example of Flow from RPL-aware-leaf to RPL-aware-leaf">
                  <t>
                    In <xref target="RFC6550"/> RPL allows a simple one-hop
@@ -1374,7 +1374,7 @@
                         </texttable>
                </section>
 
-               <!-- section 5.10 -->
+               <!-- section 6.10 -->
                <section anchor="storingraftononraf" title="SM: Example of Flow from RPL-aware-leaf to non-RPL-aware-leaf">
                         <t>
                         In this case the flow comprises:
@@ -2053,7 +2053,7 @@
                                 add an RPI header inside a new IP-in-IP header.
                                 The IP-in-IP header will be addressed to the
                                 root.  This case is identical to the
-                                storing-mode case (Section 5.7).
+                                storing-mode case (see <xref target="sm-nRal2i" />).
                         </t>
 
                         <texttable title="Non Storing: Summary of the use of headers from not-RPL-aware-leaf to Internet">
