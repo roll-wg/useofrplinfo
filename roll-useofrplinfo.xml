@@ -2067,7 +2067,7 @@
                                           <ttcol> Internet</ttcol>
                                           <c> Inserted headers</c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI)</c>
+                                          <c> IP-in-IP (RPI)</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
@@ -2075,7 +2075,7 @@
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI) </c>
+                                          <c> IP-in-IP (RPI) </c>
                                           <c> -- </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
@@ -2086,7 +2086,7 @@
                                           <c> Modified headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI) </c>
+                                          <c> IP-in-IP (RPI) </c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
@@ -2137,7 +2137,7 @@
                           <ttcol> IPv6</ttcol>
                           <c> Inserted headers</c>
                           <c> -- </c>
-                          <c> IP-in-IP(RH3,opt:RPI) </c>
+                          <c> IP-in-IP (RH3, opt:RPI) </c>
                           <c> -- </c>
                           <c> -- </c>
                           <c> -- </c>
@@ -2145,7 +2145,7 @@
                           <c> -- </c>
                           <c> -- </c>
                           <c> -- </c>
-                          <c>  IP-in-IP(RH3, RPI) </c>
+                          <c>  IP-in-IP (RH3,RPI) </c>
                           <c> -- </c>
                           <c> Re-added headers</c>
                           <c> -- </c>
@@ -2156,8 +2156,8 @@
                           <c> Modified headers</c>
                           <c> -- </c>
                           <c> -- </c>
-                          <c>  IP-in-IP(RH3, RPI) </c>
-                          <c>  IP-in-IP(RH3, RPI) </c>
+                          <c>  IP-in-IP (RH3,RPI) </c>
+                          <c>  IP-in-IP (RH3,RPI) </c>
                           <c> -- </c>
                           <c> Untouched headers</c>
                           <c> -- </c>
@@ -2250,17 +2250,17 @@
                    <ttcol> 6LR_id</ttcol>
                    <ttcol> 6LN dst</ttcol>
                    <c> Inserted headers</c>
-                   <c> IP-in-IP(RPI1) </c>
+                   <c> IP-in-IP (RPI1) </c>
                    <c> -- </c>
-                   <c> IP-in-IP(RH3 to 6LN, opt RPI2) </c>
+                   <c> IP-in-IP (RH3->6LN, opt RPI2) </c>
                    <c> -- </c>
                    <c> -- </c>
                    <c> Removed headers</c>
                    <c> -- </c>
                    <c> -- </c>
-                   <c> IP-in-IP(RPI1) </c>
+                   <c> IP-in-IP (RPI1) </c>
                    <c> -- </c>
-                   <c> IP-in-IP(RH3, opt RPI2)</c>
+                   <c> IP-in-IP (RH3, opt RPI2)</c>
                    <c> Re-added headers</c>
                    <c> -- </c>
                    <c> -- </c>
@@ -2317,16 +2317,16 @@
                                           <ttcol> 6LR_id</ttcol>
                                           <ttcol> IPv6</ttcol>
                                           <c> Inserted headers</c>
-                                          <c> IP-in-IP(RPI1) </c>
+                                          <c> IP-in-IP (RPI1) </c>
                                           <c> -- </c>
-                                          <c>  IP-in-IP(RH3, opt RPI_2) </c>
+                                          <c>  IP-in-IP (RH3, opt RPI_2) </c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI_1) </c>
-                                          <c> IP-in-IP(RH3, opt RPI_2) </c>
+                                          <c> IP-in-IP (RPI_1) </c>
+                                          <c> IP-in-IP (RH3, opt RPI_2) </c>
                                           <c> -- </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
@@ -2336,9 +2336,9 @@
                                           <c> -- </c>
                                           <c> Modified headers</c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI_1) </c>
+                                          <c> IP-in-IP (RPI_1) </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RH3, opt RPI_2) </c>
+                                          <c> IP-in-IP (RH3, opt RPI_2) </c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
                                           <c> -- </c>
@@ -2361,7 +2361,7 @@
                         For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node B --> Node E --> Node H
                         </t>
                         <t>
-                          6LR_ia are the intermediate routers from source to the root
+                          6LR_ia are the intermediate routers from source to the root.
                           In this case, "1 &lt;= ia &gt;= n", n is the number of intermediate routers (6LR)
                         </t>
                         <t>
@@ -2386,16 +2386,16 @@
                                           <ttcol> 6LN</ttcol>
                                           <c> Inserted headers</c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI_1) </c>
-                                          <c> IP-in-IP(RH3, opt RPI_2)</c>
+                                          <c> IP-in-IP (RPI_1) </c>
+                                          <c> IP-in-IP (RH3, opt RPI_2)</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI_1) </c>
+                                          <c> IP-in-IP (RPI_1) </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RH3, opt RPI_2) </c>
+                                          <c> IP-in-IP (RH3, opt RPI_2) </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
@@ -2406,7 +2406,7 @@
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RH3, opt RPI_2) </c>
+                                          <c> IP-in-IP (RH3, opt RPI_2) </c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
                                           <c> -- </c>
@@ -2429,7 +2429,7 @@
                         For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node C --> Node J
                         </t>
                         <t>
-                          6LR_ia are the intermediate routers from source to the root
+                          6LR_ia are the intermediate routers from source to the root.
                           In this case, "1 &lt;= ia &gt;= n", n is the number of intermediate routers (6LR)
                         </t>
                         <t>
@@ -2449,15 +2449,15 @@
                                           <ttcol> IPv6 dst</ttcol>
                                           <c> Inserted headers</c>
                                           <c> -- </c>
-                                          <c>  IP-in-IP(RPI_1) </c>
-                                          <c>  IP-in-IP(RH3) </c>
+                                          <c>  IP-in-IP (RPI_1) </c>
+                                          <c>  IP-in-IP (RH3) </c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IP-in-IP(RPI_1) </c>
-                                          <c> IP-in-IP(RH3, opt RPI_2) </c>
+                                          <c> IP-in-IP (RPI_1) </c>
+                                          <c> IP-in-IP (RH3, opt RPI_2) </c>
                                           <c> -- </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
