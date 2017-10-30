@@ -1588,8 +1588,9 @@
           the 6LBR (DODAG root) has complete knowledge about the
           connectivity of all DODAG nodes, and all traffic flows
           through the root node. Thus, there is no need for all nodes to
-          know about the existence of non-RPL aware nodes. Only the 6LBR needs
-          to change when there are non-RPL aware nodes.
+          know about the existence of non-RPL aware nodes.
+          Only the 6LBR needs to act if compensation is necessary for non-RPL
+          aware receivers.
          </t>
          <t>
            The following table summarizes what headers are needed in the following
@@ -1615,17 +1616,17 @@
 +                 +--------------+-----+-----+----------+----------+
 |   Leaf - Root   |  root to Raf | Opt | Yes |    No    |    --    |
 +                 +--------------+-----+-----+----------+----------+
-|                 | root to ~Raf | No  | Yes |    Yes   |    6LR   |
+|                 | root to ~Raf |no(1)| Yes |    Yes   |    6LR   |
 +                 +--------------+-----+-----+----------+----------+
 |                 | ~Raf to root | Yes | No  |    Yes   |   root   |
 +-----------------+--------------+-----+-----+----------+----------+
 |                 |  Raf to Int  | Yes | No  |    Yes   |   root   |
 +                 +--------------+-----+-----+----------+----------+
-| Leaf - Internet |  Int to Raf  | Opt | Yes |   Yes    |    dst   |
+| Leaf - Internet |  Int to Raf  |no(1)| Yes |   Yes    |    dst   |
 +                 +--------------+-----+-----+----------+----------+
 |                 |  ~Raf to Int | Yes | No  |    Yes   |   root   |
 +                 +--------------+-----+-----+----------+----------+
-|                 |  Int to ~Raf | Opt | Yes |    Yes   |    6LR   |
+|                 |  Int to ~Raf |no(1)| Yes |    Yes   |    6LR   |
 +-----------------+--------------+-----+-----+----------+----------+
 |                 |  Raf to Raf  | Yes | Yes |    Yes   | root/dst |
 +                 +--------------+-----+-----+----------+----------+
@@ -1635,7 +1636,10 @@
 +                 +--------------+-----+-----+----------+----------+
 |                 | ~Raf to ~Raf | Yes | Yes |    Yes   | root/6LR |
 +-----------------+--------------+-----+-----+----------+----------+
-         ]]></artwork></figure>
+
+(1)-6tisch networks may need the RPI information.
+
+]]></artwork></figure>
           </t>
 
           <section title="Non-Storing Mode: Interaction between Leaf and Root">
