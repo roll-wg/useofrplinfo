@@ -1783,12 +1783,18 @@
                           that the packet go through from source (6LBR) to destination (IPv6).
                         </t>
                         <t>
-                          In 6LBR the RH3 is added, modified in each intermediate 6LR (6LR_1 and so on) and
+                          In 6LBR the RH3 is added, it is modified at each
+                          intermediate 6LR (6LR_1 and so on) and
                           it is fully consumed in the last 6LR (6LR_n), but left there.
                           If RPI is left present, the IPv6 node which
-                          does not understand it will ignore it (following 2460bis), thus encapsulation is not necesary.
-			                    Due the complete knowledge of the topology at the root, the 6LBR is able to address
-                          the IP-in-IP header to the last 6LR.
+                          does not understand it will ignore it (following
+                          2460bis),
+                          thus encapsulation is not necesary.
+                          Due the complete knowledge of the topology at the
+                          root,
+                          the 6LBR may optionally address the IP-in-IP header
+                          to the last 6LR, such that it is removed prior to
+                          the IPv6 node.
                         </t>
 
                                <texttable title=" Non Storing: Summary of the use of headers from root to not-RPL-aware-leaf">
@@ -1846,7 +1852,7 @@
                         <t>
                           In this case the RPI is added by the first
                           6LR (6LR1) (Node E), encapsulated in an IP-in-IP header, and is
-                          modified in the followings 6LRs.  The RPI and
+                          modified in the following 6LRs.  The RPI and
                           entire packet is consumed by the root.
                         </t>
 
@@ -1888,8 +1894,7 @@
                <section title="Non-Storing Mode: Interaction between Leaf and Internet">
 
                   <t>
-                   In this section we are going to describe the communication flow
-                   in Non Storing Mode (Non-SM) between,
+                   This section will describe the communication flow in Non Storing Mode (Non-SM) between:
                   </t>
                   <t>
                    <list>
@@ -1990,7 +1995,8 @@
                           order to aid compression.
                         </t>
                         <t>
-                          The RPI may be added or not, it is optional.
+                          The RPI may be added or not as required by networks
+                          such as 6tisch.  The RPI is unnecessary for loop detection.
                         </t>
 
                         <texttable title="Non Storing: Summary of the use of headers from Internet to RPL-aware-leaf">
