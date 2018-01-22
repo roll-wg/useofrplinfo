@@ -46,7 +46,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-19" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-20" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -105,7 +105,7 @@
 
   </author>
 
-  <date year="2017" />
+  <date year="2018" />
 
    <area>Internet</area>
 
@@ -290,8 +290,17 @@
             currently using 0x63 as the RPI value.  A move to 0x23 will not
             be understood by those networks.  It is suggested that
             implementations accept both 0x63 and 0x23 when
-            processing.  When forwarding packets, implementations SHOULD use
-            the same value as it was received.  When originating new packets,
+            processing.
+          </t>
+          <t>
+            When forwarding packets, implementations SHOULD use
+            the same value as it was received (This is required because,
+            RPI type code can not be changed by <xref target="RFC8200"/>).
+            It allows to the network to be incrementally upgraded,
+            and for the DODAG root to know which parts of the network are upgraded.
+          </t>
+          <t>
+            When originating new packets,
             implementations SHOULD have an option to determine which value to
             originate with, this option is controlled by the DIO option
             described below.
@@ -326,7 +335,7 @@
             In order to avoid a flag day caused by lack of interoperation
             between new RPI (0x23) and old RPI (0x63) nodes, when there is a
             mix of new nodes and old nodes, the new nodes may be put into a
-            compatibilit mode until all of the old nodes are replaced or
+            compatibility mode until all of the old nodes are replaced or
             upgraded.
           </t>
           <t>
@@ -346,9 +355,8 @@
             propagating the DODAG Configuration option.
           </t>
           <t>
-            The DODAG Configuration Option is as follows.
-            The Flag field is the interesting field.
-            The remaining fields states as defined in <xref target="RFC6550"/>.
+            The DODAG Configuration Option has a Flags field which is modified by this document.
+            Currently, the DODAG Configuration Option in <xref target="RFC6550"/> is as follows. .
           </t>
           <t>
               Flags: The 4-bits remaining unused in the Flags field are reserved
@@ -389,7 +397,8 @@
           ]]></artwork></figure>
           </t>
           <t>
-            In case of rebooting, the DIO is sent with flag indicating the new RPI value.
+            In case of rebooting, the node does not remember the flag. Thus,
+            the DIO is sent with flag indicating the new RPI value.
           </t>
         </section>
    </section>
@@ -407,7 +416,7 @@
                 DIS (DODAG Information Solicitation), DIO (DODAG Information Object)
                 and DAO (Destination Advertisement Object) messages are
                 all RPL Control messages but with different Code values.
-                A RPL Stack is showed in Figure 1.
+                A RPL Stack is showed in Figure 5.
                 </t>
                 <t>
                 RPL supports two modes of Downward traffic: in storing mode (RPL-SM),
@@ -702,7 +711,7 @@
           <t>
             In all cases the RPI headers are needed, since it identifies
             inconsistencies (loops) in the routing topology.
-            In all cases the RH3 is not need because we do not
+            In all cases the RH3 is not needed because we do not
             indicate the route in storing mode.
           </t>
 
@@ -1161,8 +1170,9 @@
                  <t>
                    The 6LR_1 (i=1) node will add an IP-in-IP(RPI) header addressed either
                    to the root, or hop-by-hop such that the root can remove
-                   the RPI header before passing upwards.  (EDNOTE: we SHOULD
-                   recommend one or the other)
+                   the RPI header before passing upwards. The IP-in-IP addressed to the root cause less processing overhead.
+                    On the other hand, with hop-by-hop the intermediate routers can check the routing tables for a better
+                    routing path, thus it could be more efficient and faster. Implementation should decide wich approach to take.
                  </t>
                  <t>
                    The originating node will ideally leave the IPv6 flow
@@ -1716,7 +1726,7 @@
                         </texttable>
                </section>
 
-               <section anchor="nsroottoraf" title=" on-SM: Example of Flow from root to RPL-aware-leaf">
+               <section anchor="nsroottoraf" title=" Non-SM: Example of Flow from root to RPL-aware-leaf">
                  <t>
                    In this case the flow comprises:
                  </t>
