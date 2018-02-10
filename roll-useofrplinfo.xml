@@ -3,6 +3,7 @@
 
 <!ENTITY RFC6550 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6550.xml">
 <!ENTITY RFC8138 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8138.xml">
+<!ENTITY RFC8200 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8200.xml">
 <!ENTITY RFC6553 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6553.xml">
 <!ENTITY RFC6554 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6554.xml">
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
@@ -16,9 +17,9 @@
 <!ENTITY RFC7321 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7321.xml">
 <!ENTITY RFC7416 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7416.xml">
 <!ENTITY RFC4192 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4192.xml">
-<!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">
+<!--<!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">-->
 <!ENTITY I-D.moore-iot-security-bcp SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.moore-iot-security-bcp.xml">
-<!ENTITY I-D.ietf-roll-dao-projection SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-dao-projection.xml">
+<!--<!ENTITY I-D.ietf-roll-dao-projection SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-dao-projection.xml">-->
 ]>
 
 <!--<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> -->
@@ -46,7 +47,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-20" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-21" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -121,8 +122,9 @@
         (IPv6 Routing Protocol for Low-Power and Lossy Networks) is used to establish routing.
         The document enumerates the cases where RFC 6553, RFC 6554 and IPv6-in-IPv6 encapsulation is required.
         This analysis provides the basis on which to design efficient compression of these headers.
-        Additionally, this document updates the RFC 6553 adding a change to the RPL Option Type and
-        the RFC 6550 to indicate about this change.
+        This document updates RFC 6553 adding a change to the RPL Option Type. Additionally, this document updates
+        RFC 6550 to indicate about this change and updates RFC8138 as well to consider the new Option Type
+        when RPL Option is decompressed.
       </t>
    </abstract>
  </front>
@@ -272,7 +274,7 @@
            [RFC6553] RPL Hop-by-Hop option known as RPI.
           </t>
           <t>
-           This is a significant update to <xref target="RFC6553"/>.
+           This is a significant update to <xref target="RFC6553"/>. [RFCXXXX] represents this document.
           </t>
           <t>
           <figure title="Revised Option Type in RPL Option." anchor="fig_RPIOption_new" align="center">
@@ -609,7 +611,7 @@
             inserted or removed on the fly inside an IPv6 packet that is
             being routed.
             This is a fundamental precept of the IPv6 architecture as
-            outlined in <xref target="RFC2460" />.  Extensions may not
+            outlined in <xref target="RFC8200" />.  Extensions may not
             be added or removed except by the sender or the receiver.
           </t>
           <t>
@@ -1798,7 +1800,7 @@
                           it is fully consumed in the last 6LR (6LR_n), but left there.
                           If RPI is left present, the IPv6 node which
                           does not understand it will ignore it (following
-                          2460bis),
+                          RFC8200),
                           thus encapsulation is not necesary.
                           Due the complete knowledge of the topology at the
                           root,
@@ -2577,6 +2579,9 @@
              Destination Options and Hop-by-Hop Options registry from 0x63 to 0x23.
            </t>
            <t>
+           [RFCXXXX] represents this document.
+           </t>
+           <t>
            <figure title="Option Type in RPL Option." anchor="fig_IanaRPIOption" align="center">
               <artwork> <![CDATA[
 
@@ -2781,13 +2786,13 @@ Hex Value  Binary Value
      &RFC6553;
      &RFC6554;
      &RFC2119;
-     <?rfc include="reference.RFC.2460" ?>
+    <!-- <?rfc include="reference.RFC.8200" ?>-->
      <?ref include="reference.RFC.8200" ?>
      <?rfc include="reference.RFC.8138" ?>
 
      &RFC6550;
      &RFC2473;
-     &RFC7416;
+
      <?rfc include="reference.RFC.2827" ?>
      <?rfc include="reference.RFC.5406" ?>
      <?rfc include="reference.RFC.7045" ?>
@@ -2797,14 +2802,15 @@ Hex Value  Binary Value
    <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
 
      &RFC6775;
+     &RFC7416;
      &RFC4443;
      &RFC7102;
      <?rfc include="reference.I-D.ietf-anima-autonomic-control-plane" ?>
-     <?rfc include="reference.I-D.ietf-6tisch-architecture" ?>
+    <!-- <?rfc include="reference.I-D.ietf-6tisch-architecture" ?> -->
      <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
      <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
      <?rfc include="reference.I-D.ietf-6lo-backbone-router" ?>
-     <?rfc include="reference.I-D.ietf-roll-dao-projection" ?>
+  <!--   <?rfc include="reference.I-D.ietf-roll-dao-projection" ?> -->
      <?rfc include="reference.I-D.ietf-6man-rfc6434-bis" ?>
      <?rfc include="reference.RFC.6997" ?>
      <?rfc include="reference.RFC.4192" ?>
