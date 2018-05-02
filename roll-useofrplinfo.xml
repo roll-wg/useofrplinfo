@@ -17,6 +17,7 @@
 <!ENTITY RFC7321 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7321.xml">
 <!ENTITY RFC7416 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7416.xml">
 <!ENTITY RFC4192 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4192.xml">
+<!--<!ENTITY I-D.thubert-roll-unaware-leaves SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.I-D.thubert-roll-unaware-leaves.xml"> -->
 <!--<!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">-->
 <!ENTITY I-D.moore-iot-security-bcp SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.moore-iot-security-bcp.xml">
 <!--<!ENTITY I-D.ietf-roll-dao-projection SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-dao-projection.xml">-->
@@ -47,7 +48,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-21" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-23" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -221,10 +222,15 @@
 
        </section>
 
-       <section title="Updates to RFC6553, RFC6550 and RFC 8138">
+       <section  anchor="updateRFCs_section" title="Updates to RFC6553, RFC6550 and RFC 8138">
 
           <section title="Updates to RFC 6553">
-           <t>
+          <t>
+          This modification is required to be able to send, for example,
+          IPv6 packets from a RPL-aware-leaf to a not-RPL-aware node through Internet (see <xref target="sm-Ral2i" />),
+          without requiring IP-in-IP encapsulation.
+          </t>
+          <t>
           <xref target="RFC6553"/> states as showed below, that in the Option Type field of the RPL Option
           header, the two high order bits MUST be set to '01' and the third bit is equal to '1'.
           The first two bits indicate that the IPv6 node MUST discard the packet
@@ -257,7 +263,8 @@
           <t>
           Based on That, if an IPv6 (intermediate) node (RPL-not-capable) receives a packet with an
           RPL Option, it should ignore the HBH RPL option
-          (skip over this option and continue processing the header).
+          (skip over this option and continue processing the header). This is relevant, as we mentioned previously, in the case that
+          we have a flow from RPL-aware-leaf to Internet (see <xref target="sm-Ral2i" />).
           </t>
           <t>
            Thus, this document updates the Option Type field to:
@@ -1043,7 +1050,7 @@
                    </list>
                  </t>
 
-               <section title="SM: Example of Flow from RPL-aware-leaf to Internet">
+               <section  anchor="sm-Ral2i" title="SM: Example of Flow from RPL-aware-leaf to Internet">
                          <t>
                         RPL information from RFC 6553 MAY go out to
                         Internet as it will be ignored by nodes which have
@@ -1240,9 +1247,14 @@
                         </t>
                         <t>
                           Note that there is a requirement that the final
-                          node be able to remove one or more IPIP headers
-                          which are all addressed to it. (EDNOTE: this should
-                          go into <xref target="I-D.ietf-6man-rfc6434-bis" />)
+                          node be able to remove one or more IP-in-IP headers
+                          which are all addressed to it,
+                          mentioned in <xref target="I-D.thubert-roll-unaware-leaves"/> :
+                        </t>
+                        <t>
+                          "RPL data packets are often encapsulated using IP in IP.  The 6LN
+                          MUST be able to decapsulate a packet when it is the destination of
+                          the outer header and process correctly the inner header."
                         </t>
                         <t>
                           The 6LBR MAY set the flow label on the inner IP-in-IP
@@ -1430,7 +1442,7 @@
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> RPI</c>
+                                          <c> -- </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
@@ -2766,9 +2778,13 @@ Hex Value  Binary Value
            Network (ITN) METRICS project (grant agreement No.  607728).
            </t>
            <t>
-           The authors would like to acknowledge the review, feedback, and
+            A special BIG thanks to C. M. Heard for the help with the <xref target="updateRFCs_section" />.
+            Much of the redaction in that section is based on his comments.
+           </t>
+           <t>
+           Additionally, the authors would like to acknowledge the review, feedback, and
            comments of (alphabetical order): Robert Cragie, Simon Duquennoy, Ralph Droms,
-           Cenk Gündogan, C. M. Heard, Rahul Jadhav, Matthias Kovatsch, Peter van der Stok,
+           Cenk Gündogan, Rahul Jadhav, Matthias Kovatsch, Peter van der Stok,
            Xavier Vilajosana and Thomas Watteyne.
            </t>
          </section>
@@ -2812,6 +2828,7 @@ Hex Value  Binary Value
      <?rfc include="reference.I-D.ietf-6lo-backbone-router" ?>
   <!--   <?rfc include="reference.I-D.ietf-roll-dao-projection" ?> -->
      <?rfc include="reference.I-D.ietf-6man-rfc6434-bis" ?>
+     <?rfc include="reference.I-D.thubert-roll-unaware-leaves" ?>
      <?rfc include="reference.RFC.6997" ?>
      <?rfc include="reference.RFC.4192" ?>
 
