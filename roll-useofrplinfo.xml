@@ -48,7 +48,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-23" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-latest" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -64,7 +64,7 @@
   <title abbrev="Useof6553">When to use RFC 6553, 6554 and IPv6-in-IPv6</title>
 
   <author  initials="M.I." surname="Robles" fullname="Maria Ines Robles">
-     <organization abbrev="Aalto">Aalto University </organization>
+     <organization abbrev="AaltoU">Aalto University </organization>
     <address>
      <postal>
        <street>Innopoli</street>
@@ -205,9 +205,8 @@
           (pledges) into a network. (from <xref target="I-D.ietf-anima-bootstrapping-keyinfra" />)
         </t>
         <t>
-          Flag day: A "flag day" is a procedure in which the network, or a part of it, is
-          changed during a planned outage, or suddenly, causing an outage while
-          the network recovers <xref target="RFC4192"/>
+          Flag Day:  A transition that involves a planned service outage
+          (from <xref target="RFC4192"/>).
         </t>
         <section title="hop-by-hop IPv6-in-IPv6 headers">
         <t>
