@@ -64,15 +64,15 @@
   <title abbrev="Useof6553">When to use RFC 6553, 6554 and IPv6-in-IPv6</title>
 
   <author  initials="M.I." surname="Robles" fullname="Maria Ines Robles">
-     <organization abbrev="Ericsson">Ericsson</organization>
+     <organization abbrev="Aalto">Aalto University </organization>
     <address>
      <postal>
-       <street>Hirsalantie 11</street>
-       <city>Jorvas</city>
-       <code>02420</code>
+       <street>Innopoli</street>
+       <city>Espoo</city>
+       <code>02150</code>
        <country>Finland</country>
      </postal>
-      <email>maria.ines.robles@ericsson.com</email>
+      <email>mariainesrobles@gmail.com</email>
     </address>
   </author>
 
