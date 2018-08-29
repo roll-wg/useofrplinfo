@@ -165,12 +165,11 @@
              </t>
              <t>
                The related document  <xref target="RFC8138"> A Routing Header
-                Dispatch for 6LoWPAN (6LoRH) </xref> defines a method to
-                compress RPL Option information and Routing Header type 3
+                Dispatch for 6LoWPAN (6LoRH) </xref> defines a method for
+                compressing RPL Option information and Routing Header type 3
                 <xref
-                target="RFC6554"/>, an efficient IP-in-IP technique, and use cases
-                proposed for the <xref target="Second6TischPlugtest"/>
-                involving 6loRH.
+                target="RFC6554"/>, as well as an efficient IP-in-IP
+                technique.
              </t>
          </section>
 
@@ -2839,13 +2838,6 @@ Hex Value  Binary Value
        </front>
      </reference>
 
-        <reference anchor="Second6TischPlugtest" target="http://www.ietf.org/mail-archive/web/6tisch/current/pdfgDMQcdCkRz.pdf">
-          <front>
-            <title>2nd 6Tisch Plugtest </title>
-            <author/>
-            <date/>
-          </front>
-             </reference>
      </references>
 
 
