@@ -61,7 +61,7 @@
    <!-- The abbreviated title is used in the page header - it is only necessary if the
         full title is longer than 39 characters -->
 
-  <title abbrev="Useof6553">When to use RFC 6553, 6554 and IPv6-in-IPv6</title>
+   <title abbrev="RPL-data-plane">Using RPL Option Type, Routing Header for Source Routes  and IPv6-in-IPv6 encapsulation in the RPL Data Plane</title>
 
   <author  initials="M.I." surname="Robles" fullname="Maria Ines Robles">
      <organization abbrev="AaltoU">Aalto University </organization>
