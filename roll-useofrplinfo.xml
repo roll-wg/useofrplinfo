@@ -199,14 +199,6 @@
         </t>
 
         <t>
-          pledge: a new device which seeks admission to a network. (from <xref target="I-D.ietf-anima-bootstrapping-keyinfra" />)
-        </t>
-
-        <t>
-          Join Registrar and Coordinator (JRC): a device which brings new nodes
-          (pledges) into a network. (from <xref target="I-D.ietf-anima-bootstrapping-keyinfra" />)
-        </t>
-        <t>
           Flag Day:  A transition that involves a planned service outage
           (from <xref target="RFC4192"/>).
         </t>
