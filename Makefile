@@ -11,3 +11,6 @@ roll-useofrplinfo-${VERSION}.txt: roll-useofrplinfo.txt
 submit: roll-useofrplinfo.xml
 	curl -S -F "user=mcr+ietf@sandelman.ca" -F "xml=@~/roll-useofrplinfo.xml" https://datatracker.ietf.org/api/submit
 
+clean:
+	rm -f roll-useofrplinfo.txt roll-useofrplinfo-${VERSION}.txt
+
