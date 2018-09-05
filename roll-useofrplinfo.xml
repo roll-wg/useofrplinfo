@@ -366,9 +366,12 @@
         </section>
         <section title="Updates to RFC 8138">
           <t>
-          RPI-6LoRH header provides a compressed form for the RPL RPI <xref target="RFC8138"/>.
-          It should be considered when the Option Type in RPL Option is decompressed,
-          should take the value of 0x23 instead of 0x63.
+            RPI-6LoRH header provides a compressed form for the RPL RPI <xref
+            target="RFC8138"/> in section 6.  A node that is decompressing this header
+            MUST decompress using the RPL RPI option type that is currently active: that
+            is, a choice between 0x23 (new) and 0x63 (old).  The node will know which to
+            use based upon the presence of the DODAG Configuration Option described in
+            the next section.
         </t>
         <t>
          <xref target="RFC8138" /> shows that the
