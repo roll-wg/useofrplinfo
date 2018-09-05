@@ -383,19 +383,22 @@
           code path that always processes IPv6-in-IPv6 headers with no options.
         </t>
         </section>
-        <section title="Updates to RFC 6550: Indicating the new RPI in the DODAG Configuration Option Flag. ">
+        <section title="Updates to RFC 6550: Indicating the new RPI in the
+                        DODAG Configuration Option Flag. ">
           <t>
-            In order to avoid a flag day caused by lack of interoperation
-            between new RPI (0x23) and old RPI (0x63) nodes, when there is a
-            mix of new nodes and old nodes, the new nodes may be put into a
-            compatibility mode until all of the old nodes are replaced or
-            upgraded.
+            In order to avoid a Flag Day caused by lack of interoperation
+            between new RPI (0x23) and old RPI (0x63) nodes, this section
+            defines a flag in the DIO Configuration Option, to indicate when
+            then new RPI value can be safely used. Without this,
+            there could be a mix of new nodes (which understand 0x23 and
+            0x63), and old nodes (which understand 0x63 only). A new node
+            would not know if it was safe to use 0x23.
           </t>
           <t>
-            This can be done via a DODAG Configuration Option flag which will propogate
-            through the network.  Failure to receive this information will cause new
-            nodes to remain in compatibility mode, and originate traffic with
-            the old-RPI (0x63) value.
+            This is  done via a DODAG Configuration Option flag which will propogate
+            through the network.  If the flag is received with a value zero
+            (which is the default), then new nodes will remain in RFC6553
+            Compatible Mode; originating traffic with the old-RPI (0x63) value.
           </t>
           <t>
             As stated in <xref target="RFC6550"/> the DODAG Configuration option is present in DIO messages.
@@ -450,8 +453,9 @@
           ]]></artwork></figure>
           </t>
           <t>
-            In case of rebooting, the node does not remember the flag. Thus,
-            the DIO is sent with flag indicating the new RPI value.
+            In case of rebooting, the node does not remember if the flag is
+            set, so DIO messages would be set with the flag unset until a DIO
+            is received with the flag set.
           </t>
         </section>
    </section>
