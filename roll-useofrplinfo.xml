@@ -762,14 +762,16 @@
           </t>
 
           <t>
-            The following table itemizes which headers are needed in the following
-            scenarios, and indicates if the IPv6-in-IPv6 header must be
-            inserted on a hop-by-hop basis, or when it can target the
-            destination node directly.  There are these possible situations:
-            hop-by-hop necessary (indicated by "hop"), or destination address
-            possible (indicated by "dst").  In all cases hop by hop MAY be
-            used.
+            The following table itemizes which headers are needed in each
+            of the following scenarios. It indicate if an IP-in-IP header is to
+            be inserted, and whether the destination address of the IP-in-IP
+            header is the next hop, or the final target address. There are
+            these possible situations: hop-by-hop necessary (indicated by
+            "hop"), or final target address possible (indicated by "tgt").  In
+            all cases hop by hop MAY be used rather than the final target
+            address.
           </t>
+
           <t>
             In cases where no IPv6-in-IPv6 header is needed, the column is left
             blank.
@@ -805,21 +807,21 @@
 +                     +--------------+----------+--------------+
 |                     | root to ~Raf |    No    |      --      |
 +                     +--------------+----------+--------------+
-|                     | ~Raf to root |    Yes   |     root     |
+|                     | ~Raf to root |   MUST   |     root     |
 +---------------------+--------------+----------+--------------+
 |                     |  Raf to Int  |    No    |      --      |
 +                     +--------------+----------+--------------+
-|   Leaf - Internet   |  Int to Raf  |   Yes    |      Raf     |
+|   Leaf - Internet   |  Int to Raf  |   MUST   |      Raf     |
 +                     +--------------+----------+--------------+
-|                     |  ~Raf to Int |    Yes   |     root     |
+|                     |  ~Raf to Int |   MUST   |     root     |
 +                     +--------------+----------+--------------+
-|                     |  Int to ~Raf |    Yes   |      hop     |
+|                     |  Int to ~Raf |   MUST   |      hop     |
 +---------------------+--------------+----------+--------------+
 |                     |  Raf to Raf  |    No    |      --      |
 +                     +--------------+----------+--------------+
 |                     |  Raf to ~Raf |    No    |      --      |
 +     Leaf - Leaf     +--------------+----------+--------------+
-|                     |  ~Raf to Raf |    Yes   |      dst     |
+|                     |  ~Raf to Raf |   MUST   |      tgt     |
 +                     +--------------+----------+--------------+
 |                     | ~Raf to ~Raf |    Yes   |      hop     |
 +---------------------+--------------+----------+--------------+
@@ -1675,10 +1677,10 @@
          </t>
          <t>
            The following table summarizes what headers are needed in the following
-           scenarios, and indicates when the RPI, RH3 and IPv6-in-IPv6 header must be
-           inserted.  There are these possible situations:
-          destination address possible (indicated by "dst"), to a 6LR, to a 6LN or to the root.
-          In cases where no IPv6-in-IPv6 header is needed, the column is left blank.
+           scenarios, and indicates when the RPI, RH3 and IPv6-in-IPv6 header
+           are to be inserted.  There are these possible situations:
+           target destination address possible (indicated by "tgt"), to a 6LR, to a 6LN or to the root.
+           In cases where no IPv6-in-IPv6 header is needed, the column is left blank.
          </t>
          <t>
            The leaf can be a router 6LR or a host, both indicated as 6LN (Figure 3).
@@ -1697,25 +1699,25 @@
 +                 +--------------+-----+-----+----------+----------+
 |   Leaf - Root   |  root to Raf | Opt | Yes |    No    |    --    |
 +                 +--------------+-----+-----+----------+----------+
-|                 | root to ~Raf |no(1)| Yes |    Yes   |    6LR   |
+|                 | root to ~Raf |no(1)| Yes |   MUST   |    6LR   |
 +                 +--------------+-----+-----+----------+----------+
-|                 | ~Raf to root | Yes | No  |    Yes   |   root   |
+|                 | ~Raf to root | Yes | No  |   MUST   |   root   |
 +-----------------+--------------+-----+-----+----------+----------+
-|                 |  Raf to Int  | Yes | No  |    Yes   |   root   |
+|                 |  Raf to Int  | Yes | No  |   MUST   |   root   |
 +                 +--------------+-----+-----+----------+----------+
-| Leaf - Internet |  Int to Raf  |no(1)| Yes |   Yes    |    dst   |
+| Leaf - Internet |  Int to Raf  |no(1)| Yes |   MUST   |    tgt   |
 +                 +--------------+-----+-----+----------+----------+
-|                 |  ~Raf to Int | Yes | No  |    Yes   |   root   |
+|                 |  ~Raf to Int | Yes | No  |   MUST   |   root   |
 +                 +--------------+-----+-----+----------+----------+
-|                 |  Int to ~Raf |no(1)| Yes |    Yes   |    6LR   |
+|                 |  Int to ~Raf |no(1)| Yes |   MUST   |    6LR   |
 +-----------------+--------------+-----+-----+----------+----------+
-|                 |  Raf to Raf  | Yes | Yes |    Yes   | root/dst |
+|                 |  Raf to Raf  | Yes | Yes |   MUST   | root/tgt |
 +                 +--------------+-----+-----+----------+----------+
-|                 |  Raf to ~Raf | Yes | Yes |    Yes   | root/6LR |
+|                 |  Raf to ~Raf | Yes | Yes |   MUST   | root/6LR |
 +   Leaf - Leaf   +--------------+-----+-----+----------+----------+
-|                 |  ~Raf to Raf | Yes | Yes |    Yes   | root/6LN |
+|                 |  ~Raf to Raf | Yes | Yes |   MUST   | root/6LN |
 +                 +--------------+-----+-----+----------+----------+
-|                 | ~Raf to ~Raf | Yes | Yes |    Yes   | root/6LR |
+|                 | ~Raf to ~Raf | Yes | Yes |   MUST   | root/6LR |
 +-----------------+--------------+-----+-----+----------+----------+
 
 (1)-6tisch networks may need the RPI information.
