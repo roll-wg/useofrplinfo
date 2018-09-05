@@ -168,21 +168,24 @@
 
              </t>
              <t>
-               A Routing Header Dispatch for 6LoWPAN (6LoRH)(<xref target="RFC8138">)
+               A Routing Header Dispatch for 6LoWPAN (6LoRH)(<xref target="RFC8138" />)
                 defines a mechanism for compressing RPL Option information and Routing Header type 3
                 <xref target="RFC6554"/>, as well as an efficient IPv6-in-IPv6 technique.
              </t>
-             <t>
-               <section title="Overview">
-                The rest of the document is organized as follows: Section 2 describes the used terminology.
-                Section 3 describes the updates to RFC6553, RFC6550 and RFC 8138.
-                Section 4 provides the reference topology used for the uses cases.
-                Section 5  describes the uses cases included.
-                Section 6 describes the storing mode cases and section 7 the non-storing mode cases.
-                Section 8 describes the operational considerations for the proposed change on RPL Option type.
-                Section 9 depicts the 6LoRH Compression cases, section 10 the IANA considerations and then section 11 describe the security aspects.
-               </section>
-           </section>
+             <section title="Overview">
+               <t>
+               The rest of the document is organized as follows: Section 2 describes the used terminology.
+               Section 3 describes the updates to RFC6553, RFC6550 and RFC 8138.
+               Section 4 provides the reference topology used for the uses cases.
+               Section 5  describes the uses cases included.
+               Section 6 describes the storing mode cases and section 7 the non-storing mode cases.
+               Section 8 describes the operational considerations for the proposed change on RPL Option type.
+               Section 9 depicts the 6LoRH Compression cases, section 10 the
+               IANA considerations and then section 11 describe the security
+               aspects.
+               </t>
+             </section>
+          </section>
     <section title="Terminology and Requirements Language">
       <t>
         The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
@@ -2567,10 +2570,12 @@
        </section>
 
        <section title="Operational considerations of introducing 0x23">
-         This section describes the operational considerations
+         <t>
+           This section describes the operational considerations
+         </t>
          <section title="Has deployment been discussed?">
-<!--          <t>
-            Without the modifications in 2460 bis, we would have in the completely general storing case, which includes not-RPL
+          <t>
+<!--        Without the modifications in 2460 bis, we would have in the completely general storing case, which includes not-RPL
             aware leaf nodes, it is not possible for a sending node to know
             if the destination is RPL aware, and therefore it must always use
             hop-by-hop IPv6-in-IPv6 encapsulation, and it can never omit the IPv6-in-IPv6
@@ -2581,32 +2586,37 @@
           There are no known multivendor deployments outside of the research groups! All known deployments of RPL are in market verticals,
           with a single vendor providing all components.
           Research groups typically are using Contiki, RiotOS, or OpenWSN., and these are easily adapted to 0x23 functionality.
-          Compatibility issue of RPL Option type not seems to be quite relevant for research groups.
+          Compatibility issue of RPL Option type not seems to be quite
+          relevant for research groups.
+          </t>
 
          </section>
          <section title="Has installation and initial setup been discussed??">
-<!-- -->
-        During bootstrapping the node get the DIO with the information of RPL Option Type and Indicating
-        the new RPI in the DODAG Configuration Option Flag.
-        The DODAG root is in charge to configure the current network to the new value gradually, through DIO
-        messages and when all the nodes are set with the new value. The dodag should change to a new DODAG version.
-        Not able to send data plane mssges. Should drop the packet.
-        In case of rebooting, the node does not remember the RPL Option Type.
-        Thus, the DIO is sent with flag indicating the new RPI value.
-
-
+           <!-- -->
+           <t>
+             During bootstrapping the node get the DIO with the information of RPL Option Type and Indicating
+             the new RPI in the DODAG Configuration Option Flag.
+             The DODAG root is in charge to configure the current network to the new value gradually, through DIO
+             messages and when all the nodes are set with the new value. The dodag should change to a new DODAG version.
+             Not able to send data plane mssges. Should drop the packet.
+             In case of rebooting, the node does not remember the RPL Option Type.
+             Thus, the DIO is sent with flag indicating the new RPI value.
+           </t>
          </section>
          <section title="Has the migration path been discussed?">
 <!-- -->
 
          </section>
-         <section title="Have the Requirements on other protocols and functional components been discussed?">
-          It allows to send packets to non-RPL nodes, the 20x3
-
+         <section title="Have the Requirements on other protocols and
+                         functional components been discussed?">
+           <t>
+             It allows to send packets to non-RPL nodes, the 20x3  (XXX 0x23?)
+           </t>
          </section>
          <section title="Has the impact on network operation been discussed?">
-           Missconfiguration in case that a node join
-
+           <t>
+             Missconfiguration in case that a node join
+           </t>
          </section>
         <section title="Have suggestions for verifying correct operation been discussed?">
 
