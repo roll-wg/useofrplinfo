@@ -694,6 +694,13 @@
             order to remove the artifact.
           </t>
           <t>
+            As the rank information in the RPI artifact is changed at each
+            hop, it will typically be zero when it arrives at the DODAG
+            root.  The DODAG root SHOULD force it to zero when passing the
+            packet out to the Internet.  The Internet will therefore not see
+            any SenderRank information.
+          </t>
+          <t>
             Despite being legal to leave the RPI artifact in place,
             an intermediate router that needs to add an extension header
             (SHR3 or RPI Option) MUST still encapsulate the packet in an
