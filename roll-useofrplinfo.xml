@@ -726,15 +726,17 @@
             across these headers, but it can not secure the values which mutate.
          </t>
           <t>
-            RPI should be present in every single RPL data packet. There is one
+            RPI SHOULD be present in every single RPL data packet. There is one
             exception in non-storing mode: when a packet is going down from the
-            root.  In a downward non-storing mode, the entire route is
-            written, so there can be no loops by construction, nor any
+            root the RPI MAY be omitted.
+            The rational is that in a downward non-storing mode, the entire
+            route is written, so there can be no loops by construction, nor any
             confusion about which forwarding table to use (as the root has
             already made all routing decisions).  However, there are still
             cases, such as in 6tisch, where the instanceID portion of the RPI
             header may still be needed to pick an appropriate priority or
             channel at each hop.
+            XXX -- code simplicity argues for not allowing the exception.
           </t>
 
           <t>
