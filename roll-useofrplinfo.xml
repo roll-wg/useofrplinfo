@@ -1761,26 +1761,27 @@
              </t>
 
                <section title="Non-SM: Example of Flow from RPL-aware-leaf to root">
-                         <t>
-                        In non-storing mode the leaf node uses default
-                        routing to send traffic to the root. The RPI header
-                        MUST be included to avoid/detect loops.
-                        </t>
+                 <t>
+                   In non-storing mode the leaf node uses default
+                   routing to send traffic to the root. The RPI header
+                   contains the rank information, which is used to
+                   avoid/detect loops.
+                 </t>
 
-                        <t>
-                        RPL-aware-leaf (6LN) --> 6LR_i --> root(6LBR)
-                        </t>
-                        <t>
-                        For example, a communication flow could be: Node F --> Node D --> Node B --> Node A (root)
-                        </t>
-                        <t>
-                          6LR_i are the intermediate routers from source to destination.
-                          In this case, "1 &lt;= i &lt;= n", n is the number of routers (6LR)
-                          that the packet go through from source (6LN) to destination (6LBR).
-                        </t>
-                        <t>
-                        This situation is the same case as storing mode.
-                         </t>
+                 <t>
+                   RPL-aware-leaf (6LN) --> 6LR_i --> root(6LBR)
+                 </t>
+                 <t>
+                   For example, a communication flow could be: Node F --> Node D --> Node B --> Node A (root)
+                 </t>
+                 <t>
+                   6LR_i are the intermediate routers from source to destination.
+                   In this case, "1 &lt;= i &lt;= n", n is the number of routers (6LR)
+                   that the packet go through from source (6LN) to destination (6LBR).
+                 </t>
+                 <t>
+                   This situation is the same case as storing mode.
+                 </t>
 
                         <texttable title="Non Storing: Summary of the use of headers from RPL-aware-leaf to root">
                                           <ttcol> Header</ttcol>
