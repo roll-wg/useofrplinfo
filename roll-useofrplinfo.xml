@@ -331,7 +331,7 @@
         </t>
         <t>
           The change of RPI option type from 0x63 to 0x23, makes all
-          RFC8200 compliant nodes tolerant of the RPL artifacts.  There
+          <xref target="RFC8200"/> Section 4.2 compliant nodes tolerant of the RPL artifacts.  There
           is therefore no longer a necessity to remove the artifacts when
           sending traffic to the Internet.  This change clarifies when
           to use an IPv6-in-IPv6 header, and how to address them:
@@ -344,7 +344,7 @@
           RPL root when on the way up, and to the end-host when on the way down.
         </t>
         <t>
-          Non-constrained uses of RPL have different constraints, and
+          Non-constrained uses of RPL are not in scope of this document, and
           applicability statements for those uses MAY provide different
           advice.  [[EDNOTE: is a reference to ANIMA ACP appropriate here?]]
         </t>
