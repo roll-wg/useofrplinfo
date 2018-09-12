@@ -788,8 +788,8 @@
           <t>
             In all cases the RPI headers are needed, since it identifies
             inconsistencies (loops) in the routing topology.
-            In all cases the RH3 is not needed because it is not
-            indicate the route in storing mode.
+            In all cases the RH3 is not needed because it is not used
+            in storing mode.
           </t>
 
           <t>
@@ -1829,10 +1829,11 @@
                    that the packet go through from source (6LBR) to destination (6LN).
                  </t>
                  <t>
-                   The 6LBR will insert an RH3, and may optionally insert an
-                   RPI header.   No IPv6-in-IPv6 header is necessary as the traffic
+                   The 6LBR inserts an RH3, and an RPI header.
+                   No IPv6-in-IPv6 header is necessary as the traffic
                    originates with an RPL aware node, the 6LBR.
-                  The destination is known to RPL-aware because, the root knows the whole topology in non-storing mode.
+                   The destination is known to RPL-aware because, the root
+                   knows the whole topology in non-storing mode.
                  </t>
 
                         <texttable title="Non Storing: Summary of the use of headers from root to RPL-aware-leaf">
@@ -1882,10 +1883,10 @@
                           In 6LBR the RH3 is added, it is modified at each
                           intermediate 6LR (6LR_1 and so on) and
                           it is fully consumed in the last 6LR (6LR_n), but left there.
-                          If RPI is left present, the IPv6 node which
-                          does not understand it will ignore it (following
-                          RFC8200),
-                          thus encapsulation is not necesary.
+                          If RPI is left by the previous 6LR, then
+                          the IPv6 node which does not understand the RPI,
+                          will ignore it (following RFC8200), thus
+                          encapsulation is not necessary.
                           Due the complete knowledge of the topology at the
                           root,
                           the 6LBR may optionally address the IPv6-in-IPv6 header
