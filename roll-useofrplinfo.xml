@@ -330,14 +330,23 @@
           possible this change can be deployed at the same time.
         </t>
         <t>
-          Thanks to the proposed change of the RPI option type from 0x63 to 0x23, there
-          is no longer any uncertainty about when to use an IPv6-in-IPv6 header in the
-          storing mode. A Hop-by-Hop Options Header containing the RPI option
-          SHOULD always be added when 6LRs originate packets (without IPv6-in-IPv6
-          headers), and IPv6-in-IPv6 headers should always be added (addressed to the
-          root when on the way up, to the end-host when on the way down) when
-          a 6LR find that it needs to insert a Hop-by-Hop Options Header
-          containing the RPI option.
+          The change of RPI option type from 0x63 to 0x23, makes all
+          RFC8200 compliant nodes tolerant of the RPL artifacts.  There
+          is therefore no longer a necessity to remove the artifacts when
+          sending traffic to the Internet.  This change clarifies when
+          to use an IPv6-in-IPv6 header, and how to address them:
+          The Hop-by-Hop Options Header containing the RPI option SHOULD always
+          be added when 6LRs originate packets (without IPv6-in-IPv6
+          headers), and IPv6-in-IPv6 headers SHOULD always be added
+          when a 6LR find that it needs to insert a Hop-by-Hop Options Header
+          containing the RPI option.  The IPv6-in-IPv6 header is to
+          be addressed to the
+          RPL root when on the way up, and to the end-host when on the way down.
+        </t>
+        <t>
+          Non-constrained uses of RPL have different constraints, and
+          applicability statements for those uses MAY provide different
+          advice.  [[EDNOTE: is a reference to ANIMA ACP appropriate here?]]
         </t>
         <t>
           In the non-storing case, dealing with non-RPL aware leaf nodes
@@ -2092,10 +2101,6 @@
                           address the IPv6-in-IPv6 header to that node.
                           The 6LBR will zero the flow label upon entry in
                           order to aid compression.
-                        </t>
-                        <t>
-                          The RPI may be added or not as required by networks
-                          such as 6tisch.  The RPI is unnecessary for loop detection.
                         </t>
 
                         <texttable title="Non Storing: Summary of the use of headers from Internet to RPL-aware-leaf">
