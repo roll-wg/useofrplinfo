@@ -1891,7 +1891,9 @@
                           root,
                           the 6LBR may optionally address the IPv6-in-IPv6 header
                           to the last 6LR, such that it is removed prior to
-                          the IPv6 node.
+                          the IPv6 node.  Please see <xref
+                          target="notrplaware" /> for clarification of use of
+                          IPv6-in-IPv6 encapsulation.
                         </t>
 
                                <texttable title=" Non Storing: Summary of the use of headers from root to not-RPL-aware-leaf">
@@ -2581,7 +2583,7 @@
           </section>
 
           <section title="Operational Considerations of supporting
-                          not-RPL-aware-leaves">
+                          not-RPL-aware-leaves" anchor="notrplaware">
             <t>
               Roughly half of the situations described in this document
               involve leaf ("host") nodes that do not speak RPL.  These nodes
