@@ -2578,7 +2578,66 @@
                        </section>
             </section>
 
-       </section>
+          </section>
+
+          <section title="Operational Considerations of supporting
+                          not-RPL-aware-leaves">
+            <t>
+              Roughly half of the situations described in this document
+              involve leaf ("host") nodes that do not speak RPL.  These nodes
+              fall into two further categories: ones that drop a packet
+              that have RPI or RH3 headers, and ones that continue to
+              process a packet that has RPI and/or RH3 headers.
+            </t>
+            <t>
+              <xref target="RFC8200" /> provides for new rules that suggest
+              that nodes that have not been configured (explicitely) to
+              examine Hop-by-Hop headers, should ignore those headers, and
+              continue processing the packet.  Despite this, and despite the
+              switch from 0x63 to 0x23, there may be hosts that are pre-RFC8200,
+              or simply intolerant.  Those hosts will drop packets that
+              continue to have RPL artifacts in them.  In general, such
+              hosts can not be easily supported in RPL LLNs.
+            </t>
+            <t>
+              There are some specific cases where it is possible to remove
+              the RPL artifacts prior to forwarding the packet to the leaf
+              host.  The critical thing is that the artifacts have been
+              inserted by the RPL root inside an IPv6-in-IPv6 header, and
+              that the header has been addressed to the 6LR immediately prior
+              to the leaf node. In that case, in the process of removing the
+              IPv6-in-IPv6 header, the artifacts can also be removed.
+            </t>
+            <t>
+              The above case occurs whenever traffic originates from the
+              outside the LLN (the "Internet" cases above), and non-storing
+              mode is used.  In non-storing mode, the RPL root knows the
+              exact topology (as it must be create the RH3 header), and
+              therefore knows what the 6LR prior to the leaf --- the 6LR_n.
+            </t>
+            <t>
+              Traffic originating from the RPL root (such as when the data
+              collection system is co-locate on the RPL root), does not
+              require an IPv6-in-IPv6 header (in either mode), as the packet
+              is originating at the root, and the root can insert the RPI
+              and RH3 headers directly into the packet, as it is formed.
+              Such a packet is slightly smaller, but only can be sent to
+              nodes (whether RPL aware or not), that will tolerate the
+              RPL artifacts.
+            </t>
+            <t>
+              An operator that finds itself with a lot of traffic from the
+              RPL root to RPL-not-aware-leaves, will have to do IPv6-in-IPv6
+              encapsulation if the leaf is not tolerant of the RPL artifacts.
+              Such an operator could otherwise omit this unnecessary header
+              if it was certain of the properties of the leaf.
+            </t>
+            <t>
+              As storing mode can not know the final path of the traffic,
+              intolerant (that drop packets with RPL artifacts) leaf nodes
+              can not be supported.
+            </t>
+          </section>
 
        <section title="Operational considerations of introducing 0x23">
          <t>
