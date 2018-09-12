@@ -6,9 +6,9 @@ ROLL Working Group                                             M. Robles
 Internet-Draft                                                     Aalto
 Updates: 6553, 6550, 8138 (if approved)                    M. Richardson
 Intended status: Standards Track                                     SSW
-Expires: March 9, 2019                                        P. Thubert
+Expires: March 16, 2019                                       P. Thubert
                                                                    Cisco
-                                                       September 5, 2018
+                                                      September 12, 2018
 
 
  Using RPL Option Type, Routing Header for Source Routes  and IPv6-in-
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 9, 2019.
+   This Internet-Draft will expire on March 16, 2019.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Robles, et al.            Expires March 9, 2019                 [Page 1]
+Robles, et al.           Expires March 16, 2019                 [Page 1]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Robles, et al.            Expires March 9, 2019                 [Page 2]
+Robles, et al.           Expires March 16, 2019                 [Page 2]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -153,24 +153,24 @@ Internet-Draft               RPL-data-plane               September 2018
            discussed?  . . . . . . . . . . . . . . . . . . . . . . .  43
      8.7.  Has management interoperability been discussed? . . . . .  43
      8.8.  Are there fault or threshold conditions that should be
-           reported? . . . . . . . . . . . . . . . . . . . . . . . .  43
-     8.9.  Is configuration discussed? . . . . . . . . . . . . . . .  43
-   9.  6LoRH Compression cases . . . . . . . . . . . . . . . . . . .  43
+           reported? . . . . . . . . . . . . . . . . . . . . . . . .  44
+     8.9.  Is configuration discussed? . . . . . . . . . . . . . . .  44
+   9.  6LoRH Compression cases . . . . . . . . . . . . . . . . . . .  44
    10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  44
-   11. Security Considerations . . . . . . . . . . . . . . . . . . .  44
+   11. Security Considerations . . . . . . . . . . . . . . . . . . .  45
    12. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  47
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  47
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  47
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  48
+     13.1.  Normative References . . . . . . . . . . . . . . . . . .  48
      13.2.  Informative References . . . . . . . . . . . . . . . . .  49
 
 
 
-Robles, et al.            Expires March 9, 2019                 [Page 3]
+Robles, et al.           Expires March 16, 2019                 [Page 3]
 
 Internet-Draft               RPL-data-plane               September 2018
 
 
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  50
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  51
 
 1.  Introduction
 
@@ -221,7 +221,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                 [Page 4]
+Robles, et al.           Expires March 16, 2019                 [Page 4]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -277,7 +277,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                 [Page 5]
+Robles, et al.           Expires March 16, 2019                 [Page 5]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -333,7 +333,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                 [Page 6]
+Robles, et al.           Expires March 16, 2019                 [Page 6]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -389,7 +389,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                 [Page 7]
+Robles, et al.           Expires March 16, 2019                 [Page 7]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -401,7 +401,8 @@ Internet-Draft               RPL-data-plane               September 2018
    decompress using the RPL RPI option type that is currently active:
    that is, a choice between 0x23 (new) and 0x63 (old).  The node will
    know which to use based upon the presence of the DODAG Configuration
-   Option described in the next section.
+   Option described in the next section.  E.g.  If the network is in
+   0x23 mode (by DIO option), then it should be decompressed to 0x23.
 
    [RFC8138] shows that the hop-by-hop IPv6-in-IPv6 header can be
    compressed using IPv6-in-IPv6 6LoRH (IPv6-in-IPv6-6LoRH) header as
@@ -416,9 +417,12 @@ Internet-Draft               RPL-data-plane               September 2018
    In order to avoid a Flag Day caused by lack of interoperation between
    new RPI (0x23) and old RPI (0x63) nodes, this section defines a flag
    in the DIO Configuration Option, to indicate when then new RPI value
-   can be safely used.  Without this, there could be a mix of new nodes
-   (which understand 0x23 and 0x63), and old nodes (which understand
-   0x63 only).  A new node would not know if it was safe to use 0x23.
+   can be safely used.  This means, the flag is going to indicate the
+   type of RPI that the network is using.  Thus, when a node join to a
+   network will know which value to use.  Without this there could be a
+   mix of new nodes (which understand 0x23 and 0x63), and old nodes
+   (which understand 0x63 only).  A new node would not know if it was
+   safe to use 0x23.
 
    This is done via a DODAG Configuration Option flag which will
    propogate through the network.  If the flag is received with a value
@@ -437,18 +441,18 @@ Internet-Draft               RPL-data-plane               September 2018
    this document.  Currently, the DODAG Configuration Option in
    [RFC6550] is as follows. .
 
-   Flags: The 4-bits remaining unused in the Flags field are reserved
-   for flags.  The field MUST be initialized to zero by the sender and
-   MUST be ignored by the receiver.
 
 
 
 
-
-Robles, et al.            Expires March 9, 2019                 [Page 8]
+Robles, et al.           Expires March 16, 2019                 [Page 8]
 
 Internet-Draft               RPL-data-plane               September 2018
 
+
+   Flags: The 4-bits remaining unused in the Flags field are reserved
+   for flags.  The field MUST be initialized to zero by the sender and
+   MUST be ignored by the receiver.
 
  0                       1                    2                     3
  +-----------------+---------------------------------------------------+
@@ -490,22 +494,21 @@ Internet-Draft               RPL-data-plane               September 2018
    (Destination Oriented Directed Acyclic Graph).
 
    RPL defines the RPL Control messages (control plane), a new ICMPv6
-   [RFC4443]  message with Type 155.  DIS (DODAG Information
+   [RFC4443] message with Type 155.  DIS (DODAG Information
    Solicitation), DIO (DODAG Information Object) and DAO (Destination
    Advertisement Object) messages are all RPL Control messages but with
    different Code values.  A RPL Stack is showed in Figure 5.
 
-   RPL supports two modes of Downward traffic: in storing mode (RPL-SM),
-   it is fully stateful; in non-storing (RPL-NSM), it is fully source
-   routed.  A RPL Instance is either fully storing or fully non-storing,
 
 
-
-Robles, et al.            Expires March 9, 2019                 [Page 9]
+Robles, et al.           Expires March 16, 2019                 [Page 9]
 
 Internet-Draft               RPL-data-plane               September 2018
 
 
+   RPL supports two modes of Downward traffic: in storing mode (RPL-SM),
+   it is fully stateful; in non-storing (RPL-NSM), it is fully source
+   routed.  A RPL Instance is either fully storing or fully non-storing,
    i.e. a RPL Instance with a combination of storing and non-storing
    nodes is not supported with the current specifications at the time of
    writing this document.
@@ -554,10 +557,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-
-
-
-Robles, et al.            Expires March 9, 2019                [Page 10]
+Robles, et al.           Expires March 16, 2019                [Page 10]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -613,7 +613,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 11]
+Robles, et al.           Expires March 16, 2019                [Page 11]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -669,7 +669,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 12]
+Robles, et al.           Expires March 16, 2019                [Page 12]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -725,7 +725,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 13]
+Robles, et al.           Expires March 16, 2019                [Page 13]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -755,10 +755,13 @@ Internet-Draft               RPL-data-plane               September 2018
    storing mode, the entire route is written, so there can be no loops
    by construction, nor any confusion about which forwarding table to
    use (as the root has already made all routing decisions).  However,
-   there are still cases, such as in 6tisch, where the instanceID
-   portion of the RPI header may still be needed to pick an appropriate
-   priority or channel at each hop.  XXX -- code simplicity argues for
-   not allowing the exception.
+   there are still cases, such as in 6tisch [RFC8180], where the
+   instanceID portion of the RPI header may still be needed to pick an
+   appropriate priority or channel at each hop.  It can only be omitted
+   if the instanceID MUST be zero.  Due to, that the RPI is needed by
+   6LoRH to compress the routing header.  It carries the instance ID
+   from which the root it deducted so it can compressed addresses using
+   it as reference.
 
    In the tables present in this document, the term "RPL aware leaf" is
    has been shortened to "Raf", and "not-RPL aware leaf" has been
@@ -775,17 +778,17 @@ Internet-Draft               RPL-data-plane               September 2018
 
    The following table itemizes which headers are needed in each of the
    following scenarios.  It indicate if an IP-in-IP header is to be
-   inserted, and whether the destination address of the IP-in-IP header
-   is the next hop, or the final target address.  There are these
-   possible situations: hop-by-hop necessary (indicated by "hop"), or
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 14]
+Robles, et al.           Expires March 16, 2019                [Page 14]
 
 Internet-Draft               RPL-data-plane               September 2018
 
 
+   inserted, and whether the destination address of the IP-in-IP header
+   is the next hop, or the final target address.  There are these
+   possible situations: hop-by-hop necessary (indicated by "hop"), or
    final target address possible (indicated by "tgt").  In all cases hop
    by hop MAY be used rather than the final target address.
 
@@ -834,10 +837,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-
-
-
-Robles, et al.            Expires March 9, 2019                [Page 15]
+Robles, et al.           Expires March 16, 2019                [Page 15]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -893,7 +893,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 16]
+Robles, et al.           Expires March 16, 2019                [Page 16]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -903,7 +903,7 @@ Internet-Draft               RPL-data-plane               September 2018
    In storing mode, RFC 6553 (RPI) is used to send RPL Information
    instanceID and rank information.
 
-   As stated in Section 16.2 of [RFC6550]  an RPL-aware-leaf node does
+   As stated in Section 16.2 of [RFC6550] an RPL-aware-leaf node does
    not generally issue DIO messages; a leaf node accepts DIO messages
    from upstream.  (When the inconsistency in routing occurs, a leaf
    node will generate a DIO with an infinite rank, to fix it).  It may
@@ -949,7 +949,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 17]
+Robles, et al.           Expires March 16, 2019                [Page 17]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1005,7 +1005,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 18]
+Robles, et al.           Expires March 16, 2019                [Page 18]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1061,7 +1061,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 19]
+Robles, et al.           Expires March 16, 2019                [Page 19]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1104,7 +1104,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 6.2.1.  SM: Example of Flow from RPL-aware-leaf to Internet
 
-   RPL information from RFC 6553 MAY go out to Internet as it will be
+   RPL information from RFC 6553 may go out to Internet as it will be
    ignored by nodes which have not been configured to be RPI aware.
 
    In this case the flow comprises:
@@ -1117,7 +1117,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 20]
+Robles, et al.           Expires March 16, 2019                [Page 20]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1173,7 +1173,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 21]
+Robles, et al.           Expires March 16, 2019                [Page 21]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1229,7 +1229,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 22]
+Robles, et al.           Expires March 16, 2019                [Page 22]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1285,7 +1285,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 23]
+Robles, et al.           Expires March 16, 2019                [Page 23]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1341,7 +1341,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 24]
+Robles, et al.           Expires March 16, 2019                [Page 24]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1359,8 +1359,8 @@ Internet-Draft               RPL-data-plane               September 2018
    <= m", m is the number of routers (6LR) that the packet go through
    from the common parent (6LR_x) to destination 6LN.
 
-   It is assume that the two nodes are in the same RPL Domain (that they
-   share the same DODAG root).  At the common parent (Node B), the
+   It is assumed that the two nodes are in the same RPL Domain (that
+   they share the same DODAG root).  At the common parent (Node B), the
    direction of RPI is changed (from increasing to decreasing the rank).
 
    While the 6LR nodes will update the RPI, no node needs to add or
@@ -1397,7 +1397,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 25]
+Robles, et al.           Expires March 16, 2019                [Page 25]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1453,7 +1453,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 26]
+Robles, et al.           Expires March 16, 2019                [Page 26]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1509,7 +1509,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 27]
+Robles, et al.           Expires March 16, 2019                [Page 27]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1565,7 +1565,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 28]
+Robles, et al.           Expires March 16, 2019                [Page 28]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1613,15 +1613,15 @@ Internet-Draft               RPL-data-plane               September 2018
    needed, the column is left blank.
 
    The leaf can be a router 6LR or a host, both indicated as 6LN
-   (Figure 3).
+   (Figure 3).  In the Figure they (1) indicates a 6tisch case
+   [RFC8180], where the instanceID portion of the RPI header may still
+   be needed to pick an appropriate priority or channel at each hop.
 
 
 
 
 
-
-
-Robles, et al.            Expires March 9, 2019                [Page 29]
+Robles, et al.           Expires March 16, 2019                [Page 29]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1677,7 +1677,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 30]
+Robles, et al.           Expires March 16, 2019                [Page 30]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1685,7 +1685,7 @@ Internet-Draft               RPL-data-plane               September 2018
 7.1.1.  Non-SM: Example of Flow from RPL-aware-leaf to root
 
    In non-storing mode the leaf node uses default routing to send
-   traffic to the root.  The RPI header must be included to avoid/detect
+   traffic to the root.  The RPI header MUST be included to avoid/detect
    loops.
 
    RPL-aware-leaf (6LN) --> 6LR_i --> root(6LBR)
@@ -1733,7 +1733,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 31]
+Robles, et al.           Expires March 16, 2019                [Page 31]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1789,7 +1789,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 32]
+Robles, et al.           Expires March 16, 2019                [Page 32]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1845,7 +1845,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 33]
+Robles, et al.           Expires March 16, 2019                [Page 33]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1901,7 +1901,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 34]
+Robles, et al.           Expires March 16, 2019                [Page 34]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -1957,7 +1957,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 35]
+Robles, et al.           Expires March 16, 2019                [Page 35]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -2013,7 +2013,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 36]
+Robles, et al.           Expires March 16, 2019                [Page 36]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -2069,7 +2069,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 37]
+Robles, et al.           Expires March 16, 2019                [Page 37]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -2125,7 +2125,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 38]
+Robles, et al.           Expires March 16, 2019                [Page 38]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -2181,7 +2181,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 39]
+Robles, et al.           Expires March 16, 2019                [Page 39]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -2237,7 +2237,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 40]
+Robles, et al.           Expires March 16, 2019                [Page 40]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -2293,7 +2293,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 41]
+Robles, et al.           Expires March 16, 2019                [Page 41]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -2349,7 +2349,7 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-Robles, et al.            Expires March 9, 2019                [Page 42]
+Robles, et al.           Expires March 16, 2019                [Page 42]
 
 Internet-Draft               RPL-data-plane               September 2018
 
@@ -2362,6 +2362,14 @@ Internet-Draft               RPL-data-plane               September 2018
    are using Contiki, RiotOS, or OpenWSN., and these are easily adapted
    to 0x23 functionality.  Compatibility issue of RPL Option type not
    seems to be quite relevant for research groups.
+
+   RPI SHOULD be present in every single RPL data packet.  There is one
+   exception in non-storing mode: when a packet is going down from the
+   root the RPI MAY be omitted.  It can only be omitted if the
+   instanceID MUST be zero.  Due to, that the RPI is needed by 6LoRH to
+   compress the routing header.  It carries the instance ID from which
+   the root it deducted so it can compressed addresses using it as
+   reference.
 
 8.2.  Has installation and initial setup been discussed??
 
@@ -2390,6 +2398,18 @@ Internet-Draft               RPL-data-plane               September 2018
 
 8.7.  Has management interoperability been discussed?
 
+
+
+
+
+
+
+
+Robles, et al.           Expires March 16, 2019                [Page 43]
+
+Internet-Draft               RPL-data-plane               September 2018
+
+
 8.8.  Are there fault or threshold conditions that should be reported?
 
 8.9.  Is configuration discussed?
@@ -2401,15 +2421,6 @@ Internet-Draft               RPL-data-plane               September 2018
 
    In Storing Mode, for the examples of Flow from RPL-aware-leaf to non-
    RPL-aware-leaf and non-RPL-aware-leaf to non-RPL-aware-leaf comprise
-
-
-
-
-Robles, et al.            Expires March 9, 2019                [Page 43]
-
-Internet-Draft               RPL-data-plane               September 2018
-
-
    an IPv6-in-IPv6 and RPI compression headers.  The type of this case
    is critical since IPv6-in-IPv6 is encapsulating a RPI header.
 
@@ -2442,6 +2453,19 @@ Internet-Draft               RPL-data-plane               September 2018
    option is updated as follows:
 
 
+
+
+
+
+
+
+
+
+Robles, et al.           Expires March 16, 2019                [Page 44]
+
+Internet-Draft               RPL-data-plane               September 2018
+
+
                  +------------+-----------------+---------------+
                  | Bit number |   Description   |   Reference   |
                  +------------+-----------------+---------------+
@@ -2456,15 +2480,6 @@ Internet-Draft               RPL-data-plane               September 2018
 
    The security considerations covering of [RFC6553] and [RFC6554] apply
    when the packets get into RPL Domain.
-
-
-
-
-
-Robles, et al.            Expires March 9, 2019                [Page 44]
-
-Internet-Draft               RPL-data-plane               September 2018
-
 
    The IPv6-in-IPv6 mechanism described in this document is much more
    limited than the general mechanism described in [RFC2473].  The
@@ -2499,6 +2514,14 @@ Internet-Draft               RPL-data-plane               September 2018
    duty cycles) given enough nodes, they could still have a significant
    impact, particularly if the attack was on another LLN!  Additionally,
    some uses of RPL involve large backbone ISP scale equipment
+
+
+
+Robles, et al.           Expires March 16, 2019                [Page 45]
+
+Internet-Draft               RPL-data-plane               September 2018
+
+
    [I-D.ietf-anima-autonomic-control-plane], which may be equipped with
    multiple 100Gb/s interfaces.
 
@@ -2514,14 +2537,6 @@ Internet-Draft               RPL-data-plane               September 2018
 
    There are some scenarios where IPv6-in-IPv6 traffic SHOULD be allowed
    to pass through the RPL root, such as the IPv6-in-IPv6 mediated
-
-
-
-Robles, et al.            Expires March 9, 2019                [Page 45]
-
-Internet-Draft               RPL-data-plane               September 2018
-
-
    communications between a new Pledge and the Join Registrar/
    Coordinator (JRC) when using [I-D.ietf-anima-bootstrapping-keyinfra]
    and [I-D.ietf-6tisch-dtsecurity-secure-join].  This is the case for
@@ -2554,6 +2569,15 @@ Internet-Draft               RPL-data-plane               September 2018
    be suspicious about a RH3 header which has additional hops which have
    not yet been processed, and SHOULD ignore such a second RH3 header.
 
+
+
+
+
+Robles, et al.           Expires March 16, 2019                [Page 46]
+
+Internet-Draft               RPL-data-plane               September 2018
+
+
    In addition, the LLN will likely use [RFC8138] to compress the IPv6-
    in-IPv6 and RH3 headers.  As such, the compressor at the RPL-root
    will see the second RH3 header and MAY choose to discard the packet
@@ -2570,14 +2594,6 @@ Internet-Draft               RPL-data-plane               September 2018
    The RPI header, if permitted to enter the LLN, could be used by an
    attacker to change the priority of a packet by selecting a different
    RPL instanceID, perhaps one with a higher energy cost, for instance.
-
-
-
-Robles, et al.            Expires March 9, 2019                [Page 46]
-
-Internet-Draft               RPL-data-plane               September 2018
-
-
    It could also be that not all nodes are reachable in an LLN using the
    default instanceID, but a change of instanceID would permit an
    attacker to bypass such filtering.  Like the RH3, an RPI header is to
@@ -2609,12 +2625,25 @@ Internet-Draft               RPL-data-plane               September 2018
 
    Additionally, the authors would like to acknowledge the review,
    feedback, and comments of (alphabetical order): Robert Cragie, Simon
+
+
+
+
+Robles, et al.           Expires March 16, 2019                [Page 47]
+
+Internet-Draft               RPL-data-plane               September 2018
+
+
    Duquennoy, Ralph Droms, Cenk Guendogan, Rahul Jadhav, Matthias
    Kovatsch, Peter van der Stok, Xavier Vilajosana and Thomas Watteyne.
 
 13.  References
 
 13.1.  Normative References
+
+   [I-D.thubert-roll-unaware-leaves]
+              Thubert, P., "Routing for RPL Leaves", draft-thubert-roll-
+              unaware-leaves-05 (work in progress), May 2018.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -2624,15 +2653,6 @@ Internet-Draft               RPL-data-plane               September 2018
    [RFC2473]  Conta, A. and S. Deering, "Generic Packet Tunneling in
               IPv6 Specification", RFC 2473, DOI 10.17487/RFC2473,
               December 1998, <https://www.rfc-editor.org/info/rfc2473>.
-
-
-
-
-
-Robles, et al.            Expires March 9, 2019                [Page 47]
-
-Internet-Draft               RPL-data-plane               September 2018
-
 
    [RFC2827]  Ferguson, P. and D. Senie, "Network Ingress Filtering:
               Defeating Denial of Service Attacks which employ IP Source
@@ -2662,6 +2682,14 @@ Internet-Draft               RPL-data-plane               September 2018
               DOI 10.17487/RFC6554, March 2012,
               <https://www.rfc-editor.org/info/rfc6554>.
 
+
+
+
+Robles, et al.           Expires March 16, 2019                [Page 48]
+
+Internet-Draft               RPL-data-plane               September 2018
+
+
    [RFC7045]  Carpenter, B. and S. Jiang, "Transmission and Processing
               of IPv6 Extension Headers", RFC 7045,
               DOI 10.17487/RFC7045, December 2013,
@@ -2681,15 +2709,6 @@ Internet-Draft               RPL-data-plane               September 2018
               DOI 10.17487/RFC8200, July 2017,
               <https://www.rfc-editor.org/info/rfc8200>.
 
-
-
-
-
-Robles, et al.            Expires March 9, 2019                [Page 48]
-
-Internet-Draft               RPL-data-plane               September 2018
-
-
 13.2.  Informative References
 
    [DDOS-KREBS]
@@ -2699,8 +2718,9 @@ Internet-Draft               RPL-data-plane               September 2018
               cameras-reportedly-deliver-internets-biggest-ddos-ever/>.
 
    [I-D.ietf-6lo-backbone-router]
-              Thubert, P., "IPv6 Backbone Router", draft-ietf-6lo-
-              backbone-router-06 (work in progress), February 2018.
+              Thubert, P. and C. Perkins, "IPv6 Backbone Router", draft-
+              ietf-6lo-backbone-router-07 (work in progress), September
+              2018.
 
    [I-D.ietf-6man-rfc6434-bis]
               Chown, T., Loughney, J., and T. Winters, "IPv6 Node
@@ -2717,15 +2737,20 @@ Internet-Draft               RPL-data-plane               September 2018
               Control Plane (ACP)", draft-ietf-anima-autonomic-control-
               plane-18 (work in progress), August 2018.
 
+
+
+
+
+Robles, et al.           Expires March 16, 2019                [Page 49]
+
+Internet-Draft               RPL-data-plane               September 2018
+
+
    [I-D.ietf-anima-bootstrapping-keyinfra]
               Pritikin, M., Richardson, M., Behringer, M., Bjarnason,
               S., and K. Watsen, "Bootstrapping Remote Secure Key
               Infrastructures (BRSKI)", draft-ietf-anima-bootstrapping-
               keyinfra-16 (work in progress), June 2018.
-
-   [I-D.thubert-roll-unaware-leaves]
-              Thubert, P., "Routing for RPL Leaves", draft-thubert-roll-
-              unaware-leaves-05 (work in progress), May 2018.
 
    [RFC4192]  Baker, F., Lear, E., and R. Droms, "Procedures for
               Renumbering an IPv6 Network without a Flag Day", RFC 4192,
@@ -2737,14 +2762,6 @@ Internet-Draft               RPL-data-plane               September 2018
               Protocol Version 6 (IPv6) Specification", STD 89,
               RFC 4443, DOI 10.17487/RFC4443, March 2006,
               <https://www.rfc-editor.org/info/rfc4443>.
-
-
-
-
-Robles, et al.            Expires March 9, 2019                [Page 49]
-
-Internet-Draft               RPL-data-plane               September 2018
-
 
    [RFC6775]  Shelby, Z., Ed., Chakrabarti, S., Nordmark, E., and C.
               Bormann, "Neighbor Discovery Optimization for IPv6 over
@@ -2768,6 +2785,23 @@ Internet-Draft               RPL-data-plane               September 2018
               (RPLs)", RFC 7416, DOI 10.17487/RFC7416, January 2015,
               <https://www.rfc-editor.org/info/rfc7416>.
 
+   [RFC8180]  Vilajosana, X., Ed., Pister, K., and T. Watteyne, "Minimal
+              IPv6 over the TSCH Mode of IEEE 802.15.4e (6TiSCH)
+              Configuration", BCP 210, RFC 8180, DOI 10.17487/RFC8180,
+              May 2017, <https://www.rfc-editor.org/info/rfc8180>.
+
+
+
+
+
+
+
+
+Robles, et al.           Expires March 16, 2019                [Page 50]
+
+Internet-Draft               RPL-data-plane               September 2018
+
+
 Authors' Addresses
 
    Maria Ines Robles
@@ -2787,19 +2821,6 @@ Authors' Addresses
 
    Email: mcr+ietf@sandelman.ca
    URI:   http://www.sandelman.ca/mcr/
-
-
-
-
-
-
-
-
-
-
-Robles, et al.            Expires March 9, 2019                [Page 50]
-
-Internet-Draft               RPL-data-plane               September 2018
 
 
    Pascal Thubert
@@ -2832,25 +2853,4 @@ Internet-Draft               RPL-data-plane               September 2018
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Robles, et al.            Expires March 9, 2019                [Page 51]
+Robles, et al.           Expires March 16, 2019                [Page 51]

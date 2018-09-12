@@ -17,6 +17,7 @@
 <!ENTITY RFC7321 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7321.xml">
 <!ENTITY RFC7416 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7416.xml">
 <!ENTITY RFC4192 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4192.xml">
+<!ENTITY RFC8180 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8180.xml">
 <!--<!ENTITY I-D.thubert-roll-unaware-leaves SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.I-D.thubert-roll-unaware-leaves.xml"> -->
 <!--<!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">-->
 <!ENTITY I-D.moore-iot-security-bcp SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.moore-iot-security-bcp.xml">
@@ -374,7 +375,8 @@
             MUST decompress using the RPL RPI option type that is currently active: that
             is, a choice between 0x23 (new) and 0x63 (old).  The node will know which to
             use based upon the presence of the DODAG Configuration Option described in
-            the next section.
+            the next section. E.g. If the network is in 0x23 mode (by DIO option),
+            then it should be decompressed to 0x23.
         </t>
         <t>
          <xref target="RFC8138" /> shows that the
@@ -392,7 +394,9 @@
             In order to avoid a Flag Day caused by lack of interoperation
             between new RPI (0x23) and old RPI (0x63) nodes, this section
             defines a flag in the DIO Configuration Option, to indicate when
-            then new RPI value can be safely used. Without this,
+            then new RPI value can be safely used. This means, the flag is going
+	    to indicate the type of RPI that the network is using. Thus, when a
+	    node join to a network will know which value to use. Without this
             there could be a mix of new nodes (which understand 0x23 and
             0x63), and old nodes (which understand 0x63 only). A new node
             would not know if it was safe to use 0x23.
@@ -736,10 +740,13 @@
             route is written, so there can be no loops by construction, nor any
             confusion about which forwarding table to use (as the root has
             already made all routing decisions).  However, there are still
-            cases, such as in 6tisch, where the instanceID portion of the RPI
-            header may still be needed to pick an appropriate priority or
-            channel at each hop.
-            XXX -- code simplicity argues for not allowing the exception.
+            cases, such as in 6tisch <xref target="RFC8180"/>, where the
+            instanceID portion of the RPI header may still be needed to
+            pick an appropriate priority or channel at each hop.
+            It can only be omitted if the instanceID MUST be zero. 
+            Due to, that the RPI is needed by 6LoRH to compress the routing header.
+            It carries the instance ID from which the root it deducted so
+            it can compressed addresses using it as reference.
           </t>
 
           <t>
@@ -1114,7 +1121,7 @@
 
                <section  anchor="sm-Ral2i" title="SM: Example of Flow from RPL-aware-leaf to Internet">
                          <t>
-                        RPL information from RFC 6553 MAY go out to
+                        RPL information from RFC 6553 may go out to
                         Internet as it will be ignored by nodes which have
                         not been configured to be RPI aware.
                          </t>
@@ -1408,7 +1415,7 @@
                    that the packet go through from the common parent (6LR_x)  to destination 6LN.
                  </t>
                  <t>
-                   It is assume that the two nodes are in the same RPL Domain
+                   It is assumed that the two nodes are in the same RPL Domain
                    (that they share the same DODAG root). At the
                    common parent (Node B), the direction of RPI is changed (from
                    increasing to decreasing the rank).
@@ -1686,7 +1693,10 @@
            In cases where no IPv6-in-IPv6 header is needed, the column is left blank.
          </t>
          <t>
-           The leaf can be a router 6LR or a host, both indicated as 6LN (Figure 3).
+           The leaf can be a router 6LR or a host, both indicated as 6LN (Figure 3). In the Figure they
+           (1) indicates a 6tisch case <xref target="RFC8180"/>, where the
+           instanceID portion of the RPI header may still be needed to
+           pick an appropriate priority or channel at each hop.
          </t>
          <t>
          <!-- Figure saved with the name Headers_non_stroing_RPI_RH3_IPv6-in-IPv6ncapsulation.tgn -->
@@ -1755,7 +1765,7 @@
                          <t>
                         In non-storing mode the leaf node uses default
                         routing to send traffic to the root. The RPI header
-                        must be included to avoid/detect loops.
+                        MUST be included to avoid/detect loops.
                         </t>
 
                         <t>
@@ -2589,6 +2599,15 @@
           Compatibility issue of RPL Option type not seems to be quite
           relevant for research groups.
           </t>
+          <t>
+            RPI SHOULD be present in every single RPL data packet. There is one
+            exception in non-storing mode: when a packet is going down from the
+            root the RPI MAY be omitted.
+            It can only be omitted if the instanceID MUST be zero.
+            Due to, that the RPI is needed by 6LoRH to compress the routing header.
+            It carries the instance ID from which the root it deducted so
+            it can compressed addresses using it as reference.
+            </t>
 
          </section>
          <section title="Has installation and initial setup been discussed??">
@@ -2873,6 +2892,7 @@ Hex Value  Binary Value
      &RFC6553;
      &RFC6554;
      &RFC2119;
+
      <?ref include="reference.RFC.8174" ?>
     <!-- <?rfc include="reference.RFC.8200" ?>-->
      <?ref include="reference.RFC.8200" ?>
@@ -2884,6 +2904,7 @@ Hex Value  Binary Value
      <?rfc include="reference.RFC.2827" ?>
      <?rfc include="reference.RFC.5406" ?>
      <?rfc include="reference.RFC.7045" ?>
+    <?rfc include="reference.I-D.thubert-roll-unaware-leaves" ?>
    </references>
 
    <references title="Informative References">
@@ -2893,6 +2914,7 @@ Hex Value  Binary Value
      &RFC7416;
      &RFC4443;
      &RFC7102;
+     &RFC8180;
      <?rfc include="reference.I-D.ietf-anima-autonomic-control-plane" ?>
     <!-- <?rfc include="reference.I-D.ietf-6tisch-architecture" ?> -->
      <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
@@ -2900,7 +2922,7 @@ Hex Value  Binary Value
      <?rfc include="reference.I-D.ietf-6lo-backbone-router" ?>
   <!--   <?rfc include="reference.I-D.ietf-roll-dao-projection" ?> -->
      <?rfc include="reference.I-D.ietf-6man-rfc6434-bis" ?>
-     <?rfc include="reference.I-D.thubert-roll-unaware-leaves" ?>
+
      <?rfc include="reference.RFC.6997" ?>
      <?rfc include="reference.RFC.4192" ?>
 
