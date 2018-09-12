@@ -731,22 +731,21 @@
             mind, and both the RPL RH and the RPL option are marked mutable
             but recoverable: so an IPsec AH security header can be applied
             across these headers, but it can not secure the values which mutate.
-         </t>
+          </t>
+
           <t>
-            RPI SHOULD be present in every single RPL data packet. There is one
-            exception in non-storing mode: when a packet is going down from the
-            root the RPI MAY be omitted.
-            The rational is that in a downward non-storing mode, the entire
-            route is written, so there can be no loops by construction, nor any
-            confusion about which forwarding table to use (as the root has
-            already made all routing decisions).  However, there are still
-            cases, such as in 6tisch <xref target="RFC8180"/>, where the
-            instanceID portion of the RPI header may still be needed to
-            pick an appropriate priority or channel at each hop.
-            It can only be omitted if the instanceID MUST be zero. 
-            Due to, that the RPI is needed by 6LoRH to compress the routing header.
-            It carries the instance ID from which the root it deducted so
-            it can compressed addresses using it as reference.
+            RPI SHOULD be present in every single RPL data packet.
+            [[EDNOTE: can we increase this to MUST]]
+          </t>
+
+          <t>
+            Prior to <xref target="RFC8138" />, there was significant
+            interest in removing the RPI for downward flows in non-storing
+            mode.  The exception covered a very small number of cases, and
+            causes significant interoperability challenges, yet costed
+            significant code and testing complexity.  The ability to compress
+            the RPI down to three bytes or less removes much of the pressure
+            to optimize this any further.
           </t>
 
           <t>
@@ -2599,15 +2598,6 @@
           Compatibility issue of RPL Option type not seems to be quite
           relevant for research groups.
           </t>
-          <t>
-            RPI SHOULD be present in every single RPL data packet. There is one
-            exception in non-storing mode: when a packet is going down from the
-            root the RPI MAY be omitted.
-            It can only be omitted if the instanceID MUST be zero.
-            Due to, that the RPI is needed by 6LoRH to compress the routing header.
-            It carries the instance ID from which the root it deducted so
-            it can compressed addresses using it as reference.
-            </t>
 
          </section>
          <section title="Has installation and initial setup been discussed??">
