@@ -1842,7 +1842,7 @@
                                           <ttcol> 6LR_i</ttcol>
                                           <ttcol> 6LN</ttcol>
                                           <c> Inserted headers</c>
-                                          <c> (opt: RPI), RH3</c>
+                                          <c> RPI, RH3</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
@@ -1901,7 +1901,7 @@
                                           <ttcol> 6LR_n(i=n)</ttcol>
                                           <ttcol> IPv6</ttcol>
                                           <c> Inserted headers</c>
-                                          <c> (opt: RPI), RH3 </c>
+                                          <c> RPI, RH3 </c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
@@ -1917,8 +1917,8 @@
                                           <c> -- </c>
                                           <c> Modified headers</c>
                                           <c> -- </c>
-                                          <c> (opt: RPI), RH3 </c>
-                                          <c>(opt: RPI), RH3</c>
+                                          <c> RPI, RH3 </c>
+                                          <c> RPI, RH3</c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
                                           <c> -- </c>
@@ -2104,14 +2104,14 @@
                           <ttcol> 6LN</ttcol>
                           <c> Inserted headers</c>
                           <c> -- </c>
-                          <c>  IPv6-in-IPv6 (RH3,opt:RPI)</c>
+                          <c>  IPv6-in-IPv6 (RH3,RPI)</c>
                           <c> -- </c>
                           <c> -- </c>
                           <c> Removed headers</c>
                           <c> -- </c>
                           <c> -- </c>
                           <c> -- </c>
-                          <c>  IPv6-in-IPv6 (RH3,opt:RPI)</c>
+                          <c>  IPv6-in-IPv6 (RH3,RPI)</c>
                           <c> Re-added headers</c>
                           <c> -- </c>
                           <c> -- </c>
@@ -2120,7 +2120,7 @@
                           <c> Modified headers</c>
                           <c> -- </c>
                           <c> -- </c>
-                          <c>  IPv6-in-IPv6 (RH3,opt:RPI)</c>
+                          <c>  IPv6-in-IPv6 (RH3,RPI)</c>
                           <c> -- </c>
                           <c> Untouched headers</c>
                           <c> -- </c>
@@ -2234,7 +2234,7 @@
                           <ttcol> IPv6</ttcol>
                           <c> Inserted headers</c>
                           <c> -- </c>
-                          <c> IPv6-in-IPv6 (RH3, opt:RPI) </c>
+                          <c> IPv6-in-IPv6 (RH3, RPI) </c>
                           <c> -- </c>
                           <c> -- </c>
                           <c> -- </c>
