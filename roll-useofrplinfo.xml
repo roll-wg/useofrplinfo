@@ -2762,22 +2762,7 @@ Hex Value  Binary Value
             decapsulate packets and forward them could be exploited by nodes to
             disguise the origin of an attack.
           </t>
-          <t>
-            Nodes outside of the LLN will need to pass IPv6-in-IPv6 traffic through
-            the RPL root to perform this attack. To counter, the RPL
-            root SHOULD either restrict ingress of IPv6-in-IPv6 packets (the simpler
-            solution), or it SHOULD do a deep packet inspection wherein it
-            walks the IP header extension chain until it can inspect the
-            upper-layer-payload as described in <xref target="RFC7045" />.
-            In particular, the RPL root SHOULD do BCP38 (<xref target="RFC2827" />)
-            processing on the source addresses of all IP headers that it
-            examines in both directions.
-          </t>
-          <t>Note: there are some situations where a prefix will spread
-          across multiple LLNs via mechanisms such as the one described in
-          <xref target="I-D.ietf-6lo-backbone-router" />.
-          In this case the BCP38 filtering needs to take this into account.
-          </t>
+
           <t>
             Nodes within the LLN can use the IPv6-in-IPv6 mechanism to mount an
             attack on another part of the LLN, while disguising the origin of
@@ -2788,12 +2773,33 @@ Hex Value  Binary Value
             target="DDOS-KREBS" /> for an example of such attacks already
             seen in the real world.
           </t>
+
+          <t>
+            Nodes outside of the LLN will need to pass IPv6-in-IPv6 traffic
+            through the RPL root to perform this attack. To counter, the RPL
+            root SHOULD either restrict ingress of IPv6-in-IPv6 packets (the
+            simpler solution), or it SHOULD do a deep packet inspection
+            wherein it walks the IP header extension chain until it can
+            inspect the upper-layer-payload as described in <xref
+            target="RFC7045" />.
+            In particular, the RPL root SHOULD do BCP38 (<xref
+            target="RFC2827" />) processing on the source addresses of all IP
+            headers that it examines in both directions.
+          </t>
+          <t>
+            Note: there are some situations where a prefix will spread
+            across multiple LLNs via mechanisms such as the one described in
+            <xref target="I-D.ietf-6lo-backbone-router" />.
+            In this case the BCP38 filtering needs to take this into account,
+            either by exchanging detailed routing information on each LLN,
+            or by moving the BCP38 filtering further towards the Internet,
+            so that the details of the multiple LLNs do not matter.
+          </t>
           <t>
             While a typical LLN may be a very poor origin for attack traffic
             (as the networks tend to be very slow,
             and the nodes often have very low duty cycles) given enough
-            nodes,
-            they could still have a
+            nodes, they could still have a
             significant impact, particularly if the attack was on another LLN!
             Additionally, some uses of RPL involve large backbone ISP scale
             equipment <xref target="I-D.ietf-anima-autonomic-control-plane"/>,
