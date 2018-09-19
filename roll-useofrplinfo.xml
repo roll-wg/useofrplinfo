@@ -388,32 +388,27 @@
             then it should be decompressed to 0x23.
         </t>
         <t>
-         <xref target="RFC8138" /> shows that the
-          hop-by-hop IPv6-in-IPv6 header can be compressed using IPv6-in-IPv6 6LoRH (IPv6-in-IPv6-6LoRH) header
-          as described in Section 7 of the document.
+          <xref target="RFC8138" /> section 7 documents how to compress
+          the IPv6-in-IPv6 header.
         </t>
         <t>
           There are potential significant advantages to having a single
           code path that always processes IPv6-in-IPv6 headers with no options.
         </t>
 
-      <!--  <section title="6LoRH Compression cases">
-         <t>
-            The <xref target="RFC8138"/> proposes a compression method for RPI, RH3 and IPv6-in-IPv6.
-         </t> -->
           <t>
             In Storing Mode, for the examples of Flow from RPL-aware-leaf to
              non-RPL-aware-leaf and non-RPL-aware-leaf to non-RPL-aware-leaf
-             comprise an IPv6-in-IPv6 and RPI compression headers. The type of
-             this case is critical since IPv6-in-IPv6 is encapsulating a RPI
-             header.
+             comprise an IPv6-in-IPv6 and RPI compression headers. The use
+             of the IPv6-in-IPv6 header is MANDATORY in this case, and
+             it SHOULD be compressed with <xref target="RFC8138"/> section 7.
           </t>
           <t>
         <figure title="Critical IPv6-in-IPv6 (RPI)." anchor="rtghc"><artwork><![CDATA[
 
-        +--+-----+---+--------------+-----------+-------------+-------------+
-        |1 | 0|0 |TSE| 6LoRH Type 6 | Hop Limit | RPI - 6LoRH | LOWPAN IPHC |
-        +--+-----+---+--------------+-----------+-------------+-------------+
++--+-----+---+--------------+-----------+-----------+-----------+
+|1 | 0|0 |TSE| 6LoRH Type 6 | Hop Limit | RPI-6LoRH |LOWPAN IPHC|
++--+-----+---+--------------+-----------+-----------+-----------+
 
         ]]></artwork></figure>
 
@@ -1719,7 +1714,7 @@
 
             <artwork><![CDATA[
 +-----------------+--------------+-----+-----+----------+----------+
-|   Interaction   |   Use Case   | RPI | RH3 | IPv6-in-IPv6 | IPv6-in-IPv6 |
+|   Interaction   |   Use Case   | RPI | RH3 | v6-in-v6 | v6-in-v6 |
 |      between    |              |     |     |          |    dst   |
 +-----------------+--------------+-----+-----+----------+----------+
 |                 |  Raf to root | Yes | No  |    No    |    --    |
