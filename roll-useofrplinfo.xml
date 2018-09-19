@@ -2817,7 +2817,7 @@ Hex Value  Binary Value
             trivial to automatically configure.
           </t>
           <t>
-            There are some scenarios where IPv6-in-IPv6 traffic SHOULD be allowed to
+            There are some scenarios where IPv6-in-IPv6 traffic should be allowed to
             pass through the RPL root, such as the IPv6-in-IPv6 mediated
             communications between a new Pledge and the Join
             Registrar/Coordinator (JRC) when
