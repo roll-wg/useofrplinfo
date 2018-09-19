@@ -396,6 +396,29 @@
           There are potential significant advantages to having a single
           code path that always processes IPv6-in-IPv6 headers with no options.
         </t>
+
+      <!--  <section title="6LoRH Compression cases">
+         <t>
+            The <xref target="RFC8138"/> proposes a compression method for RPI, RH3 and IPv6-in-IPv6.
+         </t> -->
+          <t>
+            In Storing Mode, for the examples of Flow from RPL-aware-leaf to
+             non-RPL-aware-leaf and non-RPL-aware-leaf to non-RPL-aware-leaf
+             comprise an IPv6-in-IPv6 and RPI compression headers. The type of
+             this case is critical since IPv6-in-IPv6 is encapsulating a RPI
+             header.
+          </t>
+          <t>
+        <figure title="Critical IPv6-in-IPv6 (RPI)." anchor="rtghc"><artwork><![CDATA[
+
+        +--+-----+---+--------------+-----------+-------------+-------------+
+        |1 | 0|0 |TSE| 6LoRH Type 6 | Hop Limit | RPI - 6LoRH | LOWPAN IPHC |
+        +--+-----+---+--------------+-----------+-------------+-------------+
+
+        ]]></artwork></figure>
+
+          </t>
+          <!--    </section> -->
         </section>
         <section title="Updates to RFC 6550: Indicating the new RPI in the
                         DODAG Configuration Option Flag. ">
@@ -435,23 +458,6 @@
               for flags. The field MUST be initialized to zero by the sender
               and MUST be ignored by the receiver.
           </t>
-          <t>
-        <figure title="DODAG Configuration Option." anchor="fig_ConfOption" align="center">
-           <artwork> <![CDATA[
-0                       1                    2                     3
-+-----------------+---------------------------------------------------+
-|  Type = 0x04    |  Opt Length = 14| Flags  | A | PCS| DIOIntDoubl.  |
-+---------------------------------------------------------------------+
-| DIOIntMin.      |  DIORedund.     |  MaxRankIncrease                |
-+-----------------+---------------------------------------------------+
-|  MinHopRankIncrease               |            OCP                  |
-+-----------------+---------------------------------------------------+
-|Reserved         | Def. Lifetime   |         Lifetime Unit           |
-+-----------------+-----------------+---------------------------------+
-
-          ]]></artwork></figure>
-          </t>
-
           <t>
            Bit number three of flag field in the DODAG Configuration option
            is to be used as follows:
@@ -2710,29 +2716,6 @@
       </section>
 
 
-        <section title="6LoRH Compression cases">
-           <t>
-              The <xref target="RFC8138"/> proposes a compression method for RPI, RH3 and IPv6-in-IPv6.
-           </t>
-           <t>
-             In Storing Mode, for the examples of Flow from RPL-aware-leaf to
-             non-RPL-aware-leaf and non-RPL-aware-leaf to non-RPL-aware-leaf
-             comprise an IPv6-in-IPv6 and RPI compression headers. The type of
-             this case is critical since IPv6-in-IPv6 is encapsulating a RPI
-             header.
-           </t>
-           <t>
-              <figure title="Critical IPv6-in-IPv6 (RPI)." anchor="rtghc"><artwork><![CDATA[
-
-+--+-----+---+--------------+-----------+-------------+-------------+
-|1 | 0|0 |TSE| 6LoRH Type 6 | Hop Limit | RPI - 6LoRH | LOWPAN IPHC |
-+--+-----+---+--------------+-----------+-------------+-------------+
-
-]]></artwork></figure>
-
-           </t>
-      </section>
-
         <section title="IANA Considerations">
            <t>
              This document updates the registration made in <xref target="RFC6553"/>
@@ -2773,7 +2756,7 @@ Hex Value  Binary Value
 
         <section anchor="Security" title="Security Considerations">
            <t>
-             The security considerations covering of <xref target="RFC6553"/> and
+             The security considerations covered in <xref target="RFC6553"/> and
              <xref target="RFC6554"/> apply when the packets get into RPL
              Domain.
           </t>
@@ -2796,12 +2779,12 @@ Hex Value  Binary Value
             examines in both directions.
           </t>
           <t>Note: there are some situations where a prefix will spread
-          across multiple LLNs via mechanisms such as described in
+          across multiple LLNs via mechanisms such as the one described in
           <xref target="I-D.ietf-6lo-backbone-router" />.
           In this case the BCP38 filtering needs to take this into account.
           </t>
           <t>
-            Nodes with the LLN can use the IPv6-in-IPv6 mechanism to mount an
+            Nodes within the LLN can use the IPv6-in-IPv6 mechanism to mount an
             attack on another part of the LLN, while disguising the origin of
             the attack.  The mechanism can even be abused to make it appear
             that the attack is coming from outside the LLN, and unless
@@ -2824,7 +2807,7 @@ Hex Value  Binary Value
           <t>
             Blocking or careful filtering of IPv6-in-IPv6 traffic entering the LLN as
             described above will make sure that any attack that is mounted
-            must originate compromised nodes within the LLN.
+            must originate from compromised nodes within the LLN.
             The use of BCP38 filtering at the RPL root on egress traffic will
             both alert the operator to the existence of the attack, as well
             as drop the attack traffic.  As the RPL network is typically
@@ -2893,7 +2876,7 @@ Hex Value  Binary Value
           <t>
             The RPI header, if permitted to enter the LLN, could be used by
             an attacker to change the priority of a packet by selecting a
-            different RPL instanceID, perhaps one with a higher energy cost,
+            different RPLInstanceID, perhaps one with a higher energy cost,
             for instance.  It could also be that not all nodes are reachable
             in an LLN using the default instanceID, but a change of
             instanceID would permit an attacker to bypass such filtering.
@@ -2957,10 +2940,10 @@ Hex Value  Binary Value
      <?rfc include="reference.RFC.8138" ?>
 
      &RFC6550;
-     &RFC2473;
+
 
      <?rfc include="reference.RFC.2827" ?>
-     <?rfc include="reference.RFC.5406" ?>
+
      <?rfc include="reference.RFC.7045" ?>
     <?rfc include="reference.I-D.thubert-roll-unaware-leaves" ?>
    </references>
@@ -2973,7 +2956,9 @@ Hex Value  Binary Value
      &RFC4443;
      &RFC7102;
      &RFC8180;
+     &RFC2473;
      <?rfc include="reference.I-D.ietf-anima-autonomic-control-plane" ?>
+     <?rfc include="reference.RFC.5406" ?>
     <!-- <?rfc include="reference.I-D.ietf-6tisch-architecture" ?> -->
      <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
      <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
