@@ -109,7 +109,7 @@
 
   </author>
 
-  <date year="2018" />
+  <date year="2019" />
 
    <area>Internet</area>
 
@@ -183,7 +183,7 @@
                Section 6 describes the storing mode cases and section 7 the non-storing mode cases.
                Section 8 describes the operational considerations for the proposed change on RPL Option type.
                Section 9 depicts the 6LoRH Compression cases, section 10 the
-               IANA considerations and then section 11 describe the security
+               IANA considerations and then section 11 describes the security
                aspects.
                </t>
              </section>
@@ -218,11 +218,11 @@
       host or router can play the role described.". In this document, a 6LN acts as a leaf.
         </t>
         <t>
-	6LR, 6LBR are defined in <xref target="RFC6775"/>. 
+	6LR, 6LBR are defined in <xref target="RFC6775"/>.
         </t>
         <t>
           Flag Day:  A transition that involves have a network with different values of RPL Option Type.
-          Thus the network do not work correclty.
+          Thus the network do not work correctly.
           <!--   (from <xref target="RFC4192"/>). -->
         </t>
         <t>
@@ -250,7 +250,7 @@
           header, the two high order bits must be set to '01' and the third bit is equal to '1'.
           The first two bits indicate that the IPv6 node must discard the packet
           if it doesn't recognize the option type,
-          and the third bit indicates that the Option Data may change en route.
+          and the third bit indicates that the Option Data may change in route.
           The remaining bits serve as the option type.
           </t>
           <t>
@@ -318,15 +318,15 @@
           </t>
 	  <t>
 	   In the cases where a forwarding node is forwarding traffic that is not
-           addressed directly to it (such as when the outer IPv6-in-IPv6 header is not a Link-Local address),   
-           then RFC8200 forbids changing the RPI type code when forwarding.  
+           addressed directly to it (such as when the outer IPv6-in-IPv6 header is not a Link-Local address),
+           then RFC8200 forbids changing the RPI type code when forwarding.
           </t>
 	  <t>
            When forwarding traffic that is wrapped in Link-Local IPv6-in-IPv6 headers,
-           the forwarding node is in effect originating new packets, 
+           the forwarding node is in effect originating new packets,
            and it MAY make a choice as to whether to use the old (0x63) RPI Type code,
-           or the new (0x23) RPI Type code. In that situation, implementations SHOULD 
-           use the same value as was received.  This allows to the network to be incrementally upgraded, 
+           or the new (0x23) RPI Type code. In that situation, implementations SHOULD
+           use the same value as was received.  This allows to the network to be incrementally upgraded,
            and in some cases may allow the DODAG root to know which parts of the network are upgraded.
 	  </t>
         <t>
@@ -353,7 +353,7 @@
         <t>
           Non-constrained uses of RPL are not in scope of this document, and
           applicability statements for those uses MAY provide different
-          advice.  [[EDNOTE: is a reference to ANIMA ACP appropriate here?]]
+          advice, E.g. <xref target="I-D.ietf-anima-autonomic-control-plane" />.
         </t>
         <t>
           In the non-storing case, dealing with non-RPL aware leaf nodes
@@ -363,8 +363,8 @@
         </t>
         <t>
           The 6LBR can recognize non-RPL aware leaf nodes because it will
-          receive a DAO about that node from the 6LN immediately above that
-          node.  This means that the non-storing mode case can avoid ever
+          receive a DAO about that node from the 6LR immediately above that
+          non-RPL aware node.  This means that the non-storing mode case can avoid ever
           using hop-by-hop IPv6-in-IPv6 headers for traffic originating from
           the root to leafs.
         </t>
@@ -428,9 +428,9 @@
             In order to avoid a Flag Day caused by lack of interoperation
             between new RPI (0x23) and old RPI (0x63) nodes, this section
             defines a flag in the DIO Configuration Option, to indicate when
-            then new RPI value can be safely used. Without this, there could 
-            be a mix of new nodes (which understand 0x23 and 0x63), and old 
-            nodes (which understand 0x63 only).  A new node would not know 
+            then new RPI value can be safely used. Without this, there could
+            be a mix of new nodes (which understand 0x23 and 0x63), and old
+            nodes (which understand 0x63 only).  A new node would not know
             if it was safe to use 0x23.
           </t>
           <t>
@@ -450,7 +450,7 @@
             propagating the DODAG Configuration option.
           </t>
           <t>
-            The DODAG Configuration Option has a Flags field which is modified by this document.
+            The DODAG Configuration Option has a Flag field which is modified by this document.
             Currently, the DODAG Configuration Option in <xref target="RFC6550"/> states:
             "the unused bits MUST be initialize to zero by the sender
              and MUST be ignored by the receiver".
@@ -490,13 +490,14 @@
                letters above the nodes are there so that
                they may be referenced in subsequent sections. In the figure,
                6LR represents a full router node.
-               The 6LN is a RPL aware router, or host. Additionally, for simplification purposes,  
-               it is supposed that the 6LBR has direct access to Internet, thus the 6BBR 
+               The 6LN is a RPL aware router, or host (as a leaf).
+               Additionally, for simplification purposes,
+               it is supposed that the 6LBR has direct access to Internet, thus the 6BBR
                is not present in the figure.
               </t>
 
           <t>
-            But, the 6LN leaves (Raf - "RPL aware leaf"-)
+            The 6LN leaves (Raf - "RPL aware leaf"-)
             marked as (F, H and I) are RPL nodes with no children hosts.
           </t>
           <t>
@@ -504,7 +505,7 @@
             devices which do not speak RPL at all (not-RPL-aware),
 	    but uses Router-Advertisements, 6LowPAN DAR/DAC and
             efficient-ND only to participate in the network <xref target="RFC6775"/>.
-	    In the document these leafs (G and J) are also refered to as
+	    In the document these leafs (G and J) are also referred to as
             an IPv6 node.
           </t>
           <t>
@@ -617,7 +618,7 @@
           with the root (6LBR),  and with Internet.
           This document also describe the communication between nodes
           acting as leaves that do not understand RPL, but are part of the LLN.
-          these nodes are named as not-RPL-aware-leaf.
+          these nodes are named as not-RPL-aware-leaf, mentioned previously.
           (e.g. <xref target="sm-nRal2root" /> Flow from not-RPL-aware-leaf to root)
 
           This document describes also how is the communication inside of the LLN
@@ -727,32 +728,32 @@
           <t>
             Despite being legal to leave the RPI artifact in place,
             an intermediate router that needs to add an extension header
-            (SHR3 or RPI Option) MUST still encapsulate the packet in an
+            (RH3 or RPI Option) MUST still encapsulate the packet in an
             (additional) outer IP header. The new header is placed after
             this new outer IP header.
          </t>
          <t>
-           A corollary is that an SHR3 or RPI Option can only be removed by an
+           A corollary is that an RH3 or RPI Option can only be removed by an
             intermediate router if it is placed in an encapsulating IPv6
             Header, which is addressed TO the intermediate router.
             When it does so, the whole encapsulating header must be
             removed. (A replacement may be added).  This sometimes can
             result in outer IP headers being addressed to the next hop
-            router using link-local addresses.
+            router using link-local address.
           </t>
           <t>
             Both RPI and RH3 headers may be modified in very specific ways
             by routers on the path of the packet without the need to add to
             remove an encapsulating header.  Both headers were designed with
             this modification in
-            mind, and both the RPL RH and the RPL option are marked mutable
+            mind, and both the RPL RH3 and the RPL option are marked mutable
             but recoverable: so an IPsec AH security header can be applied
             across these headers, but it can not secure the values which mutate.
           </t>
 
           <t>
-          
-            RPI SHOULD [[NOTE: can we increase this to MUST]] be present in every single RPL data packet. There is one
+
+            RPI MUST be present in every single RPL data packet. There is one
             exception in non-storing mode: when a packet is going down from the
             root the RPI MAY be omitted.
             The rational is that in a downward non-storing mode, the entire
@@ -760,8 +761,8 @@
             confusion about which forwarding table to use (as the root has
             already made all routing decisions).  However, there are still
             cases, such as in 6tisch, where the instanceID portion of the RPI
-            header may still be needed <xref target="RFC8180" /> to pick an 
-	    appropriate priority or channel at each hop.
+            header may still be needed <xref target="RFC8180" /> to pick an
+      	    appropriate priority or channel at each hop.
           </t>
 
           <t>
@@ -804,7 +805,7 @@
 
           <t>
             In cases where no IPv6-in-IPv6 header is needed, the column states as "No".
-        
+
           </t>
           <t>
             In all cases the RPI headers are needed, since it identifies
@@ -841,7 +842,7 @@
 +---------------------+--------------+------------+--------------+
 |                     |  Raf to Int  |    No      |      No      |
 +                     +--------------+------------+--------------+
-|   Leaf - Internet   |  Int to Raf  |   MUST     |      Raf     |
+|   Leaf - Internet   |  Int to Raf  |   MUST     |  tgt (Raf)   |
 +                     +--------------+------------+--------------+
 |                     |  ~Raf to Int |   MUST     |     root     |
 +                     +--------------+------------+--------------+
@@ -851,7 +852,7 @@
 +                     +--------------+------------+--------------+
 |                     |  Raf to ~Raf |    No      |      No      |
 +     Leaf - Leaf     +--------------+------------+--------------+
-|                     |  ~Raf to Raf |   MUST     |      tgt     |
+|                     |  ~Raf to Raf |   MUST     |   tgt (Raf)  |
 +                     +--------------+------------+--------------+
 |                     | ~Raf to ~Raf |    Yes     |      hop     |
 +---------------------+--------------+------------+--------------+
@@ -891,7 +892,7 @@
                         </t>
 			<t>
                          As stated in Section 16.2 of <xref
-                         target="RFC6550"/>  an RPL-aware-leaf node does not
+                         target="RFC6550"/>  a RPL-aware-leaf node does not
                          generally issue DIO messages; a leaf node accepts
                          DIO messages from upstream.
                         (When the inconsistency in routing occurs, a leaf
@@ -939,7 +940,7 @@
                                           <ttcol> 6LR_i</ttcol>
                                           <ttcol> 6LBR</ttcol>
                                           <c> Inserted headers</c>
-                                          <c> RPI</c> 
+                                          <c> RPI</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
@@ -1082,7 +1083,10 @@
                                 the packet.
                         </t>
 
-                        <texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to root" anchor="Storing-notrpl2root" align="center">
+                        <texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to root.
+                          (1) Case where the IPv6-in-IPv6
+                                                 header is addressed to the next hop (Node B). (2) Case where the IPv6-in-IPv6
+                                                 header is addressed to the root (Node A)" anchor="Storing-notrpl2root" align="center">
                                           <ttcol> Header</ttcol>
                                           <ttcol> IPv6</ttcol>
                                           <ttcol> 6LR_1</ttcol>
@@ -1116,9 +1120,7 @@
                         </texttable>
                </section>
          </section>
-        <section title=" Storing Mode: Interaction between Leaf and Internet. (1) Case where the IPv6-in-IPv6
-                                header is addressed to the next hop (Node B). (2) Case where the IPv6-in-IPv6
-                                header is addressed to the root (Node A)">
+        <section title=" Storing Mode: Interaction between Leaf and Internet.">
 
                   <t>
                    In this section is described the communication flow
@@ -1281,7 +1283,9 @@
                    non-zero value when sending to the Internet.
                  </t>
 
-                 <texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to Internet" anchor="Storing-notrpl2int" align="center">
+                 <texttable title="Storing: Summary of the use of headers from not-RPL-aware-leaf to Internet.
+                   	(1) Case when packet is addressed to the root.
+                    (2) Case when the packet is addressed hop-by-hop." anchor="Storing-notrpl2int" align="center">
                                           <ttcol> Header</ttcol>
                                           <ttcol> IPv6 </ttcol>
                                           <ttcol> 6LR_1</ttcol>
@@ -1298,7 +1302,7 @@
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> IPv6-in-IPv6(RPI)(2) </c>
-                                          <c>IPv6-in-IPv6(RPI) </c>
+                                          <c>IPv6-in-IPv6(RPI)(1) </c>
                                           <c> -- </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
@@ -1309,7 +1313,7 @@
                                           <c> Modified headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> IPv6-in-IPv6(RPI) </c>
+                                          <c> IPv6-in-IPv6(RPI)(1) </c>
                                           <c> --</c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
@@ -1321,8 +1325,7 @@
                         </texttable>
                </section>
 
-                       <section title="SM: Example of Flow from Internet to non-RPL-aware-leaf. 
-			(2) Case when the packet is addressed hop-by-hop. ">
+                       <section title="SM: Example of Flow from Internet to non-RPL-aware-leaf. ">
                         <t>
                                 In this case the flow comprises:
                         </t>
@@ -1716,7 +1719,7 @@
            In cases where no IPv6-in-IPv6 header is needed, the column states as "No".
          </t>
          <t>
-           The leaf can be a router 6LR or a host, both indicated as 6LN (Figure 3). In the Figure they
+           The leaf can be a router 6LR or a host, both indicated as 6LN (Figure 3). In the Figure the
            (1) indicates a 6tisch case <xref target="RFC8180"/>, where the
            instanceID portion of the RPI header may still be needed to
            pick an appropriate priority or channel at each hop.
@@ -1853,7 +1856,7 @@
                    that the packet go through from source (6LBR) to destination (6LN).
                  </t>
                  <t>
-                   The 6LBR inserts an RH3, and an RPI header.
+                   The 6LBR inserts an RH3, and a RPI header.
                    No IPv6-in-IPv6 header is necessary as the traffic
                    originates with an RPL aware node, the 6LBR.
                    The destination is known to RPL-aware because, the root
@@ -1866,13 +1869,13 @@
                                           <ttcol> 6LR_i</ttcol>
                                           <ttcol> 6LN</ttcol>
                                           <c> Inserted headers</c>
-                                          <c> RPI, RH3</c>
+                                          <c> (opt: RPI), RH3</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> RH3,RPI </c>
+                                          <c> RH3, (opt: RPI) </c>
                                           <c> Re-added headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
@@ -1927,7 +1930,7 @@
                                           <ttcol> 6LR_n(i=n)</ttcol>
                                           <ttcol> IPv6</ttcol>
                                           <c> Inserted headers</c>
-                                          <c> RPI, RH3 </c>
+                                          <c> (opt: RPI), RH3 </c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
@@ -1943,14 +1946,14 @@
                                           <c> -- </c>
                                           <c> Modified headers</c>
                                           <c> -- </c>
-                                          <c> RPI, RH3 </c>
-                                          <c> RPI, RH3</c>
+                                          <c> (opt: RPI), RH3 </c>
+                                          <c> (opt: RPI)</c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> RPI </c>
+                                          <c> opt: RPI </c>
                         </texttable>
                </section>
 
@@ -2170,8 +2173,8 @@
                         <t>
                                 In this case the flow label is recommended to
                                 be zero in the IPv6 node. As RPL headers are
-                                added in the IPv6 node, the first 6LR (6LR_1) will
-                                add an RPI header inside a new IPv6-in-IPv6 header.
+                                added in the IPv6 node packet, the first 6LR (6LR_1) will
+                                add a RPI header inside a new IPv6-in-IPv6 header.
                                 The IPv6-in-IPv6 header will be addressed to the
                                 root.  This case is identical to the
                                 storing-mode case (see <xref target="sm-nRal2i" />).
@@ -2247,7 +2250,8 @@
                           order to aid compression.
                         </t>
 
-                        <texttable title=" NonStoring: Summary of the use of headers from Internet to non-RPL-aware-leaf" anchor="NonStoring-int2notrpl" align="center">
+                        <texttable title=" NonStoring: Summary of the use of headers from Internet to non-RPL-aware-leaf
+                          (1) The last 6LR before the IPv6 node." anchor="NonStoring-int2notrpl" align="center">
                           <ttcol> Header</ttcol>
                           <ttcol> Internet</ttcol>
                           <ttcol> 6LBR</ttcol>
@@ -2264,7 +2268,7 @@
                           <c> -- </c>
                           <c> -- </c>
                           <c> -- </c>
-                          <c>  IPv6-in-IPv6 (RH3,RPI) </c>
+                          <c>  IPv6-in-IPv6 (RH3,RPI)(1) </c>
                           <c> -- </c>
                           <c> Re-added headers</c>
                           <c> -- </c>
@@ -2276,14 +2280,14 @@
                           <c> -- </c>
                           <c> -- </c>
                           <c>  IPv6-in-IPv6 (RH3,RPI) </c>
-                          <c>  IPv6-in-IPv6 (RH3,RPI) </c>
+                          <c>  IPv6-in-IPv6 (RH3, RPI) </c>
                           <c> -- </c>
                           <c> Untouched headers</c>
                           <c> -- </c>
                           <c> -- </c>
                           <c> -- </c>
                           <c> -- </c>
-                          <c> RPI </c>
+                          <c> -- </c>
                         </texttable>
                </section>
 
@@ -2334,7 +2338,7 @@
                         </t>
                         <t>
                           This case involves only nodes in same RPL Domain.
-                          The originating node will add an RPI header to the
+                          The originating node will add a RPI header to the
                           original packet, and send the packet upwards.
                         </t>
                         <t>
@@ -2349,7 +2353,7 @@
                           requires that it add an IPv6-in-IPv6 header.  It SHOULD be
                           able to remove the RPI, as it was contained in an
                           IPv6-in-IPv6 header addressed to it.  Otherwise, there MAY
-                          be an RPI header buried inside the inner IP header,
+                          be a RPI header buried inside the inner IP header,
                           which should get ignored.
                         </t>
 
@@ -2421,7 +2425,7 @@
                           intermediate routers (6LR).
                         </t>
                         <t>
-                          As in the previous case, the 6LN will insert an RPI (RPI_1)
+                          As in the previous case, the 6LN will insert a RPI (RPI_1)
                           header which MUST be in an IPv6-in-IPv6 header addressed to
                           the root so that the 6LBR can remove this RPI.
                           The 6LBR will then insert an RH3 inside a new IPv6-in-IPv6
@@ -2613,7 +2617,7 @@
             </t>
             <t>
               <xref target="RFC8200" /> provides for new rules that suggest
-              that nodes that have not been configured (explicitely) to
+              that nodes that have not been configured (explicitly) to
               examine Hop-by-Hop headers, should ignore those headers, and
               continue processing the packet.  Despite this, and despite the
               switch from 0x63 to 0x23, there may be hosts that are pre-RFC8200,
@@ -2639,7 +2643,7 @@
             </t>
             <t>
               Traffic originating from the RPL root (such as when the data
-              collection system is co-locate on the RPL root), does not
+              collection system is co-located on the RPL root), does not
               require an IPv6-in-IPv6 header (in either mode), as the packet
               is originating at the root, and the root can insert the RPI
               and RH3 headers directly into the packet, as it is formed.
@@ -2689,38 +2693,55 @@
              During bootstrapping the node get the DIO with the information of RPL Option Type and Indicating
              the new RPI in the DODAG Configuration Option Flag.
              The DODAG root is in charge to configure the current network to the new value gradually, through DIO
-             messages and when all the nodes are set with the new value. The dodag should change to a new DODAG version.
-             Not able to send data plane mssges. Should drop the packet.
+             messages and when all the nodes are set with the new value. The DODAG should change to a new DODAG version.
+             Not able to send data plane messages. Should drop the packet.
              In case of rebooting, the node does not remember the RPL Option Type.
              Thus, the DIO is sent with flag indicating the new RPI value.
            </t>
          </section>
          <section title="Has the migration path been discussed?">
 <!-- -->
+           <t>
+             TBD
+           </t>
 
          </section>
          <section title="Have the Requirements on other protocols and
                          functional components been discussed?">
            <t>
-             It allows to send packets to non-RPL nodes, the 20x3  (XXX 0x23?)
+             It allows to send packets to non-RPL nodes, the 0x23?..
+           </t>
+           <t>
+             TBD
            </t>
          </section>
          <section title="Has the impact on network operation been discussed?">
            <t>
-             Missconfiguration in case that a node join
+             Missconfiguration in case that a node join.
+           </t>
+           <t>
+             TBD
            </t>
          </section>
         <section title="Have suggestions for verifying correct operation been discussed?">
-
+          <t>
+            TBD
+          </t>
         </section>
         <section title="Has management interoperability been discussed?">
-
+          <t>
+            TBD
+          </t>
         </section>
         <section title="Are there fault or threshold conditions that should be reported?">
-
+          <t>
+            TBD
+          </t>
         </section>
         <section title="Is configuration discussed?">
-
+          <t>
+            TBD
+          </t>
         </section>
       </section>
 
@@ -2863,7 +2884,7 @@ Hex Value  Binary Value
             for instance.  It could also be that not all nodes are reachable
             in an LLN using the default instanceID, but a change of
             instanceID would permit an attacker to bypass such filtering.
-            Like the RH3, an RPI header is to be inserted by the RPL root on
+            Like the RH3, a RPI header is to be inserted by the RPL root on
             traffic entering the LLN by first inserting an IPv6-in-IPv6 header. The
             attacker's RPI header therefore will not be seen by the network.
             Upon reaching the destination node the RPI header has no further
@@ -2921,8 +2942,8 @@ Hex Value  Binary Value
 
         <section anchor="Acknowledgments" title="Acknowledgments">
            <t>
-           This work is partially funded by the FP7 Marie Curie Initial Training
-           Network (ITN) METRICS project (grant agreement No.  607728).
+           We are very thankful to the grant by the Finnish Foundation for Technology Promotion (Tekniikan Edistämissäätiön - TES),
+           and the grant by the FP7 Marie Curie Initial Training Network (ITN) METRICS project (grant agreement No. 607728)
            </t>
            <t>
             A special BIG thanks to C. M. Heard for the help with the <xref target="updateRFCs_section" />.
@@ -2983,7 +3004,7 @@ Hex Value  Binary Value
      <?rfc include="reference.I-D.ietf-6lo-backbone-router" ?>
   <!--   <?rfc include="reference.I-D.ietf-roll-dao-projection" ?> -->
      <!--  <?rfc include="reference.I-D.ietf-6man-rfc6434-bis" ?> -->
- 
+
 
      <?rfc include="reference.RFC.6997" ?>
      <?rfc include="reference.RFC.4192" ?>
