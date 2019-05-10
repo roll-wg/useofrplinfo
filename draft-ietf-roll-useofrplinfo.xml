@@ -258,21 +258,19 @@
           ]]></artwork></figure>
           </t>
           <t>
-          Recent changes in
-          <xref target="RFC8200"/> (section 4, page 8), states: "it is now
-          expected that nodes along a packet's delivery path only examine and
-          process the Hop-by-Hop Options header if explicitly configured to
-          do so". Processing of the Hop-by-Hop Options header (by IPv6 intermediate nodes) is now optional,
-          but if they are configured to process the header,
-          and if such nodes encounter an option with the first two bits set to 01,
-          they will drop the packet (if they conform to <xref target="RFC8200"/>).
-          Host systems should do the same, irrespective of the configuration.
-          </t>
-          <t>
-          Based on That, if an IPv6 (intermediate) node (RPL-not-capable) receives a packet with an
-          RPL Option, it should ignore the HBH RPL option
-          (skip over this option and continue processing the header). This is relevant, as it was mentioned previously, in the case that
-          there is a flow from RPL-aware-leaf to Internet (see <xref target="sm-Ral2i" />).
+          This document illustrates that is is not always possible to know for sure at the source that a packet will only travel within the RPL domain or may leave it. 
+          
+          </t><t>
+          At the time <xref target="RFC6553"/> was published, leaking a HbH header in the outer IPv6 header chain could potentially impact core routers in the internet. So at that time, it was decided to encapsulate any packet with a RPL option using IP-in-IP in all cases where it was unclear whether the packet would remain within the RPL domain. In the exception case where a packet would still leak, the Option Type would ensure that the first router in the Internet that does not recognize the option would drop the packet and protect the rest of the network.
+          
+          </t><t>
+          Even with <xref target="RFC8138"/> that compresses the IP-in-IP header, this approach yields extra bytes in a packet which means consuming more energy, more bandwidth, incurring higher chances of loss and possibly causing a fragmentation at the 6LoWPAN level. This impacts the daily operation of constrained devices for a case that generally does not happen and would not heavily impact the core anyway.
+          </t><t>
+          
+          While intention was and remains that the HbH header with a RPL option should be confined within the RPL domain, this specification modifies this behavior in order to reduce the dependency on IP-in-IP and protect the constrained devices. Section 4 of <xref target="RFC8200"/> clarifies the behaviour of routers in the Internet as follows: "it is now expected that nodes along a packet's delivery path only examine and process the Hop-by-Hop Options header if explicitly configured to do so". This means that while it should be avoided, the impact on the Internet of leaking a HbH header is acceptable. 
+          
+          </t><t>
+          When unclear about the travel of a packet, it becomes preferable for a source not to encapsulate, accepting the fact that the packet may leave the RPL domain on its way to its destination. In that event, the packet should reach its destination and should not be discarded by the first node that does not recognize the RPL option. But with the current value of the Option Type, if a node in the Internet is configured to process the HbH header, and if such node encounters an option with the first two bits set to 01 and conforms to <xref target="RFC8200"/>, it will drop the packet. Host systems should do the same, irrespective of the configuration.
           </t>
           <t>
            Thus, this document updates the Option Type field to:
@@ -289,7 +287,14 @@
            [RFC6553] RPL Hop-by-Hop option known as RPI.
           </t>
           <t>
-           This is a significant update to <xref target="RFC6553"/>. [RFCXXXX] represents this document.
+          With the new Option Type, if an IPv6 (intermediate) node (RPL-not-capable) receives a packet with an
+          RPL Option, it should ignore the HBH RPL option
+          (skip over this option and continue processing the header). This is relevant, as it was mentioned previously, in the case that
+          there is a flow from RPL-aware-leaf to Internet (see <xref target="sm-Ral2i" />).
+          </t> 
+          <t>
+           This is a significant update to <xref target="RFC6553"/>. 
+           <!-- Note to RFC Editor: please replace [RFCXXXX] below with this document. -->
           </t>
           <t>
           <figure title="Revised Option Type in RPL Option." anchor="fig_RPIOption_new" align="center">
