@@ -159,14 +159,17 @@
                omitted, or removed.
              </t>
              <t>
-               An interim meeting went through the 24 cases defined here to
-               discover if there were any shortcuts, and this document is the
-               result of that discussion.  This document clarifies examples
-               that intend to illustrate the result of the normative
-               language in RFC8200 and RFC6553.
-               In other words, the examples are intended to be normative explanation
-               of the results of executing that language.
-
+               The ROLL WG analysized how <xref target="RFC2460" /> rules apply to storing and
+               non-storing use of RPL.  The result was 24 data plane use
+               cases.  They are exhaustively outlined here in order to be
+               completely unambiguous.  During the processing of this
+               document, new rules were published as
+               <xref target="RFC8200"/>, and this document was updated
+               to reflect the normative changes in that document.
+             </t>
+             <t>
+               This document updates RFC6553, changing the RPI option value
+               to make RFC8200 routers ignore this option by default.
              </t>
              <t>
                A Routing Header Dispatch for 6LoWPAN (6LoRH)(<xref target="RFC8138" />)
