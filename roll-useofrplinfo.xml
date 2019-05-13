@@ -175,8 +175,11 @@
                A Routing Header Dispatch for 6LoWPAN (6LoRH)(<xref target="RFC8138" />)
                 defines a mechanism for compressing RPL Option information and Routing Header type 3
                 <xref target="RFC6554"/>, as well as an efficient IPv6-in-IPv6 technique.
-             </t>
-              <t>,
+             </t><t>
+             This document clarifies examples that intend to illustrate the result of the normative language in RFC8200 and
+             RFC6553.
+
+                </t><t>
                 Since some of the uses cases here described, use IPv6-in-IPv6 encapsulation. It
                 MUST take in consideration, when encapsulation is applied, the RFC6040 <xref target="RFC6040"/>, which
                 defines how the explicit congestion notification (ECN) field of the IP header should
@@ -235,7 +238,7 @@
           <!--   (from <xref target="RFC4192"/>). -->
         </t>
         <t>
-          Hop-by-hop IPv6-in-IPv6 headers: The term "hop-by-hop IPv6-in-IPv6" header refers to adding a header
+          Hop-by-hop re-encapsulation: The term "hop-by-hop re-encapsulation" header refers to adding a header
           that originates from a node to an adjacent node, using the
           addresses (usually the GUA or ULA, but could use the link-local addresses)
           of each node.  If the packet must traverse multiple hops, then it
@@ -461,15 +464,18 @@
              non-RPL-aware-leaf and non-RPL-aware-leaf to non-RPL-aware-leaf
              comprise an IPv6-in-IPv6 and RPI compression headers. The use
              of the IPv6-in-IPv6 header is MANDATORY in this case, and
-             it SHOULD be compressed with <xref target="RFC8138"/> section 7
-             as showed in Figure 7.
+             it SHOULD be compressed with <xref target="RFC8138"/> section 7.
+             As exemplification of compressing the RPI, section A.1 of <xref target="RFC8138"/>,
+             illustrates the case in Storing mode where the packet is received from the Internet, then the
+             root encapsulates the packet to insert the RPI. The result is shown in Figure 7.
           </t>
           <t>
-        <figure title="IPv6-in-IPv6 (RPI)." anchor="rtghc"><artwork><![CDATA[
+        <figure title="RPI Inserted by the Root in Storing Mode" anchor="rtghc"><artwork><![CDATA[
 
-+--+-----+---+--------------+-----------+-----------+-----------+
-|1 | 0|1 |TSE| 6LoRH Type 6 | Hop Limit | RPI-6LoRH |LOWPAN IPHC|
-+--+-----+---+--------------+-----------+-----------+-----------+
++-+ ... -+-+-...-+-+-- ... -+-+-+-+- ... -+-+ ... -+-+-+ ... -+-+-+...
+|11110001| RPI-  | IP-in-IP | NH=1        |11110CPP| Compressed | UDP
+|Page 1  | 6LoRH |  6LoRH   | LOWPAN_IPHC | UDP    | UDP header | Payld
++-+ ... -+-+-...-+-+-- ... -+-+-+-+- ... -+-+ ... -+-+-+ ... -+-+-+...
 
         ]]></artwork></figure>
 
@@ -741,7 +747,7 @@
           <t>
             Despite being legal to leave the RPI artifact in place,
             an intermediate router that needs to add an extension header
-            (RH3 or RPI Option) must still encapsulate the packet in an
+            (RH3 or RPI Option) MUST still encapsulate the packet in an
             (additional) outer IP header. The new header is placed after
             this new outer IP header.
          </t>
@@ -766,7 +772,7 @@
 
           <t>
 
-            RPI MUST be present in every single RPL data packet. There is one
+            RPI SHOULD be present in every single RPL data packet. There is one
             exception in non-storing mode: when a packet is going down from the
             root the RPI MAY be omitted.
             The rationale is that in a downward non-storing mode, the entire
@@ -806,14 +812,9 @@
           </t>
 
           <t>
-            The following table (<xref target="fig_EncStoMode"/>) itemizes which headers are needed in each
-            of the following scenarios. It indicates if an IPv6-in-IPv6 header must
-            be inserted, and whether the destination address of the IPv6-in-IPv6
-            header is the next hop, or the final target address. There are
-            these possible situations: hop-by-hop necessary (indicated by
-            "hop"), or final target address possible (indicated by "tgt").  In
-            all cases hop-by-hop may be used rather than the final target
-            address. The root refers to the 6LBR (Figure 5).
+            The following table (<xref target="fig_EncStoMode"/>) itemizes which headers are needed in each of the following scenarios.
+            It indicates if the IPv6-in-IPv6 header that is added, must be addressed to the final destination (indicated by "tgt"),
+            or if a hop-by-hop header must be added (indicated by "hop"). The root refers to the 6LBR (Figure 5).
           </t>
 
           <t>
@@ -1322,8 +1323,8 @@
                         </t>
                         <t>
                           The final node should be able to remove one or more IPv6-in-IPv6 headers
-                          which are all addressed to it. Furhter details about this are
-                          mentioned in <xref target="I-D.thubert-roll-unaware-leaves"/>,
+                          which are all addressed to it. The final node does not process the RPI, the node ignores the RPI.
+                          Furhter details about this are mentioned in <xref target="I-D.thubert-roll-unaware-leaves"/>,
                           which specifies RPL routing for a 6LN acting as a plain host and not aware of RPL.
                         </t>
                         <t>
@@ -2802,8 +2803,7 @@ Hex Value  Binary Value
 
         <section anchor="Acknowledgments" title="Acknowledgments">
            <t>
-           We are very thankful to the grant by the Finnish Foundation for Technology Promotion (Tekniikan Edistämissäätiön - TES),
-           and the grant by the FP7 Marie Curie Initial Training Network (ITN) METRICS project (grant agreement No. 607728)
+           We are very thankful to the grant by the Stand.ICT project.
            </t>
            <t>
             A special BIG thanks to C. M. Heard for the help with the <xref target="updateRFCs_section" />.
