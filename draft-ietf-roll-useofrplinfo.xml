@@ -308,7 +308,7 @@
           ]]></artwork></figure>
           </t>
           <t>
-            This change creates a flag day for existing networks which are
+            Without the signaling described below, this change would otherwise create a flag day for existing networks which are
             currently using 0x63 as the RPI value.  A move to 0x23 will not
             be understood by those networks.  It is suggested that
             implementations accept both 0x63 and 0x23 when
