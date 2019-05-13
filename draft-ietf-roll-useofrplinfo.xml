@@ -2857,7 +2857,8 @@ Hex Value  Binary Value
           </t>
           <t>
             The RH3 header usage described here can be abused in equivalent
-            ways with an IPv6-in-IPv6 header to add the needed RH3
+            ways (to disguise the origin of traffic and attack other nodes)
+            with an IPv6-in-IPv6 header to add the needed RH3
             header. As such, the attacker's RH3 header will not be seen by
             the network until it reaches the end host, which will decapsulate
             it.  An end-host SHOULD be suspicious about a RH3 header which
