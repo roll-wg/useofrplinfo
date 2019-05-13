@@ -19,6 +19,7 @@
 <!ENTITY RFC7416 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7416.xml">
 <!ENTITY RFC8180 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8180.xml">
 <!ENTITY RFC8505 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8505.xml">
+<!ENTITY RFC2460 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
 <!--<!ENTITY I-D.thubert-roll-unaware-leaves SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.I-D.thubert-roll-unaware-leaves.xml"> -->
 <!--<!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">-->
 <!ENTITY I-D.moore-iot-security-bcp SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.moore-iot-security-bcp.xml">
@@ -2852,6 +2853,7 @@ Hex Value  Binary Value
      &RFC8180;
      &RFC2473;
      &RFC8505;
+     &RFC2460;
 
 
      <?rfc include="reference.I-D.ietf-anima-autonomic-control-plane" ?>
