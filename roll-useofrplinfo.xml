@@ -2767,17 +2767,38 @@ Hex Value  Binary Value
           </t>
 
           <t>
-            <xref target="RFC2473"/> suggests that tunnel entry and exit
-            points can be secured, via the "Use IPsec". The suggested solution has
-            all the problems that <xref target="RFC5406" /> goes into.
-            In an LLN such a solution would degenerate into every node having
-            a tunnel with every other node.  It would provide a small amount
-            of origin address authentication at a very high cost; doing BCP38
-            at every node (linking layer-3 addresses to layer-2 addresses,
-            and to already present layer-2 cryptographic mechanisms) would be
-            cheaper should RPL be run in an environment where hostile nodes
-            are likely to be a part of the LLN.
+            Whenever IPIP headers are being proposed, there is a concern
+            about creating security issues.  In the security section of
+            <xref target="RFC2473"/>, it was suggested that tunnel entry and exit
+            points can be secured, via "Use IPsec".  This recommendation is
+            not practical for RPL networks.  <xref target="RFC5406" /> goes
+            into some detail on what additional details would be needed in
+            order to "Use IPsec".   Use of ESP would prevent RFC8183
+            compression (compression must occur before encryption), and
+            RFC8183 compression is lossy in a way that prevents use of AH.
+            These are minor issues.  The major issue is how to establish
+            trust enough such that IKEv2 could be used.  This would require a
+            system of certificates to be present in every single node,
+            including any Internet nodes that might need to communicate with
+            the LLN.  Thus, "Use IPsec" requires a global PKI in the general
+            case.
           </t>
+          <t>
+            More significantly, the use of IPsec tunnels to protect the IPIP
+            headers would in the general case scale with the square of the
+            number of nodes.  This is a lot of resource for a constrained
+            nodes on a constrained network. In the end, the IPsec tunnels
+            would be providing only BCP38-like origin authentication!
+            Just doing BCP38 origin
+            filtering at the entry and exit of the LLN provides a similar level
+            amount of security without all the scaling and trust problems of
+            using IPsec as RFC2473 suggested.  IPsec is not recommended.
+          </t>
+          <t>
+            An LLN with hostile nodes within it would not be protected against
+            impersonation with the LLN by entry/exit filtering.
+          </t>
+
           <t>
             The RH3 header usage described here can be abused in equivalent
             (to disguise the origin of traffic and attack other nodes) ways
