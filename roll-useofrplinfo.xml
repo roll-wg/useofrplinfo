@@ -22,7 +22,6 @@
 <!ENTITY RFC2460 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
 <!--<!ENTITY I-D.thubert-roll-unaware-leaves SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.I-D.thubert-roll-unaware-leaves.xml"> -->
 <!--<!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">-->
-<!ENTITY I-D.moore-iot-security-bcp SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.moore-iot-security-bcp.xml">
 <!--<!ENTITY I-D.ietf-roll-dao-projection SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-dao-projection.xml">-->
 <!--<!ENTITY I-D.ietf-anima-autonomic-control-plane SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-autonomic-control-plane.xml">-->
 ]>
@@ -636,8 +635,7 @@
      |  Raf  |    | ~Raf  |  | Raf  |   |  Raf  |     | ~Raf  |
      |  6LN  |    |  6LN  |  | 6LN  |   |  6LN  |     |  6LN  |
      +-------+    +-------+  +------+   +-------+     +-------+
-
-               ]]>
+  ]]>
              </artwork></figure>
           </t>
 
@@ -678,16 +676,16 @@
          <t>
           <list>
              <t>
-               RPL-aware-leaf to root
+               RPL-aware-leaf(Raf) to root
              </t>
              <t>
-               root to RPL-aware-leaf
+               root to RPL-aware-leaf(Raf)
              </t>
              <t>
-               not-RPL-aware-leaf to root
+               not-RPL-aware-leaf(~Raf) to root
              </t>
              <t>
-               root to not-RPL-aware-leaf
+               root to not-RPL-aware-leaf(~Raf)
              </t>
            </list>
          </t>
@@ -697,16 +695,16 @@
          <t>
            <list>
              <t>
-               RPL-aware-leaf to Internet
+               RPL-aware-leaf(Raf) to Internet
              </t>
              <t>
-               Internet to RPL-aware-leaf
+               Internet to RPL-aware-leaf(Raf)
              </t>
              <t>
-               not-RPL-aware-leaf to Internet
+               not-RPL-aware-leaf(~Raf) to Internet
              </t>
              <t>
-               Internet to not-RPL-aware-leaf
+               Internet to not-RPL-aware-leaf(~Raf)
              </t>
            </list>
         </t>
@@ -716,16 +714,16 @@
            <t>
            <list>
              <t>
-               RPL-aware-leaf to RPL-aware-leaf (storing and non-storing)
+               RPL-aware-leaf(Raf) to RPL-aware-leaf(Raf) (storing and non-storing)
              </t>
              <t>
-               RPL-aware-leaf to not-RPL-aware-leaf (non-storing)
+               RPL-aware-leaf(Raf) to not-RPL-aware-leaf(~Raf) (non-storing)
              </t>
              <t>
-               not-RPL-aware-leaf to RPL-aware-leaf (storing and non-storing)
+               not-RPL-aware-leaf(~Raf) to RPL-aware-leaf(Raf) (storing and non-storing)
              </t>
              <t>
-               not-RPL-aware-leaf to not-RPL-aware-leaf (non-storing)
+               not-RPL-aware-leaf(~Raf) to not-RPL-aware-leaf(~Raf) (non-storing)
              </t>
            </list>
            </t>
@@ -883,8 +881,6 @@
 +                     +--------------+------------+------------------+
 |                     | ~Raf to ~Raf |   must     |       ~Raf       |
 +---------------------+--------------+------------+------------------+
-
-
                          ]]></artwork></figure>
                           </t>
          <section title="Storing Mode (SM): Interaction between Leaf and Root">
@@ -1319,26 +1315,26 @@
                    [1] Case when packet is addressed to the root.
                    [2] Case when the packet is addressed hop-by-hop." anchor="Storing-notrpl2int" align="center">
                    <artwork><![CDATA[
-+-----------+-------+--------------+--------------+--------------+----------+
-|   Header  | IPv6  |     6LR_1    |     6LR_i    |     6LBR     | Internet |
-|           |  src  |              |  [i=2,...,n] |              |    dst   |
-|           | node  |              |              |              |          |
-+-----------+-------+--------------+--------------+--------------+----------+
-|  Inserted |   --  | IP6-IP6(RPI) | IP6-IP6(RPI) |      --      |    --    |
-|  headers  |       |              |      [2]     |              |          |
-+-----------+-------+--------------+--------------+--------------+----------+
-|  Removed  |   --  |      --      | IP6-IP6(RPI) | IP6-IP6(RPI) |    --    |
-|  headers  |       |              |      [2]     |    [1][2]    |          |
-+-----------+-------+--------------+--------------+--------------+----------+
-|  Re-added |   --  |      --      |      --      |      --      |    --    |
-|  headers  |       |              |              |              |          |
-+-----------+-------+--------------+--------------+--------------+----------+
-|  Modified |   --  |      --      | IP6-IP6(RPI) |      --      |    --    |
-|  headers  |       |              |      [1]     |              |          |
-+-----------+-------+--------------+--------------+--------------+----------+
-| Untouched |   --  |      --      |      --      |      --      |    --    |
-|  headers  |       |              |              |              |          |
-+-----------+-------+--------------+--------------+--------------+----------+
++---------+-------+------------+--------------+-------------+--------+
+|  Header | IPv6  |   6LR_1    |     6LR_i    |     6LBR    |Internet|
+|         |  src  |            |  [i=2,...,n] |             |  dst   |
+|         | node  |            |              |             |        |
++---------+-------+------------+--------------+-------------+--------+
+| Inserted|   --  |IP6-IP6(RPI)| IP6-IP6(RPI) |      --     |    --  |
+| headers |       |            |      [2]     |             |        |
++---------+-------+------------+--------------+-------------+--------+
+| Removed |   --  |    --      | IP6-IP6(RPI) | IP6-IP6(RPI)|    --  |
+| headers |       |            |      [2]     |    [1][2]   |        |
++---------+-------+------------+--------------+-------------+--------+
+| Re-added|   --  |    --      |      --      |      --     |    --  |
+| headers |       |            |              |             |        |
++---------+-------+------------+--------------+-------------+--------+
+| Modified|   --  |    --      | IP6-IP6(RPI) |      --     |    --  |
+| headers |       |            |      [1]     |             |        |
++---------+-------+------------+--------------+-------------+--------+
+|Untouched|   --  |    --      |      --      |      --     |    --  |
+| headers |       |            |              |             |        |
++---------+-------+------------+--------------+-------------+--------+
                  ]]></artwork></figure>
                  </t>
                </section>
@@ -1674,26 +1670,26 @@
                  <t>
                  <figure  title="Storing mode: Summary of the use of headers from not-RPL-aware-leaf to non-RPL-aware-leaf" anchor="Storing-notrpl2notrpl" align="center">
                    <artwork><![CDATA[
-+----------+------+-------------+-------------+--------------+--------------+
-|  Header  | IPv6 |     6LR_1   |    6LR_ia   |     6LR_m    |     IPv6     |
-|          | src  |             |             |              |     dst      |
-|          | node |             |             |              |     node     |
-+----------+------+-------------+-------------+--------------+--------------+
-| Inserted |  --  | IP6-IP6(RPI)|      --     |      --      |      --      |
-| headers  |      |             |             |              |              |
-+----------+------+-------------+-------------+--------------+--------------+
-| Removed  |  --  |      --     |      --     |      --      | IP6-IP6(RPI) |
-| headers  |      |             |             |              |  RPI Ignored |
-+----------+------+-------------+-------------+--------------+--------------+
-| Re-added |  --  |      --     |      --     |      --      |      --      |
-| headers  |      |             |             |              |              |
-+----------+------+-------------+-------------+--------------+--------------+
-| Modified |  --  |      --     | IP6-IP6(RPI)| IP6-IP6(RPI) |      --      |
-| headers  |      |             |             |              |              |
-+----------+------+-------------+-------------+--------------+--------------+
-|Untouched |  --  |      --     |      --     |      --      |      --      |
-| headers  |      |             |             |              |              |
-+-----------+------+------------+-------------+--------------+--------------+
++---------+------+------------+------------+------------+------------+
+|  Header | IPv6 |     6LR_1  |   6LR_ia   |    6LR_m   |    IPv6    |
+|         | src  |            |            |            |    dst     |
+|         | node |            |            |            |    node    |
++---------+------+------------+------------+------------+------------+
+| Inserted|  --  |IP6-IP6(RPI)|     --     |     --     |     --     |
+| headers |      |            |            |            |            |
++---------+------+------------+------------+------------+------------+
+| Removed |  --  |     --     |      --    |     --     |IP6-IP6(RPI)|
+| headers |      |            |            |            | RPI Ignored|
++---------+------+------------+------------+------------+------------+
+| Re-added|  --  |     --     |      --    |     --     |      --    |
+| headers |      |            |            |            |            |
++---------+------+------------+------------+------------+------------+
+| Modified|  --  |     --     |IP6-IP6(RPI)|IP6-IP6(RPI)|      --    |
+| headers |      |            |            |            |            |
++---------+------+------------+------------+------------+------------+
+|Untouched|  --  |     --     |      --    |     --     |      --    |
+| headers |      |            |            |            |            |
++---------+------+------------+------------+------------+------------+
                  ]]></artwork></figure>
                  </t>
                </section>
@@ -1759,9 +1755,6 @@
 +                 +--------------+-----+-----+------------+------------+
 |                 | ~Raf to ~Raf | Yes | Yes |   must     |  root/6LR  |
 +-----------------+--------------+-----+-----+------------+------------+
-
-
-
 ]]></artwork></figure>
           </t>
 
@@ -1923,41 +1916,34 @@
                           encapsulation is not necessary.
                         </t>
                         <t>
-                        The <xref target="NonStoring-root2notrpl"/> summarizes what headers are needed for this use case.
+                        The <xref target="NonStoring-root2notrpl"/> depicts the table that summarizes what headers are needed for this use case.
                         </t>
-
-                               <texttable title=" Non Storing: Summary of the use of headers from root to not-RPL-aware-leaf" anchor="NonStoring-root2notrpl" align="center">
-                                          <ttcol>Header</ttcol>
-                                          <ttcol>6LBR src</ttcol>
-                                          <ttcol>6LR_i(i=1)</ttcol>
-                                          <ttcol>6LR_n(i=n)</ttcol>
-                                          <ttcol>IPv6 dst node</ttcol>
-                                          <c>Inserted headers</c>
-                                          <c>RPI,RH3</c>
-                                          <c>--</c>
-                                          <c>--</c>
-                                          <c>-- </c>
-                                          <c>Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c>Re-added headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c>Modified headers</c>
-                                          <c> -- </c>
-                                          <c>RPI,RH3</c>
-                                          <c>RPI,RH3 (consumed)</c>
-                                          <c> -- </c>
-                                          <c>Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c>RPI, RH3 (ignored)</c>
-                        </texttable>
+                        <t>
+                        <figure title=" Non Storing: Summary of the use of headers from root to not-RPL-aware-leaf" anchor="NonStoring-root2notrpl" align="center">
+                          <artwork><![CDATA[
++-----------+----------+--------------+----------------+----------+
+|   Header  |   6LBR   |     6LR_i    |      6LR_n     |   IPv6   |
+|           |          | i=(1,..,n-1) |                |    dst   |
+|           |          |              |                |   node   |
++-----------+----------+--------------+----------------+----------+
+|  Inserted | RPI, RH3 |      --      |       --       |    --    |
+|  headers  |          |              |                |          |
++-----------+----------+--------------+----------------+----------+
+|  Removed  |    --    |      --      |                |    --    |
+|  headers  |          |              |                |          |
++-----------+----------+--------------+----------------+----------+
+|  Re-added |    --    |      --      |       --       |    --    |
+|  headers  |          |              |                |          |
++-----------+----------+--------------+----------------+----------+
+|  Modified |    --    |   RPI, RH3   |      RPI,      |    --    |
+|  headers  |          |              | RH3 (consumed) |          |
++-----------+----------+--------------+----------------+----------+
+| Untouched |    --    |      --      |       --       | RPI, RH3 |
+|  headers  |          |              |                |  (both   |
+|           |          |              |                | ignored) |
++-----------+----------+--------------+----------------+----------+
+                        ]]></artwork></figure>
+                                  </t>
                </section>
 
                <section title="Non-SM: Example of Flow from not-RPL-aware-leaf to root">
@@ -2528,29 +2514,29 @@
                         <t>
                         <figure title="Non Storing: Summary of the use of headers from not-RPL-aware-leaf to not-RPL-aware-leaf" anchor="NonStoring-notrpl2notrpl"  align="center">
                                     <artwork><![CDATA[
-+-----------+------+---------+---------+---------+---------+---------+------+
-|   Header  | IPv6 |  6LR_1  |  6LR_ia |   6LBR  |  6LR_id |  6LR_m  | IPv6 |
-|           |  src |         |         |         |         |         |  dst |
-|           | node |         |         |         |         |         | node |
-+-----------+------+---------+---------+---------+---------+---------+------+
-|  Inserted |  --  | IP6-IP6 |    --   | IP6-IP6 |    --   |    --   |  --  |
-|  headers  |      |  (RPI1) |         |  (RH3,  |         |         |      |
-|           |      |         |         |   RPI2) |         |         |      |
-+-----------+------+---------+---------+---------+---------+---------+------+
-|  Removed  |  --  |    --   |    --   | IP6-IP6 |    --   | IP6-IP6 |  --  |
-|  headers  |      |         |         |  (RPI1) |         |  (RH3,  |      |
-|           |      |         |         |         |         |   RPI2) |      |
-+-----------+------+---------+---------+---------+---------+---------+------+
-|  Re-added |  --  |    --   |    --   |    --   |    --   |    --   |  --  |
-|  headers  |      |         |         |         |         |         |      |
-+-----------+------+---------+---------+---------+---------+---------+------+
-|  Modified |  --  |    --   | IP6-IP6 |    --   | IP6-IP6 |    --   |  --  |
-|  headers  |      |         |  (RPI1) |         |  (RH3,  |         |      |
-|           |      |         |         |         |   RPI2) |         |      |
-+-----------+------+---------+---------+---------+---------+---------+------+
-| Untouched |  --  |    --   |    --   |    --   |    --   |    --   |  --  |
-|  headers  |      |         |         |         |         |         |      |
-+-----------+------+---------+---------+---------+---------+---------+------+
++---------+------+-------+-------+---------+-------+---------+------+
+|  Header | IPv6 | 6LR_1 | 6LR_ia|   6LBR  |6LR_id |  6LR_m  | IPv6 |
+|         |  src |       |       |         |       |         |  dst |
+|         | node |       |       |         |       |         | node |
++---------+------+-------+-------+---------+-------+---------+------+
+| Inserted|  --  |IP6-IP6|  --   | IP6-IP6 |  --   |    --   |  --  |
+| headers |      | (RPI1)|       |  (RH3,  |       |         |      |
+|         |      |       |       |   RPI2) |       |         |      |
++---------+------+-------+-------+---------+-------+---------+------+
+| Removed |  --  |  --   |  --   | IP6-IP6 |  --   | IP6-IP6 |  --  |
+| headers |      |       |       |  (RPI1) |       |  (RH3,  |      |
+|         |      |       |       |         |       |   RPI2) |      |
++---------+------+-------+-------+---------+-------+---------+------+
+| Re-added|  --  |  --   |  --   |    --   |  --   |    --   |  --  |
+| headers |      |       |       |         |       |         |      |
++---------+------+-------+-------+---------+-------+---------+------+
+| Modified|  --  |  --   |IP6-IP6|    --   |IP6-IP6|    --   |  --  |
+| headers |      |       | (RPI1)|         | (RH3, |         |      |
+|         |      |       |       |         |  RPI2)|         |      |
++---------+------+-------+-------+---------+-------+---------+------+
+|Untouched|  --  |  --   |  --   |    --   |  --   |    --   |  --  |
+| headers |      |       |       |         |       |         |      |
++---------+------+-------+-------+---------+-------+---------+------+
                         ]]></artwork></figure>
                         </t>
                       </section>
@@ -2721,7 +2707,7 @@ Hex Value  Binary Value
             Blocking or careful filtering of IPv6-in-IPv6 traffic entering the LLN as
             described above will make sure that any attack that is mounted
             must originate from compromised nodes within the LLN.
-            The use of <xref target="BCP38"/> filtering at the RPL root on egress traffic will
+            The use of BCP38 <xref target="BCP38"/> filtering at the RPL root on egress traffic will
             both alert the operator to the existence of the attack, as well
             as drop the attack traffic.  As the RPL network is typically
             numbered from a single prefix, which is itself assigned by RPL,
@@ -2752,13 +2738,13 @@ Hex Value  Binary Value
           </t>
 
           <t>
-            Whenever IPIP headers are being proposed, there is a concern
+            Whenever IPv6-in-IPv6 headers are being proposed, there is a concern
             about creating security issues.  In the security section of
             <xref target="RFC2473"/>, it was suggested that tunnel entry and exit
             points can be secured, via "Use IPsec".  This recommendation is
             not practical for RPL networks.  <xref target="RFC5406" /> goes
             into some detail on what additional details would be needed in
-            order to "Use IPsec".   Use of ESP would prevent RFC8183
+            order to "Use IPsec". Use of ESP would prevent RFC8183
             compression (compression must occur before encryption), and
             RFC8183 compression is lossy in a way that prevents use of AH.
             These are minor issues.  The major issue is how to establish
@@ -2769,7 +2755,7 @@ Hex Value  Binary Value
             case.
           </t>
           <t>
-            More significantly, the use of IPsec tunnels to protect the IPIP
+            More significantly, the use of IPsec tunnels to protect the IPv6-in-IPv6
             headers would in the general case scale with the square of the
             number of nodes.  This is a lot of resource for a constrained
             nodes on a constrained network. In the end, the IPsec tunnels
@@ -2880,7 +2866,7 @@ Hex Value  Binary Value
 
         <section anchor="Acknowledgments" title="Acknowledgments">
            <t>
-           We are very thankful to the grant by the Stand.ICT project.
+           This work is done thanks to the grant by the Stand.ICT project.
            </t>
            <t>
             A special BIG thanks to C. M. Heard for the help with the <xref target="updateRFCs_section" />.
@@ -2918,7 +2904,18 @@ Hex Value  Binary Value
 
 
 
-     <?rfc include="reference.BCP.38" ?>
+     <reference  anchor='BCP38' target='https://www.rfc-editor.org/info/bcp38'>
+     <front>
+     <title>Network Ingress Filtering: Defeating Denial of Service Attacks which employ IP Source Address Spoofing</title>
+     <author initials='P.' surname='Ferguson' fullname='P. Ferguson'><organization /></author>
+     <author initials='D.' surname='Senie' fullname='D. Senie'><organization /></author>
+     <date year='2000' month='May' />
+     <abstract><t>This paper discusses a simple, effective, and straightforward method for using ingress traffic filtering to prohibit DoS (Denial of Service) attacks which use forged IP addresses to be propagated from 'behind' an Internet Service Provider's (ISP) aggregation point.  This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</t></abstract>
+     </front>
+     <seriesInfo name='BCP' value='38'/>
+     <seriesInfo name='RFC' value='2827'/>
+     <seriesInfo name='DOI' value='10.17487/RFC2827'/>
+     </reference>
 
      <?rfc include="reference.RFC.7045" ?>
 
@@ -2963,6 +2960,8 @@ Hex Value  Binary Value
 	 <date year="2016" month="September"/>
        </front>
      </reference>
+
+
 
      </references>
 
