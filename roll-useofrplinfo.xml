@@ -1930,13 +1930,6 @@
                           the IPv6 node which does not understand the RPI,
                           will ignore it (following RFC8200), thus
                           encapsulation is not necessary.
-                          Due to the complete knowledge of the topology at the
-                          root,
-                          the 6LBR may optionally address the IPv6-in-IPv6 header
-                          to the last 6LR, such that it is removed prior to
-                          the IPv6 node.  Please see <xref
-                          target="notrplaware" /> for clarification of use of
-                          IPv6-in-IPv6 encapsulation.
                         </t>
                         <t>
                         The <xref target="NonStoring-root2notrpl"/> summarizes what headers are needed for this use case.
@@ -1956,7 +1949,7 @@
                                           <c>Removed headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c>RH3</c>
+                                          <c> -- </c>
                                           <c> -- </c>
                                           <c>Re-added headers</c>
                                           <c> -- </c>
@@ -1966,13 +1959,13 @@
                                           <c>Modified headers</c>
                                           <c> -- </c>
                                           <c>RPI,RH3</c>
-                                          <c>RPI</c>
+                                          <c>RPI,RH3 (consumed)</c>
                                           <c> -- </c>
                                           <c>Untouched headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c>RPI</c>
+                                          <c>RPI, RH3 (ignored)</c>
                         </texttable>
                </section>
 
