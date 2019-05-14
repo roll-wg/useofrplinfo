@@ -1715,7 +1715,7 @@
            The following table (<xref target="fig_table_non-storing" />) summarizes what headers are needed in the following
            scenarios, and indicates when the RPI, RH3 and IPv6-in-IPv6 header
            are to be inserted.  It depicts the
-           target destination address possible (indicated by "tgt"), to a 6LR (father of a 6LN), to a 6LN or to the root.
+           target destination address possible (indicated by "tgt"), to a 6LR (parent of a 6LN), to a 6LN or to the root.
            In cases where no IPv6-in-IPv6 header is needed, the column states as "No".
            There is no expectation on RPL that RPI can be omitted, because it is needed for routing, quality of service and compression.
            This specification expects that is always a RPI Present.
