@@ -754,7 +754,7 @@
           </t>
           <t>
             NOTE: No clear attack has been described when the RPI information is released to the Internet.
-            At worst, it is clear that the RPI option would waste some network bandwidth when it escapes.
+            At a minimum, it is clear that the RPI option would waste some network bandwidth when it escapes.
             This is traded off against the savings in the LLN by not having to encapsulate the packet
             in order to remove the artifact. Please check the Security Considerations sections
             <xref target="Security"/> for further details.
