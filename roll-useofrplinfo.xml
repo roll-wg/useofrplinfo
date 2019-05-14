@@ -532,7 +532,8 @@
         </t>
         <t>
           There are potential significant advantages to having a single
-          code path that always processes IPv6-in-IPv6 headers with no options.
+          code path that always processes IPv6-in-IPv6 headers with no
+          conditional branches.
         </t>
 
           <t>
