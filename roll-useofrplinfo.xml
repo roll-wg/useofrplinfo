@@ -2731,7 +2731,7 @@ Hex Value  Binary Value
             Blocking or careful filtering of IPv6-in-IPv6 traffic entering the LLN as
             described above will make sure that any attack that is mounted
             must originate from compromised nodes within the LLN.
-            The use of BCP38 <xref target="RFC2827"/> filtering at the RPL root on egress traffic will
+            The use of <xref target="BCP38"/> filtering at the RPL root on egress traffic will
             both alert the operator to the existence of the attack, as well
             as drop the attack traffic.  As the RPL network is typically
             numbered from a single prefix, which is itself assigned by RPL,
@@ -2872,8 +2872,8 @@ Hex Value  Binary Value
             root SHOULD either restrict ingress of IPv6-in-IPv6 packets (the
             simpler solution), or it SHOULD walk the IP header extension chain until it can inspect the
             upper-layer-payload as described in <xref target="RFC7045" />.
-            In particular, the RPL root SHOULD do BCP38 (<xref
-            target="RFC2827" />) processing on the source addresses of all IP
+            In particular, the RPL root SHOULD do <xref
+            target="BCP38" /> processing on the source addresses of all IP
             headers that it examines in both directions.
           </t>
           <t>
@@ -2928,7 +2928,7 @@ Hex Value  Binary Value
 
 
 
-     <?rfc include="reference.RFC.2827" ?>
+     <?rfc include="reference.BCP.38" ?>
 
      <?rfc include="reference.RFC.7045" ?>
 
