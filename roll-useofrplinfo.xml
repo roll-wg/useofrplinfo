@@ -769,7 +769,7 @@
           <t>
             Despite being legal to leave the RPI artifact in place,
             an intermediate router that needs to add an extension header
-            (RH3 or RPI Option) MUST still encapsulate the packet in an
+            (e.g. RH3 or RPI Option) MUST still encapsulate the packet in an
             (additional) outer IP header. The new header is placed after
             this new outer IP header.
          </t>
