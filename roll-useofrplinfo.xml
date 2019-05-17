@@ -2335,29 +2335,29 @@
                  The <xref target="NonStoring-rpl2rpl"/> shows the table that summarizes what headers are needed for this use case.
                  </t>
                  <t>
-                 <figure title="Non Storing mode: Summary of the use of headers for RPL-aware-leaf to RPL-aware-leaf" anchor="NonStoring-rpl2rpl" align="center">
+                 <figure title="Non Storing mode: Summary of the use of headers for RPL-aware-leaf to RPL-aware-leaf. IP6-in-IP6 refers to IPv6-in-IPv6." anchor="NonStoring-rpl2rpl" align="center">
                              <artwork><![CDATA[
-+---------+------------+------------+------------+------------+------------+
-|  Header |    6LN     |   6LR_ia   |    6LBR    |   6LR_id   |     6LN    |
-|         |    src     |            |            |            |     dst    |
-+---------+------------+------------+------------+------------+------------+
-| Inserted|IPv6-in-IPv6|            |IPv6-in-IPv6|    --      |     --     |
-| headers |   (RPI1)   |            |(RH3-> 6LN, |            |            |
-|         |            |            |   RPI2)    |            |            |
-+---------+------------+------------+------------+------------+------------+
-| Removed |    --      |    --      |IPv6-in-IPv6|    --      |IPv6-in-IPv6|
-| headers |            |            |   (RPI1)   |            |   (RH3,    |
-|         |            |            |            |            |   RPI2)    |
-+---------+------------+------------+------------+------------+------------+
-| Re-added|    --      |    --      |    --      |    --      |    --      |
-| headers |            |            |            |            |            |
-+---------+------------+------------+------------+------------+------------+
-| Modified|    --      |IPv6-in-IPv |    --      |IPv6-in-IPv6|    --      |
-| headers |            |   (RPI1)   |            |   (RPI2)   |            |
-+---------+------------+------------+------------+------------+------------+
-|Untouched|    --      |    --      |    --      |    --      |    --      |
-| headers |            |            |            |            |            |
-+---------+------------+------------+------------+------------+------------+
++---------+------------+----------+------------+------------+------------+
+|  Header |    6LN     |   6LR_ia |    6LBR    |   6LR_id   |     6LN    |
+|         |    src     |          |            |            |     dst    |
++---------+------------+----------+------------+------------+------------+
+| Inserted|IPv6-in-IPv6|          |IPv6-in-IPv6|    --      |     --     |
+| headers |   (RPI1)   |          |(RH3-> 6LN, |            |            |
+|         |            |          |   RPI2)    |            |            |
++---------+------------+----------+------------+------------+------------+
+| Removed |    --      |    --    |IPv6-in-IPv6|    --      |IPv6-in-IPv6|
+| headers |            |          |   (RPI1)   |            |   (RH3,    |
+|         |            |          |            |            |   RPI2)    |
++---------+------------+----------+------------+------------+------------+
+| Re-added|    --      |    --    |    --      |    --      |    --      |
+| headers |            |          |            |            |            |
++---------+------------+----------+------------+------------+------------+
+| Modified|    --      |IP6-in-IP6|    --      |IPv6-in-IPv6|    --      |
+| headers |            |   (RPI1) |            |   (RPI2)   |            |
++---------+------------+----------+------------+------------+------------+
+|Untouched|    --      |    --    |    --      |    --      |    --      |
+| headers |            |          |            |            |            |
++---------+------------+----------+------------+------------+------------+
                  ]]></artwork></figure>
                  </t>
                </section>
