@@ -51,7 +51,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-27" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-28" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -433,7 +433,7 @@
           receive a DAO about that node from the 6LR immediately above that
           not-RPL aware node.  This means that the non-storing mode case can avoid ever
           using hop-by-hop re-encapsulation headers for traffic originating from
-          the root to leafs.
+          the root to the leafs.
         </t>
         <t>
           The non-storing mode case does not require the type change from
@@ -730,6 +730,7 @@
             outlined in <xref target="RFC8200" />.  Extensions headers may not
             be added or removed except by the sender or the receiver.
           </t>
+<!--
           <t>
             However, unlike <xref target="RFC6553" />, the Hop-by-Hop Option
             Header used for the RPI artifact has the first two bits set to
@@ -752,6 +753,7 @@
             in order to remove the artifact. Please check the Security Considerations sections
             <xref target="Security"/> for further details.
           </t>
+  -->
           <t>
             As the rank information in the RPI artifact is changed at each
             hop, it will typically be zero when it arrives at the DODAG
@@ -811,7 +813,7 @@
         <section title="Storing mode">
 
           <t>
-	         In storing mode (fully stateful), the sender can determine if
+	         In storing mode (SM) (fully stateful), the sender can determine if
            the destination is inside the LLN by
             looking if the destination address is matched by the DIO's Prefix Information Option (PIO) option.
           </t>
@@ -1655,7 +1657,7 @@
                    The 6LR_1 (Node E) receives the packet from the the
                    IPv6 node (Node G) and inserts  the RPI header (RPI),
                    encapsulated in an IPv6-in-IPv6 header.
-                   The IPv6-in-IPv6 header is addressed to hop-by-hop.
+                   The IPv6-in-IPv6 header is addressed hop-by-hop.
                  </t>
                  <t>
                  The <xref target="Storing-notrpl2notrpl"/> shows the table that summarizes what headers are needed for this use case.
