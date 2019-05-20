@@ -25,7 +25,7 @@
 <!--<!ENTITY I-D.ietf-roll-dao-projection SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-dao-projection.xml">-->
 <!--<!ENTITY I-D.ietf-anima-autonomic-control-plane SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-autonomic-control-plane.xml">-->
 ]>
-
+<!--  -->
 <!--<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> -->
 <!-- used by XSLT processors -->
 <!-- For a complete list and description of processing instructions (PIs),
@@ -51,7 +51,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-28" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-29" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -124,11 +124,11 @@
       <t>
         This document looks at different data flows through LLN (Low-Power and Lossy Networks) where RPL
         (IPv6 Routing Protocol for Low-Power and Lossy Networks) is used to establish routing.
-        The document enumerates the cases where RFC 6553 (RPL Option Type), RFC 6554 (Routing Header for Source Routes)
+        The document enumerates the cases where RFC6553 (RPL Option Type), RFC6554 (Routing Header for Source Routes)
         and IPv6-in-IPv6 encapsulation is required in data plane.
         This analysis provides the basis on which to design efficient compression of these headers.
-        This document updates RFC 6553 adding a change to the RPL Option Type. Additionally, this document updates
-        RFC 6550 defining a flag in the DIO Configuration Option to indicate about this change and
+        This document updates RFC6553 adding a change to the RPL Option Type. Additionally, this document updates
+        RFC6550 defining a flag in the DIO Configuration Option to indicate about this change and
         updates RFC8138 as well to consider the new Option Type when the RPL Option is decompressed.
       </t>
    </abstract>
@@ -139,10 +139,10 @@
              <t>
                RPL (IPv6 Routing Protocol for Low-Power and Lossy Networks)
                <xref target="RFC6550"/> is a routing protocol for
-                constrained networks. RFC 6553 <xref target="RFC6553"/>
+                constrained networks. RFC6553 <xref target="RFC6553"/>
                 defines the "RPL option" (RPL Packet Information or RPI), carried within the IPv6 Hop-by-Hop
                 header to quickly identify inconsistencies (loops) in the routing topology.
-                RFC 6554 <xref target="RFC6554"/> defines the "RPL Source Route Header" (RH3), an
+                RFC6554 <xref target="RFC6554"/> defines the "RPL Source Route Header" (RH3), an
                 IPv6 Extension Header to deliver datagrams within a RPL
                 routing domain, particularly in non-storing mode.
              </t>
@@ -205,7 +205,7 @@
         NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
         "MAY", and "OPTIONAL" in this document are to be interpreted as
         described in BCP 14
-        <xref target="RFC2119" />,
+        <xref target="RFC2119" />
         <xref target="RFC8174" /> when, and only when, they
         appear in all capitals, as shown here.
       </t>
@@ -319,12 +319,13 @@
           <t>
           <figure title="Option Type in RPL Option." anchor="fig_RPIOption" align="center">
              <artwork> <![CDATA[
-
-          Hex Value     Binary Value
-                        act  chg  rest     Description        Reference
-          ---------     ---  ---  -------  -----------------  ----------
-            0x63         01    1   00011   RPL Option         [RFC6553]
-
++-------+-------------------+----------------+-----------+
+|  Hex  |    Binary Value   |   Description  | Reference |
++ Value +-------------------+                +           +
+|       | act | chg |  rest |                |           |
++-------+-----+-----+-------+----------------+-----------+
+|  0x63 |  01 |  1  | 00011 |   RPL Option   | [RFC6553] |
++-------+-----+-----+-------+----------------+-----------+
           ]]></artwork></figure>
           </t>
           <t>
@@ -366,14 +367,15 @@
            This is a significant update to <xref target="RFC6553"/>.
           </t>
           <t>
-          <figure title="Revised Option Type in RPL Option." anchor="fig_RPIOption_new" align="center">
+          <figure title="Revised Option Type in RPL Option. (*)represents this document" anchor="fig_RPIOption_new" align="center">
              <artwork> <![CDATA[
-
-          Hex Value     Binary Value
-                        act  chg  rest     Description        Reference
-          ---------     ---  ---  -------  -----------------  ----------
-            0x23         00    1   00011   RPL Option         [RFCXXXX]
-
++-------+-------------------+-------------+------------+
+|  Hex  |    Binary Value   | Description | Reference  |
++ Value +-------------------+             +            +
+|       | act | chg |  rest |             |            |
++-------+-----+-----+-------+-------------+------------+
+|  0x23 |  00 |  1  | 00011 |  RPL Option |[RFCXXXX](*)|
++-------+-----+-----+-------+-------------+------------+
           ]]></artwork></figure>
           </t>
           <t>
@@ -461,7 +463,7 @@
           to indicate the type of RPI that the network is using. Thus, when a
           node join to a network will know which value to use.
           With this, RPL-capable nodes know if it is safe to use 0x23 when creating a new RPI.
-          A node that forwards a packet with an RPI MUST not modify the option type of the RPI.
+          A node that forwards a packet with an RPI MUST NOT modify the option type of the RPI.
         </t>
           <t>
             This is  done via a DODAG Configuration Option flag which will
@@ -1115,29 +1117,29 @@
                         </t>
                         <t>
                         <figure title="Storing mode: Summary of the use of headers from not-RPL-aware-leaf to root.
-                          [[1] Case where the IPv6-in-IPv6 header is addressed to the next hop (Node B). [2] Case where the IPv6-in-IPv6
+                          [1] Case where the IPv6-in-IPv6 header is addressed to the next hop (Node B). [2] Case where the IPv6-in-IPv6
                           header is addressed to the root (Node A)." anchor="Storing-notrpl2root" align="center">
                           <artwork><![CDATA[
-+-----------+------+--------------+-----------------+--------------------+
-|   Header  | IPv6 |     6LR_1    |      6LR_i      |       6LBR dst     |
-|           | src  |              |                 |                    |
-|           | node |              |                 |                    |
-+-----------+------+--------------+-----------------+--------------------+
-|  Inserted |  --  | IP6-IP6(RPI) | IP6-IP6(RPI)[1] |         --         |
-|  headers  |      |              |                 |                    |
-+-----------+------+--------------+-----------------+--------------------+
-|  Removed  |  --  |      --      |        --       | IP6-IP6(RPI)[1][2] |
-|  headers  |      |              |                 |                    |
-+-----------+------+--------------+-----------------+--------------------+
-|  Re-added |  --  |      --      | IP6-IP6(RPI)[1] |         --         |
-|  headers  |      |              |                 |                    |
-+-----------+------+--------------+-----------------+--------------------+
-|  Modified |  --  |      --      | IP6-IP6(RPI)[2] |         --         |
-|  headers  |      |              |                 |                    |
-+-----------+------+--------------+-----------------+--------------------+
-| Untouched |  --  |      --      |        --       |         --         |
-|  headers  |      |              |                 |                    |
-+-----------+------+--------------+-----------------+--------------------+
++-----------+------+--------------+-----------------+------------------+
+|   Header  | IPv6 |     6LR_1    |      6LR_i      |       6LBR dst   |
+|           | src  |              |                 |                  |
+|           | node |              |                 |                  |
++-----------+------+--------------+-----------------+------------------+
+|  Inserted |  --  | IP6-IP6(RPI) | IP6-IP6(RPI)[1] |         --       |
+|  headers  |      |              |                 |                  |
++-----------+------+--------------+-----------------+------------------+
+|  Removed  |  --  |      --      |        --       |IP6-IP6(RPI)[1][2]|
+|  headers  |      |              |                 |                  |
++-----------+------+--------------+-----------------+------------------+
+|  Re-added |  --  |      --      | IP6-IP6(RPI)[1] |         --       |
+|  headers  |      |              |                 |                  |
++-----------+------+--------------+-----------------+------------------+
+|  Modified |  --  |      --      | IP6-IP6(RPI)[2] |         --       |
+|  headers  |      |              |                 |                  |
++-----------+------+--------------+-----------------+------------------+
+| Untouched |  --  |      --      |        --       |         --       |
+|  headers  |      |              |                 |                  |
++-----------+------+--------------+-----------------+------------------+
                                           ]]></artwork></figure>
                         </t>
                </section>
@@ -1255,25 +1257,25 @@
                         <figure title="Storing mode: Summary of the use of headers from Internet to RPL-aware-leaf."
                            anchor="Storing-int2rpl" align="center">
                           <artwork><![CDATA[
-+-----------+----------+--------------+--------------+------------------+
-|   Header  | Internet |     6LBR     |     6LR_i    |     6LN dst      |
-|           | src      |              |              |                  |
-+-----------+----------+--------------+--------------+------------------+
-|  Inserted |    --    | IP6-IP6(RPI) |      --      |         --       |
-|  headers  |          |              |              |                  |
-+-----------+----------+--------------+--------------+------------------+
-|  Removed  |    --    |      --      |      --      |   IP6-IP6(RPI)   |
-|  headers  |          |              |              |                  |
-+-----------+----------+--------------+--------------+------------------+
-|  Re-added |    --    |      --      |      --      |         --       |
-|  headers  |          |              |              |                  |
-+-----------+----------+--------------+--------------+------------------+
-|  Modified |    --    |      --      | IP6-IP6(RPI) |         --       |
-|  headers  |          |              |              |                  |
-+-----------+----------+--------------+--------------+------------------+
-| Untouched |    --    |      --      |      --      |         --       |
-|  headers  |          |              |              |                  |
-+-----------+----------+--------------+--------------+------------------+
++-----------+----------+--------------+--------------+--------------+
+|   Header  | Internet |     6LBR     |     6LR_i    |     6LN dst  |
+|           | src      |              |              |              |
++-----------+----------+--------------+--------------+--------------+
+|  Inserted |    --    | IP6-IP6(RPI) |      --      |         --   |
+|  headers  |          |              |              |              |
++-----------+----------+--------------+--------------+--------------+
+|  Removed  |    --    |      --      |      --      | IP6-IP6(RPI) |
+|  headers  |          |              |              |              |
++-----------+----------+--------------+--------------+--------------+
+|  Re-added |    --    |      --      |      --      |         --   |
+|  headers  |          |              |              |              |
++-----------+----------+--------------+--------------+--------------+
+|  Modified |    --    |      --      | IP6-IP6(RPI) |         --   |
+|  headers  |          |              |              |              |
++-----------+----------+--------------+--------------+--------------+
+| Untouched |    --    |      --      |      --      |         --   |
+|  headers  |          |              |              |              |
++-----------+----------+--------------+--------------+--------------+
                         ]]></artwork></figure>
                         </t>
                </section>
@@ -1602,26 +1604,26 @@
                  <t>
                  <figure title="Storing mode: Summary of the use of headers from not-RPL-aware-leaf to RPL-aware-leaf." anchor="Storing-notrpl2rpl"  align="center">
                    <artwork><![CDATA[
-+----------+-----+--------------+--------------+--------------+------------+
-|  Header  |IPv6 |    6LR_ia    |    Common    |    6LR_id    |    6LN     |
-|          |src  |              |    Parent    |              |    dst     |
-|          |node |              |    (6LRx)    |              |            |
-+----------+-----+--------------+--------------+--------------+------------+
-| Inserted |  -- | IP6-IP6(RPI) |      --      |      --      |    --      |
-| headers  |     |              |              |              |            |
-+----------+-----+--------------+--------------+--------------+------------+
-| Removed  |  -- |      --      |      --      |      --      |IP6-IP6(RPI)|
-| headers  |     |              |              |              |            |
-+----------+-----+--------------+--------------+--------------+------------+
-| Re-added |  -- |      --      |      --      |      --      |    --      |
-| headers  |     |              |              |              |            |
-+----------+-----+--------------+--------------+--------------+------------+
-| Modified |  -- |      --      | IP6-IP6(RPI) | IP6-IP6(RPI) |    --      |
-| headers  |     |              |              |              |            |
-+----------+-----+--------------+--------------+--------------+------------+
-|Untouched |  -- |      --      |      --      |      --      |    --      |
-| headers  |     |              |              |              |            |
-+----------+-----+--------------+--------------+--------------+------------+
++---------+-----+------------+-------------+-------------+------------+
+|  Header |IPv6 |   6LR_ia   |   Common    |   6LR_id    |    6LN     |
+|         |src  |            |   Parent    |             |    dst     |
+|         |node |            |   (6LRx)    |             |            |
++---------+-----+------------+-------------+-------------+------------+
+| Inserted|  -- |IP6-IP6(RPI)|     --      |     --      |    --      |
+| headers |     |            |             |             |            |
++---------+-----+------------+-------------+-------------+------------+
+| Removed |  -- |     --     |     --      |     --      |IP6-IP6(RPI)|
+| headers |     |            |             |             |            |
++---------+-----+------------+-------------+-------------+------------+
+| Re-added|  -- |     --     |     --      |     --      |    --      |
+| headers |     |            |             |             |            |
++---------+-----+------------+-------------+-------------+------------+
+| Modified|  -- |     --     |IP6-IP6(RPI) |IP6-IP6(RPI) |    --      |
+| headers |     |            |             |             |            |
++---------+-----+------------+-------------+-------------+------------+
+|Untouched|  -- |     --     |     --      |     --      |    --      |
+| headers |     |            |             |             |            |
++---------+-----+------------+-------------+-------------+------------+
                  ]]></artwork></figure>
                  </t>
                </section>
@@ -1977,26 +1979,26 @@
                         <t>
                         <figure title="Non Storing mode: Summary of the use of headers from not-RPL-aware-leaf to root" anchor="NonStoring-notrpl2root" align="center">
             <artwork><![CDATA[
-+----------+------+-------------------+------------------+-----------------+
-|  Header  | IPv6 |       6LR_1       |       6LR_i      |     6LBR dst    |
-|          | src  |                   |                  |                 |
-|          | node |                   |                  |                 |
-+----------+------+-------------------+------------------+-----------------+
-| Inserted |  --  | IPv6-in-IPv6(RPI) |         --       |        --       |
-| headers  |      |                   |                  |                 |
-+----------+------+-------------------+------------------+-----------------+
-| Removed  |  --  |         --        |         --       |IPv6-in-IPv6(RPI)|
-| headers  |      |                   |                  |                 |
-+----------+------+-------------------+------------------+-----------------+
-| Re-added |  --  |         --        |         --       |        --       |
-| headers  |      |                   |                  |                 |
-+----------+------+-------------------+------------------+-----------------+
-| Modified |  --  |         --        | IPv6-in-IPv6(RPI)|        --       |
-| headers  |      |                   |                  |                 |
-+----------+------+-------------------+------------------+-----------------+
-|Untouched |  --  |         --        |         --       |        --       |
-| headers  |      |                   |                  |                 |
-+----------+------+-------------------+------------------+-----------------+
++---------+----+-----------------+-----------------+-----------------+
+|  Header |IPv6|      6LR_1      |      6LR_i      |     6LBR dst    |
+|         |src |                 |                 |                 |
+|         |node|                 |                 |                 |
++---------+----+-----------------+-----------------+-----------------+
+| Inserted| -- |IPv6-in-IPv6(RPI)|        --       |        --       |
+| headers |    |                 |                 |                 |
++---------+----+-----------------+-----------------+-----------------+
+| Removed | -- |        --       |        --       |IPv6-in-IPv6(RPI)|
+| headers |    |                 |                 |                 |
++---------+----+-----------------+-----------------+-----------------+
+| Re-added| -- |        --       |        --       |        --       |
+| headers |    |                 |                 |                 |
++---------+----+-----------------+-----------------+-----------------+
+| Modified| -- |        --       |IPv6-in-IPv6(RPI)|        --       |
+| headers |    |                 |                 |                 |
++---------+----+-----------------+-----------------+-----------------+
+|Untouched| -- |        --       |        --       |        --       |
+| headers |    |                 |                 |                 |
++---------+----+-----------------+-----------------+-----------------+
 ]]></artwork></figure>
 </t>
                </section>
@@ -2175,26 +2177,26 @@
                         <t>
                         <figure title="Non Storing mode: Summary of the use of headers from not-RPL-aware-leaf to Internet" anchor="NonStoring-notrpl2int" align="center">
                                     <artwork><![CDATA[
-+-----------+------+--------------+--------------+--------------+----------+
-|   Header  | IPv6 |     6LR_1    |     6LR_i    |     6LBR     | Internet |
-|           | src  |              |  [i=2,..,n]  |              |   dst    |
-|           | node |              |              |              |          |
-+-----------+------+--------------+--------------+--------------+----------+
-|  Inserted |  --  | IP6-IP6(RPI) |      --      |      --      |    --    |
-|  headers  |      |              |              |              |          |
-+-----------+------+--------------+--------------+--------------+----------+
-|  Removed  |  --  |      --      |      --      | IP6-IP6(RPI) |    --    |
-|  headers  |      |              |              |              |          |
-+-----------+------+--------------+--------------+--------------+----------+
-|  Re-added |  --  |      --      |      --      |      --      |    --    |
-|  headers  |      |              |              |              |          |
-+-----------+------+--------------+--------------+--------------+----------+
-|  Modified |  --  |      --      | IP6-IP6(RPI) |      --      |    --    |
-|  headers  |      |              |              |              |          |
-+-----------+------+--------------+--------------+--------------+----------+
-| Untouched |  --  |      --      |      --      |      --      |    --    |
-|  headers  |      |              |              |              |          |
-+-----------+------+--------------+--------------+--------------+----------+
++---------+----+-------------+--------------+--------------+--------+
+|  Header |IPv6|    6LR_1    |     6LR_i    |     6LBR     |Internet|
+|         |src |             |  [i=2,..,n]  |              |  dst   |
+|         |node|             |              |              |        |
++---------+----+-------------+--------------+--------------+--------+
+| Inserted| -- |IP6-IP6(RPI) |      --      |      --      |   --   |
+| headers |    |             |              |              |        |
++---------+----+-------------+--------------+--------------+--------+
+| Removed | -- |     --      |      --      | IP6-IP6(RPI) |   --   |
+| headers |    |             |              |              |        |
++---------+----+-------------+--------------+--------------+--------+
+| Re-added| -- |     --      |      --      |      --      |   --   |
+| headers |    |             |              |              |        |
++---------+----+-------------+--------------+--------------+--------+
+| Modified| -- |     --      | IP6-IP6(RPI) |      --      |   --   |
+| headers |    |             |              |              |        |
++---------+----+-------------+--------------+--------------+--------+
+|Untouched| -- |     --      |      --      |      --      |   --   |
+| headers |    |             |              |              |        |
++---------+----+-------------+--------------+--------------+--------+
                         ]]></artwork></figure>
                         </t>
                </section>
@@ -2235,26 +2237,26 @@
                         <figure title="Non-Storing mode: Summary of the use of headers from Internet to not-RPL-aware-leaf
                         [1] The last 6LR before the IPv6 node." anchor="NonStoring-int2notrpl" align="center">
                                     <artwork><![CDATA[
-+-----------+--------+--------------+--------------+--------------+------+
-|   Header  |Internet|     6LBR     |     6LR_1    |     6lR_i    | IPv6 |
-|           |  src   |              |              |  (i=2,...,n) | dst  |
-|           |        |              |              |              | node |
-+-----------+--------+--------------+--------------+--------------+------+
-|  Inserted |   --   | IPv6-in-IPv6 |      --      |      --      |  --  |
-|  headers  |        |   (RH3,RPI)  |              |              |      |
-+-----------+--------+--------------+--------------+--------------+------+
-|  Removed  |   --   |      --      |      --      | IPv6-in-IPv6 |  --  |
-|  headers  |        |              |              | (RH3,RPI)[1] |      |
-+-----------+--------+--------------+--------------+--------------+------+
-|  Re-added |   --   |      --      |      --      |      --      |  --  |
-|  headers  |        |              |              |              |      |
-+-----------+--------+--------------+--------------+--------------+------+
-|  Modified |   --   |      --      | IPv6-in-IPv6 | IPv6-in-IPv6 |  --  |
-|  headers  |        |              |   (RH3,RPI)  |   (RH3,RPI)  |      |
-+-----------+--------+--------------+--------------+--------------+------+
-| Untouched |   --   |      --      |      --      |      --      |  --  |
-|  headers  |        |              |              |              |      |
-+-----------+--------+--------------+--------------+--------------+------+
++---------+--------+-------------+--------------+--------------+-----+
+|  Header |Internet|     6LBR    |     6LR_1    |     6lR_i    |IPv6 |
+|         |  src   |             |              |  (i=2,...,n) |dst  |
+|         |        |             |              |              |node |
++---------+--------+-------------+--------------+--------------+-----+
+| Inserted|   --   | IPv6-in-IPv6|      --      |      --      | --  |
+| headers |        |   (RH3,RPI) |              |              |     |
++---------+--------+-------------+--------------+--------------+-----+
+| Removed |   --   |      --     |      --      | IPv6-in-IPv6 | --  |
+| headers |        |             |              | (RH3,RPI)[1] |     |
++---------+--------+-------------+--------------+--------------+-----+
+| Re-added|   --   |      --     |      --      |      --      | --  |
+| headers |        |             |              |              |     |
++---------+--------+-------------+--------------+--------------+-----+
+| Modified|   --   |      --     | IPv6-in-IPv6 | IPv6-in-IPv6 | --  |
+| headers |        |             |   (RH3,RPI)  |   (RH3,RPI)  |     |
++---------+--------+-------------+--------------+--------------+-----+
+|Untouched|   --   |      --     |      --      |      --      | --  |
+| headers |        |             |              |              |     |
++---------+--------+-------------+--------------+--------------+-----+
                         ]]></artwork></figure>
                         </t>
                </section>
@@ -2337,27 +2339,27 @@
                  <t>
                  <figure title="Non Storing mode: Summary of the use of headers for RPL-aware-leaf to RPL-aware-leaf. IP6-in-IP6 refers to IPv6-in-IPv6." anchor="NonStoring-rpl2rpl" align="center">
                              <artwork><![CDATA[
-+---------+------------+----------+------------+------------+------------+
-|  Header |    6LN     |   6LR_ia |    6LBR    |   6LR_id   |     6LN    |
-|         |    src     |          |            |            |     dst    |
-+---------+------------+----------+------------+------------+------------+
-| Inserted|IPv6-in-IPv6|          |IPv6-in-IPv6|    --      |     --     |
-| headers |   (RPI1)   |          |(RH3-> 6LN, |            |            |
-|         |            |          |   RPI2)    |            |            |
-+---------+------------+----------+------------+------------+------------+
-| Removed |    --      |    --    |IPv6-in-IPv6|    --      |IPv6-in-IPv6|
-| headers |            |          |   (RPI1)   |            |   (RH3,    |
-|         |            |          |            |            |   RPI2)    |
-+---------+------------+----------+------------+------------+------------+
-| Re-added|    --      |    --    |    --      |    --      |    --      |
-| headers |            |          |            |            |            |
-+---------+------------+----------+------------+------------+------------+
-| Modified|    --      |IP6-in-IP6|    --      |IPv6-in-IPv6|    --      |
-| headers |            |   (RPI1) |            |   (RPI2)   |            |
-+---------+------------+----------+------------+------------+------------+
-|Untouched|    --      |    --    |    --      |    --      |    --      |
-| headers |            |          |            |            |            |
-+---------+------------+----------+------------+------------+------------+
++---------+------------+----------+------------+----------+------------+
+|  Header |    6LN     |   6LR_ia |    6LBR    | 6LR_id   |     6LN    |
+|         |    src     |          |            |          |     dst    |
++---------+------------+----------+------------+----------+------------+
+| Inserted|IPv6-in-IPv6|          |IPv6-in-IPv6|  --      |     --     |
+| headers |   (RPI1)   |          |(RH3-> 6LN, |          |            |
+|         |            |          |   RPI2)    |          |            |
++---------+------------+----------+------------+----------+------------+
+| Removed |    --      |    --    |IPv6-in-IPv6|  --      |IPv6-in-IPv6|
+| headers |            |          |   (RPI1)   |          |   (RH3,    |
+|         |            |          |            |          |   RPI2)    |
++---------+------------+----------+------------+----------+------------+
+| Re-added|    --      |    --    |    --      |  --      |    --      |
+| headers |            |          |            |          |            |
++---------+------------+----------+------------+----------+------------+
+| Modified|    --      |IP6-in-IP6|    --      |IP6-in-IP6|    --      |
+| headers |            |   (RPI1) |            |  (RPI2)  |            |
++---------+------------+----------+------------+----------+------------+
+|Untouched|    --      |    --    |    --      |  --      |    --      |
+| headers |            |          |            |          |            |
++---------+------------+----------+------------+----------+------------+
                  ]]></artwork></figure>
                  </t>
                </section>
@@ -2649,18 +2651,18 @@
              as shown in <xref target="fig_IanaRPIOption"/>.
            </t>
            <t>
-           [RFCXXXX] represents this document.
-           </t>
-           <t>
-           <figure title="Option Type in RPL Option." anchor="fig_IanaRPIOption" align="center">
+           <figure title="Option Type in RPL Option.(*)represents this document" anchor="fig_IanaRPIOption" align="center">
               <artwork> <![CDATA[
-
-Hex Value  Binary Value
-           act  chg  rest     Description              Reference
----------  ---  ---  -------  -----------------       ----------
- 0x23      00    1   00011   RPL Option                [RFCXXXX]
- 0x63      01    1   00011   RPL Option(DEPRECATED) [RFC6553][RFCXXXX]
-
++-------+-------------------+------------------------+---------- -+
+|  Hex  |    Binary Value   |       Description      | Reference  |
++ Value +-------------------+                        +            +
+|       | act | chg |  rest |                        |            |
++-------+-----+-----+-------+------------------------+------------+
+|  0x23 |  00 |  1  | 00011 |       RPL Option       |[RFCXXXX](*)|
++-------+-----+-----+-------+------------------------+------------+
+|  0x63 |  01 |  1  | 00011 | RPL Option(DEPRECATED) | [RFC6553]  |
+|       |     |     |       |                        |[RFCXXXX](*)|
++-------+-----+-----+-------+------------------------+------------+
            ]]></artwork></figure>
            </t>
            <t> DODAG Configuration
