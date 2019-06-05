@@ -890,8 +890,8 @@
           <t>
             The following table (<xref target="fig_EncStoMode"/>) itemizes which headers are needed in each of the following scenarios.
             It indicates if the IPv6-in-IPv6 header that is added, must be addressed to the final destination (the RAL node that is the target(tgt)),
-            to the "root" or if a hop-by-hop header must be added (indicated by "hop").  In the hop-by-hop basis, the destination address in each hop is copied from
-            the inner packet into the encapsulating packet.
+            to the "root" or if a hop-by-hop header must be added (indicated by "hop").  In the hop-by-hop basis, the destination address 
+	    for the next hop is the link-layer address of the next hop.
 
           </t>
 
