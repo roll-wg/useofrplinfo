@@ -20,6 +20,7 @@
 <!ENTITY RFC8180 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8180.xml">
 <!ENTITY RFC8505 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8505.xml">
 <!ENTITY RFC2460 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
+<!ENTITY RFC6437 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6437.xml">
 <!--<!ENTITY I-D.thubert-roll-unaware-leaves SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.I-D.thubert-roll-unaware-leaves.xml"> -->
 <!--<!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">-->
 <!--<!ENTITY I-D.ietf-roll-dao-projection SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-dao-projection.xml">-->
@@ -860,10 +861,10 @@
                This document assumes that the LLN is using the no-drop RPI option (0x23).
               </t>
               <t>
-                - Each IPv6 node (including Internet routers) obeys RFC 8200, so that 0x23 RPI can be safely inserted.
+                - Each IPv6 node (including Internet routers) obeys <xref target="RFC8200"/> 8200, so that 0x23 RPI can be safely inserted.
               </t>
               <t>
-                - All 6LRs obey RFC 8200.
+                - All 6LRs obey <xref target="RFC8200"/>.
               </t>
               <t>
                 - The RPI is ignored at the IPv6 dst node (RPL-unaware-leaf).
@@ -873,6 +874,12 @@
               </t>
               <t>
                - Non-constrained uses of RPL are not in scope of this document.
+              </t>
+              <t>
+               - Compression is based on <xref target="RFC8138"/>.
+              </t>
+              <t>
+               - The flow label <xref target="RFC6437"/> is not needed in RPL.
               </t>
             </list>
           </t>
@@ -890,7 +897,7 @@
           <t>
             The following table (<xref target="fig_EncStoMode"/>) itemizes which headers are needed in each of the following scenarios.
             It indicates if the IPv6-in-IPv6 header that is added, must be addressed to the final destination (the RAL node that is the target(tgt)),
-            to the "root" or if a hop-by-hop header must be added (indicated by "hop").  In the hop-by-hop basis, the destination address 
+            to the "root" or if a hop-by-hop header must be added (indicated by "hop").  In the hop-by-hop basis, the destination address
 	    for the next hop is the link-layer address of the next hop.
 
           </t>
@@ -1368,7 +1375,7 @@
                    The originating node will ideally leave the IPv6 flow
                    label as zero so that the packet can be better compressed through
                    the LLN. The 6LBR will set the flow label of the packet to a
-                   non-zero value when sending to the Internet.
+                   non-zero value when sending to the Internet, for details check <xref target="RFC6437"/>.
                  </t>
                  <t>
                  The <xref target="Storing-notrpl2int"/> shows the table that summarizes what headers are needed for this use case.
@@ -1426,7 +1433,7 @@
                         </t>
                         <t>
                           The 6LBR may set the flow label on the inner IPv6-in-IPv6
-                          header to zero in order to aid in compression.
+                          header to zero in order to aid in compression <xref target="RFC8138"/><xref target="RFC6437"/>.
                        </t>
                        <t>
                        The <xref target="Storing-int2notrpl"/> shows the table that summarizes what headers are needed for this use case.
@@ -2111,8 +2118,8 @@
                         </t>
                         <t>
                           The IPv6 flow label should be set to zero to aid
-                          in compression, and the 6LBR will set it to a
-                          non-zero value when sending towards the Internet.
+                          in compression <xref target="RFC8138"/>, and the 6LBR will set it to a
+                          non-zero value when sending towards the Internet  <xref target="RFC6437"/>.
                         </t>
                         <t>
                         The <xref target="NonStoring-rpl2int"/> summarizes what headers are needed for this use case.
@@ -2172,7 +2179,7 @@
                           know the path and address of the target node, it can
                           address the IPv6-in-IPv6 header to that node.
                           The 6LBR will zero the flow label upon entry in
-                          order to aid compression.
+                          order to aid compression <xref target="RFC8138"/>.
                         </t>
                         <t>
                         The <xref target="NonStoring-int2rpl"/> summarizes what headers are needed for this use case.
@@ -2293,7 +2300,7 @@
                           nearest 6LR.  The 6LBR can therefore make the IPv6-in-IPv6
                           header destination be the last 6LR.
                           The 6LBR will set to zero the flow label upon entry in
-                          order to aid compression.
+                          order to aid compression <xref target="RFC8138"/>.
                         </t>
                         <t>
                         The <xref target="NonStoring-int2notrpl"/> shows the table that summarizes what headers are needed for this use case.
@@ -3001,6 +3008,7 @@
    <?rfc include="reference.I-D.thubert-roll-unaware-leaves" ?>
 
      &RFC6775;
+     &RFC6437;
      &RFC7416;
      &RFC4443;
      &RFC7102;
