@@ -557,20 +557,41 @@
              comprise an IPv6-in-IPv6 and RPI compression headers. The use
              of the IPv6-in-IPv6 header is MANDATORY in this case, and
              it SHOULD be compressed with <xref target="RFC8138"/> section 7.
-             As exemplification of compressing the RPI, section A.1 of <xref target="RFC8138"/>
+             <xref target="rtghc"/>
              illustrates the case in Storing mode where the packet is received from the Internet, then the
-             root encapsulates the packet to insert the RPI. The result is shown in <xref target="rtghc"/>.
+             root encapsulates the packet to insert the RPI. In that example, 
+             the leaf is not known to support RFC 8138, and the packet is 
+             encapsulated to the 6LR that is the parent and last hop to the
+             final destination.
           </t>
-          <t>
         <figure title="RPI Inserted by the Root in Storing Mode" anchor="rtghc"><artwork><![CDATA[
 
-+-+ ... -+-+-...-+-+-- ... -+-+-+-+- ... -+-+ ... -+-+-+ ... -+-+-+...
-|11110001| RPI-  | IP-in-IP | NH=1        |11110CPP| Compressed | UDP
-|Page 1  | 6LoRH |  6LoRH   | LOWPAN_IPHC | UDP    | UDP header | Payld
-+-+ ... -+-+-...-+-+-- ... -+-+-+-+- ... -+-+ ... -+-+-+ ... -+-+-+...
+
++-+ ... -+-+ ... +-+- ... -+-+- ... +-+-+-+ ... +-+-+ ... -+ ... +-...
+ |11110001|SRH-6LoRH| RPI-  | IP-in-IP | NH=1      |11110CPP| UDP | UDP
+ |Page 1  |Type1 S=0| 6LoRH |  6LoRH   |LOWPAN_IPHC| UDP    | hdr |Payld
+ +-+ ... -+-+ ... +-+- ... -+-+-- ... -+-+-+ ... +-+-+ ... -+ ... +-...
+          <-4bytes->                    <-        RFC 6282      ->
+                                                No RPL artifact
 
         ]]></artwork></figure>
 
+          <t>
+          In <xref target="rtghc"/>, the source of the IP-in-IP encapsulation is
+          the Root, so it is elided in the IP-in-IP 6LoRH. The destination is
+          the parent 6LR of the destination of the inner packet so it cannot be
+          elided. It is placed as the single entry in an SRH-6LoRH as the first
+          6LoRH. There is a single entry so the SRH-6LoRH Size is 0. In that
+          example, the type is 1 so the 6LR address is compressed to 2 bytes. 
+          It results that the total length of the SRH-6LoRH is 4 bytes.
+          Follows the RPI-6LoRH and then the IP-in-IP 6LoRH. When the
+          IP-in-IP 6LoRH is removed, all the router headers that precede it are
+          also removed.
+          The Paging Dispatch <xref target="RFC8025"/> may also be removed if
+          there was no previous Page change to a Page other than 0 or 1, since
+          the LOWPAN_IPHC is encoded in the same fashion in the default Page 0
+          and in Page 1. The resulting packet to the destination is the inner
+          packet compressed with <xref target="RFC6282"/>.
           </t>
           <!--   not-RPL-Aware-Leaf  </section> -->
         </section>
@@ -2975,7 +2996,9 @@
      <?ref include="reference.RFC.8174" ?>
     <!-- <?rfc include="reference.RFC.8200" ?>-->
      <?ref include="reference.RFC.8200" ?>
+     <?rfc include="reference.RFC.8025" ?>
      <?rfc include="reference.RFC.8138" ?>
+     <?rfc include="reference.RFC.6282" ?>
 
      &RFC6550;
 
