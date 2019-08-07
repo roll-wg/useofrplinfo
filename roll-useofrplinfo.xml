@@ -21,10 +21,6 @@
 <!ENTITY RFC8505 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8505.xml">
 <!ENTITY RFC2460 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
 <!ENTITY RFC6437 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6437.xml">
-<!--<!ENTITY I-D.thubert-roll-unaware-leaves SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.I-D.thubert-roll-unaware-leaves.xml"> -->
-<!--<!ENTITY I-D.ietf-6tisch-architecture SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml">-->
-<!--<!ENTITY I-D.ietf-roll-dao-projection SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-roll-dao-projection.xml">-->
-<!--<!ENTITY I-D.ietf-anima-autonomic-control-plane SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-anima-autonomic-control-plane.xml">-->
 ]>
 <!--  -->
 <!--<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> -->
@@ -52,7 +48,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-31" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-32" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -68,14 +64,9 @@
    <title abbrev="RPL-data-plane">Using RPL Option Type, Routing Header for Source Routes and IPv6-in-IPv6 encapsulation in the RPL Data Plane</title>
 
   <author  initials="M.I." surname="Robles" fullname="Maria Ines Robles">
-     <organization abbrev="Aalto/UTN-FRM">Aalto University Finland/UTN FRM Argentina </organization>
+     <organization abbrev="Aalto/UTN-FRM">Aalto University, Finland - / - Universidad Tecnologica Nacional - Facultad Regional Mendoza, Argentina </organization>
     <address>
-  <!--    <postal>
-       <street>Otaniemi</street>
-       <city>Espoo</city>
-       <code>02150</code>
-       <country>Finland</country>
-     </postal> -->
+
       <email>mariainesrobles@gmail.com</email>
     </address>
   </author>
@@ -200,7 +191,7 @@
                Section 5 provides the reference topology used for the uses cases.
                Section 6  describes the uses cases included.
                Section 7 describes the storing mode cases and section 8 the non-storing mode cases.
-               Section 9 describes the operational considerations of supporting not-RPL-aware-leaves.
+               Section 9 describes the operational considerations of supporting RPL-unaware-leaves.
                Section 10 depicts operational considerations for the proposed change on RPL Option type, section 11 the
                IANA considerations and then section 12 describes the security
                aspects.
@@ -257,7 +248,7 @@
         <t>
           Flag Day:  A transition that involves having a network with different values of RPL Option Type.
           Thus the network does not work correctly (Lack of interoperation).
-          <!--   (from <xref target="RFC4192"/>). -->
+
         </t>
         <t>
           Hop-by-hop re-encapsulation: The term "hop-by-hop re-encapsulation" header refers to adding a header
@@ -329,7 +320,7 @@
           <section title="Updates to RFC6553: Indicating the new RPI value.">
           <t>
           This modification is required to be able to send, for example,
-          IPv6 packets from a RPL-Aware-Leaf to a not-RPL-aware node through Internet (see <xref target="sm-Ral2i" />),
+          IPv6 packets from a RPL-Aware-Leaf to a RPL-unaware node through Internet (see <xref target="sm-Ral2i" />),
           without requiring IPv6-in-IPv6 encapsulation.
           </t>
           <t>
@@ -594,7 +585,7 @@
           and in Page 1. The resulting packet to the destination is the inner
           packet compressed with <xref target="RFC6282"/>.
           </t>
-          <!--   not-RPL-Aware-Leaf  </section> -->
+
         </section>
    </section>
 
@@ -946,8 +937,6 @@
             (see <xref target="fig_CommonTopology" />).
           </t>
            <t>
-      <!-- Figure saved with the name IPv6-in-IPv6_encapsulation_in_Storing_mode.tgn -->
-      <!-- to edit table, access to http://www.tablesgenerator.com/ and load the table  -->
        <figure title="Table of IPv6-in-IPv6 encapsulation in Storing mode." anchor="fig_EncStoMode" align="center">
          <artwork><![CDATA[
 
@@ -1010,18 +999,6 @@
                         to send RPL Information instanceID and rank
                         information.
                         </t>
-              <!--			<t>
-                         As stated in Section 16.2 of <xref
-                         target="RFC6550"/>  a RAL node does not
-                         generally issue DIO messages; a leaf node accepts
-                         DIO messages from upstream.
-                        (When the inconsistency in routing occurs, a leaf
-                        node will generate a DIO with an infinite rank, to
-                        fix it).  It may issue DAO and DIS
-                        messages though it generally ignores DAO and DIS
-                        messages.
-                        </t>
-    !-->
                         <t>
                            In this case the flow comprises:
                         </t>
@@ -1032,7 +1009,7 @@
                         For example, a communication flow could be: Node F --> Node D --> Node B --> Node A root(6LBR)
                         </t>
                          <t>
-                           The 6LN (Node F) inserts the RPI header, and sends the
+                           The RAL (Node F) inserts the RPI header, and sends the
                            packet to 6LR (Node D) which decrements the rank in RPI and
                            sends the packet up. When the packet arrives at
                            6LBR (Node A), the RPI is removed and the packet is
@@ -1044,9 +1021,9 @@
 
                          <t> The RPI header can be removed by the 6LBR
                          because the packet is addressed to the 6LBR.  The
-                         6LN must know that it is communicating with the 6LBR
+                         RAL must know that it is communicating with the 6LBR
                          to make use of this scenario.
-                         The 6LN can know the address of the 6LBR because it
+                         The RAL can know the address of the 6LBR because it
                          knows the address of the root via the DODAGID in the
                          DIO messages.
                          </t>
@@ -1055,7 +1032,7 @@
                          </t>
                         <texttable title="SM: Summary of the use of headers from RAL to root" anchor="Storing-summary-headers" align="center">
                                           <ttcol> Header</ttcol>
-                                          <ttcol> 6LN src</ttcol>
+                                          <ttcol> RAL src</ttcol>
                                           <ttcol> 6LR_i</ttcol>
                                           <ttcol> 6LBR dst</ttcol>
                                           <c> Inserted headers</c>
@@ -1082,7 +1059,7 @@
                         </texttable>
                </section>
 
-               <!-- section 6.2.  !-->
+               <!-- section 7.2.  !-->
 
                <section title="SM: Example of Flow from root to RAL">
 
@@ -1103,7 +1080,7 @@
                                 instanceID to identify the right forwarding
                                 table),
                                 the packet
-                                is processed in the 6LN and the RPI removed.
+                                is processed in the RAL and the RPI removed.
                         </t>
                         <t>
                           No IPv6-in-IPv6 header is required.
@@ -1115,7 +1092,7 @@
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LBR src</ttcol>
                                           <ttcol> 6LR_i</ttcol>
-                                          <ttcol> 6LN dst</ttcol>
+                                          <ttcol> RAL dst</ttcol>
                                           <c> Inserted headers</c>
                                           <c> RPI </c>
                                           <c> -- </c>
@@ -1139,7 +1116,7 @@
                         </texttable>
                </section>
 
-              <!-- section 6.3. !-->
+              <!-- section 7.3. !-->
 
                <section title="SM: Example of Flow from root to RUL">
                         <t>
@@ -1215,10 +1192,9 @@
                         <figure title="SM: Summary of the use of headers from RUL to root." anchor="Storing-notrpl2root" align="center">
                           <artwork><![CDATA[
 +-----------+------+--------------+-----------------+------------------+
-|   Header  | IPv6 |     6LR_1    |      6LR_i      |       6LBR dst   |
+|   Header  | RUL  |     6LR_1    |      6LR_i      |       6LBR dst   |
 |           | src  |              |                 |                  |
 |           | node |              |                 |                  |
-|           |(RUL) |              |                 |                  |
 +-----------+------+--------------+-----------------+------------------+
 |  Inserted |  --  | IP6-IP6(RPI) | IP6-IP6(RPI)[1] |         --       |
 |  headers  |      |              |                 |                  |
@@ -1291,7 +1267,7 @@
 
                         <texttable title="SM: Summary of the use of headers from RAL to Internet" anchor="Storing-rpl2int" align="center">
                                           <ttcol> Header</ttcol>
-                                          <ttcol> 6LN src</ttcol>
+                                          <ttcol> RAL src</ttcol>
                                           <ttcol> 6LR_i</ttcol>
                                           <ttcol> 6LBR</ttcol>
                                           <ttcol> Internet dst</ttcol>
@@ -1323,7 +1299,7 @@
                         </texttable>
                </section>
 
-               <!-- section 6.6 -->
+               <!-- section 7.6 -->
                <section title="SM: Example of Flow from Internet to RAL">
                         <t>
                                 In this case the flow comprises:
@@ -1341,7 +1317,7 @@
                                 the RPI header is added in a outer
                                 IPv6-in-IPv6 header (with the IPv6-in-IPv6 destination address set to the RAL) and sent to 6LR, which
                                 modifies the rank in the RPI. When the packet
-                                arrives at 6LN the RPI header is removed and the
+                                arrives at the RAL the RPI header is removed and the
                                 packet processed.
                         </t>
                         <t>
@@ -1353,7 +1329,7 @@
                            anchor="Storing-int2rpl" align="center">
                           <artwork><![CDATA[
 +-----------+----------+--------------+--------------+--------------+
-|   Header  | Internet |     6LBR     |     6LR_i    |     6LN dst  |
+|   Header  | Internet |     6LBR     |     6LR_i    |     RAL dst  |
 |           | src      |              |              |              |
 +-----------+----------+--------------+--------------+--------------+
 |  Inserted |    --    | IP6-IP6(RPI) |      --      |         --   |
@@ -1376,7 +1352,7 @@
                </section>
 
 
-               <!-- section 6.6 -->
+               <!-- section 7.6 -->
                <section anchor="sm-nRal2i" title="SM: Example of Flow from RUL to Internet">
                  <t>
                    In this case the flow comprises:
@@ -1437,7 +1413,7 @@
                                 In this case the flow comprises:
                         </t>
                         <t>
-                                Internet --> root (6LBR) --> 6LR_i --> RUL (IPv6 node)
+                                Internet --> root (6LBR) --> 6LR_i --> RUL (IPv6 dst node)
                         </t>
                         <t>
                         For example, a communication flow could be: Internet --> Node A root(6LBR) --> Node B --> Node E --> Node G
@@ -1509,7 +1485,7 @@
            </t>
          </list>
        </t>
-               <!-- section 6.9 -->
+               <!-- section 7.9 -->
                <section anchor="storingRALtoRAL" title="SM: Example of Flow from RAL to RAL">
                  <t>
                    In <xref target="RFC6550"/> RPL allows a simple one-hop
@@ -1524,7 +1500,7 @@
                    mode, the flow comprises:
                  </t>
                  <t>
-                   6LN --> 6LR_ia --> common parent (6LR_x) --> 6LR_id -->  6LN
+                   RAL src (6LN) --> 6LR_ia --> common parent (6LR_x) --> 6LR_id -->  RAL dst (6LN)
                  </t>
                  <t>
                  For example, a communication flow could be: Node F --> Node D --> Node B --> Node E --> Node H
@@ -1532,12 +1508,12 @@
                  <t>
                    6LR_ia (Node D) are the intermediate routers from source to the common parent (6LR_x) (Node B).
                    In this case, 1 &lt;= ia &lt;= n, n is the number of routers (6LR)
-                   that the packet goes through from 6LN (Node F) to the common parent 6LR_x (Node B).
+                   that the packet goes through from RAL (Node F) to the common parent 6LR_x (Node B).
                  </t>
                  <t>
-                   6LR_id (Node E) are the intermediate routers from the common parent (6LR_x) (Node B) to destination 6LN (Node H).
+                   6LR_id (Node E) are the intermediate routers from the common parent (6LR_x) (Node B) to destination RAL (Node H).
                    In this case, 1 &lt;= id &lt;= m, m is the number of routers (6LR)
-                   that the packet goes through from the common parent (6LR_x)  to destination 6LN.
+                   that the packet goes through from the common parent (6LR_x)  to destination RAL (Node H).
                  </t>
                  <t>
                    It is assumed that the two nodes are in the same RPL Domain
@@ -1552,18 +1528,14 @@
                 <t>
                 The <xref target="Storing-rpl2rpl"/> summarizes what headers are needed for this use case.
                 </t>
-<!--
-                   This may be done regardless of where the destination is,
-                   as the included RPI will be ignored by the receiver.
-                 -->
 
                  <texttable title="SM: Summary of the use of headers for RAL to RAL" anchor="Storing-rpl2rpl" align="center">
                                           <ttcol> Header</ttcol>
-                                          <ttcol> 6LN src</ttcol>
+                                          <ttcol> RAL src</ttcol>
                                           <ttcol> 6LR_ia</ttcol>
                                           <ttcol> 6LR_x (common parent)</ttcol>
                                           <ttcol> 6LR_id</ttcol>
-                                          <ttcol> 6LN dst</ttcol>
+                                          <ttcol> RAL dst</ttcol>
                                           <c> Inserted headers</c>
                                           <c> RPI </c>
                                           <c> -- </c>
@@ -1597,13 +1569,13 @@
                         </texttable>
                </section>
 
-               <!-- section 6.10 -->
+               <!-- section 7.10 -->
                <section anchor="storingRALtononRAL" title="SM: Example of Flow from RAL to RUL">
                         <t>
                         In this case the flow comprises:
                         </t>
                         <t>
-                         RAL (6LN) src --> 6LR_ia --> common parent (6LR_x) --> 6LR_id -->  RUL (IPv6 dst node)
+                         RAL src (6LN) --> 6LR_ia --> common parent (6LR_x) --> 6LR_id -->  RUL (IPv6 dst node)
                         </t>
                         <t>
                         For example, a communication flow could be: Node F --> Node D --> Node B --> Node E --> Node G
@@ -1698,10 +1670,9 @@
                  <figure title="SM: Summary of the use of headers from RUL to RAL." anchor="Storing-notrpl2rpl"  align="center">
                    <artwork><![CDATA[
 +---------+-----+------------+-------------+-------------+------------+
-|  Header |IPv6 |   6LR_ia   |   Common    |   6LR_id    |    RAL     |
+|  Header |RUL  |   6LR_ia   |   Common    |   6LR_id    |    RAL     |
 |         |src  |            |   Parent    |             |    dst     |
 |         |node |            |   (6LRx)    |             |            |
-|         |(RUL)|            |             |             |            |
 +---------+-----+------------+-------------+-------------+------------+
 | Inserted|  -- |IP6-IP6(RPI)|     --      |     --      |    --      |
 | headers |     |            |             |             |            |
@@ -1763,10 +1734,9 @@
                  <figure  title="SM: Summary of the use of headers from RUL to RUL" anchor="Storing-notrpl2notrpl" align="center">
                    <artwork><![CDATA[
 +---------+------+-------+-------+---------+-------+-------+
-|  Header | IPv6 | 6LR_1 | 6LR_ia|   6LBR  |6LR_id | IPv6  |
-|         |  src |       |       |         |       | dst   |
+|  Header | RUL  | 6LR_1 | 6LR_ia|   6LBR  |6LR_id | RUL   |
+|         | src  |       |       |         |       | dst   |
 |         | node |       |       |         |       | node  |
-|         | (RUL)|       |       |         |       | (RUL) |
 +---------+------+-------+-------+---------+-------+-------+
 | Inserted|  --  |IP6-IP6|IP6-IP6| IP6-IP6 |IP6-IP6|   --  |
 | headers |      | (RPI )| (RPI) | (RPI)   | (RPI) |       |
@@ -1819,8 +1789,7 @@
           for the instanceID to be available for priority/channel selection at each hop.
          </t>
          <t>
-         <!-- Figure saved with the name Headers_non_stroing_RPI_RH3_IPv6-in-IPv6ncapsulation.tgn -->
-         <!-- to edit table, access to http://www.tablesgenerator.com/ and load the table  -->
+
           <figure title="Table that shows headers needed in Non-Storing mode: RPI, RH3, IPv6-in-IPv6 encapsulation." anchor="fig_table_non-storing" align="center">
 
             <artwork><![CDATA[
@@ -1896,7 +1865,7 @@
                  <t>
                    6LR_i are the intermediate routers from source to destination.
                    In this case, "1 &lt;= i &lt;= n", n is the number of routers (6LR)
-                   that the packet goes through from source (6LN) to destination (6LBR).
+                   that the packet goes through from source (RAL) to destination (6LBR).
                  </t>
                  <t>
                    This situation is the same case as storing mode.
@@ -1907,7 +1876,7 @@
 
                         <texttable title="Non-SM: Summary of the use of headers from RAL to root" anchor="NonStoring-summary-headers" align="center">
                                           <ttcol> Header</ttcol>
-                                          <ttcol> 6LN src</ttcol>
+                                          <ttcol> RAL src</ttcol>
                                           <ttcol> 6LR_i</ttcol>
                                           <ttcol> 6LBR dst</ttcol>
                                           <c> Inserted headers</c>
@@ -1948,7 +1917,7 @@
                  <t>
                    6LR_i are the intermediate routers from source to destination.
                    In this case, "1 &lt;= i &lt;= n", n is the number of routers (6LR)
-                   that the packet goes through from source (6LBR) to destination (6LN).
+                   that the packet goes through from source (6LBR) to destination (RAL).
                  </t>
                  <t>
                    The 6LBR inserts an RH3, and a RPI header.
@@ -1965,7 +1934,7 @@
                                           <ttcol> Header</ttcol>
                                           <ttcol> 6LBR src</ttcol>
                                           <ttcol> 6LR_i</ttcol>
-                                          <ttcol> 6LN dst</ttcol>
+                                          <ttcol> RAL dst</ttcol>
                                           <c> Inserted headers</c>
                                           <c> RPI, RH3</c>
                                           <c> -- </c>
@@ -2002,7 +1971,7 @@
                         <t>
                           6LR_i are the intermediate routers from source to destination.
                           In this case, "1 &lt;= i &lt;= n", n is the number of routers (6LR)
-                          that the packet goes through from source (6LBR) to destination (IPv6 node).
+                          that the packet goes through from source (6LBR) to destination (RUL).
                         </t>
                         <t>
                           In 6LBR the RH3 is added, it is modified at each
@@ -2050,7 +2019,7 @@
                         </t>
                         <t>
 
-                                RUL (IPv6 src node) --> 6LR_1 --> 6LR_i --> root (6LBR)
+                                RUL (IPv6 src node) --> 6LR_1 --> 6LR_i --> root (6LBR) dst
                         </t>
                         <t>
                         For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root)
@@ -2126,7 +2095,7 @@
                                 In this case the flow comprises:
                         </t>
                         <t>
-                                RAL (6LN) --> 6LR_i --> root (6LBR) --> Internet
+                                RAL (6LN) src --> 6LR_i --> root (6LBR) --> Internet dst
                         </t>
                         <t>
                         For example, a communication flow could be: Node F --> Node D --> Node B --> Node A --> Internet
@@ -2134,7 +2103,7 @@
                         <t>
                           6LR_i are the intermediate routers from source to destination.
                           In this case, "1 &lt;= i &lt;= n", n is the number of routers (6LR)
-                          that the packet goes through from source (6LN) to 6LBR.
+                          that the packet goes through from source (RAL) to 6LBR.
                         </t>
                         <t>
                                 This case is identical to storing-mode case.
@@ -2149,7 +2118,7 @@
                         </t>
                         <texttable title="Non-SM: Summary of the use of headers from RAL to Internet" anchor="NonStoring-rpl2int" align="center">
                                           <ttcol> Header</ttcol>
-                                          <ttcol> 6LN src</ttcol>
+                                          <ttcol> RAL src</ttcol>
                                           <ttcol> 6LR_i</ttcol>
                                           <ttcol> 6LBR</ttcol>
                                           <ttcol> Internet dst</ttcol>
@@ -2187,7 +2156,7 @@
                         </t>
                         <t>
 
-                                Internet --> root (6LBR) --> 6LR_i --> RAL (6LN)
+                                Internet --> root (6LBR) --> 6LR_i --> RAL dst (6LN)
                         </t>
                         <t>
                         For example, a communication flow could be: Internet --> Node A (root) --> Node B --> Node D --> Node F
@@ -2195,7 +2164,7 @@
                         <t>
                           6LR_i are the intermediate routers from source to destination.
                           In this case, "1 &lt;= i &lt;= n", n is the number of routers (6LR)
-                          that the packet goes through from 6LBR to destination(6LN).
+                          that the packet goes through from 6LBR to destination (RAL).
                         </t>
                         <t>
                           The 6LBR must add an RH3 header.  As the 6LBR will
@@ -2209,10 +2178,10 @@
                         </t>
                         <texttable title="Non-SM: Summary of the use of headers from Internet to RAL" anchor="NonStoring-int2rpl" align="center">
                           <ttcol> Header</ttcol>
-                          <ttcol> Internet dst</ttcol>
+                          <ttcol> Internet src</ttcol>
                           <ttcol> 6LBR</ttcol>
                           <ttcol> 6LR_i</ttcol>
-                          <ttcol> 6LN src</ttcol>
+                          <ttcol> RAL dst</ttcol>
                           <c> Inserted headers</c>
                           <c> -- </c>
                           <c>  IPv6-in-IPv6 (RH3,RPI)</c>
@@ -2246,15 +2215,15 @@
                                 In this case the flow comprises:
                         </t>
                         <t>
-                          RUL (IPv6 node) --> 6LR_1 --> 6LR_i -->root (6LBR) --> Internet
+                          RUL (IPv6 src node) --> 6LR_1 --> 6LR_i -->root (6LBR) --> Internet dst
                         </t>
                         <t>
                         For example, a communication flow could be: Node G --> Node E --> Node B --> Node A --> Internet
                         </t>
                         <t>
                           6LR_i are the intermediate routers from source to destination.
-                          In this case, "1 &lt; i &lt;= n", n is the number of routers (6LR)
-                          that the packet goes through from source(IPv6 node) to 6LBR. e.g 6LR_1 (i=1).
+                          In this case, "1 &lt;= i &lt;= n", n is the number of routers (6LR)
+                          that the packet goes through from source (RUL) to 6LBR, e.g. 6LR_1 (i=1).
                         </t>
                         <t>
                                 In this case the flow label is recommended to
@@ -2273,7 +2242,7 @@
                         <figure title="Non-SM: Summary of the use of headers from RUL to Internet" anchor="NonStoring-notrpl2int" align="center">
                                     <artwork><![CDATA[
 +---------+----+-------------+--------------+--------------+--------+
-|  Header |IPv6|    6LR_1    |     6LR_i    |     6LBR     |Internet|
+|  Header |RUL |    6LR_1    |     6LR_i    |     6LBR     |Internet|
 |         |src |             |  [i=2,..,n]  |              |  dst   |
 |         |node|             |              |              |        |
 +---------+----+-------------+--------------+--------------+--------+
@@ -2303,15 +2272,15 @@
                         </t>
                         <t>
 
-                                Internet --> root (6LBR) --> 6LR_i --> RUL (IPv6 node)
+                                Internet src --> root (6LBR) --> 6LR_i --> RUL (IPv6 dst node)
                         </t>
                         <t>
                         For example, a communication flow could be: Internet --> Node A (root) --> Node B --> Node E --> Node G
                         </t>
                         <t>
                           6LR_i are the intermediate routers from source to destination.
-                          In this case, "1 &lt; i &lt;= n", n is the number of routers (6LR)
-                          that the packet goes through from 6LBR to RUL (IPv6 node).
+                          In this case, "1 &lt;= i &lt;= n", n is the number of routers (6LR)
+                          that the packet goes through from 6LBR to RUL.
                         </t>
 
                         <t>
@@ -2333,7 +2302,7 @@
                         [1] The last 6LR before the IPv6 node." anchor="NonStoring-int2notrpl" align="center">
                                     <artwork><![CDATA[
 +---------+--------+-------------+--------------+--------------+-----+
-|  Header |Internet|     6LBR    |     6LR_1    |     6lR_i    |IPv6 |
+|  Header |Internet|     6LBR    |     6LR_1    |     6lR_i    |RUL  |
 |         |  src   |             |              |  (i=2,...,n) |dst  |
 |         |        |             |              |              |node |
 +---------+--------+-------------+--------------+--------------+-----+
@@ -2386,7 +2355,7 @@
                         In this case the flow comprises:
                         </t>
                         <t>
-                         6LN src --> 6LR_ia --> root (6LBR) --> 6LR_id -->  6LN dst
+                         RAL src --> 6LR_ia --> root (6LBR) --> 6LR_id -->  RAL dst
                         </t>
                         <t>
                         For example, a communication flow could be: Node F --> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node H
@@ -2394,7 +2363,7 @@
                         <t>
                           6LR_ia are the intermediate routers from source to the root
                           In this case, 1 &lt;= ia &lt;= n, n is the number of routers (6LR)
-                          that the packet goes through from 6LN to the root.
+                          that the packet goes through from RAL to the root.
                         </t>
                         <t>
                           6LR_id are the intermediate routers from the root to the destination.
@@ -2407,19 +2376,20 @@
                           original packet, and send the packet upwards.
                         </t>
                         <t>
-                          The originating node must put the RPI into an IPv6-in-IPv6
+                          The originating node must put the RPI (RPI1) into an IPv6-in-IPv6
                           header addressed to the root, so that the 6LBR can
                           remove that header.  If it does not, then
                           additional resources are wasted on the way down to
                           carry the useless RPI option.
+
                         </t>
                         <t>
                           The 6LBR will need to insert an RH3 header, which
                           requires that it add an IPv6-in-IPv6 header.  It should be
-                          able to remove the RPI, as it was contained in an
+                          able to remove the RPI(RPI1), as it was contained in an
                           IPv6-in-IPv6 header addressed to it.  Otherwise, there may
                           be a RPI header buried inside the inner IP header,
-                          which should get ignored.
+                          which should get ignored. The root inserts a RPI (RPI2) alongside the RH3.
                         </t>
 
                  <t>
@@ -2435,11 +2405,11 @@
                  <figure title="Non-SM: Summary of the use of headers for RAL to RAL. IP6-in-IP6 refers to IPv6-in-IPv6." anchor="NonStoring-rpl2rpl" align="center">
                              <artwork><![CDATA[
 +---------+------------+----------+------------+----------+------------+
-|  Header |    6LN     |   6LR_ia |    6LBR    | 6LR_id   |     6LN    |
+|  Header |    RAL     |   6LR_ia |    6LBR    | 6LR_id   |     RAL    |
 |         |    src     |          |            |          |     dst    |
 +---------+------------+----------+------------+----------+------------+
 | Inserted|IPv6-in-IPv6|          |IPv6-in-IPv6|  --      |     --     |
-| headers |   (RPI1)   |          |(RH3-> 6LN, |          |            |
+| headers |   (RPI1)   |          |(RH3-> RAL, |          |            |
 |         |            |          |   RPI2)    |          |            |
 +---------+------------+----------+------------+----------+------------+
 | Removed |    --      |    --    |IPv6-in-IPv6|  --      |IPv6-in-IPv6|
@@ -2464,7 +2434,7 @@
                         In this case the flow comprises:
                         </t>
                         <t>
-                         6LN --> 6LR_ia --> root (6LBR) --> 6LR_id -->  not-RPL-aware (IPv6 node)
+                         RAL --> 6LR_ia --> root (6LBR) --> 6LR_id -->  RUL (IPv6 dst node)
                         </t>
                         <t>
                         For example, a communication flow could be: Node F --> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node G
@@ -2479,11 +2449,11 @@
                           intermediate routers (6LRs).
                         </t>
                         <t>
-                          As in the previous case, the 6LN will insert a RPI (RPI_1)
+                          As in the previous case, the RAL (6LN) will insert a RPI (RPI_1)
                           header which must be in an IPv6-in-IPv6 header addressed to
                           the root so that the 6LBR can remove this RPI.
                           The 6LBR will then insert an RH3 inside a new IPv6-in-IPv6
-                          header addressed to the 6LR_id.
+                          header addressed to the last 6LR_id (6LR_id = m).
                         </t>
                         <t>
                         The <xref target="NonStoring-rpl2notrpl"/> shows the table that summarizes what headers are needed for this use case.
@@ -2494,9 +2464,9 @@
                         to RUL." anchor="NonStoring-rpl2notrpl" align="center">
                                     <artwork><![CDATA[
 +-----------+---------+---------+---------+---------+---------+------+
-|   Header  |   6LN   |  6LR_ia |   6LBR  |  6LR_id |  6LR_m  | IPv6 |
+|   Header  |   RAL   |  6LR_ia |   6LBR  |  6LR_id |  6LR_m  | RUL  |
 |           |   src   |         |         |         |         | dst  |
-|           |         |         |         |         |         | node |
+|           |   node  |         |         |         |         | node |
 +-----------+---------+---------+---------+---------+---------+------+
 |  Inserted | IP6-IP6 |         | IP6-IP6 |    --   |    --   |  --  |
 |  headers  |  (RPI1) |         |  (RH3,  |         |         |      |
@@ -2527,7 +2497,7 @@
                         In this case the flow comprises:
                         </t>
                         <t>
-                         RUL (IPv6 node) --> 6LR_1 --> 6LR_ia --> root (6LBR) --> 6LR_id -->  6LN
+                         RUL (IPv6 src node) --> 6LR_1 --> 6LR_ia --> root (6LBR) --> 6LR_id --> RAL dst (6LN)
                         </t>
                         <t>
                         For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node B --> Node E --> Node H
@@ -2543,10 +2513,10 @@
                         </t>
                         <t>
                           This scenario is mostly identical to the previous
-                          one.  The RPI is added by the first 6LR (6LR_1) inside an
+                          one.  The RPI (RPI1) is added by the first 6LR (6LR_1) inside an
                           IPv6-in-IPv6 header addressed to the root.  The 6LBR will
                           remove this RPI, and add it's own IPv6-in-IPv6 header
-                          containing an RH3 header and an RPI (RPI_2).
+                          containing an RH3 header and an RPI (RPI2).
                         </t>
                         <t>
                         The <xref target="NonStoring-notrpl2rpl"/> shows the table that summarizes what headers are needed for this use case.
@@ -2556,9 +2526,9 @@
                         <figure title="Non-SM: Summary of the use of headers from RUL to RAL." anchor="NonStoring-notrpl2rpl"  align="center">
                                     <artwork><![CDATA[
 +-----------+------+---------+---------+---------+---------+---------+
-|   Header  | IPv6 |  6LR_1  |  6LR_ia |   6LBR  |  6LR_id |   6LN   |
-|           |  src |         |         |         |         |   dst   |
-|           | node |         |         |         |         |         |
+|   Header  | RUL  |  6LR_1  |  6LR_ia |   6LBR  |  6LR_id |   RAL   |
+|           | src  |         |         |         |         |   dst   |
+|           | node |         |         |         |         |   node  |
 +-----------+------+---------+---------+---------+---------+---------+
 |  Inserted |  --  | IP6-IP6 |    --   | IP6-IP6 |    --   |    --   |
 |  headers  |      |  (RPI1) |         |  (RH3,  |         |         |
@@ -2588,7 +2558,7 @@
                         In this case the flow comprises:
                         </t>
                         <t>
-                         RUL (IPv6 src) --> 6LR_1 --> 6LR_ia --> root (6LBR) --> 6LR_id --> not-RPL-aware (IPv6 dst)
+                         RUL (IPv6 src node) --> 6LR_1 --> 6LR_ia --> root (6LBR) --> 6LR_id --> RUL (IPv6 dst node)
                         </t>
                         <t>
                         For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node C --> Node J
@@ -2613,8 +2583,8 @@
                         <figure title="Non-SM: Summary of the use of headers from RUL to RUL" anchor="NonStoring-notrpl2notrpl"  align="center">
                                     <artwork><![CDATA[
 +---------+------+-------+-------+---------+-------+---------+------+
-|  Header | IPv6 | 6LR_1 | 6LR_ia|   6LBR  |6LR_id |  6LR_m  | IPv6 |
-|         |  src |       |       |         |       |         |  dst |
+|  Header | RUL  | 6LR_1 | 6LR_ia|   6LBR  |6LR_id |  6LR_m  | RUL  |
+|         | src  |       |       |         |       |         | dst  |
 |         | node |       |       |         |       |         | node |
 +---------+------+-------+-------+---------+-------+---------+------+
 | Inserted|  --  |IP6-IP6|  --   | IP6-IP6 |  --   |    --   |  --  |
@@ -2643,7 +2613,7 @@
           </section>
 
           <section title="Operational Considerations of supporting
-                          not-RPL-aware-leaves" anchor="notrplaware">
+                          RUL-leaves" anchor="notrplaware">
             <t>
               Roughly half of the situations described in this document
               involve leaf ("host") nodes that do not speak RPL.  These nodes
@@ -2966,7 +2936,7 @@
 
         <section anchor="Acknowledgments" title="Acknowledgments">
            <t>
-           This work is done thanks to the grant by the Stand.ICT project.
+           This work is done thanks to the grant given by the StandICT.eu project.
            </t>
            <t>
             A special BIG thanks to C. M. Heard for the help with the <xref target="updateRFCs_section" />.
@@ -2975,8 +2945,8 @@
            <t>
            Additionally, the authors would like to acknowledge the review, feedback, and
            comments of (alphabetical order): Robert Cragie, Simon Duquennoy, Ralph Droms,
-           Cenk Gündogan, Rahul Jadhav, Matthias Kovatsch, Peter van der Stok,
-           Xavier Vilajosana and Thomas Watteyne.
+           Cenk Gündogan, Rahul Jadhav, Benjamin Kaduk, Matthias Kovatsch, Charlie Perkins, Alvaro Retana, Peter van der Stok,
+           Xavier Vilajosana, Éric Vyncke and Thomas Watteyne.
            </t>
          </section>
 
@@ -2988,15 +2958,13 @@
    <references title="Normative References">
 
 
-     <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
-
      &RFC6553;
      &RFC6554;
      &RFC2119;
      &RFC6040;
 
      <?ref include="reference.RFC.8174" ?>
-    <!-- <?rfc include="reference.RFC.8200" ?>-->
+
      <?ref include="reference.RFC.8200" ?>
      <?rfc include="reference.RFC.8025" ?>
      <?rfc include="reference.RFC.8138" ?>
@@ -3024,7 +2992,7 @@
    </references>
 
    <references title="Informative References">
-   <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
+
 
    <?rfc include="reference.I-D.ietf-6lo-ap-nd"?>
 
@@ -3045,12 +3013,11 @@
 
      <?rfc include="reference.I-D.ietf-anima-autonomic-control-plane" ?>
      <?rfc include="reference.RFC.5406" ?>
-    <!-- <?rfc include="reference.I-D.ietf-6tisch-architecture" ?> -->
+
      <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
      <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-secure-join" ?>
      <?rfc include="reference.I-D.ietf-6lo-backbone-router" ?>
-  <!--   <?rfc include="reference.I-D.ietf-roll-dao-projection" ?> -->
-     <!--  <?rfc include="reference.I-D.ietf-6man-rfc6434-bis" ?> -->
+
 
 
      <?rfc include="reference.RFC.6997" ?>
@@ -3067,16 +3034,5 @@
 
 
      </references>
-
-
-   <!-- Change Log
-v00 2011-03-07  BPa  Initial version
-
-     -->
  </back>
 </rfc>
-<!--
-    Local Variables:
-    mode: xml
-    End:
--->
