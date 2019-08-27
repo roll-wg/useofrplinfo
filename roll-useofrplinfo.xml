@@ -86,21 +86,20 @@
      </address>
 
   </author>
-  <author initials="P." surname="Thubert" fullname="Pascal Thubert">
-    <organization abbrev="Cisco">Cisco Systems, Inc</organization>
-     <address>
-        <postal>
-        <street> Village d'Entreprises Green Side 400, Avenue de Roumanille</street>
-        <city>Batiment T3</city>
-        <region>Biot - Sophia Antipolis  </region>
-        <code>06410</code>
-        <country>France</country>
-        </postal>
-        <email>pthubert@cisco.com </email>
-        <uri></uri>
-     </address>
-
-  </author>
+    <author initials="P" surname="Thubert" fullname="Pascal Thubert" 
+      <organization abbrev="Cisco">Cisco Systems, Inc</organization>
+      <address>
+         <postal>
+            <street>Building D</street>
+            <street>45 Allee des Ormes - BP1200 </street>
+            <city>MOUGINS - Sophia Antipolis</city>
+            <code>06254</code>
+            <country>FRANCE</country>
+         </postal>
+         <phone>+33 497 23 26 34</phone>
+         <email>pthubert@cisco.com</email>
+      </address>
+   </author>
 
   <date year="2019" />
 
