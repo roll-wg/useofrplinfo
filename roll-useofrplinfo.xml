@@ -86,7 +86,7 @@
      </address>
 
   </author>
-    <author initials="P" surname="Thubert" fullname="Pascal Thubert"
+    <author initials="P" surname="Thubert" fullname="Pascal Thubert">
       <organization abbrev="Cisco">Cisco Systems, Inc</organization>
       <address>
          <postal>
@@ -337,7 +337,7 @@
           informed of the address of the 6LR that terminates the IP-in-IP tunnel.
           In case of an external target, the Root SHOULD use the same IP-in-IP
           encapsulation for packets that it generates or that are originated
-          within the RPL domain as if the packet was coming from the Internet.
+          within the RPL domain as if the packets were coming from the Internet.
 
           </t><t>
           A RUL is a special case of external target when the target is actually
@@ -347,7 +347,15 @@
           been registered to the 6LR using <xref target="RFC8505"/>.
           IP-in-IP encapsulation MAY be avoided for Root to RUL communication if
           the RUL is known to processthe packets as forwarded by the parent 6LR
-          without decapsulation, including compression.
+          without decapsulation.
+
+         </t><t>
+          A node that is reachable over an external route is not expected to
+          support <xref target="RFC8138"/>. Whether a decapsulation took place
+          or not and even when the 6LR is delivering the packet to a RUL, the
+          6LR that injectde the external route MUST uncompress the packet before
+          forwarding over that external route.
+
           </t>
           </section>
           <section title="Updates to RFC6553: Indicating the new RPI value.">
