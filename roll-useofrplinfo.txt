@@ -346,13 +346,15 @@ Internet-Draft               RPL-data-plane               September 2019
    Section 6.7.8. of [RFC6550] introduces the 'E' flag that is set to
    indicate that the 6LR that generates the DAO redistributes external
    targets into the RPL network.  An external Target is a Target that
-   has been learned through an alternate protocol, for instance an route
+   has been learned through an alternate protocol, for instance a route
    to a prefix that is outside the RPL domain but reachable via a 6LR.
    Being outside of the RPL domain, a node that is reached via an
    external target cannot be guaranteed to ignore the RPL artifacts and
    cannot be expected to process the [RFC8138] compression correctly.
-   This means that the RPL artifacts and the compression should be
-   contained in an IP-in-IP encapsulation that is removed by the 6LR.
+   This means that the RPL artifacts should be contained in an IP-in-IP
+   encapsulation that is removed by the 6LR, and that any remaining
+   compression should be expanded by the 6LR before it forwards a packet
+   outside the RPL domain.
 
    This specification updates RPL [RFC6550] to RECOMMEND that external
    targets are advertised using Non-Storing Mode signaling even in a
@@ -381,10 +383,8 @@ Internet-Draft               RPL-data-plane               September 2019
    A node that is reachable over an external route is not expected to
    support [RFC8138].  Whether a decapsulation took place or not and
    even when the 6LR is delivering the packet to a RUL, the 6LR that
-   injected the external route MUST uncompress the packet before
+   injected an external route MUST uncompress the packet before
    forwarding over that external route.
-
-
 
 
 
