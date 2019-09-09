@@ -346,14 +346,22 @@
           The target may have been learned through as a host route or may have
           been registered to the 6LR using <xref target="RFC8505"/>.
           IP-in-IP encapsulation MAY be avoided for Root to RUL communication if
-          the RUL is known to processthe packets as forwarded by the parent 6LR
+          the RUL is known to process the packets as forwarded by the parent 6LR
           without decapsulation.
+          </t><t>
 
+          In order to enable IP-in-IP all the way to a 6LN, it is beneficial
+          that the 6LN supports decapsulating IP-in-IP, but that is not assumed
+          by <xref target="RFC8504"/>.
+          If the 6LN is a RUL, the Root that encapsulates a packet SHOULD
+          terminate the tunnel at a parent 6LR unless it is aware that the RUL
+          supports IP-in-IP decapsulation.
          </t><t>
+
           A node that is reachable over an external route is not expected to
           support <xref target="RFC8138"/>. Whether a decapsulation took place
           or not and even when the 6LR is delivering the packet to a RUL, the
-          6LR that injectde the external route MUST uncompress the packet before
+          6LR that injected the external route MUST uncompress the packet before
           forwarding over that external route.
 
           </t>
@@ -3009,6 +3017,7 @@
 
      <?ref include="reference.RFC.8200" ?>
      <?rfc include="reference.RFC.8025" ?>
+     <?rfc include="reference.RFC.8504" ?>
      <?rfc include="reference.RFC.8138" ?>
      <?rfc include="reference.RFC.6282" ?>
 
