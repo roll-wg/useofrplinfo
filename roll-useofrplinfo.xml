@@ -330,17 +330,20 @@
           IP-in-IP encapsulation that is removed by the 6LR, and that any
           remaining compression should be expanded by the 6LR before it forwards
           a packet outside the RPL domain.
-
           </t><t>
-          This specification updates RPL <xref target="RFC6550"/> to RECOMMEND
-          that external targets are advertised using Non-Storing Mode signaling
-          even in a Storing-Mode network. This way, all packets to an external
-          target reach the Root that can encapsulate them, and the Root is
-          informed of the address of the 6LR that terminates the IP-in-IP tunnel.
-          In case of an external target, the Root SHOULD use the same IP-in-IP
-          encapsulation for packets that it generates or that are originated
-          within the RPL domain as if the packets were coming from the Internet.
-
+          This specification updates <xref target="RFC6550"/> to RECOMMEND that
+          external targets are advertised using Non-Storing Mode DAO messaging
+          even in a Storing-Mode network. This way, external routes are not
+          advertised within the DODAG and all packets to an external target
+          reach the Root like normal Non-Storing Mode traffic. The Non-Storing
+          Mode DAO informs the Root of the address of the 6LR that injects the
+          external route, and the root uses IP-in-IP encapsulation to that 6LR,
+          which terminates the IP-in-IP tunnel and forwards the original packet
+          outside the RPL domain free of RPL artifacts. This whole operation is
+          transparent to intermediate routers that only see traffic between the
+          6LR and the Root, and only the Root and the 6LRs that inject external
+          routes in the network need to be upgraded to add this function to the
+          network.
           </t><t>
           A RUL is a special case of external target when the target is actually
           a host and it is known to support a consumed Routing Header and to
