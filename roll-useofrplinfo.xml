@@ -211,17 +211,20 @@
         Terminology defined in <xref target="RFC7102"/> applies to this document: LLN, RPL, RPL Domain and ROLL.
         </t>
         <t>
-        RPL-aware-node: A device which implements RPL. Please note that the device can be found inside the LLN or outside LLN.
+        RPL Leaf: An IPv6 host that is attached to a RPL router and obtains connectivity through a RPL Destination Oriented Directed Acyclic Graph (DODAG). As an IPv6 node, a RPL Leaf is expected to ignore a consumed Routing Header and as an IPv6 host, it is expected to ignore a Hop-by-Hop header. It results that a RPL Leaf can correctly receive a packet with RPL artifacts. On the other hand, a RPL Leaf is not expected to generate RPL artifacts or to support IP-in-IP encapsulation. For simplification, this document uses the standalone term leaf to mean a RPL leaf.
         </t>
         <t>
-        RPL-Aware-Leaf(RAL): A RPL-aware-node which is a leaf of a (Destination Oriented Directed Acyclic Graph) DODAG.
+        RPL-aware-node (RAN): A device which implements RPL. Please note that the device can be found inside the LLN or outside LLN.
+        </t>
+        <t>
+        RPL-Aware-Leaf(RAL): A RPL-aware-node that is also a RPL Leaf.
         </t>
         <t>
         RPL-unaware-node: A device which does not implement RPL, thus the device is not-RPL-aware.
 	      Please note that the device can be found inside the LLN.
         </t>
         <t>
-        RPL-Unaware-Leaf(RUL): A RPL-unaware-node which is a leaf of a (Destination Oriented Directed Acyclic Graph) DODAG.
+        RPL-Unaware-Leaf(RUL): A RPL-unaware-node that is also a RPL Leaf.
         </t>
 
         <t>
