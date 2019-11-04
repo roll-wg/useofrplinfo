@@ -1484,7 +1484,7 @@
                         <t>
                           The final node should be able to remove one or more IPv6-in-IPv6 headers
                           which are all addressed to it. The final node does not process the RPI, the node ignores the RPI.
-                          Further details about this are mentioned in <xref target="I-D.thubert-roll-unaware-leaves"/>,
+                          Further details about this are mentioned in <xref target="I-D.ietf-roll-unaware-leaves"/>,
                           which specifies RPL routing for a 6LN acting as a plain host and not being aware of RPL.
                         </t>
                         <t>
@@ -3057,7 +3057,7 @@
 
     <?rfc include="reference.I-D.ietf-intarea-tunnels"?>
 
-   <?rfc include="reference.I-D.thubert-roll-unaware-leaves" ?>
+   <?rfc include="reference.I-D.ietf-roll-unaware-leaves" ?>
 
      &RFC6775;
      &RFC6437;

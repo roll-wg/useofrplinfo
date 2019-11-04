@@ -1459,9 +1459,9 @@ Internet-Draft               RPL-data-plane                November 2019
 
 
    process the RPI, the node ignores the RPI.  Further details about
-   this are mentioned in [I-D.thubert-roll-unaware-leaves], which
-   specifies RPL routing for a 6LN acting as a plain host and not being
-   aware of RPL.
+   this are mentioned in [I-D.ietf-roll-unaware-leaves], which specifies
+   RPL routing for a 6LN acting as a plain host and not being aware of
+   RPL.
 
    The 6LBR may set the flow label on the inner IPv6-in-IPv6 header to
    zero in order to aid in compression [RFC8138][RFC6437].
@@ -3031,9 +3031,10 @@ Internet-Draft               RPL-data-plane                November 2019
               Architecture", draft-ietf-intarea-tunnels-10 (work in
               progress), September 2019.
 
-   [I-D.thubert-roll-unaware-leaves]
-              Thubert, P., "Routing for RPL Leaves", draft-thubert-roll-
-              unaware-leaves-07 (work in progress), April 2019.
+   [I-D.ietf-roll-unaware-leaves]
+              Thubert, P. and M. Richardson, "Routing for RPL Leaves",
+              draft-ietf-roll-unaware-leaves-06 (work in progress),
+              November 2019.
 
    [RFC2460]  Deering, S. and R. Hinden, "Internet Protocol, Version 6
               (IPv6) Specification", RFC 2460, DOI 10.17487/RFC2460,
@@ -3073,7 +3074,6 @@ Internet-Draft               RPL-data-plane                November 2019
    [RFC7102]  Vasseur, JP., "Terms Used in Routing for Low-Power and
               Lossy Networks", RFC 7102, DOI 10.17487/RFC7102, January
               2014, <https://www.rfc-editor.org/info/rfc7102>.
-
 
 
 
