@@ -571,7 +571,7 @@ Internet-Draft               RPL-data-plane                December 2019
    therefore no longer a necessity to remove the artifacts when sending
    traffic to the Internet.  This change clarifies when to use an IPv6-
    in-IPv6 header, and how to address them: The Hop-by-Hop Options
-   Header containing the RPIMUST always be added when 6LRs originate
+   Header containing the RPI MUST always be added when 6LRs originate
    packets (without IPv6-in-IPv6 headers), and IPv6-in-IPv6 headers MUST
    always be added when a 6LR find that it needs to insert a Hop-by-Hop
    Options Header containing the RPL Option.  The IPv6-in-IPv6 header is
