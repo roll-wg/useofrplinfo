@@ -3006,7 +3006,7 @@ Internet-Draft               RPL-data-plane                 January 2019
 Authors' Addresses
 
 Maria Ines Robles
-Aalto University, Finland -.- Universidad Tecnologica Nacional - FRM, Argentina
+Aalto University, Finland-.-Universidad Tec. Nacional (UTN) - FRM, Argentina
 
 Email: mariainesrobles@gmail.com
 
