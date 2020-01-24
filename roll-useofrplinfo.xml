@@ -64,7 +64,7 @@
    <title abbrev="RPL-data-plane">Using RPI Option Type, Routing Header for Source Routes and IPv6-in-IPv6 encapsulation in the RPL Data Plane</title>
 
   <author  initials="M.I." surname="Robles" fullname="Maria Ines Robles">
-     <organization abbrev="Aalto/UTN-FRM">Aalto University, Finland-.-Universidad Tec. Nacional (UTN) - FRM, Argentina </organization>
+     <organization abbrev="Aalto/UTN-FRM">Aalto University, Finland/Uni. Tec. Nac.(UTN) - FRM, Argentina </organization>
     <address>
 
       <email>mariainesrobles@gmail.com</email>
@@ -101,7 +101,7 @@
       </address>
    </author>
 
-  <date year="2019" />
+  <date year="2020" />
 
    <area>Internet</area>
 
@@ -1059,9 +1059,9 @@
 +                     +--------------+------------+------------------+
 |                     |  RAL to RUL  |    No      |        No        |
 +     Leaf - Leaf     +--------------+------------+------------------+
-|                     |  RUL to RAL  |   must     |  root/RAL(tgt)   |
+|                     |  RUL to RAL  |   must     |       root       |
 +                     +--------------+------------+------------------+
-|                     |  RUL to RUL  |   must     |   root/6LR       |
+|                     |  RUL to RUL  |   must     |       root       |
 +---------------------+--------------+------------+------------------+
                          ]]></artwork></figure>
                           </t>
@@ -2372,7 +2372,7 @@
                          RAL src --> 6LR_ia --> root (6LBR) --> 6LR_id -->  RAL dst
                         </t>
                         <t>
-                        For example, a communication flow could be: Node F --> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node H
+                        For example, a communication flow could be: Node F (RAL src)--> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node H (RAL dst)
                         </t>
                         <t>
                           6LR_ia are the intermediate routers from source to the root
@@ -2390,11 +2390,11 @@
                           original packet, and send the packet upwards.
                         </t>
                         <t>
-                          The originating node must put the RPI (RPI1) into an IPv6-in-IPv6
-                          header addressed to the root, so that the 6LBR can
-                          remove that header.  If it does not, then
-                          additional resources are wasted on the way down to
-                          carry the useless RPI.
+                          The originating node may put the RPI (RPI1) into an IPv6-in-IPv6
+                          header addressed to the root, so that the 6LBR can remove that
+                          header.  If it does not, then the RPI1 is forwarded down from the
+                          root in the inner header to no avail.
+
 
                         </t>
                         <t>
