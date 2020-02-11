@@ -48,7 +48,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-34" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-35" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -1823,10 +1823,13 @@
            The table (<xref target="fig_table_non-storing" />) summarizes what headers are needed in the following
            scenarios, and indicates when the RPI, RH3 and IPv6-in-IPv6 header
            are to be inserted.  It depicts the
-           target destination address possible to a 6LN (indicated by "RAL"), to a 6LR (parent of a 6LN) or to the root.
+           target destination address possible to a 6LN (indicated by "RAL"), to a 6LR (parent of a RUL) or to the root.
            In cases where no IPv6-in-IPv6 header is needed, the column states as "No".
            There is no expectation on RPL that RPI can be omitted, because it is needed for routing, quality of service and compression.
            This specification expects that is always a RPI Present.
+           The term "may(up)" refers that the IPv6-in-IPv6 header may be necessary in the upwards direction.
+           The term "must(up)" refers that the IPv6-in-IPv6 header must be present in the upwards direction.
+           The term "must(down)" refers that the IPv6-in-IPv6 header must be present in the downward direction.
          </t>
          <t>
            The leaf can be a router 6LR or a host, both indicated as 6LN (<xref target="fig_CommonTopology"/>). In the table (<xref target="fig_table_non-storing" />) the
@@ -1834,39 +1837,46 @@
           for the instanceID to be available for priority/channel selection at each hop.
          </t>
          <t>
-
+           The root always have to encapuslate on the way down
           <figure title="Table that shows headers needed in Non-Storing mode: RPI, RH3, IPv6-in-IPv6 encapsulation." anchor="fig_table_non-storing" align="center">
-
             <artwork><![CDATA[
-+-----------------+--------------+-----+-----+------------+------------+
-|   Interaction   |   Use Case   | RPI | RH3 |IPv6-in-IPv6|IPv6-in-IPv6|
-|      between    |              |     |     |            |     dst    |
-+-----------------+--------------+-----+-----+------------+------------+
-|                 |  RAL to root | Yes | No  |    No      |    No      |
-+                 +--------------+-----+-----+------------+------------+
-|   Leaf - Root   |  root to RAL | Yes | Yes |    No      |    No      |
-+                 +--------------+-----+-----+------------+------------+
-|                 | root to RUL  | Yes | Yes |   must     |    6LR     |
-|                 |              | (1) |     |            |            |
-+                 +--------------+-----+-----+------------+------------+
-|                 | RUL to root  | Yes | No  |   must     |   root     |
-+-----------------+--------------+-----+-----+------------+------------+
-|                 |  RAL to Int  | Yes | No  |   No       |    No      |
-+                 +--------------+-----+-----+------------+------------+
-| Leaf - Internet |  Int to RAL  | Yes | Yes |   must     |    RAL     |
-+                 +--------------+-----+-----+------------+------------+
-|                 |  RUL to Int  | Yes | No  |   must     |    root    |
-+                 +--------------+-----+-----+------------+------------+
-|                 |  Int to RUL  | Yes | Yes |   must     |     6LR    |
-+-----------------+--------------+-----+-----+------------+------------+
-|                 |  RAL to RAL  | Yes | Yes |   must     |  root/RAL  |
-+                 +--------------+-----+-----+------------+------------+
-|                 |  RAL to RUL  | Yes | Yes |   must     |  root/6LR  |
-+   Leaf - Leaf   +--------------+-----+-----+------------+------------+
-|                 |  RUL to RAL  | Yes | Yes |   must     |  root/RAL  |
-+                 +--------------+-----+-----+------------+------------+
-|                 |  RUL to RUL  | Yes | Yes |   must     |  root/6LR  |
-+-----------------+--------------+-----+-----+------------+------------+
++-----------------+-------------+-----+-----+--------------+----------+
+|   Interaction   |   Use Case  | RPI | RH3 | IPv6-in-IPv6 | IP-in-IP |
+|      between    |             |     |     |              |    dst   |
++-----------------+-------------+-----+-----+--------------+----------+
+|                 | RAL to root | Yes |  No |      No      |    No    |
+|                 +-------------+-----+-----+--------------+----------+
+|   Leaf - Root   | root to RAL | Yes | Yes |      No      |    No    |
+|                 +-------------+-----+-----+--------------+----------+
+|                 | root to RUL | Yes | Yes |     must     |    6LR   |
+|                 |             | (1) |     |              |          |
+|                 +-------------+-----+-----+--------------+----------+
+|                 | RUL to root | Yes |  No |     must     |   root   |
++-----------------+-------------+-----+-----+--------------+----------+
+|                 |  RAL to Int | Yes |  No |    may(up)   |   root   |
+|                 +-------------+-----+-----+--------------+----------+
+| Leaf - Internet |  Int to RAL | Yes | Yes |     must     |    RAL   |
+|                 +-------------+-----+-----+--------------+----------+
+|                 |  RUL to Int | Yes |  No |     must     |   root   |
+|                 +-------------+-----+-----+--------------+----------+
+|                 |  Int to RUL | Yes | Yes |     must     |    6LR   |
++-----------------+-------------+-----+-----+--------------+----------+
+|                 |  RAL to RAL | Yes | Yes |    may(up)   |   root   |
+|                 |             |     |     +--------------+----------+
+|                 |             |     |     |  must(down)  |    RAL   |
+|   Leaf - Leaf   +-------------+-----+-----+--------------+----------+
+|                 |  RAL to RUL | Yes | Yes |    may(up)   |   root   |
+|                 |             |     |     +--------------+----------+
+|                 |             |     |     |  must(down)  |    6LR   |
+|                 +-------------+-----+-----+--------------+----------+
+|                 |  RUL to RAL | Yes | Yes |   must(up)   |   root   |
+|                 |             |     |     +--------------+----------+
+|                 |             |     |     |  must(down)  |    RAL   |
+|                 +-------------+-----+-----+--------------+----------+
+|                 |  RUL to RUL | Yes | Yes |   must(up)   |   root   |
+|                 |             |     |     +--------------+----------+
+|                 |             |     |     |  must(down)  |    6LR   |
++-----------------+-------------+-----+-----+--------------+----------+
 ]]></artwork></figure>
           </t>
 
@@ -1928,14 +1938,14 @@
                                           <c> RPI</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> RPI </c>
                                           <c> Modified headers</c>
                                           <c> -- </c>
                                           <c> RPI </c>
                                           <c> -- </c>
+                                          <c> Removed headers</c>
+                                          <c> -- </c>
+                                          <c> -- </c>
+                                          <c> RPI </c>
                                           <c> Untouched headers</c>
                                           <c> -- </c>
                                           <c> --</c>
@@ -2003,7 +2013,7 @@
                                 root (6LBR) --> 6LR_i --> RUL (IPv6 dst node)
                         </t>
                         <t>
-                        For example, a communication flow could be: Node A (root) --> Node B --> Node E --> Node G
+                        For example, a communication flow could be: Node A (root) --> Node B --> Node E --> Node G (RUL)
                         </t>
                         <t>
                           6LR_i are the intermediate routers from source to destination.
@@ -2011,7 +2021,7 @@
                           that the packet goes through from source (6LBR) to destination (RUL).
                         </t>
                         <t>
-                          In 6LBR the RH3 is added, it is modified at each
+                          In the 6LBR the RH3 is added, it is modified at each
                           intermediate 6LR (6LR_1 and so on) and
                           it is fully consumed in the last 6LR (6LR_n), but left there.
                           As the RPI is added, then
@@ -2137,7 +2147,9 @@
                           that the packet goes through from source (RAL) to 6LBR.
                         </t>
                         <t>
-                                This case is identical to storing-mode case.
+                              In this case, the encapsulation from the RAL to the root is optional.
+                              The simplest case is when the RPI gets to the Internet (as the table show it), knowing that the Internet is
+                              going to ignore it.
                         </t>
                         <t>
                           The IPv6 flow label should be set to zero to aid
@@ -2145,9 +2157,12 @@
                           non-zero value when sending towards the Internet  <xref target="RFC6437"/>.
                         </t>
                         <t>
-                        The <xref target="NonStoring-rpl2int"/> summarizes what headers are needed for this use case.
+                        The <xref target="NonStoring-rpl2int"/> summarizes what headers are needed for this use case
+                        when no encapsulation is used.
+                        The <xref target="NonStoring-rpl2intwithIPIP"/> summarizes what headers are needed
+                        for this use case when encapsulation to the root is used.
                         </t>
-                        <texttable title="Non-SM: Summary of the use of headers from RAL to Internet" anchor="NonStoring-rpl2int" align="center">
+                        <texttable title="Non-SM: Summary of the use of headers from RAL to Internet with no encapsulation" anchor="NonStoring-rpl2int" align="center">
                                           <ttcol> Header</ttcol>
                                           <ttcol> RAL src</ttcol>
                                           <ttcol> 6LR_i</ttcol>
@@ -2173,6 +2188,33 @@
                                           <c> -- </c>
                                           <c> RPI </c>
                                           <c> RPI (Ignored) </c>
+                        </texttable>
+                        <texttable title="Non-SM: Summary of the use of headers from RAL to Internet with encapsulation to the root" anchor="NonStoring-rpl2intwithIPIP" align="center">
+                                          <ttcol> Header</ttcol>
+                                          <ttcol> RAL src</ttcol>
+                                          <ttcol> 6LR_i</ttcol>
+                                          <ttcol> 6LBR</ttcol>
+                                          <ttcol> Internet dst</ttcol>
+                                          <c> Added headers</c>
+                                          <c> IPv6-in-IPv6(RPI) </c>
+                                          <c> -- </c>
+                                          <c> -- </c>
+                                          <c> -- </c>
+                                          <c> Modified headers</c>
+                                          <c> -- </c>
+                                          <c>IPv6-in-IPv6(RPI)</c>
+                                          <c> -- </c>
+                                          <c> -- </c>
+                                          <c> Removed headers</c>
+                                          <c> -- </c>
+                                          <c> -- </c>
+                                          <c> IPv6-in-IPv6(RPI)</c>
+                                          <c> -- </c>
+                                          <c> Untouched headers</c>
+                                          <c> -- </c>
+                                          <c> -- </c>
+                                          <c> -- </c>
+                                          <c> -- </c>
                         </texttable>
                </section>
 
@@ -2210,19 +2252,19 @@
                           <ttcol> RAL dst</ttcol>
                           <c> Added headers</c>
                           <c> -- </c>
-                          <c>  IPv6-in-IPv6 (RH3,RPI)</c>
+                          <c>  IPv6-in-IPv6(RH3,RPI)</c>
                           <c> -- </c>
                           <c> -- </c>
                           <c> Modified headers</c>
                           <c> -- </c>
                           <c> -- </c>
-                          <c>  IPv6-in-IPv6 (RH3,RPI)</c>
+                          <c>  IPv6-in-IPv6(RH3,RPI)</c>
                           <c> -- </c>
                           <c> Removed headers</c>
                           <c> -- </c>
                           <c> -- </c>
                           <c> -- </c>
-                          <c>  IPv6-in-IPv6 (RH3,RPI)</c>
+                          <c>  IPv6-in-IPv6(RH3,RPI)</c>
                           <c> Untouched headers</c>
                           <c> -- </c>
                           <c> -- </c>
@@ -2316,8 +2358,7 @@
                         The <xref target="NonStoring-int2notrpl"/> shows the table that summarizes what headers are needed for this use case.
                         </t>
                         <t>
-                        <figure title="Non-SM: Summary of the use of headers from Internet to RUL
-                        [1] The last 6LR before the IPv6 node." anchor="NonStoring-int2notrpl" align="center">
+                        <figure title="Non-SM: Summary of the use of headers from Internet to RUL." anchor="NonStoring-int2notrpl" align="center">
                                     <artwork><![CDATA[
 +----------+--------+------------------+-----------+-----------+-----+
 |  Header  |Internet|       6LBR       |   6LR_i   |   6LR_n   | RUL |
@@ -2394,8 +2435,6 @@
                           header addressed to the root, so that the 6LBR can remove that
                           header.  If it does not, then the RPI1 is forwarded down from the
                           root in the inner header to no avail.
-
-
                         </t>
                         <t>
                           The 6LBR will need to insert an RH3 header, which
@@ -2413,10 +2452,15 @@
                    the originating node acting as 6LBR.
                  </t>
                  <t>
-                 The <xref target="NonStoring-rpl2rpl"/> shows the table that summarizes what headers are needed for this use case.
+                 The <xref target="NonStoring-rpl2rpl"/> shows the table that summarizes what headers
+                 are needed for this use case when encapsulation to the root takes place.
                  </t>
                  <t>
-                 <figure title="Non-SM: Summary of the use of headers for RAL to RAL." anchor="NonStoring-rpl2rpl" align="center">
+                 The <xref target="NonStoring-rpl2rplnoIPIP"/> shows the table that summarizes what headers
+                 are needed for this use case when there is no encapsulation to the root.
+                 </t>
+                 <t>
+                 <figure title="Non-SM: Summary of the use of headers for RAL to RAL with encapsulation to the root." anchor="NonStoring-rpl2rpl" align="center">
                              <artwork><![CDATA[
 +---------+-------+----------+------------+----------+------------+
 |  Header | RAL   |   6LR_ia |    6LBR    | 6LR_id   |     RAL    |
@@ -2438,6 +2482,31 @@
 +---------+-------+----------+------------+----------+------------+
                  ]]></artwork></figure>
                  </t>
+                 <t>
+                 <figure title="Non-SM: Summary of the use of headers for RAL to RAL without encapsulation
+                    to the root." anchor="NonStoring-rpl2rplnoIPIP" align="center">
+                             <artwork><![CDATA[
++-----------+------+--------+---------+---------+---------+
+|   Header  |  RAL | 6LR_ia |   6LBR  |  6LR_id |   RAL   |
++-----------+------+--------+---------+---------+---------+
+|  Inserted | RPI1 |   --   | IP6-IP6 |    --   |    --   |
+|  headers  |      |        |  (RH3,  |         |         |
+|           |      |        |   RPI2) |         |         |
++-----------+------+--------+---------+---------+---------+
+|  Modified |  --  |  RPI1  |    --   | IP6-IP6 |    --   |
+|  headers  |      |        |         |  (RH3,  |         |
+|           |      |        |         |   RPI2) |         |
++-----------+------+--------+---------+---------+---------+
+|  Removed  |  --  |   --   |    --   |    --   | IP6-IP6 |
+|  headers  |      |        |         |         |  (RH3,  |
+|           |      |        |         |         |   RPI2) |
+|           |      |        |         |         |   RPI1  |
++-----------+------+--------+---------+---------+---------+
+| Untouched |  --  |   --   |   RPI1  |   RPI1  |    --   |
+|  headers  |      |        |         |         |         |
++-----------+------+--------+---------+---------+---------+
+                 ]]></artwork></figure>
+                 </t>
                </section>
 
                <section title="Non-SM: Example of Flow from RAL to RUL">
@@ -2448,7 +2517,7 @@
                          RAL --> 6LR_ia --> root (6LBR) --> 6LR_id -->  RUL (IPv6 dst node)
                         </t>
                         <t>
-                        For example, a communication flow could be: Node F --> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node G
+                        For example, a communication flow could be: Node F (RAL) --> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node G (RUL)
                         </t>
                         <t>
                           6LR_ia are the intermediate routers from source to the root
@@ -2460,15 +2529,14 @@
                           intermediate routers (6LRs).
                         </t>
                         <t>
-                          As in the previous case, the RAL (6LN) will insert a RPI (RPI_1)
+                          As in the previous case, the RAL (6LN) may insert a RPI (RPI1)
                           header which must be in an IPv6-in-IPv6 header addressed to
                           the root so that the 6LBR can remove this RPI.
                           The 6LBR will then insert an RH3 inside a new IPv6-in-IPv6
-                          header addressed to the last 6LR_id (6LR_id = m).
+                          header addressed to the last 6LR_id (6LR_id = m) alongside the insertion of RPI2.
                         </t>
                         <t>
                         The <xref target="NonStoring-rpl2notrpl"/> shows the table that summarizes what headers are needed for this use case.
-
                         </t>
                         <t>
                         <figure  title="Non-SM: Summary of the use of headers from RAL
@@ -2494,6 +2562,29 @@
 | Untouched |    --   |    --   |    --   |    --   |    --   |  --  |
 |  headers  |         |         |         |         |         |      |
 +-----------+---------+---------+---------+---------+---------+------+
+
++-----------+---------+---------+---------+---------+---------+------+
+|   Header  |   RAL   |  6LR_ia |   6LBR  |  6LR_id |  6LR_m  | RUL  |
+|           |   src   |         |         |         |         | dst  |
+|           |   node  |         |         |         |         | node |
++-----------+---------+---------+---------+---------+---------+------+
+|   Added   |         |         | IP6-IP6 |    --   |    --   |  --  |
+|  headers  |   RPI1 |         |  (RH3,  |         |         |      |
+|           |         |         |   RPI2) |         |         |      |
+
++-----------+---------+---------+---------+---------+---------+------+
+|  Modified |    --   |          |   --   | IP6-IP6 |         |  --  |
+|  headers  |         |    RPI1  |        |  (RH3,  |         |      |
+|           |         |         |         |   RPI2) |         |      |
++-----------+---------+---------+---------+---------+---------+------+
+|  Removed  |    --   |    --   |         |    --   | IP6-IP6 |  --  |
+|  headers  |         |         |         |         |  (RH3,  |      |
+|           |         |         |         |         |   RPI2) |      |
++-----------+---------+---------+---------+---------+---------+------+
+| Untouched |    --   |    --   |  RPI1   |   ----  |         |RPI1  | IGNORED
+|  headers  |         |         |         |         |         |      |
++-----------+---------+---------+---------+---------+---------+------+
+
                         ]]></artwork></figure>
                         </t>
 
