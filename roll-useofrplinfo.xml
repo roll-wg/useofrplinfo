@@ -2536,11 +2536,19 @@
                           header addressed to the last 6LR_id (6LR_id = m) alongside the insertion of RPI2.
                         </t>
                         <t>
-                        The <xref target="NonStoring-rpl2notrpl"/> shows the table that summarizes what headers are needed for this use case.
+                          If the originating node does not not put the RPI (RPI1) into an IPv6-in-IPv6
+                          header addressed to the root. Then, the RPI1 is forwarded down from the
+                          root in the inner header to no avail.
+                        </t>
+                        <t>
+                        The <xref target="NonStoring-rpl2notrpl"/> shows the table that summarizes what headers
+                        are needed for this use case when encapsulation to the root takes place.
+                        The <xref target="NonStoring-rpl2notrplnoIPIP"/> shows the table that summarizes what headers
+                        are needed for this use case when no encapsulation to the root takes place.
                         </t>
                         <t>
                         <figure  title="Non-SM: Summary of the use of headers from RAL
-                        to RUL." anchor="NonStoring-rpl2notrpl" align="center">
+                        to RUL with encapsulation to the root." anchor="NonStoring-rpl2notrpl" align="center">
                                     <artwork><![CDATA[
 +-----------+---------+---------+---------+---------+---------+------+
 |   Header  |   RAL   |  6LR_ia |   6LBR  |  6LR_id |  6LR_m  | RUL  |
@@ -2562,28 +2570,32 @@
 | Untouched |    --   |    --   |    --   |    --   |    --   |  --  |
 |  headers  |         |         |         |         |         |      |
 +-----------+---------+---------+---------+---------+---------+------+
-
-+-----------+---------+---------+---------+---------+---------+------+
-|   Header  |   RAL   |  6LR_ia |   6LBR  |  6LR_id |  6LR_m  | RUL  |
-|           |   src   |         |         |         |         | dst  |
-|           |   node  |         |         |         |         | node |
-+-----------+---------+---------+---------+---------+---------+------+
-|   Added   |         |         | IP6-IP6 |    --   |    --   |  --  |
-|  headers  |   RPI1 |         |  (RH3,  |         |         |      |
-|           |         |         |   RPI2) |         |         |      |
-
-+-----------+---------+---------+---------+---------+---------+------+
-|  Modified |    --   |          |   --   | IP6-IP6 |         |  --  |
-|  headers  |         |    RPI1  |        |  (RH3,  |         |      |
-|           |         |         |         |   RPI2) |         |      |
-+-----------+---------+---------+---------+---------+---------+------+
-|  Removed  |    --   |    --   |         |    --   | IP6-IP6 |  --  |
-|  headers  |         |         |         |         |  (RH3,  |      |
-|           |         |         |         |         |   RPI2) |      |
-+-----------+---------+---------+---------+---------+---------+------+
-| Untouched |    --   |    --   |  RPI1   |   ----  |         |RPI1  | IGNORED
-|  headers  |         |         |         |         |         |      |
-+-----------+---------+---------+---------+---------+---------+------+
+                        ]]></artwork></figure>
+                        </t>
+                        <t>
+                        <figure  title="Non-SM: Summary of the use of headers from RAL
+                        to RUL without encapsulation to the root." anchor="NonStoring-rpl2notrplnoIPIP" align="center">
+                                    <artwork><![CDATA[
++-----------+------+--------+---------+---------+---------+---------+
+|   Header  |  RAL | 6LR_ia |   6LBR  |  6LR_id |  6LR_n  |   RUL   |
+|           |  src |        |         |         |         |   dst   |
+|           | node |        |         |         |         |   node  |
++-----------+------+--------+---------+---------+---------+---------+
+|  Inserted | RPI1 |   --   | IP6-IP6 |    --   |    --   |    --   |
+|  headers  |      |        |  (RH3,  |         |         |         |
+|           |      |        |   RPI2) |         |         |         |
++-----------+------+--------+---------+---------+---------+---------+
+|  Modified |  --  |  RPI1  |    --   | IP6-IP6 |    --   |    --   |
+|  headers  |      |        |         |  (RH3,  |         |         |
+|           |      |        |         |   RPI2) |         |         |
++-----------+------+--------+---------+---------+---------+---------+
+|  Removed  |  --  |   --   |    --   |    --   | IP6-IP6 |    --   |
+|  headers  |      |        |         |         |  (RH3,  |         |
+|           |      |        |         |         |   RPI2) |         |
++-----------+------+--------+---------+---------+---------+---------+
+| Untouched |  --  |   --   |   RPI1  |   RPI1  |   RPI1  |   RPI1  |
+|  headers  |      |        |         |         |         |(Ignored)|
++-----------+------+--------+---------+---------+---------+---------+
 
                         ]]></artwork></figure>
                         </t>
@@ -2599,7 +2611,7 @@
                          RUL (IPv6 src node) --> 6LR_1 --> 6LR_ia --> root (6LBR) --> 6LR_id --> RAL dst (6LN)
                         </t>
                         <t>
-                        For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node B --> Node E --> Node H
+                        For example, a communication flow could be: Node G (RUL)--> Node E --> Node B --> Node A (root) --> Node B --> Node E --> Node H (RAL)
                         </t>
                         <t>
                           6LR_ia are the intermediate routers from source to the root.
@@ -2611,8 +2623,7 @@
                           intermediate routers (6LR).
                         </t>
                         <t>
-                          This scenario is mostly identical to the previous
-                          one.  The RPI (RPI1) is added by the first 6LR (6LR_1) inside an
+                          In this scenario the RPI (RPI1) is added by the first 6LR (6LR_1) inside an
                           IPv6-in-IPv6 header addressed to the root.  The 6LBR will
                           remove this RPI, and add it's own IPv6-in-IPv6 header
                           containing an RH3 header and an RPI (RPI2).
