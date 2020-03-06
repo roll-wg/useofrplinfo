@@ -279,8 +279,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
         </t>
          <t>
            Non-Storing Mode (Non-SM): RPL mode of operation in which the RPL-
-       aware-nodes send information to the root about its parents.  Thus, the root know the topology.
-       Because the root knows the topology, the intermediate 6LRs do not maintain routing state then
+       aware-nodes send information to the root about their parents.  Thus, the root knows the topology.
+       Because the root knows the topology, the intermediate 6LRs do not maintain routing state and
         source routing is needed.
 
        </t>
@@ -288,7 +288,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
         Storing Mode (SM): RPL mode of operation in which RPL-aware-nodes (6LRs) maintain routing
         state (of the children) so that source routing is not needed.
       </t> <t>
-        Note: Due to lack of space in some figures (tables) we refers IPv6-in-IPv6 as IP6-IP6.
+        Note: Due to lack of space in some figures (tables) we refer to IPv6-in-IPv6 as IP6-IP6.
       </t>
           </section>
       <section title="RPL Overview">
@@ -436,7 +436,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
           </t><t>
           Even with <xref target="RFC8138"/>, where the IPv6-in-IPv6 header is compressed, this approach yields extra bytes
-          in a packet which means consuming more energy, more bandwidth, incurring higher chances of loss and possibly
+          in a packet; this means consuming more energy, more bandwidth, incurring higher chances of loss and possibly
           causing a fragmentation at the 6LoWPAN level. This impacts the daily operation of constrained devices for a case
            that generally does not happen and would not heavily impact the core anyway.
           </t><t>
@@ -465,7 +465,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
            (<xref target="RFC8200"/> Section 4.2)
            if it doesn't recognize the Option Type,
            and the third bit continues to be set to indicate that the Option
-           Data may change en route. The five rightmost bits remain at 0x3(00011).
+           Data may change en route. The rightmost five bits remain at 0x3(00011).
            This ensures that a packet that leaves the RPL domain of an LLN (or that
            leaves the LLN entirely) will not be discarded when it contains the RPL Option.
           </t>
@@ -499,7 +499,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           </t>
           <t>
             When forwarding packets, implementations SHOULD use the same value of RPI Type
-            as it was received. This is required because the RPI option Type does not change en route
+            as was received. This is required because the RPI option Type does not change en route
             (<xref target="RFC8200"/> - Section 4.2). It allows the network to be incrementally
             upgraded and allows the DODAG root to know which parts of the
             network have been upgraded.
@@ -526,7 +526,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           The Hop-by-Hop Options header containing the RPI MUST always
           be added when 6LRs originate packets (without IPv6-in-IPv6
           headers), and IPv6-in-IPv6 headers MUST always be added
-          when a 6LR find that it needs to insert a Hop-by-Hop Options header
+          when a 6LR finds that it needs to insert a Hop-by-Hop Options header
           containing the RPL Option. The IPv6-in-IPv6 header is to
           be addressed to the
           RPL root when on the way up, and to the end-host when on the way down.
@@ -695,7 +695,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
        <section title="Sample/reference topology">
                 <t>
                 A RPL network in general is composed of a 6LBR,
-                Backbone Router (6BBR), 6LR and 6LN as a leaf logically organized in a DODAG structure.
+                a Backbone Router (6BBR), a 6LR and a 6LN as a leaf logically organized in a DODAG structure.
                 </t>
        	     	<t>
                <xref target="fig_CommonTopology"/> shows the reference RPL Topology for this document. The
@@ -924,10 +924,10 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
           <t>
             Prior to <xref target="RFC8138" />, there was significant
-            interest in removing the RPI for downward flows in non-storing
-            mode.  The exception covered a very small number of cases, and
-            causes significant interoperability challenges, yet costed
-            significant code and testing complexity.  The ability to compress
+            interest in creating an exception to this rule and removing the RPI for downward flows in non-storing
+            mode.  This exception covered a very small number of cases, and
+            caused significant interoperability challenges while adding
+            significant in the code and tests.  The ability to compress
             the RPI down to three bytes or less removes much of the pressure
             to optimize this any further <xref target="I-D.ietf-anima-autonomic-control-plane" />.
           </t>
@@ -945,10 +945,10 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           <t>
            <list>
               <t>
-                The RPIhas to be in every packet that traverses the LLN.
+                The RPI has to be in every packet that traverses the LLN.
               </t>
               <t>
-                 - Because of the previous requirement, packets from the Internet have to be encapsulated.
+                 - Because of the above requirement, packets from the Internet have to be encapsulated.
               </t>
               <t>
                 - A Header cannot be inserted or removed on the fly inside an IPv6 packet that is being routed.
@@ -1014,17 +1014,19 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           </t>
           <t>
             The following table (<xref target="fig_EncStoMode"/>) itemizes which headers are needed in each of the following scenarios.
-            It indicates whether (1) the IPv6-in-IPv6 header that is added must be addressed to the final destination (the RAL node that
-            is the target (tgt)), (2) the IPv6-in-IPv6 header that is added must be addressed to the "root", or (3) the 6LR parent of a RUL.
+            It indicates whether an IPv6-in-IPv6 header must be added and what destination it must be addressed to:
+	    (1) the final destination (the RAL node that is the target (tgt)),
+            (2) the "root",
+            or (3) the 6LR parent of a RUL.
           </t>
           <t>
             In cases where no IPv6-in-IPv6 header is needed, the column states as "No".
-            If the IPv6-in-IPv6 header is needed is a "must".
+            If the IPv6-in-IPv6 header is needed, the column shows "must".
           </t>
           <t>
-            In all cases the RPI is needed, since it identifies
+            In all cases, the RPI is needed, since it identifies
             inconsistencies (loops) in the routing topology.
-            In all cases the RH3 is not needed because it is not used
+            In all cases, the RH3 is not needed because it is not used
             in storing mode.
           </t>
 
@@ -1440,8 +1442,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                  </t>
                  <t>
                    The node 6LR_1 (i=1) will add an IPv6-in-IPv6(RPI) header addressed to the root such that the root can remove
-                   the RPI before passing upwards. The IPv6-in-IPv6 addressed to the root cause less processing overhead.
-                   In the intermindiate 6LR the rank in the RPI is modified.
+                   the RPI before passing upwards.
+                   In the intermediate 6LR, the rank in the RPI is modified.
                  </t>
                  <t>
                    The originating node will ideally leave the IPv6 flow
@@ -1584,7 +1586,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                  <t>
                    It is assumed that the two nodes are in the same RPL domain
                    (that they share the same DODAG root). At the
-                   common parent (Node B), the direction of RPI is changed (from decreasing to increasing the rank).
+                   common parent (Node B), the direction flag ('O' flag) of the RPI is changed (from decreasing ranks to increasing ranks).
                  </t>
                  <t>
                    While the 6LR nodes will update the RPI, no node needs to
@@ -1826,14 +1828,14 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
          <t>
            The table (<xref target="fig_table_non-storing" />) summarizes what headers are needed in the following
            scenarios, and indicates when the RPI, RH3 and IPv6-in-IPv6 header
-           are to be inserted.  It depicts the
-           target destination address possible to a 6LN (indicated by "RAL"), to a 6LR (parent of a RUL) or to the root.
-           In cases where no IPv6-in-IPv6 header is needed, the column states as "No".
+           are to be inserted.  The last column depicts the
+           target destination of the IPv6-in-IPv6 header: 6LN (indicated by "RAL"), 6LR (parent of a RUL) or the root.
+           In cases where no IPv6-in-IPv6 header is needed, the column indicates "No".
            There is no expectation on RPL that RPI can be omitted, because it is needed for routing, quality of service and compression.
-           This specification expects that is always a RPI Present.
-           The term "may(up)" refers that the IPv6-in-IPv6 header may be necessary in the upwards direction.
-           The term "must(up)" refers that the IPv6-in-IPv6 header must be present in the upwards direction.
-           The term "must(down)" refers that the IPv6-in-IPv6 header must be present in the downward direction.
+           This specification expects that a RPI is always present.
+           The term "may(up)" means that the IPv6-in-IPv6 header may be necessary in the upwards direction.
+           The term "must(up)" means that the IPv6-in-IPv6 header must be present in the upwards direction.
+           The term "must(down)" means that the IPv6-in-IPv6 header must be present in the downward direction.
          </t>
          <t>
            The leaf can be a router 6LR or a host, both indicated as 6LN (<xref target="fig_CommonTopology"/>). In the table (<xref target="fig_table_non-storing" />) the
@@ -2081,7 +2083,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                           In this case, the RPI is added by the first 6LR (6LR_1) (Node E),
                           encapsulated in an IPv6-in-IPv6 header, and modified in the
                           subsequent 6LRs in the flow. The RPI and the
-                          entire packet is consumed by the root.
+                          entire packet are consumed by the root.
                         </t>
                         <t>
                         The <xref target="NonStoring-notrpl2root"/> shows the table that summarizes what headers are needed for this use case.
@@ -2144,8 +2146,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Node F (RAL) --> Node D --> Node B --> Node A --> Internet
                         </t>
                         <t>
-                          6LR_i represents the intermediate routers from source to destination.
-                          In this case, 1 &lt;= i &lt;= n, n is the number of routers (6LR)
+                          6LR_i represents the intermediate routers from source to destination,
+                          1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
                           that the packet goes through from source (RAL) to 6LBR.
                         </t>
                         <t>
@@ -2869,8 +2871,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           <t>
             While a typical LLN may be a very poor origin for attack traffic
             (as the networks tend to be very slow,
-            and the nodes often have very low duty cycles) given enough
-            nodes, they could still have a
+            and the nodes often have very low duty cycles), given enough
+            nodes, LLNs could still have a
             significant impact, particularly if attack is targeting another LLN.
             Additionally, some uses of RPL involve large backbone ISP scale
             equipment <xref target="I-D.ietf-anima-autonomic-control-plane"/>,
