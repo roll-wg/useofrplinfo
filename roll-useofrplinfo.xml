@@ -167,8 +167,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                to reflect the normative changes in that document.
              </t>
              <t>
-               This document updates RFC6553, changing the value of the Option Type of the RPL Option
-               to make RFC8200 routers ignore this option when not recognized.
+               This document updates <xref target="RFC6553"/>, changing the value of the Option Type of the RPL Option
+               to make <xref target="RFC8200"/> routers ignore this option when not recognized.
              </t>
              <t>
                A Routing Header Dispatch for 6LoWPAN (6LoRH)(<xref target="RFC8138" />)
@@ -571,7 +571,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           to indicate the value of Option Type that the network is using for the RPL Option. Thus, when a
           node join to a network will know which value to use.
           With this, RPL-capable nodes know if it is safe to use 0x23 when creating a new RPL Option.
-          A node that forwards a packet with a RPI MUST NOT modify the Option Type of the RPL Option.
+          A node that forwards a packet with an RPI MUST NOT modify the Option Type of the RPL Option.
         </t>
           <t>
             This is done using a DODAG Configuration option flag which will
@@ -900,7 +900,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             this new outer IP header.
          </t>
          <t>
-           A corollary is that a RH3 or RPL Option can only be removed by an
+           A corollary is that an RH3 or RPL Option can only be removed by an
             intermediate router if it is placed in an encapsulating IPv6
             Header, which is addressed TO the intermediate router.
             When it does so, the whole encapsulating header must be
@@ -960,7 +960,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                 - RPI and RH3 headers may be modified by routers on the path of the packet without the need to add and remove an encapsulating header.
               </t>
               <t>
-                - a RH3 or RPL Option can only be removed by an intermediate router if it is placed in an encapsulating IPv6 Header, which is addressed to the intermediate router.
+                - an RH3 or RPL Option can only be removed by an intermediate router if it is placed in an encapsulating IPv6 Header, which is addressed to the intermediate router.
               </t>
               <t>
                 - Non-storing mode requires downstream encapsulation by root for RH3.
@@ -1031,8 +1031,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           </t>
 
           <t>
-            In each case, 6LR_i represents the intermediate routers from source to destination.
-            "1 &lt;= i &lt;= n", n is the number of routers (6LR)
+            In each case, 6LR_i represents the intermediate routers from source to destination,
+            1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
             that the packet goes through from source (6LN) to destination.
           </t>
           <t>
@@ -1159,7 +1159,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
                <!-- section 7.2.  !-->
 
-               <section title="SM: Example of Flow from root to RAL">
+               <section title="SM: Example of Flow from root to RAL" anchor="Storing-root2ral">
 
                          <t>
                                 In this case the flow comprises:
@@ -1225,7 +1225,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         <t>
                           As the RPI extension can be ignored by the
                           RUL, this situation is identical to
-                          the previous scenario.
+                          the previous scenario (<xref target="Storing-root2ral"/>).
                         </t>
                         <t>
                         The <xref target="Storing-root2notrpl"/> summarizes what headers are needed for this use case.
@@ -1267,7 +1267,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         </t>
                         <t>
                                 When the packet arrives from IPv6 node (Node G) to
-                                6LR_1 (Node E), the 6LR_1 will insert a RPI, encapsulated
+                                6LR_1 (Node E), the 6LR_1 will insert an RPI, encapsulated
                                 in a IPv6-in-IPv6 header.  The IPv6-in-IPv6
                                 header is addressed to the root (Node A).  The root removes the header and processes
                                 the packet.
@@ -1490,7 +1490,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Internet --> Node A root(6LBR) --> Node B (6LR_i)--> Node E (6LR_n) --> Node G (RUL)
                         </t>
                         <t>
-                          The 6LBR will have to add a RPI within an
+                          The 6LBR will have to add an RPI within an
                           IPv6-in-IPv6 header. The IPv6-in-IPv6 is addressed
                           to the 6LR parent of the RUL.
                         </t>
@@ -1574,14 +1574,14 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                  For example, a communication flow could be: Node F (RAL src)--> Node D (6LR_ia)--> Node B (6LR_x) --> Node E (6LR_id) --> Node H (RAL dst)
                  </t>
                  <t>
-                   6LR_ia (Node D) represents the intermediate routers from source to the common parent (6LR_x) (Node B).
-                   In this case, 1 &lt;= ia &lt;= n, n is the number of routers (6LR)
+                   6LR_ia (Node D) represents the intermediate routers from source to the common parent (6LR_x) (Node B),
+                   1 &lt;= ia &lt;= n, where n is the total number of routers (6LR)
                    that the packet goes through from RAL (Node F) to the common parent 6LR_x (Node B).
                  </t>
                  <t>
-                   6LR_id (Node E) represents the intermediate routers from the common parent (6LR_x) (Node B) to destination RAL (Node H).
-                   In this case, 1 &lt;= id &lt;= m, m is the number of routers (6LR)
-                   that the packet goes through from the common parent (6LR_x)  to destination RAL (Node H).
+                   6LR_id (Node E) represents the intermediate routers from the common parent (6LR_x) (Node B) to destination RAL (Node H),
+                    1 &lt;= id &lt;= m, where m is the total number of routers (6LR)
+                   that the packet goes through from the common parent (6LR_x) to destination RAL (Node H).
                  </t>
                  <t>
                    It is assumed that the two nodes are in the same RPL domain
@@ -1643,13 +1643,13 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Node F (RAL)--> Node D --> Node B --> Node E --> Node G (RUL)
                         </t>
                         <t>
-                          6LR_ia represents the intermediate routers from source (RAL) to the common parent (6LR_x)
-                          In this case, 1 &lt;= ia &lt;= n, n is the number of routers (6LR)
+                          6LR_ia represents the intermediate routers from source (RAL) to the common parent (6LR_x),
+                          1 &lt;= ia &lt;= n, where n is the total number of routers (6LR)
                           that the packet goes through from RAL to the common parent (6LR_x).
                         </t>
                         <t>
                           6LR_id (Node E) represents the intermediate routers from the common parent (6LR_x) (Node B) to destination RUL (Node G).
-                          In this case, 1 &lt;= id &lt;= m, m is the number of routers (6LR)
+                          In this case, 1 &lt;= id &lt;= m, where m is the total number of routers (6LR)
                           that the packet goes through from the common parent (6LR_x)  to destination RUL.
                           The packet from the RAL goes to 6LBR because the route to the RUL is not injected into the RPL-SM.
                         </t>
@@ -1706,12 +1706,12 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                  </t>
                  <t>
                    6LR_ia (Node E) represents the intermediate routers from source (RUL) (Node G) to the root (Node A).
-                   In this case, 1 &lt;= ia &lt;= n, n is the number of routers (6LR)
+                   In this case, 1 &lt;= ia &lt;= n, where n is the total number of routers (6LR)
                    that the packet goes through from source to the root.
                  </t>
                  <t>
                    6LR_id represents the intermediate routers from the root (Node A) to destination RAL (Node F).
-                   In this case, 1 &lt;= id &lt;= m, m is the number of routers (6LR)
+                   In this case, 1 &lt;= id &lt;= m, where m is the total number of routers (6LR)
                    that the packet goes through from the root to the destination RAL.
                  </t>
                  <t>
@@ -1764,13 +1764,13 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                    Internal nodes 6LR_ia (e.g: Node E or Node B) is the
                    intermediate router from the RUL source (Node G)
                    to the root (6LBR) (Node A).
-                   In this case, 1 &lt;= ia &lt;= n, n is the number of routers (6LR)
+                   In this case, 1 &lt;= ia &lt;= n, where n is the total number of routers (6LR)
                    that the packet goes through from the RUL to the root. 6LR_1 refers when ia=1.
                  </t>
                  <t>
                    6LR_id (Node C) represents the intermediate routers from the root
                    (Node A) to the destination RUL dst node (Node J).
-                   In this case, 1 &lt;= id &lt;= m, m is the number of routers (6LR)
+                   In this case, 1 &lt;= id &lt;= m, where m is the total number of routers (6LR)
                    that the packet goes through from the root  to destination RUL.
 
                  </t>
@@ -1832,7 +1832,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
            target destination of the IPv6-in-IPv6 header: 6LN (indicated by "RAL"), 6LR (parent of a RUL) or the root.
            In cases where no IPv6-in-IPv6 header is needed, the column indicates "No".
            There is no expectation on RPL that RPI can be omitted, because it is needed for routing, quality of service and compression.
-           This specification expects that a RPI is always present.
+           This specification expects that an RPI is always present.
            The term "may(up)" means that the IPv6-in-IPv6 header may be necessary in the upwards direction.
            The term "must(up)" means that the IPv6-in-IPv6 header must be present in the upwards direction.
            The term "must(down)" means that the IPv6-in-IPv6 header must be present in the downward direction.
@@ -1925,7 +1925,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                  </t>
                  <t>
                    6LR_i represents the intermediate routers from source to destination.
-                   In this case, 1 &lt;= i &lt;= n, n is the number of routers (6LR)
+                   In this case, 1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
                    that the packet goes through from source (RAL) to destination (6LBR).
                  </t>
                  <t>
@@ -1973,11 +1973,11 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                  </t>
                  <t>
                    6LR_i represents the intermediate routers from source to destination.
-                   In this case, 1 &lt;= i &lt;= n, n is the number of routers (6LR)
+                   In this case, 1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
                    that the packet goes through from source (6LBR) to destination (RAL).
                  </t>
                  <t>
-                   The 6LBR inserts a RH3, and a RPI.
+                   The 6LBR inserts an RH3, and an RPI.
                    No IPv6-in-IPv6 header is necessary as the traffic
                    originates with a RPL aware node, the 6LBR.
                    The destination is known to be RPL-aware because the root
@@ -2023,7 +2023,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         </t>
                         <t>
                           6LR_i represents the intermediate routers from source to destination.
-                          In this case, 1 &lt;= i &lt;= n, n is the number of routers (6LR)
+                          In this case, 1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
                           that the packet goes through from source (6LBR) to destination (RUL).
                         </t>
                         <t>
@@ -2031,7 +2031,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                           intermediate 6LR (6LR_1 and so on), and it is fully consumed in the
                           last 6LR (6LR_n) but is left in place.  When the RPI is added, the
                           IPv6 node, which does not understand the RPI, will ignore it (per
-                          RFC8200); thus, encapsulation is not necessary.
+                          <xref target="RFC8200"/>); thus, encapsulation is not necessary.
                         </t>
                         <t>
                         The <xref target="NonStoring-root2notrpl"/> depicts the table that summarizes what headers are needed for this use case.
@@ -2074,7 +2074,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         </t>
                         <t>
                           6LR_i represents the intermediate routers from source to destination.
-                          In this case, 1 &lt;= i &lt;= n, n is the number of routers (6LR)
+                          In this case, 1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
                           that the packet goes through from source (RUL) to destination (6LBR).
                           For example, 6LR_1 (i=1) is the router that receives the packets from the
                           IPv6 node.
@@ -2234,12 +2234,12 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Internet --> Node A (root) --> Node B --> Node D --> Node F (RAL)
                         </t>
                         <t>
-                          6LR_i represents the intermediate routers from source to destination.
-                          In this case, 1 &lt;= i &lt;= n, n is the number of routers (6LR)
+                          6LR_i represents the intermediate routers from source to destination,
+                          1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
                           that the packet goes through from 6LBR to destination (RAL).
                         </t>
                         <t>
-                          The 6LBR must add a RH3 header.  As the 6LBR will
+                          The 6LBR must add an RH3 header.  As the 6LBR will
                           know the path and address of the target node, it can
                           address the IPv6-in-IPv6 header to that node.
                           The 6LBR will zero the flow label upon entry in
@@ -2288,15 +2288,15 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Node G --> Node E --> Node B --> Node A --> Internet
                         </t>
                         <t>
-                          6LR_i are the intermediate routers from source to destination.  In
-                          this case, "1 &lt;= i &lt;= n", where n is the number of routers (6LRs) that the
+                          6LR_i are the intermediate routers from source to destination,
+                          1 &lt;= i &lt;= n, where n is the total number of routers (6LRs) that the
                           packet goes through from the source (RUL) to the 6LBR, e.g., 6LR_1 (i=1).
                         </t>
                         <t>
                                 In this case the flow label is recommended to
                                 be zero in the IPv6 node. As RPL headers are
                                 added in the IPv6 node packet, the first 6LR (6LR_1) will
-                                add a RPI inside a new IPv6-in-IPv6 header.
+                                add an RPI inside a new IPv6-in-IPv6 header.
                                 The IPv6-in-IPv6 header will be addressed to the
                                 root.  This case is identical to the
                                 storing-mode case (see <xref target="sm-nRal2i" />).
@@ -2342,13 +2342,13 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Internet --> Node A (root) --> Node B --> Node E --> Node G
                         </t>
                         <t>
-                          6LR_i represents the intermediate routers from source to destination.
-                          In this case, 1 &lt;= i &lt;= n, n is the number of routers (6LR)
+                          6LR_i represents the intermediate routers from source to destination,
+                          1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
                           that the packet goes through from 6LBR to RUL.
                         </t>
 
                         <t>
-                          The 6LBR must add a RH3 header inside an IPv6-in-IPv6
+                          The 6LBR must add an RH3 header inside an IPv6-in-IPv6
                           header.
                           The 6LBR will know the path, and will recognize
                           that the final node is not a RPL capable node as
@@ -2420,18 +2420,18 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Node F (RAL src)--> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node H (RAL dst)
                         </t>
                         <t>
-                          6LR_ia represents the intermediate routers from source to the root
-                          In this case, 1 &lt;= ia &lt;= n, n is the number of routers (6LR)
+                          6LR_ia represents the intermediate routers from source to the root,
+                          1 &lt;= ia &lt;= n, where n is the total number of routers (6LR)
                           that the packet goes through from RAL to the root.
                         </t>
                         <t>
-                          6LR_id represents the intermediate routers from the root to the destination.
-                          In this case, 1 &lt;= id &lt;= m, m is the number of the
+                          6LR_id represents the intermediate routers from the root to the destination,
+                          1 &lt;= id &lt;= m, where m is the total number of the
                           intermediate routers (6LR).
                         </t>
                         <t>
                           This case involves only nodes in same RPL domain.
-                          The originating node will add a RPI to the
+                          The originating node will add an RPI to the
                           original packet, and send the packet upwards.
                         </t>
                         <t>
@@ -2441,12 +2441,12 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                           root in the inner header to no avail.
                         </t>
                         <t>
-                          The 6LBR will need to insert a RH3 header, which
+                          The 6LBR will need to insert an RH3 header, which
                           requires that it add an IPv6-in-IPv6 header.  It should be
                           able to remove the RPI(RPI1), as it was contained in an
                           IPv6-in-IPv6 header addressed to it.  Otherwise, there may
-                          be a RPI buried inside the inner IP header,
-                          which should get ignored. The root inserts a RPI (RPI2) alongside the RH3.
+                          be an RPI buried inside the inner IP header,
+                          which should get ignored. The root inserts an RPI (RPI2) alongside the RH3.
                         </t>
 
                  <t>
@@ -2524,19 +2524,19 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Node F (RAL) --> Node D --> Node B --> Node A (root) --> Node B --> Node E --> Node G (RUL)
                         </t>
                         <t>
-                          6LR_ia represents the intermediate routers from source to the root
-                          In this case, 1 &lt;= ia &lt;= n, n is the number of intermediate routers (6LR)
+                          6LR_ia represents the intermediate routers from source to the root,
+                          1 &lt;= ia &lt;= n, where n is the total number of intermediate routers (6LR)
                         </t>
                         <t>
-                          6LR_id represents the intermediate routers from the root to the destination.
-                          In this case, 1 &lt;= id &lt;= m, m is the number of the
+                          6LR_id represents the intermediate routers from the root to the destination,
+                           1 &lt;= id &lt;= m, where m is the total number of the
                           intermediate routers (6LRs).
                         </t>
                         <t>
-                          As in the previous case, the RAL (6LN) may insert a RPI (RPI1)
+                          As in the previous case, the RAL (6LN) may insert an RPI (RPI1)
                           header which must be in an IPv6-in-IPv6 header addressed to
                           the root so that the 6LBR can remove this RPI.
-                          The 6LBR will then insert a RH3 inside a new IPv6-in-IPv6
+                          The 6LBR will then insert an RH3 inside a new IPv6-in-IPv6
                           header addressed to the last 6LR_id (6LR_id = m) alongside the insertion of RPI2.
                         </t>
                         <t>
@@ -2618,19 +2618,19 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Node G (RUL)--> Node E --> Node B --> Node A (root) --> Node B --> Node E --> Node H (RAL)
                         </t>
                         <t>
-                          6LR_ia represents the intermediate routers from source to the root.
-                          In this case, 1 &lt;= ia &lt;= n, n is the number of intermediate routers (6LR)
+                          6LR_ia represents the intermediate routers from source to the root,
+                          1 &lt;= ia &lt;= n, where n is the total number of intermediate routers (6LR)
                         </t>
                         <t>
-                          6LR_id represents the intermediate routers from the root to the destination.
-                          In this case, 1 &lt;= id &lt;= m, m is the number of the
+                          6LR_id represents the intermediate routers from the root to the destination,
+                          1 &lt;= id &lt;= m, where m is the total number of the
                           intermediate routers (6LR).
                         </t>
                         <t>
                           In this scenario the RPI (RPI1) is added by the first 6LR (6LR_1) inside an
                           IPv6-in-IPv6 header addressed to the root.  The 6LBR will
                           remove this RPI, and add it's own IPv6-in-IPv6 header
-                          containing a RH3 header and a RPI (RPI2).
+                          containing an RH3 header and an RPI (RPI2).
                         </t>
                         <t>
                         The <xref target="NonStoring-notrpl2rpl"/> shows the table that summarizes what headers are needed for this use case.
@@ -2675,12 +2675,12 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Node G --> Node E --> Node B --> Node A (root) --> Node C --> Node J
                         </t>
                         <t>
-                          6LR_ia represents the intermediate routers from source to the root.
-                          In this case, 1 &lt;= ia &lt;= n, n is the number of intermediate routers (6LR)
+                          6LR_ia represents the intermediate routers from source to the root,
+                          1 &lt;= ia &lt;= n, where n is the total number of intermediate routers (6LR)
                         </t>
                         <t>
-                          6LR_id represents the intermediate routers from the root to the destination.
-                          In this case, 1 &lt;= id &lt;= m, m is the number of the
+                          6LR_id represents the intermediate routers from the root to the destination,
+                          1 &lt;= id &lt;= m, where m is the total number of the
                           intermediate routers (6LR).
                         </t>
                         <t>
@@ -2951,7 +2951,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             with an IPv6-in-IPv6 header to add the needed RH3
             header. As such, the attacker's RH3 header will not be seen by
             the network until it reaches the end host, which will decapsulate
-            it.  An end-host should be suspicious about a RH3 header which
+            it.  An end-host should be suspicious about an RH3 header which
             has additional hops which have not yet been processed, and SHOULD
             ignore such a second RH3 header.
           </t>
@@ -2965,7 +2965,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             crosses the Internet, and enters another LLN.  As per the
             discussion in this document, such headers do not need to be
             removed.  However, there is no case described in this document
-            where a RH3 is inserted in a non-storing network on traffic that
+            where an RH3 is inserted in a non-storing network on traffic that
             is leaving the LLN, but this document should not preclude such a
             future innovation.  It should just be noted that an incoming RH3
             must be fully consumed, or very carefully inspected.
@@ -2977,7 +2977,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             for instance.  It could also be that not all nodes are reachable
             in an LLN using the default RPLInstanceID, but a change of
             RPLInstanceID would permit an attacker to bypass such filtering.
-            Like the RH3, a RPI is to be inserted by the RPL root on
+            Like the RH3, an RPI is to be inserted by the RPL root on
             traffic entering the LLN by first inserting an IPv6-in-IPv6 header. The
             attacker's RPI therefore will not be seen by the network.
             Upon reaching the destination node the RPI has no further
@@ -2988,7 +2988,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           <t>
             The RH3 and RPIs could be abused by an attacker inside of
             the network to route packets on non-obvious ways, perhaps eluding
-            observation.   This usage is in fact part of
+            observation.   This usage appears consistent with a normal operation of
             <xref target="RFC6997" /> and can not be restricted at all. This
             is a feature, not a bug.
           </t>
@@ -3015,7 +3015,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             checks for topological correctness. Notice that there is an L2 authentication
             in most of the cases.  If an attack comes from outside LLN IPv6-in-
             IPv6 can be used to hide inner routing headers, but by construction, the RH3 can typically only address nodes within the
-            LLN.  That is, a RH3 with a CmprI less than 8 , should be considered an attack (see RFC6554, section 3).
+            LLN.  That is, an RH3 with a CmprI less than 8 , should be considered an attack (see RFC6554, section 3).
           </t>
           <t>
             Nodes outside of the LLN will need to pass IPv6-in-IPv6 traffic
@@ -3049,7 +3049,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
            </t>
            <t>
            Additionally, the authors would like to acknowledge the review, feedback, and
-           comments of (alphabetical order): Robert Cragie, Simon Duquennoy, Ralph Droms,
+           comments of (alphabetical order): Dominique Barthel, Robert Cragie, Simon Duquennoy, Ralph Droms,
            Cenk Gündogan, Rahul Jadhav, Benjamin Kaduk, Matthias Kovatsch, Charlie Perkins, Alvaro Retana, Peter van der Stok,
            Xavier Vilajosana, Éric Vyncke and Thomas Watteyne.
            </t>
