@@ -567,9 +567,9 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           In order to avoid a Flag Day caused by lack of interoperation
           between new RPI Option Type (0x23) and old RPI Option Type (0x63) nodes, this section
           defines a flag in the DIO Configuration option, to indicate when
-          then new RPI Option Type can be safely used. This means, the flag is going
-          to indicate the value of Option Type that the network is using for the RPL Option. Thus, when a
-          node join to a network will know which value to use.
+          the new RPI Option Type can be safely used. This means, the flag is going
+          to indicate the value of Option Type that the network will be using for the RPL Option. Thus, when a
+          node joins to a network will know which value to use.
           With this, RPL-capable nodes know if it is safe to use 0x23 when creating a new RPL Option.
           A node that forwards a packet with an RPI MUST NOT modify the Option Type of the RPL Option.
         </t>
@@ -599,7 +599,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
              and MUST be ignored by the receiver".  If the flag is received with a
 	        value zero (which is the default), then new nodes will remain in
             RFC6553 Compatible Mode; originating traffic with the old-RPI Option Type (0x63) value.
-            If the flag is received with a value of 1, then the option value for the
+            If the flag is received with a value of 1, then the Option Type for the
             RPL Option MUST be set to 0x23.
           </t>
             <t>
