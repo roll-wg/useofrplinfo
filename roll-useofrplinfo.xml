@@ -61,7 +61,7 @@
    <!-- The abbreviated title is used in the page header - it is only necessary if the
         full title is longer than 39 characters -->
 
-   <title abbrev="RPL-data-plane">Using RPI option Type, Routing Header for Source Routes and IPv6-in-IPv6 encapsulation in the RPL Data Plane</title>
+   <title abbrev="RPL-data-plane">Using RPI Option Type, Routing Header for Source Routes and IPv6-in-IPv6 encapsulation in the RPL Data Plane</title>
 
   <author  initials="M.I." surname="Robles" fullname="Maria Ines Robles">
      <organization abbrev="UTN-FRM/Aalto">
@@ -117,10 +117,10 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
       <t>
         This document looks at different data flows through LLN (Low-Power and Lossy Networks) where RPL
         (IPv6 Routing Protocol for Low-Power and Lossy Networks) is used to establish routing.
-        The document enumerates the cases where RFC6553 (RPI option Type), RFC6554 (Routing Header for Source Routes)
+        The document enumerates the cases where RFC6553 (RPI Option Type), RFC6554 (Routing Header for Source Routes)
         and IPv6-in-IPv6 encapsulation is required in data plane.
         This analysis provides the basis on which to design efficient compression of these headers.
-        This document updates RFC6553 adding a change to the RPI option Type. Additionally, this document updates
+        This document updates RFC6553 adding a change to the RPI Option Type. Additionally, this document updates
         RFC6550 defining a flag in the DIO Configuration option to indicate about this change and
         updates RFC8138 as well to consider the new Option Type when the RPL Option is decompressed.
       </t>
@@ -196,7 +196,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                Section 6  describes the uses cases included.
                Section 7 describes the storing mode cases and section 8 the non-storing mode cases.
                Section 9 describes the operational considerations of supporting RPL-unaware-leaves.
-               Section 10 depicts operational considerations for the proposed change on RPI option Type, section 11 the
+               Section 10 depicts operational considerations for the proposed change on RPI Option Type, section 11 the
                IANA considerations and then section 12 describes the security
                aspects.
                </t>
@@ -264,7 +264,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
       the isolated network."
         </t>
         <t>
-          Flag Day:  A transition that involves having a network with different values of RPI option Type.
+          Flag Day:  A transition that involves having a network with different values of RPI Option Type.
           Thus the network does not work correctly (Lack of interoperation).
 
         </t>
@@ -492,14 +492,14 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           </t>
           <t>
             Without the signaling described below, this change would otherwise create a lack of interoperation (flag day) for existing networks which are
-            currently using 0x63 as the RPI option Type value.  A move to 0x23 will not
+            currently using 0x63 as the RPI Option Type value.  A move to 0x23 will not
             be understood by those networks.  It is suggested that
             RPL implementations accept both 0x63 and 0x23 when
             processing the header.
           </t>
           <t>
             When forwarding packets, implementations SHOULD use the same value of RPI Type
-            as was received. This is required because the RPI option Type does not change en route
+            as was received. This is required because the RPI Option Type does not change en route
             (<xref target="RFC8200"/> - Section 4.2). It allows the network to be incrementally
             upgraded and allows the DODAG root to know which parts of the
             network have been upgraded.
@@ -518,7 +518,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           possible this change can be deployed at the same time.
         </t-->
         <t>
-          The change of RPI option Type from 0x63 to 0x23, makes all
+          The change of RPI Option Type from 0x63 to 0x23, makes all
           <xref target="RFC8200"/> Section 4.2 compliant nodes tolerant of the RPL artifacts.  There
           is therefore no longer a necessity to remove the artifacts when
           sending traffic to the Internet.  This change clarifies when
@@ -565,9 +565,9 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         DODAG Configuration option Flag. " anchor="update6550">
         <t>
           In order to avoid a Flag Day caused by lack of interoperation
-          between new RPI option Type (0x23) and old RPI option Type (0x63) nodes, this section
+          between new RPI Option Type (0x23) and old RPI Option Type (0x63) nodes, this section
           defines a flag in the DIO Configuration option, to indicate when
-          then new RPI option Type can be safely used. This means, the flag is going
+          then new RPI Option Type can be safely used. This means, the flag is going
           to indicate the value of Option Type that the network is using for the RPL Option. Thus, when a
           node join to a network will know which value to use.
           With this, RPL-capable nodes know if it is safe to use 0x23 when creating a new RPL Option.
@@ -598,7 +598,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             "the unused bits MUST be initialize to zero by the sender
              and MUST be ignored by the receiver".  If the flag is received with a
 	        value zero (which is the default), then new nodes will remain in
-            RFC6553 Compatible Mode; originating traffic with the old-RPI option Type (0x63) value.
+            RFC6553 Compatible Mode; originating traffic with the old-RPI Option Type (0x63) value.
             If the flag is received with a value of 1, then the option value for the
             RPL Option MUST be set to 0x23.
           </t>
@@ -627,7 +627,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             value. The node will use the value 0x23 if it supports this feature.
           </t>
         </section>
-        <section title="Updates to RFC8138: Indicating the way to decompress with the new RPI option Type.">
+        <section title="Updates to RFC8138: Indicating the way to decompress with the new RPI Option Type.">
           <t>
           This modification is required in order to be able to decompress the RPL Option
           with the new Option Type of 0x23.
@@ -635,7 +635,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           <t>
             RPI-6LoRH header provides a compressed form for the RPL RPI; see
             <xref target="RFC8138"/>, Section 6. A node that is decompressing this header
-            MUST decompress using the RPI option Type that is currently active: that
+            MUST decompress using the RPI Option Type that is currently active: that
             is, a choice between 0x23 (new) and 0x63 (old).  The node will know which to
             use based upon the presence of the flag in the DODAG Configuration option defined in
             <xref target="update6550" />. E.g. If the network is in 0x23 mode (by DIO option),
@@ -783,7 +783,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
            representative traffic flows.
         </t>
         <t>
-          This document assumes that the LLN is using the no-drop RPI option Type of 0x23.
+          This document assumes that the LLN is using the no-drop RPI Option Type of 0x23.
         </t>
         <t>
 
@@ -974,10 +974,10 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           <t>
            <list>
               <t>
-               This document assumes that the LLN is using the no-drop RPI option Type (0x23).
+               This document assumes that the LLN is using the no-drop RPI Option Type (0x23).
               </t>
               <t>
-                - Each IPv6 node (including Internet routers) obeys <xref target="RFC8200"/> RFC 8200, so that 0x23 RPI option Type can be safely inserted.
+                - Each IPv6 node (including Internet routers) obeys <xref target="RFC8200"/> RFC 8200, so that 0x23 RPI Option Type can be safely inserted.
               </t>
               <t>
                 - All 6LRs obey RFC 8200 <xref target="RFC8200"/>.
@@ -2782,16 +2782,16 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
        <section title="Operational considerations of introducing 0x23">
          <t>
-           This section describes the operational considerations of introducing the new RPI option Type of 0x23.
+           This section describes the operational considerations of introducing the new RPI Option Type of 0x23.
          </t>
 
            <t>
-             During bootstrapping the node gets the DIO with the information of RPI option Type, indicating
+             During bootstrapping the node gets the DIO with the information of RPI Option Type, indicating
              the new RPI in the DODAG Configuration option Flag.
              The DODAG root is in charge to configure the current network to the new value, through DIO
              messages and when all the nodes are set with the new value. The DODAG should change to a new DODAG version.
-             In case of rebooting, the node does not remember the RPI option Type.
-             Thus, the DIO is sent with a flag indicating the new RPI option Type.
+             In case of rebooting, the node does not remember the RPI Option Type.
+             Thus, the DIO is sent with a flag indicating the new RPI Option Type.
            </t>
            <t>
            The DODAG Configuration option is contained in a RPL DIO message, which contains a unique DTSN counter.
@@ -2802,7 +2802,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
            <t>
              Before the migration happens, all the RPL-aware nodes should support both values .
              The migration procedure it is triggered when the DIO is sent with the flag
-             indicating the new RPI option Type.
+             indicating the new RPI Option Type.
              Namely, it remains at 0x63 until it is sure that the network is capable of 0x23, then it abruptly change to 0x23.
              This options allows to send packets to not-RPL nodes, which should ignore the option and continue processing the packets.
 
