@@ -396,7 +396,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
           </t>
           </section>
-          <section title="Updates to RFC6553: Indicating the new RPI option Type.">
+          <section title="Updates to RFC6553: Indicating the new RPI Option Type.">
           <t>
           This modification is required in order to be able to send, for example,
           IPv6 packets from a RPL-Aware-Leaf to a RPL-unaware node through Internet (see <xref target="sm-Ral2i" />),
@@ -424,7 +424,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           ]]></artwork></figure>
           </t>
           <t>
-          This document illustrates that is is not always possible to know for sure at the source that a packet will only travel within the RPL domain or may leave it.
+          This document illustrates that it is not always possible to know for sure at the source that a packet will only travel within the RPL domain or may leave it.
 
           </t><t>
           At the time <xref target="RFC6553"/> was published, leaking a Hop-by-Hop header in the outer IPv6 header
@@ -456,7 +456,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           </t>
           <t>
            Thus, this document updates the Option Type of the RPL Option <xref target="RFC6553"/>,
-           abusively naming it RPI option Type for simplicity,
+           abusively naming it RPI Option Type for simplicity,
            to (<xref target="fig_RPIOption_new"/>):
            the two high order bits MUST be set to '00'
            and the third bit is equal to '1'.
