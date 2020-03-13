@@ -988,6 +988,12 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                 - In the uses cases, we dont assume that the RUL supports IP-in-IP encapsulation.
               </t>
               <t>
+                - For traffic leaving a RUL, if the RUL adds an opaque RPI then the description of the RAL applies.
+              </t>
+              <t>
+                - The description for RALs applies to RAN in general.
+              </t>
+              <t>
                - Non-constrained uses of RPL are not in scope of this document.
               </t>
               <t>
@@ -1699,38 +1705,31 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         <t>
                         The <xref target="Storing-rpl2nrpl"/> summarizes what headers are needed for this use case.
                         </t>
-                 <texttable title="SM: Summary of the Use of Headers from RAL to RUL" anchor="Storing-rpl2nrpl" align="center">
-                                          <ttcol> Header</ttcol>
-                                          <ttcol> RAL src</ttcol>
-                                          <ttcol> 6LR_ia</ttcol>
-                                          <ttcol> 6LBR</ttcol>
-                                          <ttcol> 6LR_id</ttcol>
-                                          <ttcol> RUL dst</ttcol>
-                                          <c> Added headers</c>
-                                          <c> RPI1 </c>
-                                          <c> -- </c>
-                                          <c> IP-IP(RPI2)</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Modified headers</c>
-                                          <c> -- </c>
-                                          <c> RPI1  </c>
-                                          <c> -- </c>
-                                          <c> IP-IP(RPI2) </c>
-                                          <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> RPI1 </c>
-                                          <c> IP-IP(RPI2) </c>
-                                          <c> -- </c>
-                                          <c> Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                        </texttable>
+                        <t>
+                        <figure  title="SM: Summary of the Use of Headers from RAL to RUL" anchor="Storing-rpl2nrpl" align="center">
+                                    <artwork><![CDATA[
++-----------+---------+---------+---------+---------+---------+------+
+|   Header  |   RAL   |  6LR_ia |   6LBR  |  6LR_id |  6LR_m  | RUL  |
+|           |   src   |         |         |         |         | dst  |
+|           |   node  |         |         |         |         | node |
++-----------+---------+---------+---------+---------+---------+------+
+|   Added   |         |         | IP6-IP6 |    --   |    --   |  --  |
+|  headers  |   RPI1  | --      |  (RPI2) |         |         |      |
+|           |         |         |         |         |         |      |
++-----------+---------+---------+---------+---------+---------+------+
+|  Modified |    --   |         |    --   | IP6-IP6 |         |  --  |
+|  headers  |         |    RPI1 |         |  (RPI2) |  --     |      |
+|           |         |         |         |         |         |      |
++-----------+---------+---------+---------+---------+---------+------+
+|  Removed  |    --   |    --   |         |    --   | IP6-IP6 |  --  |
+|  headers  |         |         |    RPI1 |         |  (RPI2) |      |
+|           |         |         |         |         |         |      |
++-----------+---------+---------+---------+---------+---------+------+
+| Untouched |    --   |    --   |    --   |    --   |    --   |  --  |
+|  headers  |         |         |         |         |         |      |
++-----------+---------+---------+---------+---------+---------+------+
+                        ]]></artwork></figure>
+                        </t>
                </section>
 
                <section anchor="storingnotRALtoRAL" title="SM: Example of Flow from RUL to RAL">
