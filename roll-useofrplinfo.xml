@@ -48,7 +48,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-36" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-37" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -599,7 +599,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
              and MUST be ignored by the receiver".  If the flag is received with a
 	        value zero (which is the default), then new nodes will remain in
             RFC6553 Compatible Mode; originating traffic with the old-RPI Option Type (0x63) value.
-            If the flag is received with a value of 1, then the Option Type for the
+            If the flag is received with a value of 1, then the value for the
             RPL Option MUST be set to 0x23.
           </t>
             <t>
@@ -621,10 +621,9 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           </t>
           <t>
             In the case of reboot, the node (6LN or 6LR) does not remember the
-            RPL Option Type (i.e., whether or not the flag is set), so DIO
-            messages sent by the node would be sent with the flag unset until a
-            DIO message is received with the flag set, indicating the new RPI
-            value. The node will use the value 0x23 if it supports this feature.
+            RPI Option Type (i.e., whether or not the flag is set), so the node will not trigger DIO
+            messages until a DIO message is received indicating the RPI
+            value to be used. The node will use the value 0x23 if the network supports this feature
           </t>
         </section>
         <section title="Updates to RFC8138: Indicating the way to decompress with the new RPI Option Type.">
@@ -931,9 +930,6 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             the RPI down to three bytes or less removes much of the pressure
             to optimize this any further <xref target="I-D.ietf-anima-autonomic-control-plane" />.
           </t>
-
-
-
           <t>
             The earlier examples are more extensive to make sure that the
             process is clear, while later examples are more concise.
@@ -1029,12 +1025,6 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             In all cases, the RH3 is not needed because it is not used
             in storing mode.
           </t>
-
-          <t>
-            In each case, 6LR_i represents the intermediate routers from source to destination,
-            1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
-            that the packet goes through from source (6LN) to destination.
-          </t>
           <t>
             The leaf can be a router 6LR or a host, both indicated as 6LN. The root refers to the 6LBR
             (see <xref target="fig_CommonTopology" />).
@@ -1049,11 +1039,11 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 +                     +--------------+------------+----------------+
 |     Leaf - Root     |  root to RAL |    No      |        No      |
 +                     +--------------+------------+----------------+
-|                     | root to RUL  |    No      |        No      |
+|                     | root to RUL  |   must     |       6LR      |
 +                     +--------------+------------+----------------+
 |                     | RUL to root  |   must     |       root     |
 +---------------------+--------------+------------+----------------+
-|                     |  RAL to Int  |    No      |        No      |
+|                     |  RAL to Int  |   may      |      root      |
 +                     +--------------+------------+----------------+
 |   Leaf - Internet   |  Int to RAL  |   must     |      RAL (tgt) |
 +                     +--------------+------------+----------------+
@@ -1062,13 +1052,17 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 |                     |  Int to RUL  |   must     |       6LR      |
 +---------------------+--------------+------------+----------------+
 |                     |  RAL to RAL  |    No      |        No      |
-+                     +--------------+------------+----------------+
-|                     |  RAL to RUL  |    No      |        No      |
-+     Leaf - Leaf     +--------------+------------+----------------+
-|                     |  RUL to RAL  |   must     |       root     |
-+                     +--------------+------------+----------------+
-|                     |  RUL to RUL  |   must     |       root     |
-+---------------------+--------------+------------+----------------+
+|  Leaf - Leaf        +--------------+------------+----------------+
+|                     |  RAL to RUL  | must(down) |      6LR       |
+|                     +--------------+------------+----------------+
+|                     |  RUL to RAL  |   must(up) |      root      |
+|                     |              +------------+----------------+
+|                     |              | must(down) |      RAL       |
+|                     +--------------+------------+----------------+
+|                     |  RUL to RUL  |   must(up) |      root      |
+|                     |              +------------+----------------+
+|                     |              | must(down) |      6LR       |
+|---------------------+--------------+------------+----------------+
                          ]]></artwork></figure>
                           </t>
          <section title="Storing Mode: Interaction between Leaf and Root">
@@ -1220,39 +1214,43 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                                 root (6LBR) --> 6LR_i --> RUL (IPv6 dst node)
                         </t>
                         <t>
-                        For example, a communication flow could be: Node A (6LBR) --> Node B (6LR_i) --> Node E (6LR_i) --> Node G (RUL)
+                        For example, a communication flow could be: Node A (6LBR) --> Node B (6LR_i) --> Node E (6LR_n) --> Node G (RUL)
                         </t>
                         <t>
-                          As the RPI extension can be ignored by the
-                          RUL, this situation is identical to
-                          the previous scenario (<xref target="Storing-root2ral"/>).
+                          6LR_i (Node B) represents the intermediate routers from the source (6LBR) to the destination (RUL),
+                          1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
+                          that the packet goes through from the 6LBR (Node A) to the RUL (Node G).
+                        </t>
+                        <t>
+                        The 6LBR will insert an RPI, encapsulated in a IPv6-in-IPv6 header.  The IPv6-in-IPv6
+                        header is addressed to the 6LR parent of the RUL (6LR_n).
+                        The 6LR parent of the RUL removes the header and processes the packet.
                         </t>
                         <t>
                         The <xref target="Storing-root2notrpl"/> summarizes what headers are needed for this use case.
                        </t>
-                        <texttable title="SM: Summary of the use of headers from root to RUL" anchor="Storing-root2notrpl" align="center">
-                                          <ttcol> Header</ttcol>
-                                          <ttcol> 6LBR src</ttcol>
-                                          <ttcol> 6LR_i</ttcol>
-                                          <ttcol> RUL (IPv6 dst node) </ttcol>
-                                          <c> Added headers</c>
-                                          <c> RPI </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Modified headers</c>
-                                          <c> -- </c>
-                                          <c> RPI  </c>
-                                          <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> RPI (Ignored) </c>
-                        </texttable>
-               </section>
+                       <t>
+                       <figure title="SM: Summary of the use of headers from root to RUL" anchor="Storing-root2notrpl" align="center">
+                         <artwork><![CDATA[
+                       +-----------+---------+---------+---------+-----+
+                       |   Header  |   6LBR  |  6LR_i  |  6LR_n  | RUL |
+                       |           |   src   |         |         | dst |
+                       +-----------+---------+---------+---------+-----+
+                       |   Added   | IP6-IP6 |    --   |    --   |  -- |
+                       |  headers  |  (RPI1) |         |         |     |
+                       +-----------+---------+---------+---------+-----+
+                       |  Modified |    --   | IP6-IP6 |     --  |  -- |
+                       |  headers  |         |  (RPI1) |         |     |
+                       +-----------+---------+---------+---------+-----+
+                       |  Removed  |    --   |    --   | IP6-IP6 |  -- |
+                       |  headers  |         |         |  (RPI1) |     |
+                       +-----------+---------+---------+---------+-----+
+                       | Untouched |    --   |    --   |    --   |  -- |
+                       |  headers  |         |         |         |     |
+                       +-----------+---------+---------+---------+-----+
+                       ]]></artwork></figure>
+                       </t>
+                 </section>
 
                <section anchor="sm-nRal2root" title="SM: Example of Flow from RUL to root">
                         <t>
@@ -1266,11 +1264,16 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Node G (RUL) --> Node E (6LR_1)--> Node B (6LR_i)--> Node A root(6LBR)
                         </t>
                         <t>
-                                When the packet arrives from IPv6 node (Node G) to
-                                6LR_1 (Node E), the 6LR_1 will insert an RPI, encapsulated
-                                in a IPv6-in-IPv6 header.  The IPv6-in-IPv6
-                                header is addressed to the root (Node A).  The root removes the header and processes
-                                the packet.
+                          6LR_i represents the intermediate routers from the source (RUL) to the destination (6LBR),
+                          1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
+                          that the packet goes through from the RUL to the 6LBR.
+                        </t>
+                        <t>
+                        When the packet arrives from IPv6 node (Node G) to
+                        6LR_1 (Node E), the 6LR_1 will insert an RPI, encapsulated
+                        in a IPv6-in-IPv6 header.  The IPv6-in-IPv6
+                        header is addressed to the root (Node A).  The root removes the header and processes
+                        the packet.
                         </t>
                         <t>
                         The <xref target="Storing-notrpl2root"/> shows the table that summarizes what headers are needed for this use case
@@ -1296,7 +1299,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 | Untouched |  --  |      --      |       --       |         --      |
 |  headers  |      |              |                |                 |
 +-----------+------+--------------+----------------+-----------------+
-                                          ]]></artwork></figure>
+]]></artwork></figure>
                         </t>
                </section>
          </section>
@@ -1325,11 +1328,6 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
                <section  anchor="sm-Ral2i" title="SM: Example of Flow from RAL to Internet">
                          <t>
-                        RPL information from RFC 6553 may go out to
-                        Internet as it will be ignored by nodes which have
-                        not been configured to be RPI aware.
-                         </t>
-                         <t>
                                 In this case the flow comprises:
                         </t>
                         <t>
@@ -1340,6 +1338,20 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, the communication flow could be: Node F (RAL) --> Node D (6LR_i)--> Node B (6LR_i)--> Node A root(6LBR) --> Internet
                         </t>
                         <t>
+                          6LR_i represents the intermediate routers from the source (RAL) to the root (6LBR),
+                          1 &lt;= i &lt;= n, where n is the total number of routers (6LR)
+                          that the packet goes through from the RAL to the 6LBR.
+                        </t>
+                        <t>
+                       RPL information from RFC 6553 may go out to
+                       Internet as it will be ignored by nodes which have
+                       not been configured to be RPI aware. No IPv6-in-IPv6 header is required.
+                        </t>
+                        <t>
+                       On the other hand, the RAL may insert the RPI encapsulated in a IPv6-in-IPv6 header to the root.
+                       Thus, the root removes the RPI and send the packet to the Internet.
+                        </t>
+                        <t>
                           No IPv6-in-IPv6 header is required.
                         </t>
                         <t>
@@ -1347,10 +1359,11 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                           applicable to any RPL-aware-node type (e.g. 6LR)
                         </t>
                         <t>
-                        The <xref target="Storing-rpl2int"/> summarizes what headers are needed for this use case.
+                        The <xref target="Storing-rpl2int"/> summarizes what headers are needed for this use case when there is no encapsulation.
+                        The <xref target="Storing-rpl2intIPIP"/> summarizes what headers are needed when encapsulation to the root takes place.
                         </t>
 
-                        <texttable title="SM: Summary of the use of headers from RAL to Internet" anchor="Storing-rpl2int" align="center">
+                        <texttable title="SM: Summary of the use of headers from RAL to Internet with no encapsulation" anchor="Storing-rpl2int" align="center">
                                           <ttcol> Header</ttcol>
                                           <ttcol> RAL src</ttcol>
                                           <ttcol> 6LR_i</ttcol>
@@ -1377,6 +1390,28 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                                           <c> RPI </c>
                                           <c> RPI (Ignored) </c>
                         </texttable>
+                        <t>
+                        <figure title="SM: Summary of the use of headers from RAL to Internet with encapsulation to the root (6LBR)."
+                           anchor="Storing-rpl2intIPIP" align="center">
+                          <artwork><![CDATA[
++-----------+----------+--------------+--------------+--------------+
+|   Header  | RAL      |    6LR_i     |  6LBR        | Internet dst |
+|           | src      |              |              |              |
++-----------+----------+--------------+--------------+--------------+
+|   Added   |IP6-IP6   |     --       |      --      |         --   |
+|  headers  | (RPI)    |              |              |              |
++-----------+----------+--------------+--------------+--------------+
+|  Modified |    --    |IP6-IP6(RPI)  |     --       |         --   |
+|  headers  |          |              |              |              |
++-----------+----------+--------------+--------------+--------------+
+|  Removed  |    --    |      --      |IP6-IP6(RPI)  |     --       |
+|  headers  |          |              |              |              |
++-----------+----------+--------------+--------------+--------------+
+| Untouched |    --    |      --      |      --      |         --   |
+|  headers  |          |              |              |              |
++-----------+----------+--------------+--------------+--------------+
+                        ]]></artwork></figure>
+                        </t>
                </section>
 
                <!-- section 7.6 -->
@@ -1651,7 +1686,11 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                           6LR_id (Node E) represents the intermediate routers from the common parent (6LR_x) (Node B) to destination RUL (Node G).
                           In this case, 1 &lt;= id &lt;= m, where m is the total number of routers (6LR)
                           that the packet goes through from the common parent (6LR_x)  to destination RUL.
-                          The packet from the RAL goes to 6LBR because the route to the RUL is not injected into the RPL-SM.
+                        </t>
+                        <t>
+                          In this case, the packet from the RAL goes to 6LBR because the route to the RUL is not injected into the RPL-SM.
+                          The RAL inserts an RPI1 addressed to the root(6LBR). The root removes the RPI1 and inserts an RPI2
+                          encapsulated to the 6LR parent of the RUL, which removes the RPI2 before pasing the packet to the RUL.
                         </t>
                         <!-- section 7.10
                           This situation is identical to the previous situation
@@ -1668,29 +1707,29 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                                           <ttcol> 6LR_id</ttcol>
                                           <ttcol> RUL dst</ttcol>
                                           <c> Added headers</c>
-                                          <c> RPI </c>
+                                          <c> RPI1 </c>
                                           <c> -- </c>
-                                          <c> -- </c>
+                                          <c> IP-IP(RPI2)</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> Modified headers</c>
                                           <c> -- </c>
-                                          <c> RPI  </c>
-                                          <c> RPI </c>
-                                          <c> RPI  </c>
+                                          <c> RPI1  </c>
+                                          <c> -- </c>
+                                          <c> IP-IP(RPI2) </c>
                                           <c> -- </c>
                                           <c> Removed headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
+                                          <c> RPI1 </c>
+                                          <c> IP-IP(RPI2) </c>
                                           <c> -- </c>
                                           <c> Untouched headers</c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
                                           <c> -- </c>
-                                          <c> RPI(Ignored) </c>
+                                          <c> -- </c>
                         </texttable>
                </section>
 
@@ -2152,7 +2191,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         </t>
                         <t>
                               In this case, the encapsulation from the RAL to the root is optional.
-                              The simplest case is when the RPI gets to the Internet (as the table show it), knowing that the Internet is
+                              The simplest case is when the RPI gets to the Internet (as the <xref target="NonStoring-rpl2int"/> shows it), knowing that the Internet is
                               going to ignore it.
                         </t>
                         <t>
