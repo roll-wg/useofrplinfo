@@ -1094,7 +1094,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
              </list>
             </t>
               <!-- 5.1.  Example of Flow from RAL to root !-->
-               <section title="SM: Example of Flow from RAL to root">
+               <section title="SM: Example of Flow from RAL to Root">
 
 		 <t>
                         In storing mode, RFC 6553 (RPI) is used
@@ -1159,7 +1159,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
                <!-- section 7.2.  !-->
 
-               <section title="SM: Example of Flow from root to RAL" anchor="Storing-root2ral">
+               <section title="SM: Example of Flow from Root to RAL" anchor="Storing-root2ral">
 
                          <t>
                                 In this case the flow comprises:
@@ -1212,7 +1212,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
               <!-- section 7.3. !-->
 
-               <section title="SM: Example of Flow from root to RUL">
+               <section title="SM: Example of Flow from Root to RUL">
                         <t>
                         In this case the flow comprises:
                         </t>
@@ -1230,7 +1230,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         <t>
                         The 6LBR will insert an RPI, encapsulated in a IPv6-in-IPv6 header.  The IPv6-in-IPv6
                         header is addressed to the 6LR parent of the RUL (6LR_n).
-                        The 6LR parent of the RUL removes the header and processes the packet.
+                        The 6LR parent of the RUL removes the header and sends the packet to the RUL.
                         </t>
                         <t>
                         The <xref target="Storing-root2notrpl"/> summarizes what headers are needed for this use case.
@@ -1238,27 +1238,27 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                        <t>
                        <figure title="SM: Summary of the use of headers from root to RUL" anchor="Storing-root2notrpl" align="center">
                          <artwork><![CDATA[
-                       +-----------+---------+---------+---------+-----+
-                       |   Header  |   6LBR  |  6LR_i  |  6LR_n  | RUL |
-                       |           |   src   |         |         | dst |
-                       +-----------+---------+---------+---------+-----+
-                       |   Added   | IP6-IP6 |    --   |    --   |  -- |
-                       |  headers  |  (RPI1) |         |         |     |
-                       +-----------+---------+---------+---------+-----+
-                       |  Modified |    --   | IP6-IP6 |     --  |  -- |
-                       |  headers  |         |  (RPI1) |         |     |
-                       +-----------+---------+---------+---------+-----+
-                       |  Removed  |    --   |    --   | IP6-IP6 |  -- |
-                       |  headers  |         |         |  (RPI1) |     |
-                       +-----------+---------+---------+---------+-----+
-                       | Untouched |    --   |    --   |    --   |  -- |
-                       |  headers  |         |         |         |     |
-                       +-----------+---------+---------+---------+-----+
++-----------+---------+---------+---------+-----+
+|   Header  |   6LBR  |  6LR_i  |  6LR_n  | RUL |
+|           |   src   |         |         | dst |
++-----------+---------+---------+---------+-----+
+|   Added   | IP6-IP6 |    --   |    --   |  -- |
+|  headers  |  (RPI)  |         |         |     |
++-----------+---------+---------+---------+-----+
+|  Modified |    --   | IP6-IP6 |     --  |  -- |
+|  headers  |         |  (RPI)  |         |     |
++-----------+---------+---------+---------+-----+
+|  Removed  |    --   |    --   | IP6-IP6 |  -- |
+|  headers  |         |         |  (RPI)  |     |
++-----------+---------+---------+---------+-----+
+| Untouched |    --   |    --   |    --   |  -- |
+|  headers  |         |         |         |     |
++-----------+---------+---------+---------+-----+
                        ]]></artwork></figure>
                        </t>
                  </section>
 
-               <section anchor="sm-nRal2root" title="SM: Example of Flow from RUL to root">
+               <section anchor="sm-nRal2root" title="SM: Example of Flow from RUL to Root">
                         <t>
                                 In this case the flow comprises:
                         </t>
@@ -1678,24 +1678,25 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         In this case the flow comprises:
                         </t>
                         <t>
-                         RAL src (6LN) --> 6LR_ia --> common parent (6LR_x) --> 6LR_id -->  RUL (IPv6 dst node)
+                         RAL src (6LN) --> 6LR_ia --> common parent (6LBR - The root-) --> 6LR_id -->  RUL (IPv6 dst node)
                         </t>
                         <t>
                         For example, a communication flow could be: Node F (RAL)--> Node D --> Node B --> Node E --> Node G (RUL)
                         </t>
                         <t>
-                          6LR_ia represents the intermediate routers from source (RAL) to the common parent (6LR_x),
-                          1 &lt;= ia &lt;= n, where n is the total number of routers (6LR)
-                          that the packet goes through from RAL to the common parent (6LR_x).
+                          6LR_ia represents the intermediate routers from source (RAL) to the
+                          common parent (the Root), 1 &lt;= ia &lt;= n, where n is the total number of
+                          routers (6LR) that the packet goes through from RAL to the Root.
                         </t>
                         <t>
-                          6LR_id (Node E) represents the intermediate routers from the common parent (6LR_x) (Node B) to destination RUL (Node G).
-                          In this case, 1 &lt;= id &lt;= m, where m is the total number of routers (6LR)
-                          that the packet goes through from the common parent (6LR_x)  to destination RUL.
+                          6LR_id (Node E) represents the intermediate routers from the Root
+                          (Node B) to destination RUL (Node G).  In this case, 1 &lt;= id &lt;= m,
+                          where m is the total number of routers (6LR) that the packet goes
+                          through from the Root down to the destination RUL.
                         </t>
                         <t>
                           In this case, the packet from the RAL goes to 6LBR because the route to the RUL is not injected into the RPL-SM.
-                          The RAL inserts an RPI1 addressed to the root(6LBR). The root removes the RPI1 and inserts an RPI2
+                          Thus, the RAL inserts an RPI (RPI1) addressed to the root(6LBR). The root removes the RPI1 and inserts an RPI2
                           encapsulated to the 6LR parent of the RUL, which removes the RPI2 before pasing the packet to the RUL.
                         </t>
                         <!-- section 7.10
