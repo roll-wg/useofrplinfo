@@ -268,15 +268,6 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           Thus the network does not work correctly (Lack of interoperation).
 
         </t>
-        <t>
-          Hop-by-Hop re-encapsulation: The term "Hop-by-Hop re-encapsulation"
-          header refers to adding a header that originates from a node to an
-          adjacent node, using the addresses (usually the Global Unicast
-          Address (GUA) or Unique Local Address (ULA) but could also use the
-          link-local addresses) of each node. If the packet must traverse multiple hops, then it
-          must be decapsulated at each hop, and then re-encapsulated again
-          in a similar fashion.
-        </t>
          <t>
            Non-Storing Mode (Non-SM): RPL mode of operation in which the RPL-
        aware-nodes send information to the root about their parents.  Thus, the root knows the topology.
@@ -541,9 +532,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
         <t>
           The 6LBR can recognize not-RPL aware leaf nodes because it will
           receive a DAO about that node from the 6LR immediately above that
-          not-RPL aware node.  This means that the non-storing mode case can avoid ever
-          using Hop-by-Hop re-encapsulation headers for traffic originating from
-          the root to the leaves.
+          not-RPL aware node.
         </t>
         <t>
           The non-storing mode case does not require the type change from
