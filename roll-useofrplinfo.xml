@@ -48,7 +48,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-37" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-38" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -1017,8 +1017,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           <t>
             In all cases, the RPI is needed, since it identifies
             inconsistencies (loops) in the routing topology.
-            In all cases, the RH3 is not needed because it is not used
-            in storing mode.
+            In general, the RH3 is not needed because it is not used in storing mode. However, there is one scenario (from the root to the RUL in SM)
+            where the RH3 can be used to indicate the RUL (<xref target="Storing-root2notrplnoIPIP"/>).
           </t>
           <t>
             The leaf can be a router 6LR or a host, both indicated as 6LN. The root refers to the 6LBR
@@ -1121,29 +1121,27 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                          <t>
                          The <xref target="Storing-summary-headers"/> summarizes what headers are needed for this use case.
                          </t>
-                        <texttable title="SM: Summary of the use of headers from RAL to root" anchor="Storing-summary-headers" align="center">
-                                          <ttcol> Header</ttcol>
-                                          <ttcol> RAL src</ttcol>
-                                          <ttcol> 6LR_i</ttcol>
-                                          <ttcol> 6LBR dst</ttcol>
-                                          <c> Added headers</c>
-                                          <c> RPI</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Modified headers</c>
-                                          <c> -- </c>
-                                          <c> RPI </c>
-                                          <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> RPI </c>
-                                          <c> Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> --</c>
-                                          <c> --</c>
-
-                        </texttable>
+                         <t>
+                         <figure title="SM: Summary of the use of headers from RAL to root" anchor="Storing-summary-headers" align="center">
+                           <artwork><![CDATA[
++-----------+-----+-------+------+
+|   Header  | RAL | 6LR_i | 6LBR |
+|           | src |       |  dst |
++-----------+-----+-------+------+
+|   Added   | RPI |   --  |  --  |
+|  headers  |     |       |      |
++-----------+-----+-------+------+
+|  Modified |  -- |  RPI  |  --  |
+|  headers  |     |       |      |
++-----------+-----+-------+------+
+|  Removed  |  -- |   --  |  RPI |
+|  headers  |     |       |      |
++-----------+-----+-------+------+
+| Untouched |  -- |   --  |  --  |
+|  headers  |     |       |      |
++-----------+-----+-------+------+
+                         ]]></artwork></figure>
+                         </t>
                </section>
 
                <!-- section 7.2.  !-->
@@ -1175,28 +1173,27 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         <t>
                         The <xref target="Storing-root2leaf"/> summarizes what headers are needed for this use case.
                        </t>
-                        <texttable title="SM: Summary of the use of headers from root to RAL" anchor="Storing-root2leaf" align="center">
-                                          <ttcol> Header</ttcol>
-                                          <ttcol> 6LBR src</ttcol>
-                                          <ttcol> 6LR_i</ttcol>
-                                          <ttcol> RAL dst</ttcol>
-                                          <c> Added headers</c>
-                                          <c> RPI </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Modified headers</c>
-                                          <c> -- </c>
-                                          <c> RPI  </c>
-                                          <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> RPI </c>
-                                          <c> Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                        </texttable>
+                       <t>
+                       <figure title="SM: Summary of the use of headers from root to RAL" anchor="Storing-root2leaf" align="center">
+                         <artwork><![CDATA[
++-----------+------+-------+-----+
+|   Header  | 6LBR | 6LR_i | RAL |
+|           |  src |       | dst |
++-----------+------+-------+-----+
+|   Added   |  RPI |   --  |  -- |
+|  headers  |      |       |     |
++-----------+------+-------+-----+
+|  Modified |  --  |  RPI  |  -- |
+|  headers  |      |       |     |
++-----------+------+-------+-----+
+|  Removed  |  --  |   --  | RPI |
+|  headers  |      |       |     |
++-----------+------+-------+-----+
+| Untouched |  --  |   --  |  -- |
+|  headers  |      |       |     |
++-----------+------+-------+-----+
+                       ]]></artwork></figure>
+                       </t>
                </section>
 
               <!-- section 7.3. !-->
@@ -1245,6 +1242,37 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 +-----------+---------+---------+---------+-----+
                        ]]></artwork></figure>
                        </t>
+                       <t>
+                       Exists an alternative without encapsulation.
+                       The root could get to the RUL using a packet addressed to the 6LR and a RH3 that has only the RUL in it and no IPv6-in-IPv6 encapsulation.
+                       The result is that the RUL gets a packet with artifacts that it should ignore.
+                       The <xref target="Storing-root2notrplnoIPIP"/> summarizes what headers are needed for this scenario.
+                      </t>
+
+                       <t>
+                       <figure title="SM: Summary of the use of headers from root to RUL without encapuslation" anchor="Storing-root2notrplnoIPIP" align="center">
+                         <artwork><![CDATA[
++-----------+----------+--------------+----------------+----------+
+|   Header  |   6LBR   |     6LR_i    |      6LR_n     |   RUL    |
+|           |    src   | i=(1,..,n-1) |                |   dst    |
+|           |          |              |                |          |
++-----------+----------+--------------+----------------+----------+
+|   Added   | RPI, RH3 |      --      |       --       |    --    |
+|  headers  |          |              |                |          |
++-----------+----------+--------------+----------------+----------+
+|  Modified |    --    |     RPI      |     RPI        |    --    |
+|  headers  |          |              | RH3(consumed)  |          |
++-----------+----------+--------------+----------------+----------+
+|  Removed  |    --    |      --      |    --          |    --    |
+|  headers  |          |              |                |          |
++-----------+----------+--------------+----------------+----------+
+| Untouched |    --    |      --      |       --       | RPI, RH3 |
+|  headers  |          |              |                |  (both   |
+|           |          |              |                | ignored) |
++-----------+----------+--------------+----------------+----------+
+                       ]]></artwork></figure>
+                       </t>
+
                  </section>
 
                <section anchor="sm-nRal2root" title="SM: Example of Flow from RUL to Root">
@@ -1358,33 +1386,27 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         The <xref target="Storing-rpl2intIPIP"/> summarizes what headers are needed when encapsulation to the root takes place.
                         </t>
 
-                        <texttable title="SM: Summary of the use of headers from RAL to Internet with no encapsulation" anchor="Storing-rpl2int" align="center">
-                                          <ttcol> Header</ttcol>
-                                          <ttcol> RAL src</ttcol>
-                                          <ttcol> 6LR_i</ttcol>
-                                          <ttcol> 6LBR</ttcol>
-                                          <ttcol> Internet dst</ttcol>
-                                          <c> Added headers</c>
-                                          <c> RPI </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Modified headers</c>
-                                          <c> -- </c>
-                                          <c> RPI </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> RPI </c>
-                                          <c> RPI (Ignored) </c>
-                        </texttable>
+                        <t>
+                        <figure title="SM: Summary of the use of headers from RAL to Internet with no encapsulation" anchor="Storing-rpl2int" align="center">
+                          <artwork><![CDATA[
++-----------+-----+-------+------+-----------+
+|   Header  | RAL | 6LR_i | 6LBR |  Internet |
+|           | src |       |      |    dst    |
++-----------+-----+-------+------+-----------+
+|   Added   | RPI |   --  |  --  |     --    |
+|  headers  |     |       |      |           |
++-----------+-----+-------+------+-----------+
+|  Modified |  -- |  RPI  |  --  |     --    |
+|  headers  |     |       |      |           |
++-----------+-----+-------+------+-----------+
+|  Removed  |  -- |   --  |  --  |     --    |
+|  headers  |     |       |      |           |
++-----------+-----+-------+------+-----------+
+| Untouched |  -- |   --  |  RPI |    RPI    |
+|  headers  |     |       |      | (Ignored) |
++-----------+-----+-------+------+-----------+
+                        ]]></artwork></figure>
+                        </t>
                         <t>
                         <figure title="SM: Summary of the use of headers from RAL to Internet with encapsulation to the root (6LBR)."
                            anchor="Storing-rpl2intIPIP" align="center">
@@ -1626,39 +1648,28 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                 <t>
                 The <xref target="Storing-rpl2rpl"/> summarizes what headers are needed for this use case.
                 </t>
-
-                 <texttable title="SM: Summary of the Use of Headers from RAL to RAL" anchor="Storing-rpl2rpl" align="center">
-                                          <ttcol> Header</ttcol>
-                                          <ttcol> RAL src</ttcol>
-                                          <ttcol> 6LR_ia</ttcol>
-                                          <ttcol> 6LR_x (common parent)</ttcol>
-                                          <ttcol> 6LR_id</ttcol>
-                                          <ttcol> RAL dst</ttcol>
-                                          <c> Added headers</c>
-                                          <c> RPI </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Modified headers</c>
-                                          <c> -- </c>
-                                          <c> RPI  </c>
-                                          <c> RPI  </c>
-                                          <c> RPI  </c>
-                                          <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> RPI</c>
-                                          <c> Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                        </texttable>
+                <t>
+                <figure title="SM: Summary of the Use of Headers from RAL to RAL" anchor="Storing-rpl2rpl" align="center">
+                  <artwork><![CDATA[
++-----------+-----+--------+---------+--------+-----+
+|   Header  | RAL | 6LR_ia |  6LR_x  | 6LR_id | RAL |
+|           | src |        | (common |        | dst |
+|           |     |        | parent) |        |     |
++-----------+-----+--------+---------+--------+-----+
+|   Added   | RPI |   --   |    --   |   --   |  -- |
+|  headers  |     |        |         |        |     |
++-----------+-----+--------+---------+--------+-----+
+|  Modified |  -- |   RPI  |   RPI   |   RPI  |  -- |
+|  headers  |     |        |         |        |     |
++-----------+-----+--------+---------+--------+-----+
+|  Removed  |  -- |   --   |    --   |   --   | RPI |
+|  headers  |     |        |         |        |     |
++-----------+-----+--------+---------+--------+-----+
+| Untouched |  -- |   --   |    --   |   --   |  -- |
+|  headers  |     |        |         |        |     |
++-----------+-----+--------+---------+--------+-----+
+                ]]></artwork></figure>
+                </t>
                </section>
 
                <!-- section 7.10 -->
@@ -1963,29 +1974,27 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                  The <xref target="NonStoring-summary-headers"/> summarizes what headers are needed for this use case.
                  </t>
 
-                        <texttable title="Non-SM: Summary of the use of headers from RAL to root" anchor="NonStoring-summary-headers" align="center">
-                                          <ttcol> Header</ttcol>
-                                          <ttcol> RAL src</ttcol>
-                                          <ttcol> 6LR_i</ttcol>
-                                          <ttcol> 6LBR dst</ttcol>
-                                          <c> Added headers</c>
-                                          <c> RPI</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Modified headers</c>
-                                          <c> -- </c>
-                                          <c> RPI </c>
-                                          <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> RPI </c>
-                                          <c> Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> --</c>
-                                          <c> --</c>
-
-                        </texttable>
+                 <t>
+                 <figure title="Non-SM: Summary of the use of headers from RAL to root" anchor="NonStoring-summary-headers" align="center">
+                   <artwork><![CDATA[
+                 +-----------+-----+-------+------+
+                 |   Header  | RAL | 6LR_i | 6LBR |
+                 |           | src |       |  dst |
+                 +-----------+-----+-------+------+
+                 |   Added   | RPI |   --  |  --  |
+                 |  headers  |     |       |      |
+                 +-----------+-----+-------+------+
+                 |  Modified |  -- |  RPI  |  --  |
+                 |  headers  |     |       |      |
+                 +-----------+-----+-------+------+
+                 |  Removed  |  -- |   --  |  RPI |
+                 |  headers  |     |       |      |
+                 +-----------+-----+-------+------+
+                 | Untouched |  -- |   --  |  --  |
+                 |  headers  |     |       |      |
+                 +-----------+-----+-------+------+
+                 ]]></artwork></figure>
+                 </t>
                </section>
 
                <section anchor="nsroottoRAL" title=" Non-SM: Example of Flow from root to RAL">
@@ -2015,28 +2024,27 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                  The <xref target="NonStoring-root2rpl"/> summarizes what headers are needed for this use case.
                  </t>
 
-                        <texttable title="Non-SM: Summary of the use of headers from root to RAL" anchor="NonStoring-root2rpl" align="center">
-                                          <ttcol> Header</ttcol>
-                                          <ttcol> 6LBR src</ttcol>
-                                          <ttcol> 6LR_i</ttcol>
-                                          <ttcol> RAL dst</ttcol>
-                                          <c> Added headers</c>
-                                          <c> RPI, RH3</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Modified headers</c>
-                                          <c> -- </c>
-                                          <c>RPI, RH3 </c>
-                                          <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> RH3, RPI </c>
-                                          <c> Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                        </texttable>
+                 <t>
+                 <figure title="Non-SM: Summary of the use of headers from root to RAL" anchor="NonStoring-root2rpl" align="center">
+                   <artwork><![CDATA[
++-----------+----------+----------+----------+
+|   Header  |   6LBR   |   6LR_i  |    RAL   |
+|           |    src   |          |    dst   |
++-----------+----------+----------+----------+
+|   Added   | RPI, RH3 |    --    |    --    |
+|  headers  |          |          |          |
++-----------+----------+----------+----------+
+|  Modified |    --    | RPI, RH3 |    --    |
+|  headers  |          |          |          |
++-----------+----------+----------+----------+
+|  Removed  |    --    |    --    | RPI, RH3 |
+|  headers  |          |          |          |
++-----------+----------+----------+----------+
+| Untouched |    --    |    --    |    --    |
+|  headers  |          |          |          |
++-----------+----------+----------+----------+
+                 ]]></artwork></figure>
+                 </t>
                </section>
 
                <section title=" Non-SM: Example of Flow from root to RUL">
@@ -2194,60 +2202,49 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         The <xref target="NonStoring-rpl2intwithIPIP"/> summarizes what headers are needed
                         for this use case when encapsulation to the root is used.
                         </t>
-                        <texttable title="Non-SM: Summary of the use of headers from RAL to Internet with no encapsulation" anchor="NonStoring-rpl2int" align="center">
-                                          <ttcol> Header</ttcol>
-                                          <ttcol> RAL src</ttcol>
-                                          <ttcol> 6LR_i</ttcol>
-                                          <ttcol> 6LBR</ttcol>
-                                          <ttcol> Internet dst</ttcol>
-                                          <c> Added headers</c>
-                                          <c> RPI </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Modified headers</c>
-                                          <c> -- </c>
-                                          <c> RPI </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> RPI </c>
-                                          <c> RPI (Ignored) </c>
-                        </texttable>
-                        <texttable title="Non-SM: Summary of the use of headers from RAL to Internet with encapsulation to the root" anchor="NonStoring-rpl2intwithIPIP" align="center">
-                                          <ttcol> Header</ttcol>
-                                          <ttcol> RAL src</ttcol>
-                                          <ttcol> 6LR_i</ttcol>
-                                          <ttcol> 6LBR</ttcol>
-                                          <ttcol> Internet dst</ttcol>
-                                          <c> Added headers</c>
-                                          <c> IPv6-in-IPv6 (RPI) </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Modified headers</c>
-                                          <c> -- </c>
-                                          <c>IPv6-in-IPv6 (RPI)</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> Removed headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> IPv6-in-IPv6 (RPI)</c>
-                                          <c> -- </c>
-                                          <c> Untouched headers</c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                                          <c> -- </c>
-                        </texttable>
+                        <t>
+                        <figure title="Non-SM: Summary of the use of headers from RAL to Internet with no encapsulation" anchor="NonStoring-rpl2int" align="center">
+                          <artwork><![CDATA[
++-----------+-----+-------+------+-----------+
+|   Header  | RAL | 6LR_i | 6LBR |  Internet |
+|           | src |       |      |    dst    |
++-----------+-----+-------+------+-----------+
+|   Added   | RPI |   --  |  --  |     --    |
+|  headers  |     |       |      |           |
++-----------+-----+-------+------+-----------+
+|  Modified |  -- |  RPI  |  --  |     --    |
+|  headers  |     |       |      |           |
++-----------+-----+-------+------+-----------+
+|  Removed  |  -- |   --  |  --  |     --    |
+|  headers  |     |       |      |           |
++-----------+-----+-------+------+-----------+
+| Untouched |  -- |   --  |  RPI |    RPI    |
+|  headers  |     |       |      | (Ignored) |
++-----------+-----+-------+------+-----------+
+                        ]]></artwork></figure>
+                        </t>
+
+                        <t>
+                        <figure title="Non-SM: Summary of the use of headers from RAL to Internet with encapsulation to the root" anchor="NonStoring-rpl2intwithIPIP" align="center">
+                          <artwork><![CDATA[
++-----------+--------------+--------------+--------------+----------+
+|   Header  |      RAL     |     6LR_i    |     6LBR     | Internet |
+|           |      src     |              |              |    dst   |
++-----------+--------------+--------------+--------------+----------+
+|   Added   | IPv6-in-IPv6 |      --      |      --      |    --    |
+|  headers  |     (RPI)    |              |              |          |
++-----------+--------------+--------------+--------------+----------+
+|  Modified |      --      | IPv6-in-IPv6 |      --      |    --    |
+|  headers  |              |     (RPI)    |              |          |
++-----------+--------------+--------------+--------------+----------+
+|  Removed  |      --      |      --      | IPv6-in-IPv6 |    --    |
+|  headers  |              |              |     (RPI)    |          |
++-----------+--------------+--------------+--------------+----------+
+| Untouched |      --      |      --      |      --      |    --    |
+|  headers  |              |              |              |          |
++-----------+--------------+--------------+--------------+----------+
+                        ]]></artwork></figure>
+                        </t>
                </section>
 
                <section title="Non-SM: Example of Flow from Internet to RAL">
@@ -2276,33 +2273,27 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         <t>
                         The <xref target="NonStoring-int2rpl"/> summarizes what headers are needed for this use case.
                         </t>
-                        <texttable title="Non-SM: Summary of the use of headers from Internet to RAL" anchor="NonStoring-int2rpl" align="center">
-                          <ttcol> Header</ttcol>
-                          <ttcol> Internet src</ttcol>
-                          <ttcol> 6LBR</ttcol>
-                          <ttcol> 6LR_i</ttcol>
-                          <ttcol> RAL dst</ttcol>
-                          <c> Added headers</c>
-                          <c> -- </c>
-                          <c>  IPv6-in-IPv6 (RH3,RPI)</c>
-                          <c> -- </c>
-                          <c> -- </c>
-                          <c> Modified headers</c>
-                          <c> -- </c>
-                          <c> -- </c>
-                          <c>  IPv6-in-IPv6 (RH3,RPI)</c>
-                          <c> -- </c>
-                          <c> Removed headers</c>
-                          <c> -- </c>
-                          <c> -- </c>
-                          <c> -- </c>
-                          <c>  IPv6-in-IPv6 (RH3,RPI)</c>
-                          <c> Untouched headers</c>
-                          <c> -- </c>
-                          <c> -- </c>
-                          <c> -- </c>
-                          <c> -- </c>
-                        </texttable>
+                        <t>
+                        <figure title="Non-SM: Summary of the use of headers from Internet to RAL" anchor="NonStoring-int2rpl" align="center">
+                          <artwork><![CDATA[
++-----------+----------+--------------+--------------+--------------+
+|   Header  | Internet |     6LBR     |     6LR_i    |      RAL     |
+|           |    src   |              |              |      dst     |
++-----------+----------+--------------+--------------+--------------+
+|   Added   |    --    | IPv6-in-IPv6 |      --      |      --      |
+|  headers  |          |  (RH3, RPI)  |              |              |
++-----------+----------+--------------+--------------+--------------+
+|  Modified |    --    |      --      | IPv6-in-IPv6 |      --      |
+|  headers  |          |              |  (RH3, RPI)  |              |
++-----------+----------+--------------+--------------+--------------+
+|  Removed  |    --    |      --      |      --      | IPv6-in-IPv6 |
+|  headers  |          |              |              |  (RH3, RPI)  |
++-----------+----------+--------------+--------------+--------------+
+| Untouched |    --    |      --      |      --      |      --      |
+|  headers  |          |              |              |              |
++-----------+----------+--------------+--------------+--------------+
+                        ]]></artwork></figure>
+                        </t>
                </section>
 
                <section title="Non-SM: Example of Flow from RUL to Internet">
