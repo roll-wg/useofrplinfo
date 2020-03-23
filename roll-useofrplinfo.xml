@@ -2483,8 +2483,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                  <t>
                  The <xref target="NonStoring-rpl2rplnoIPIP"/> shows the table that summarizes what headers
                  are needed for this use case when there is no encapsulation to the root.
-                 Note that in the Modified headers row, going up only the RPI1 is changed in each 6LR_ia.
-                 going down, in each 6LR_id the IPv6 header is swapped with the SRH so both are changed alongside the RPI2. 
+                 Note that in the Modified headers row, going up in each 6LR_ia only the RPI1 is changed.
+                 Going down, in each 6LR_id the IPv6 header is swapped with the SRH so both are changed alongside with the RPI2.  
                  </t>
                  <t>
                  <figure title="Non-SM: Summary of the Use of Headers from RAL to RAL with encapsulation to the root." anchor="NonStoring-rpl2rpl" align="center">
