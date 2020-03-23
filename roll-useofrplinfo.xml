@@ -366,11 +366,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           ignore a HbH header as prescribed by <xref target="RFC8200"/>.
           The target may have been learned through as a host route or may have
           been registered to the 6LR using <xref target="RFC8505"/>.
-          IP-in-IP encapsulation MAY be avoided for Root to RUL communication if
-          the RUL is known to process the packets as forwarded by the parent 6LR
-          without decapsulation.
           </t><t>
-
           In order to enable IP-in-IP all the way to a 6LN, it is beneficial
           that the 6LN supports decapsulating IP-in-IP, but that is not assumed
           by <xref target="RFC8504"/>.
@@ -1048,7 +1044,9 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 +---------------------+--------------+------------+----------------+
 |                     |  RAL to RAL  |    No      |        No      |
 |  Leaf - Leaf        +--------------+------------+----------------+
-|                     |  RAL to RUL  | must(down) |      6LR       |
+|                     |  RAL to RUL  |    No(up)  |      6LR       |
+|                     +              +------------+----------------+
+|                     |              | must(down) |      6LR       |
 |                     +--------------+------------+----------------+
 |                     |  RUL to RAL  |   must(up) |      root      |
 |                     |              +------------+----------------+
@@ -1243,14 +1241,17 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                        ]]></artwork></figure>
                        </t>
                        <t>
-                       Exists an alternative without encapsulation.
-                       The root could get to the RUL using a packet addressed to the 6LR and a RH3 that has only the RUL in it and no IPv6-in-IPv6 encapsulation.
-                       The result is that the RUL gets a packet with artifacts that it should ignore.
+                       IP-in-IP encapsulation MAY be avoided for Root to RUL communication.
+                       In SM, it can be replaced by a loose SRH header that indicates the RUL,
+                       in which case the packet is routed to the 6LR as a normal SM operation,
+                       then the 6LR forwards to the RUL based on the SRH, and the RUL ignores
+                       both the consumed SRH and the RPI, as in Non-Storing Mode.
+                       </t>
+                       <t>
                        The <xref target="Storing-root2notrplnoIPIP"/> summarizes what headers are needed for this scenario.
                       </t>
-
                        <t>
-                       <figure title="SM: Summary of the use of headers from root to RUL without encapuslation" anchor="Storing-root2notrplnoIPIP" align="center">
+                       <figure title="SM: Summary of the use of headers from root to RUL without encapsulation" anchor="Storing-root2notrplnoIPIP" align="center">
                          <artwork><![CDATA[
 +-----------+----------+--------------+----------------+----------+
 |   Header  |   6LBR   |     6LR_i    |      6LR_n     |   RUL    |
@@ -1709,26 +1710,27 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         <t>
                         <figure  title="SM: Summary of the Use of Headers from RAL to RUL" anchor="Storing-rpl2nrpl" align="center">
                                     <artwork><![CDATA[
-+-----------+---------+---------+---------+---------+---------+------+
-|   Header  |   RAL   |  6LR_ia |   6LBR  |  6LR_id |  6LR_m  | RUL  |
-|           |   src   |         |         |         |         | dst  |
-|           |   node  |         |         |         |         | node |
-+-----------+---------+---------+---------+---------+---------+------+
-|   Added   |         |         | IP6-IP6 |    --   |    --   |  --  |
-|  headers  |   RPI1  | --      |  (RPI2) |         |         |      |
-|           |         |         |         |         |         |      |
-+-----------+---------+---------+---------+---------+---------+------+
-|  Modified |    --   |         |    --   | IP6-IP6 |         |  --  |
-|  headers  |         |    RPI1 |         |  (RPI2) |  --     |      |
-|           |         |         |         |         |         |      |
-+-----------+---------+---------+---------+---------+---------+------+
-|  Removed  |    --   |    --   |         |    --   | IP6-IP6 |  --  |
-|  headers  |         |         |    RPI1 |         |  (RPI2) |      |
-|           |         |         |         |         |         |      |
-+-----------+---------+---------+---------+---------+---------+------+
-| Untouched |    --   |    --   |    --   |    --   |    --   |  --  |
-|  headers  |         |         |         |         |         |      |
-+-----------+---------+---------+---------+---------+---------+------+
++----------+-------+-------+---------+---------+---------+---------+
+|  Header  | RAL   |6LR_ia |   6LBR  |  6LR_id |  6LR_m  | RUL     |
+|          | src   |       |         |         |         | dst     |
+|          | node  |       |         |         |         | node    |
++----------+-------+-------+---------+---------+---------+---------+
+|  Added   |       |       | IP6-IP6 |    --   |    --   |  --     |
+| headers  | RPI1  |  --   |  (RPI2) |         |         |         |
+|          |       |       |         |         |         |         |
++----------+-------+-------+---------+---------+---------+---------+
+| Modified |  --   |       |    --   | IP6-IP6 |         |  --     |
+| headers  |       |  RPI1 |         |  (RPI2) |  --     |         |
+|          |       |       |         |         |         |         |
++----------+-------+-------+---------+---------+---------+---------+
+| Removed  |  --   |  --   |         |    --   | IP6-IP6 |  --     |
+| headers  |       |       |   --    |         |  (RPI2) |         |
+|          |       |       |         |         |         |         |
++----------+-------+-------+---------+---------+---------+---------+
+|Untouched |  --   |  --   |  RPI1   |   RPI1  |   RPI1  | RPI1    |
+| headers  |       |       |         |         |         |(Ignored)|
+|          |       |       |         |         |         |         |
++----------+-------+-------+---------+---------+---------+---------+
                         ]]></artwork></figure>
                         </t>
                </section>
@@ -2523,10 +2525,10 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 |  Removed  |  --  |   --   |    --   |    --   | IP6-IP6 |
 |  headers  |      |        |         |         |  (RH3,  |
 |           |      |        |         |         |   RPI2) |
-|           |      |        |         |         |   RPI1  |
+|           |      |        |         |         |         |
 +-----------+------+--------+---------+---------+---------+
-| Untouched |  --  |   --   |   RPI1  |   RPI1  |    --   |
-|  headers  |      |        |         |         |         |
+| Untouched |  --  |   --   |   RPI1  |   RPI1  |   RPI   |
+|  headers  |      |        |         |         |(Ignored)|
 +-----------+------+--------+---------+---------+---------+
                  ]]></artwork></figure>
                  </t>
