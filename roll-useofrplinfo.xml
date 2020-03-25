@@ -457,7 +457,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
            leaves the LLN entirely) will not be discarded when it contains the RPL Option.
           </t>
           <t>
-          With the new Option Type, if an IPv6 (intermediate) node (RPL-not-capable) receives a packet with an
+          With the new Option Type, if an IPv6 (intermediate) node (RPL-not-capable) receives a packet with a
           RPL Option, it should ignore the Hop-by-Hop RPL Option
           (skip over this option and continue processing the header). This is relevant, as it was mentioned previously, in the case that
           there is a flow from RAL to Internet (see <xref target="sm-Ral2i" />).
@@ -2309,7 +2309,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         For example, a communication flow could be: Node G --> Node E --> Node B --> Node A --> Internet
                         </t>
                         <t>
-                          6LR_i are the intermediate routers from source to destination,
+                          6LR_i represents the intermediate routers from source to destination,
                           1 &lt;= i &lt;= n, where n is the total number of routers (6LRs) that the
                           packet goes through from the source (RUL) to the 6LBR, e.g., 6LR_1 (i=1).
                         </t>
@@ -2484,7 +2484,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                  The <xref target="NonStoring-rpl2rplnoIPIP"/> shows the table that summarizes what headers
                  are needed for this use case when there is no encapsulation to the root.
                  Note that in the Modified headers row, going up in each 6LR_ia only the RPI1 is changed.
-                 Going down, in each 6LR_id the IPv6 header is swapped with the SRH so both are changed alongside with the RPI2.  
+                 Going down, in each 6LR_id the IPv6 header is swapped with the SRH so both are changed alongside with the RPI2. 
                  </t>
                  <t>
                  <figure title="Non-SM: Summary of the Use of Headers from RAL to RAL with encapsulation to the root." anchor="NonStoring-rpl2rpl" align="center">
@@ -3073,7 +3073,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
            <t>
            Additionally, the authors would like to acknowledge the review, feedback, and
            comments of (alphabetical order): Dominique Barthel, Robert Cragie, Simon Duquennoy, Ralph Droms,
-           Cenk Gündogan, Rahul Jadhav, Benjamin Kaduk, Matthias Kovatsch, Charlie Perkins, Alvaro Retana, Peter van der Stok,
+           Cenk Gündogan, Rahul Jadhav, Benjamin Kaduk, Matthias Kovatsch, Gustavo Mercado, Subramanian Moonesamy,
+           Marcela Orbiscay, Charlie Perkins, Cristian Perez, Alvaro Retana, Peter van der Stok,
            Xavier Vilajosana, Éric Vyncke and Thomas Watteyne.
            </t>
          </section>
