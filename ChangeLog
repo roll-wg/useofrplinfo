@@ -165,5 +165,100 @@ Section 8.3.1:
 Nit fixed, tables(figures) aligned to ascii format
 
 
-Changelog from v38 to 39: To be confirmed:
+Changelog from v38 to 39: To be confirmed: 
+https://github.com/roll-wg/useofrplinfo/blob/master/draft-ietf-roll-useofrplinfo-39.txt
+
+Section 2: Flag day definition modified as follows:
+-Flag Day: In this document, refers to a transition that involves having a network with different values of RPI Option Type.
+
+Section 4.1
+-"may have been learned through as a host route or may have been" changed to "may have been learned through an external
+routing protocol or may have been"
+
+Section 5:
+-"DAC and efficient-ND only to participate in the network [RFC6775]. In the document these leaves (G and J) 
+are also referred to as an IPv6 node." changed to "DAC and 6LoWPAN ND only to participate in the network [RFC8505].  
+In the document these leaves (G and J) are also referred to as a RUL."
+
+
+Section 6:
+-"A corollary is that an RH3 or RPL Option can only be removed by an intermediate router if it is placed in an encapsulating
+IPv6 Header,  which is addressed TO the intermediate router.  
+When it does so, the whole..." changed to
+"A corollary is that an intermediate router can remove an RH3 or RPL Option only if it is placed in an
+encapsulating IPv6 Header that is addressed TO this intermediate router.  When doing the above, the whole... "
+-"The earlier examples are more extensive to make sure that the process  is clear, while later examples are more concise." 
+changed to "Throughout the following subsections, the examples are described in more details in the first subsections,
+and more concisely in the later ones."
+-"The uses cases are delineated based on the following requirements:" changed to 
+"The uses cases are delineated based on the following IPV6 and RPL mandates:"
+
+Section 7:
+-"If the IPv6-in-IPv6 header is needed, the column shows "must"." changed to "and the destination is N/A (Not Applicable).  If the IPv6-in-IPv6 header is needed, the column shows "must"".
+-"to indicate the RUL (Figure 11)." changed to " to point at the RUL (Figure 11)."
+-Figure 7 changed from No to N/A, and
+  *RAL to RUL  |    No(up)  |      6LR  to
+  *RAL to RUL  |    No(up)  |      N/A
+
+Section 7.1.3:
+-" The 6LBR will insert an RPI, encapsulated in a IPv6-in-IPv6 header. 
+The IPv6-in-IPv6 header is addressed to the 6LR parent of the RUL (6LR_n). 
+The 6LR parent of the RUL removes the header and sends the packet to the RUL" changed to 
+"The 6LBR will encapsulate the packet in an IPv6-in-IPv6 header, and prepend an RPI.  
+The IPv6-in-IPv6 header is addressed to the 6LR parent of the RUL (6LR_n). 
+The 6LR parent of the RUL removes the header and sends the packet to the RUL. "
+-Figure 10: IP6-IP6 added in untouched headers.
+-SRH changed to RH3
+-Figure 11: RH3 added in untouched headers.
+
+Section 7.1.4:
+-"When the packet arrives from IPv6 node (Node G) to 6LR_1 (Node E), the 6LR_1 will insert an RPI, 
+encapsulated in a IPv6-in-IPv6 header. The IPv6-in-IPv6 header is addressed to the root (Node A).  
+The root  removes the header and processes the packet." changed to 
+"When the packet arrives from the RUL (Node G) to 6LR_1 (Node E), the 6LR_1 will insert encapsulate the packet 
+in an IPv6-in-IPv6 header and prepend an RPI.  The IPv6-in-IPv6 header is addressed to the root  (Node A). 
+The root removes the header and processes the packet."
+-Figure 12: IP6-IP6 added in untouched headers.
+
+Section 7.2.1:
+-Deleted: No IPv6-in-IPv6 header is required.
+-Added text: "Note that the RPI is modified by 6LBR to set the SenderRank to zero in case that it is not already  zero."
+-Figure 13: RPI moved from untouched headers to modified headers.
+-Figure 14: IP6-IP6 added in untouched Headers
+
+Section 7.3.2:
+-"Node F (RAL)--> Node D --> Node B--> Node E --> Node G (RUL)" changed to "Node F (RAL)--> Node D --> Node B--> Node A 
+-->Node B --> Node E --> Node G (RUL)".
+-"The root removes the RPI1 and inserts an RPI2 encapsulated to the 6LR parent of the RUL, which  
+removes the RPI2 before pasing the packet to the RUL." changed to "The root does not removes the RPI1 (the root cannot remove an RPI if there is no encapsulation).  The root inserts an RPI2 encapsulated to the 6LR parent of the RUL, which removes the RPI2 before pasing the packet to the RUL."
+
+Section 7.3.4.
+-Deleted: "The RPI is ignored at the RUL dst node."
+
+Section 8.1.3:
+-IPv6 node, which does not understand the RPI, changed to RUL, which does not understand the RPI,
+
+Section 8.1.4:
+-"...packets from the IPv6 node." changed to "packets from the RUL"
+
+Section 8.2.1:
+-Figure 27: RPI is moved from untouched headers to modified headers.
+
+Section 8.2.3:
+"6LR_i are the intermediate routers" changed to "6LR_i represents the intermediate routers from source to destination,"
+
+Section 8.3.1.:
+"It should be able to remove the RPI..." changed to "It removes the RPI..."
+
+Section 9:
+-(in either mode) changed to (in storing or non-storing mode)
+
+Section 10:
+-"In case that a node join to a network that only process 0x63, it would produce a flag day as was mentioned previously. 
+Indicating the new RPI in the DODAG Configuration option Flag is a way to avoid the flag day in a network.  
+It is recommended that a network process bothoptions to enable interoperability " changed to " 
+As mentioned previously, indicating the new RPI in the DODAG Configuration option flag is a way to avoid
+the flag day (lack of interoperation) in a network using 0x63 as the RPI Option Type value.  
+It is suggested that RPL implementations accept both 0x63 and 0x23 RPI Option type values when processing the header
+to enable interoperability."
 
