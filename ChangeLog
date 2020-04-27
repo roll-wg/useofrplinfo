@@ -47,18 +47,22 @@ Section 2:
 
 Section 4.2:
 -Clarification added about RPI.
-- Text deleted: A network which is switching from straight 6LoWPAN compression mechanism to those described in [RFC8138] will experience a flag day in the data compression anyway, and if possible this change can be deployed at the same time.
+- Text deleted: A network which is switching from straight 6LoWPAN compression mechanism to those described in [RFC8138]
+will experience a flag day in the data compression anyway, and if possible this change can be deployed at the same time.
 
 Section 4.3:
 -Added clarification that the DODAG Configuration Option might indicate something different when MOP > 7.
--Text added: "If the flag is received with a value zero (which is the default), then new nodes will remain in RFC6553 Compatible Mode; originating traffic with the old-RPI Option Type (0x63) value.  If the flag is received with a value of 1, then the	option value for the RPL Option MUST be set to 0x23".
+-Text added: "If the flag is received with a value zero (which is the default), then new nodes will remain in RFC6553 
+Compatible Mode; originating traffic with the old-RPI Option Type (0x63) value.  
+If the flag is received with a value of 1, then the	option value for the RPL Option MUST be set to 0x23".
 
 Nits fixed in the whole document.
 
 Changelog from v33 to 34:[https://tools.ietf.org/rfcdiff?url2=draft-ietf-roll-useofrplinfo-34.txt]
 
 Introduction:
-- Text added: " ...In the other direction, for traffic coming from an external target into the LLN, the parent (6LR) that injects the traffic always encapsulates to the root..."
+- Text added: " ...In the other direction, for traffic coming from an external target into the LLN, the parent (6LR) that
+injects the traffic always encapsulates to the root..."
 
 Section 7:
 -Hop-by-hop deleted from table and cases.
@@ -94,11 +98,17 @@ Section 8:N-SM
  	   must be present in the downward direction."
 -Figure 14: modified -cases:
  * RAL to Int: IPv6-in-IPv6 column changed from "No" to "may(up)" and IP-in-IP dst column to root.
- * RAL to RAL: IPv6-in-IPv6 column changed from "must" to "may(up) and must (down)" and IP-in-IP dst column from root/RAL to root for up and RAL for down.
- * RAL to RUL: IPv6-in-IPv6 column changed from "must" to "may(up) and must (down)" and IP-in-IP dst column from root/6LR to root for up and 6LR for down.
- * RUL to RAL: IPv6-in-IPv6 column changed from "must" to "must(up) and must (down)" and IP-in-IP dst column from root/RAL to root for up and RAL for down.
- * RUL to RUL: IPv6-in-IPv6 column changed from "must" to "must(up) and must (down)" and IP-in-IP dst column from root/6LR to root for up and 6LR for down.
-- Changed in the mentioned cases such as update description and add extra tabl, in order to reflect the optional encapsulation.
+ * RAL to RAL: IPv6-in-IPv6 column changed from "must" to "may(up) and must (down)" and IP-in-IP dst column from root/RAL 
+ to root for up and RAL for down.
+ * RAL to RUL: IPv6-in-IPv6 column changed from "must" to "may(up) and must (down)" and IP-in-IP dst column from root/6LR 
+ to root for up and 6LR for down.
+ * RUL to RAL: IPv6-in-IPv6 column changed from "must" to "must(up) and must (down)" and IP-in-IP dst column from root/RAL
+ to root for up and RAL for down.
+ * RUL to RUL: IPv6-in-IPv6 column changed from "must" to "must(up) and must (down)" and IP-in-IP dst column from root/6LR
+ to root for up and 6LR for down.
+- Changed in the mentioned cases such as update description and add extra tabl, in order to reflect the optional 
+encapsulation.
+
 Nits fixed.
 
 Changelog from v35 to 36:[https://tools.ietf.org/rfcdiff?url2=draft-ietf-roll-useofrplinfo-36.txt]
@@ -117,14 +127,17 @@ Section 6:
  * The description for RALs applies to RAN in general.
 
 Section 7:
-- Text added:"  In each case, 6LR_i represents the intermediate routers from source to destination.  "1 <= i <= n", n is the number of routers (6LR) that
+- Text added:"  In each case, 6LR_i represents the intermediate routers from source to destination.  "1 <= i <= n",
+n is the number of routers (6LR) that
    the packet goes through from source (6LN) to destination"
 - Figure 7: cases modified:
  * root to RUL: IPv6-in-IPv6 column changed from "No" to "must" and IPv6-in-IPv6 dst column from "No" to "6LR".
  * RAL to Int: IPv6-in-IPv6 column changed from "No" to "may" and IPv6-in-IPv6 dst column from "No" to "root".
  * RAL to RUL: IPv6-in-IPv6 column changed from "No" to "must(down)" and IPv6-in-IPv6 dst column from "No" to "6LR".
- * RUL to RAL: IPv6-in-IPv6 column changed from "must" to "must(up)/must(down)" and IPv6-in-IPv6 dst column from "root" to "root" going up and RAL doing down.
- * RUL to RUL: IPv6-in-IPv6 column changed from "must" to "must(up)/must(down)" and IPv6-in-IPv6 dst column from "root" to "root" going up and 6LR doing down.
+ * RUL to RAL: IPv6-in-IPv6 column changed from "must" to "must(up)/must(down)" and IPv6-in-IPv6 dst column from "root" to 
+ "root" going up and RAL doing down.
+ * RUL to RUL: IPv6-in-IPv6 column changed from "must" to "must(up)/must(down)" and IPv6-in-IPv6 dst column from "root" to
+ "root" going up and 6LR doing down.
 
  -Changed in the mentioned cases (descriptions and tables) to reflect the modifications in Figure 7.
 
@@ -137,10 +150,12 @@ Section 2:
 -Hop-by-Hop re-encapsulation definition deleted.
 
 Section 4:
--Text deleted: "IP-in-IP encapsulation MAY be avoided for Root to RUL communication if the RUL is known to process  the packets as forwarded by the parent 6LR without decapsulation."
+-Text deleted: "IP-in-IP encapsulation MAY be avoided for Root to RUL communication if the RUL is known to process  
+the packets as forwarded by the parent 6LR without decapsulation."
 
 Section 4.3:
--Text deleted:"This means that the non-storing mode case can avoid ever using Hop-by-Hop re-encapsulation headers for traffic	originating from the root to the leaves."
+-Text deleted:"This means that the non-storing mode case can avoid ever using Hop-by-Hop re-encapsulation headers 
+for traffic	originating from the root to the leaves."
 
 Section 7:
 - Added text referring one case in SM that RH3 can be used: "However, there is one
@@ -194,7 +209,8 @@ and more concisely in the later ones."
 "The uses cases are delineated based on the following IPV6 and RPL mandates:"
 
 Section 7:
--"If the IPv6-in-IPv6 header is needed, the column shows "must"." changed to "and the destination is N/A (Not Applicable).  If the IPv6-in-IPv6 header is needed, the column shows "must"".
+-"If the IPv6-in-IPv6 header is needed, the column shows "must"." changed to "and the destination is N/A (Not Applicable). 
+If the IPv6-in-IPv6 header is needed, the column shows "must"".
 -"to indicate the RUL (Figure 11)." changed to " to point at the RUL (Figure 11)."
 -Figure 7 changed from No to N/A, and
   *RAL to RUL  |    No(up)  |      6LR  to
@@ -230,7 +246,9 @@ Section 7.3.2:
 -"Node F (RAL)--> Node D --> Node B--> Node E --> Node G (RUL)" changed to "Node F (RAL)--> Node D --> Node B--> Node A 
 -->Node B --> Node E --> Node G (RUL)".
 -"The root removes the RPI1 and inserts an RPI2 encapsulated to the 6LR parent of the RUL, which  
-removes the RPI2 before pasing the packet to the RUL." changed to "The root does not removes the RPI1 (the root cannot remove an RPI if there is no encapsulation).  The root inserts an RPI2 encapsulated to the 6LR parent of the RUL, which removes the RPI2 before pasing the packet to the RUL."
+removes the RPI2 before pasing the packet to the RUL." changed to "The root does not removes the RPI1 (the root cannot 
+remove an RPI if there is no encapsulation).  The root inserts an RPI2 encapsulated to the 6LR parent of the RUL, which
+removes the RPI2 before pasing the packet to the RUL."
 
 Section 7.3.4.
 -Deleted: "The RPI is ignored at the RUL dst node."
