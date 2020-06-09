@@ -1294,8 +1294,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         </t>
                         <t>
                         When the packet arrives from the RUL (Node G) to
-                        6LR_1 (Node E), the 6LR_1 will insert encapsulate the packet
-                        in an IPv6-in-IPv6 header and prepend an RPI. The IPv6-in-IPv6
+                        6LR_1 (Node E), the 6LR_1 will encapsulate the packet
+                        in an IPv6-in-IPv6 header with an RPI. The IPv6-in-IPv6
                         header is addressed to the root (Node A).  The root removes the header and processes
                         the packet.
                         </t>
