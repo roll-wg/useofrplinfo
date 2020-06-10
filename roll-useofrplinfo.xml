@@ -697,8 +697,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           </t>
           <t>
 	    The leaves marked as RUL (G and J) are
-            devices which do not speak RPL at all (not-RPL-aware),
-	    but uses Router-Advertisements, 6LowPAN DAR/DAC and
+            devices that do not speak RPL at all (not-RPL-aware),
+	    but use Router-Advertisements, 6LowPAN DAR/DAC and
             6LoWPAN ND only to participate in the network <xref target="RFC8505"/>.
 	    In the document these leaves (G and J) are also referred to as
             a RUL.
@@ -1700,8 +1700,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         <t>
                           In this case, the packet from the RAL goes to 6LBR because the route to the RUL is not injected into the RPL-SM.
                           Thus, the RAL inserts an RPI (RPI1) addressed to the root(6LBR). The root does not removes the RPI1
-                          (the root cannot remove an RPI if there is no encapsulation). The root inserts an RPI2
-                          encapsulated to the 6LR parent of the RUL, which removes the RPI2 before pasing the packet to the RUL.
+                          (the root cannot remove an RPI if there is no encapsulation). The root inserts an IPv6-IPv6 encapsulation with an RPI2
+                          and sends it to the 6LR parent of the RUL, which removes the encapsulation and RPI2 before passing the packet to the RUL.
                         </t>
                         <!-- section 7.10
                           This situation is identical to the previous situation
