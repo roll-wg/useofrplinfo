@@ -180,7 +180,8 @@ Section 8.3.1:
 Nit fixed, tables(figures) aligned to ascii format
 
 
-Changelog from v38 to 39: To be confirmed: 
+Changelog from v38 to 39: 
+
 https://github.com/roll-wg/useofrplinfo/blob/master/draft-ietf-roll-useofrplinfo-39.txt
 
 Section 2: Flag day definition modified as follows:
@@ -280,3 +281,6 @@ the flag day (lack of interoperation) in a network using 0x63 as the RPI Option 
 It is suggested that RPL implementations accept both 0x63 and 0x23 RPI Option type values when processing the header
 to enable interoperability."
 
+Changelog from v39 to 40: 
+
+Nits fixed.
