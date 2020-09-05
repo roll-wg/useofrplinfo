@@ -48,7 +48,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-40" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-41" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -158,7 +158,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
              </t>
 
              <t>
-               The ROLL WG analysized how <xref target="RFC2460" /> rules apply to storing and
+               The ROLL WG analyzed how <xref target="RFC2460" /> rules apply to storing and
                non-storing use of RPL.  The result was 24 data plane use
                cases.  They are exhaustively outlined here in order to be
                completely unambiguous.  During the processing of this
@@ -175,12 +175,12 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                 defines a mechanism for compressing RPL Option information and Routing Header type 3 (RH3)
                 <xref target="RFC6554"/>, as well as an efficient IPv6-in-IPv6 technique.
              </t><t>
-                Since some of the uses cases here described, use IPv6-in-IPv6 encapsulation. It
-                MUST take in consideration, when encapsulation is applied, the RFC6040 <xref target="RFC6040"/>, which
-                defines how the explicit congestion notification (ECN) field of the IP header should
-                be constructed on entry to and exit from any IPV6-in-IPV6 tunnel. Additionally, it is recommended
-                the reading of <xref target="I-D.ietf-intarea-tunnels"/> that explains the relationship of IP
-                tunnels to existing protocol layers and the challenges in supporting IP tunneling.
+                Most of the use cases described therein require the use of IPv6-in-IPv6 packet encapsulation.
+                When encapsulating and decapsulating packets, RFC 6040 [RFC6040] MUST be applied to map the
+                setting of the explicit congestion notification (ECN) field between inner and outer headers.
+                Additionally, it is recommended the reading of <xref target="I-D.ietf-intarea-tunnels"/>
+                that explains the relationship of IP tunnels to existing protocol layers and the challenges
+                in supporting IP tunneling.
               </t>
               <t>
                 Non-constrained uses of RPL are not in scope of this document, and
@@ -362,7 +362,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           </t><t>
           A RUL is a special case of external target when the target is actually
           a host and it is known to support a consumed Routing Header and to
-          ignore a HbH header as prescribed by <xref target="RFC8200"/>.
+          ignore a Hop-by-Hop header as prescribed by <xref target="RFC8200"/>.
           The target may have been learned through an external routing protocol or may have
           been registered to the 6LR using <xref target="RFC8505"/>.
           </t><t>
@@ -532,7 +532,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
         <t>
           The non-storing mode case does not require the type change from
           0x63 to 0x23, as the root can always create the right packet.
-          The type change does not adversely affect the non-storing case.
+          The type change does not adversely affect the non-storing case.(see  <xref target="update6550"/>)
         </t>
 
 <!--        <t>
@@ -607,7 +607,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             In the case of reboot, the node (6LN or 6LR) does not remember the
             RPI Option Type (i.e., whether or not the flag is set), so the node will not trigger DIO
             messages until a DIO message is received indicating the RPI
-            value to be used. The node will use the value 0x23 if the network supports this feature
+            value to be used. The node will use the value 0x23 if the network supports this feature.
           </t>
         </section>
         <section title="Updates to RFC8138: Indicating the way to decompress with the new RPI Option Type.">
@@ -764,9 +764,6 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
            In the data plane a combination of RFC6553, RFC6554 and
            IPv6-in-IPv6 encapsulation are going to be analyzed for a number of
            representative traffic flows.
-        </t>
-        <t>
-          This document assumes that the LLN is using the no-drop RPI Option Type of 0x23.
         </t>
         <t>
 
@@ -1699,7 +1696,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         </t>
                         <t>
                           In this case, the packet from the RAL goes to 6LBR because the route to the RUL is not injected into the RPL-SM.
-                          Thus, the RAL inserts an RPI (RPI1) addressed to the root(6LBR). The root does not removes the RPI1
+                          Thus, the RAL inserts an RPI (RPI1) addressed to the root(6LBR). The root does not remove the RPI1
                           (the root cannot remove an RPI if there is no encapsulation). The root inserts an IPv6-IPv6 encapsulation with an RPI2
                           and sends it to the 6LR parent of the RUL, which removes the encapsulation and RPI2 before passing the packet to the RUL.
                         </t>
@@ -1759,7 +1756,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                    that the packet goes through from the root to the destination RAL.
                  </t>
                  <t>
-                   The 6LR_ia (ia=1) (Node E) receives the packet from the RUL (Node G) and
+                   The 6LR_1 (Node E) receives the packet from the RUL (Node G) and
                    inserts the RPI (RPI1) encapsulated in a IPv6-in-IPv6 header to the root.
                    The root removes the outer header including the RPI (RPI1) and
                    inserts a new RPI (RPI2) addressed to the destination RAL (Node F).
@@ -1884,7 +1881,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           for the RPLInstanceID to be available for priority/channel selection at each hop.
          </t>
          <t>
-           The root always have to encapuslate on the way down
+
           <figure title="Table that shows headers needed in Non-Storing mode: RPI, RH3, IPv6-in-IPv6 encapsulation." anchor="fig_table_non-storing" align="center">
             <artwork><![CDATA[
 +--- ------------+-------------+-----+-----+--------------+----------+
@@ -1895,7 +1892,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 |                +-------------+-----+-----+--------------+----------+
 |  Leaf - Root   | root to RAL | Yes | Yes |      No      |    No    |
 |                +-------------+-----+-----+--------------+----------+
-|                | root to RUL | Yes | Yes |     must     |    6LR   |
+|                | root to RUL | Yes | Yes |      No      |    6LR   |
 |                |             | (1) |     |              |          |
 |                +-------------+-----+-----+--------------+----------+
 |                | RUL to root | Yes |  No |     must     |   root   |
@@ -2181,7 +2178,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                                 RAL (6LN) src --> 6LR_i --> root (6LBR) --> Internet dst
                         </t>
                         <t>
-                        For example, a communication flow could be: Node F (RAL) --> Node D --> Node B --> Node A --> Internet
+                        For example, a communication flow could be: Node F (RAL) --> Node D --> Node B --> Node A --> Internet.
+                        Having the RAL information about the RPL domain, it may encapsulate to the root when the destination is not in the RPL domain where the RAL is located.
                         </t>
                         <t>
                           6LR_i represents the intermediate routers from source to destination,
@@ -2315,9 +2313,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         </t>
                         <t>
                                 In this case the flow label is recommended to
-                                be zero in the RUL. As RPL headers are
-                                added in the RUL packet, the first 6LR (6LR_1) will
-                                add an RPI inside a new IPv6-in-IPv6 header.
+                                be zero in the RUL.  As the RUL parent adds  RPL headers in the RUL packet,
+                                the first 6LR (6LR_1) will add an RPI inside a new IPv6-in-IPv6 header.
                                 The IPv6-in-IPv6 header will be addressed to the
                                 root.  This case is identical to the
                                 storing-mode case (see <xref target="sm-nRal2i" />).
@@ -2563,7 +2560,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                           header addressed to the last 6LR_id (6LR_id = m) alongside the insertion of RPI2.
                         </t>
                         <t>
-                          If the originating node does not not put the RPI (RPI1) into an IPv6-in-IPv6
+                          If the originating node does not put the RPI (RPI1) into an IPv6-in-IPv6
                           header addressed to the root. Then, the RPI1 is forwarded down from the
                           root in the inner header to no avail.
                         </t>
@@ -2652,7 +2649,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         <t>
                           In this scenario the RPI (RPI1) is added by the first 6LR (6LR_1) inside an
                           IPv6-in-IPv6 header addressed to the root.  The 6LBR will
-                          remove this RPI, and add it's own IPv6-in-IPv6 header
+                          remove this RPI, and add its own IPv6-in-IPv6 header
                           containing an RH3 header and an RPI (RPI2).
                         </t>
                         <t>
@@ -2824,9 +2821,9 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
            </t>
            <t>
              Before the migration happens, all the RPL-aware nodes should support both values .
-             The migration procedure it is triggered when the DIO is sent with the flag
+             The migration procedure is triggered when the DIO is sent with the flag
              indicating the new RPI Option Type.
-             Namely, it remains at 0x63 until it is sure that the network is capable of 0x23, then it abruptly change to 0x23.
+             Namely, it remains at 0x63 until it is sure that the network is capable of 0x23, then it abruptly changes to 0x23.
              This options allows to send packets to not-RPL nodes, which should ignore the option and continue processing the packets.
 
            </t>
