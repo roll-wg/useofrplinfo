@@ -227,7 +227,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
         <t>
         RPL Packet Information (RPI): The abstract information that <xref target="RFC6550"/> places in IP packets.
         The term is commonly used, including in this document, to refer to the RPL Option <xref target="RFC6553"/>
-        that transports that abstract information in an IPv6 Hob-by-Hop Header.
+        that transports that abstract information in an IPv6 Hop-by-Hop Header.
         </t>
         <t>
         RPL-aware-node (RAN): A device which implements RPL. Please note that the device can be found inside the LLN or outside LLN.
@@ -2179,7 +2179,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         </t>
                         <t>
                         For example, a communication flow could be: Node F (RAL) --> Node D --> Node B --> Node A --> Internet.
-                        Having the RAL information about the RPL domain, it may encapsulate to the root when the destination is not in the RPL domain where the RAL is located.
+                        Having the RAL information about the RPL domain, it may encapsulate to the root when the destination is not in the RPL domain of the RAL.
                         </t>
                         <t>
                           6LR_i represents the intermediate routers from source to destination,
