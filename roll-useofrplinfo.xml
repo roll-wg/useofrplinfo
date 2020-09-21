@@ -382,31 +382,6 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
           </t>
           </section>
-          <section  anchor="mopchanges" title="Updates to RFC6550:
-                                               Configuration Options and Mode
-                                               of Operation">
-            <t>
-              RFC6550 section 6.7.6 describes the DODAG Configuration Option.
-              In this option are a series of Flags in the first octet of the
-              payload.  These flags are described by the DODAG Configuration
-              Option Flags registry <xref target="dodagcfg" />, in section
-              20.14 of RFC6550.
-            </t>
-            <t>
-              Anticipating future work to revise RPL relating to how the
-              LLN and DODAG is configured, this document changes the
-              interpretation of the <xref target="dodagcfg" /> Registry to be
-              limited to Mode-of-Operation (MOP) specific.  The MOP is
-              described in <xref target="RFC6550" /> section 6.3.1.  The
-              Options Flags Registry is renamed, and applies to MOP values
-              zero (0) to six (6) only, leaving the flags reserved for MOP
-              value seven (7).
-            </t>
-            <t>
-              In addition, this document reserves MOP value 7 for future
-              expansion.
-            </t>
-          </section>
           <section title="Updates to RFC6553: Indicating the new RPI Option Type.">
           <t>
           This modification is required in order to be able to send, for example,
@@ -569,6 +544,31 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           understand it.
         </t>
 -->
+        </section>
+        <section  anchor="mopchanges" title="Updates to RFC6550:
+                                             Configuration Options and Mode
+                                             of Operation">
+          <t>
+            RFC6550 section 6.7.6 describes the DODAG Configuration Option.
+            In this option are a series of Flags in the first octet of the
+            payload.  These flags are described by the DODAG Configuration
+            Option Flags registry <xref target="dodagcfg" />, in section
+            20.14 of RFC6550.
+          </t>
+          <t>
+            Anticipating future work to revise RPL relating to how the
+            LLN and DODAG is configured, this document changes the
+            interpretation of the <xref target="dodagcfg" /> Registry to be
+            limited to Mode-of-Operation (MOP) specific.  The MOP is
+            described in <xref target="RFC6550" /> section 6.3.1.  The
+            Options Flags Registry is renamed, and applies to MOP values
+            zero (0) to six (6) only, leaving the flags reserved for MOP
+            value seven (7).
+          </t>
+          <t>
+            In addition, this document reserves MOP value 7 for future
+            expansion.
+          </t>
         </section>
         <section title="Updates to RFC6550: Indicating the new RPI in the
                         DODAG Configuration option Flag. " anchor="update6550">
