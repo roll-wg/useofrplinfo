@@ -382,6 +382,31 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
           </t>
           </section>
+          <section  anchor="mopchanges" title="Updates to RFC6550:
+                                               Configuration Options and Mode
+                                               of Operation">
+            <t>
+              RFC6550 section 6.7.6 describes the DODAG Configuration Option.
+              In this option are a series of Flags in the first octet of the
+              payload.  These flags are described by the DODAG Configuration
+              Option Flags registry <xref target="dodagcfg" />, in section
+              20.14 of RFC6550.
+            </t>
+            <t>
+              Anticipating future work to revise RPL relating to how the
+              LLN and DODAG is configured, this document changes the
+              interpretation of the <xref target="dodagcfg" /> Registry to be
+              limited to Mode-of-Operation (MOP) specific.  The MOP is
+              described in <xref target="RFC6550" /> section 6.3.1.  The
+              Options Flags Registry is renamed, and applies to MOP values
+              zero (0) to six (6) only, leaving the flags reserved for MOP
+              value seven (7).
+            </t>
+            <t>
+              In addition, this document reserves MOP value 7 for future
+              expansion.
+            </t>
+          </section>
           <section title="Updates to RFC6553: Indicating the new RPI Option Type.">
           <t>
           This modification is required in order to be able to send, for example,
@@ -2836,14 +2861,15 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
       </section>
 
 
-        <section title="IANA Considerations" anchor="iana">
-           <t>
-             This document updates the registration made in <xref target="RFC6553"/>
-             Destination Options and Hop-by-Hop Options registry from 0x63 to 0x23
-             as shown in <xref target="fig_IanaRPIOption"/>.
-           </t>
-           <t>
-           <figure title="Option Type in RPL Option.(*)represents this document" anchor="fig_IanaRPIOption" align="center">
+      <section title="IANA Considerations" anchor="iana">
+        <section title="Option Type in RPL Option">
+          <t>
+            This document updates the registration made in <xref target="RFC6553"/>
+            Destination Options and Hop-by-Hop Options registry from 0x63 to 0x23
+            as shown in <xref target="fig_IanaRPIOption"/>.
+          </t>
+          <t>
+            <figure title="Option Type in RPL Option.(*)represents this document" anchor="fig_IanaRPIOption" align="center">
               <artwork> <![CDATA[
 +-------+-------------------+------------------------+---------- -+
 |  Hex  |    Binary Value   |       Description      | Reference  |
@@ -2855,14 +2881,14 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 |  0x63 |  01 |  1  | 00011 | RPL Option(DEPRECATED) | [RFC6553]  |
 |       |     |     |       |                        |[RFCXXXX](*)|
 +-------+-----+-----+-------+------------------------+------------+
-           ]]></artwork></figure>
-           </t>
-           <t> DODAG Configuration
-           option is updated as follows (<xref target="fig_RPIflagdayConfOption"/>):
-           </t>
-           <t>
-          <figure title="DODAG Configuration option Flag to indicate the RPI-flag-day." anchor="fig_RPIflagdayConfOption" align="center">
-            <artwork> <![CDATA[
+]]></artwork></figure>
+          </t>
+          <t> DODAG Configuration
+          option is updated as follows (<xref target="fig_RPIflagdayConfOption"/>):
+          </t>
+          <t>
+            <figure title="DODAG Configuration option Flag to indicate the RPI-flag-day." anchor="fig_RPIflagdayConfOption" align="center">
+              <artwork> <![CDATA[
 
               +------------+-----------------+---------------+
               | Bit number |   Description   |   Reference   |
@@ -2870,9 +2896,12 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
               |      3     | RPI 0x23 enable | This document |
               +------------+-----------------+---------------+
 
-           ]]></artwork></figure>
-           </t>
+              ]]></artwork></figure>
+          </t>
         </section>
+        <section title="Changes to DODAG Configuration Options Flags">
+        </section>
+      </section>
 
         <section anchor="Security" title="Security Considerations">
            <t>
@@ -3099,7 +3128,13 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
      &RFC6550;
 
-
+     <reference  anchor='dodagcfg' target='https://www.iana.org/assignments/rpl/rpl.xhtml#dodag-config-option-flags'>
+       <front>
+         <title>DODAG Configuration Option Flags</title>
+         <author fullname='IANA'><organization>IANA</organization></author>
+         <date year='2020' month='Sept' />
+       </front>
+     </reference>
 
      <reference  anchor='BCP38' target='https://www.rfc-editor.org/info/bcp38'>
      <front>
