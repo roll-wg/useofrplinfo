@@ -587,11 +587,14 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 	        signal "RPI 0x23 enable" and propagate through the network.
             Section 6.3.1. of <xref target="RFC6550"/> defines a 3-bit Mode of
             Operation (MOP) in the DIO Base Object. The flag is defined only
-            for MOP value between 0 to 6. For a MOP value of 7 or above, the flag
-            MAY indicate something different and MUST NOT be interpreted as
-            "RPI 0x23 enable" unless the specification of the MOP
-            indicates to do so.
-        </t>
+            for MOP value between 0 to 6.
+          </t>
+          <t>
+            For a MOP value of 7 or above, the flag MAY indicate something
+            different and MUST NOT be interpreted as "RPI 0x23 enable" unless
+            the specification of the MOP indicates to do so.  For a MOP value
+            of 7, a node SHOULD assume that the RPI 0x23 option is enabled.
+          </t>
           <t>
             As stated in <xref target="RFC6550"/> the DODAG Configuration option is present in DIO messages.
             The DODAG Configuration option distributes configuration
