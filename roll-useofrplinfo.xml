@@ -2903,6 +2903,19 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           </t>
         </section>
         <section title="Changes to DODAG Configuration Options Flags">
+          <t>
+            This document changes the name of the
+            "DODAG Configuration Option Flags" <xref target="dodagcfg" />
+            to "DODAG Configuration Option Flags for MOP 0..6".
+          </t>
+        </section>
+        <section title="Change MOP value 7 to Reserved">
+          <t>
+            This document changes the allocation status of the Mode of
+            Operation (MOP) <xref target="ianamop" />
+            from Unassigned to Reserved.
+            This change is in support of future work related to capabilities.
+          </t>
         </section>
       </section>
 
@@ -3138,6 +3151,15 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
          <date year='2020' month='Sept' />
        </front>
      </reference>
+
+     <reference  anchor='ianamop' target='https://www.iana.org/assignments/rpl/rpl.xhtml#mop'>
+       <front>
+         <title>Mode Of Operation</title>
+         <author fullname='IANA'><organization>IANA</organization></author>
+         <date year='2020' month='Sept' />
+       </front>
+     </reference>
+
 
      <reference  anchor='BCP38' target='https://www.rfc-editor.org/info/bcp38'>
      <front>
