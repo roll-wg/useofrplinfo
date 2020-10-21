@@ -281,6 +281,32 @@ the flag day (lack of interoperation) in a network using 0x63 as the RPI Option 
 It is suggested that RPL implementations accept both 0x63 and 0x23 RPI Option type values when processing the header
 to enable interoperability."
 
-Changelog from v39 to 40: 
+ChangeLog v39 to v40:
 
-Nits fixed.
+nits fixed in Section 5, Section 7.1.4, Section 7.3.2
+
+ChangeLog v40 to v41: 
+
+Section1: Introduction updated 
+
+Section 4.3: Updates to RFC6550: Subsection added "Configuration Options and Mode of Operation" 
+Section 4.4: added " For a MOP value of 7, a node SHOULD assume that the RPI 0x23 option is enabled."
+Figure 22 case root to RUL updated IPv6-in-IPv6 field, from must to No.
+
+Section 8.2.1: Non-SM: Example of Flow from RAL to Internet added: "Having the RAL information about the RPL domain, it may encapsulate to the root when the destination is not in the RPL domain of the RAL."
+
+8.2.3.  Non-SM: Example of Flow from RUL to Internet: nits fixed.
+8.3.2.  Non-SM: Example of Flow from RAL to RUL: nits fixed.
+
+Section 11: IANA Considerations, added: 
+
+"11.2.  Changes to DODAG Configuration Options Flags
+
+   This document changes the name of the "DODAG Configuration Option
+   Flags" [dodagcfg] to "DODAG Configuration Option Flags for MOP 0..6".
+
+11.3.  Change MOP value 7 to Reserved
+
+   This document changes the allocation status of the Mode of Operation
+   (MOP) [ianamop] from Unassigned to Reserved.  This change is in
+   support of future work related to capabilities."
