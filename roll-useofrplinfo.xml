@@ -1004,6 +1004,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
               </t>
               <t>
                 - For traffic leaving a RUL, if the RUL adds an opaque RPI then the description of the RAL applies.
+                The 6LR as a RPL border router SHOULD rewrite the RPI to indicate the selected Instance and set the flags.
               </t>
               <t>
                 - The description for RALs applies to RAN in general.
@@ -3054,6 +3055,17 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             meaning and is just skipped; the presence of a second RPI
             will have no meaning to the end node as the packet has already
             been identified as being at it's final destination.
+          </t>
+          <t>
+            For traffic leaving a RUL, if the RUL adds an opaque RPI then the
+            description of the RAL applies.  The 6LR as a RPL border router SHOULD
+            rewrite the RPI to indicate the selected Instance and set the flags.
+            This is done in order to avoid: 1) The leaf is an external router that
+            passes a packet that it did not generate and that carries an unrelated RPI
+            and 2) The leaf is an attacker or presents misconfiguration and
+            tries to inject traffic in a protected instance.
+            Also, this applies in the case where the leaf is aware of the RPL instance and passes a correct RPI,
+            the 6LR needs a configuration that allows that leaf to inject in that instance.
           </t>
           <t>
             The RH3 and RPIs could be abused by an attacker inside of
