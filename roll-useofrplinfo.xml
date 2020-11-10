@@ -399,11 +399,10 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
               Anticipating future work to revise RPL relating to how the
               LLN and DODAG is configured, this document changes the
               interpretation of the <xref target="dodagcfg" /> Registry to be
-              limited to Mode-of-Operation (MOP) specific.  The MOP is
+              limited to Mode-of-Operation (MOP) specific values.  The MOP is
               described in <xref target="RFC6550" /> section 6.3.1.  The
               Options Flags Registry is renamed, and applies to MOP values
-              zero (0) to six (6) only, leaving the flags reserved for MOP
-              value seven (7).
+              zero (0) to six (6) only.
             </t>
             <t>
               In addition, this document reserves MOP value 7 for future
@@ -2213,7 +2212,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                         </t>
                         <t>
                         For example, a communication flow could be: Node F (RAL) --> Node D --> Node B --> Node A --> Internet.
-                        Having the RAL information about the RPL domain, it may encapsulate to the root when the destination is not in the RPL domain of the RAL.
+                        Having the RAL information about the RPL domain, the packet may be encapsulated to the root when the destination is not in the RPL domain of the RAL.
                         </t>
                         <t>
                           6LR_i represents the intermediate routers from source to destination,
@@ -2918,7 +2917,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
         <section title="Change MOP value 7 to Reserved">
           <t>
             This document changes the allocation status of the Mode of
-            Operation (MOP) <xref target="ianamop" />
+            Operation (MOP) <xref target="ianamop" /> value 7
             from Unassigned to Reserved.
             This change is in support of future work related to capabilities.
           </t>
