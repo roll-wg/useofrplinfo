@@ -326,7 +326,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
        </section>
 
-       <section  anchor="updateRFCs_section" title="Updates to RFC6553, RFC6550 and RFC8138">
+       <section  anchor="updateRFCs_section" title="Updates to RFC6550, RFC6553 and RFC8138">
 
 
           <section  anchor="updateRFC_section6550" title="Updates to RFC6550">
@@ -388,7 +388,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           <section  anchor="mopchanges" title="Configuration Options and Mode
                                                of Operation">
             <t>
-              RFC6550 section 6.7.6 describes the DODAG Configuration Option.
+              Section 6.7.6 of RFC6550 describes the DODAG Configuration Option as
+              containing a series of Flags in the first octet of the payload
               In this option are a series of Flags in the first octet of the
               payload.  These flags are described by the DODAG Configuration
               Option Flags registry <xref target="dodagcfg" />, in section
