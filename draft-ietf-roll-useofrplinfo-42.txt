@@ -431,8 +431,7 @@ Internet-Draft               RPL-data-plane                November 2020
 4.1.2.  Configuration Options and Mode of Operation
 
    Section 6.7.6 of RFC6550 describes the DODAG Configuration Option as
-   containing a series of Flags in the first octet of the payload In
-   this option are a series of Flags in the first octet of the payload.
+   containing a series of Flags in the first octet of the payload.
    These flags are described by the DODAG Configuration Option Flags
    registry [dodagcfg], in section 20.14 of RFC6550.
 
@@ -442,6 +441,7 @@ Internet-Draft               RPL-data-plane                November 2020
    values.  The MOP is described in [RFC6550] section 6.3.1.  The
    Options Flags Registry is renamed, and applies to MOP values zero (0)
    to six (6) only.
+
 
 
 
