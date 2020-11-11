@@ -389,9 +389,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                                                of Operation">
             <t>
               Section 6.7.6 of RFC6550 describes the DODAG Configuration Option as
-              containing a series of Flags in the first octet of the payload
-              In this option are a series of Flags in the first octet of the
-              payload.  These flags are described by the DODAG Configuration
+              containing a series of Flags in the first octet of the payload.
+	      These flags are described by the DODAG Configuration
               Option Flags registry <xref target="dodagcfg" />, in section
               20.14 of RFC6550.
             </t>
