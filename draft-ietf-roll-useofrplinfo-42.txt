@@ -6,9 +6,9 @@ ROLL Working Group                                             M. Robles
 Internet-Draft                                             UTN-FRM/Aalto
 Updates: 6553, 6550, 8138 (if approved)                    M. Richardson
 Intended status: Standards Track                                     SSW
-Expires: May 15, 2021                                         P. Thubert
+Expires: May 16, 2021                                         P. Thubert
                                                                    Cisco
-                                                       November 11, 2020
+                                                       November 12, 2020
 
 
 Using RPI Option Type, Routing Header for Source Routes and IPv6-in-IPv6
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 15, 2021.
+   This Internet-Draft will expire on May 16, 2021.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Robles, et al.            Expires May 15, 2021                  [Page 1]
+Robles, et al.            Expires May 16, 2021                  [Page 1]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Robles, et al.            Expires May 15, 2021                  [Page 2]
+Robles, et al.            Expires May 16, 2021                  [Page 2]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -137,7 +137,7 @@ Internet-Draft               RPL-data-plane                November 2020
    10. Operational considerations of introducing 0x23  . . . . . . .  54
    11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  54
      11.1.  Option Type in RPL Option  . . . . . . . . . . . . . . .  54
-     11.2.  Changes to DODAG Configuration Options Flags . . . . . .  55
+     11.2.  Change to the DODAG Configuration Options Flags registry  55
      11.3.  Change MOP value 7 to Reserved . . . . . . . . . . . . .  55
    12. Security Considerations . . . . . . . . . . . . . . . . . . .  55
    13. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  59
@@ -165,7 +165,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                  [Page 3]
+Robles, et al.            Expires May 16, 2021                  [Page 3]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -221,7 +221,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                  [Page 4]
+Robles, et al.            Expires May 16, 2021                  [Page 4]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -277,7 +277,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                  [Page 5]
+Robles, et al.            Expires May 16, 2021                  [Page 5]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -333,7 +333,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                  [Page 6]
+Robles, et al.            Expires May 16, 2021                  [Page 6]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -389,7 +389,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                  [Page 7]
+Robles, et al.            Expires May 16, 2021                  [Page 7]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -432,25 +432,23 @@ Internet-Draft               RPL-data-plane                November 2020
 
    Section 6.7.6 of RFC6550 describes the DODAG Configuration Option as
    containing a series of Flags in the first octet of the payload.
-   These flags are described by the DODAG Configuration Option Flags
-   registry [dodagcfg], in section 20.14 of RFC6550.
 
    Anticipating future work to revise RPL relating to how the LLN and
-   DODAG is configured, this document changes the interpretation of the
-   [dodagcfg] Registry to be limited to Mode-of-Operation (MOP) specific
-   values.  The MOP is described in [RFC6550] section 6.3.1.  The
-   Options Flags Registry is renamed, and applies to MOP values zero (0)
-   to six (6) only.
+   DODAG are configured, this document renames the DODAG Configuration
+   Option Flags registry so that it applies to Mode of Operation (MOP)
+   values zero (0) to six (6) only, leaving the flags unassigned for MOP
+   value seven (7).The MOP is described in RFC6550 section 6.3.1.
+
+   In addition, this document reserves MOP value 7 for future expansion.
+
+   See Sections 11.2 and 11.3.
 
 
 
-
-Robles, et al.            Expires May 15, 2021                  [Page 8]
+Robles, et al.            Expires May 16, 2021                  [Page 8]
 
 Internet-Draft               RPL-data-plane                November 2020
 
-
-   In addition, this document reserves MOP value 7 for future expansion.
 
 4.1.3.  Indicating the new RPI in the DODAG Configuration option Flag.
 
@@ -471,10 +469,7 @@ Internet-Draft               RPL-data-plane                November 2020
    in the DIO Base Object.  The flag is defined only for MOP value
    between 0 to 6.
 
-   For a MOP value of 7 or above, the flag MAY indicate something
-   different and MUST NOT be interpreted as "RPI 0x23 enable" unless the
-   specification of the MOP indicates to do so.  For a MOP value of 7, a
-   node SHOULD assume that the RPI 0x23 option is enabled.
+   For a MOP value of 7, a node MUST use the RPI 0x23 option.
 
    As stated in [RFC6550] the DODAG Configuration option is present in
    DIO messages.  The DODAG Configuration option distributes
@@ -501,7 +496,12 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                  [Page 9]
+
+
+
+
+
+Robles, et al.            Expires May 16, 2021                  [Page 9]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -557,7 +557,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 10]
+Robles, et al.            Expires May 16, 2021                 [Page 10]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -613,7 +613,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 11]
+Robles, et al.            Expires May 16, 2021                 [Page 11]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -669,7 +669,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 12]
+Robles, et al.            Expires May 16, 2021                 [Page 12]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -725,7 +725,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 13]
+Robles, et al.            Expires May 16, 2021                 [Page 13]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -781,7 +781,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 14]
+Robles, et al.            Expires May 16, 2021                 [Page 14]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -837,7 +837,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 15]
+Robles, et al.            Expires May 16, 2021                 [Page 15]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -893,7 +893,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 16]
+Robles, et al.            Expires May 16, 2021                 [Page 16]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -949,7 +949,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 17]
+Robles, et al.            Expires May 16, 2021                 [Page 17]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -986,8 +986,8 @@ Internet-Draft               RPL-data-plane                November 2020
       - In the uses cases, we assume that the RAL supports IP-in-IP
       encapsulation.
 
-      - In the uses cases, we dont assume that the RUL supports IP-in-IP
-      encapsulation.
+      - In the uses cases, we don't assume that the RUL supports IP-in-
+      IP encapsulation.
 
       - For traffic leaving a RUL, if the RUL adds an opaque RPI then
       the description of the RAL applies.  The 6LR as a RPL border
@@ -1005,7 +1005,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 18]
+Robles, et al.            Expires May 16, 2021                 [Page 18]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 19]
+Robles, et al.            Expires May 16, 2021                 [Page 19]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 20]
+Robles, et al.            Expires May 16, 2021                 [Page 20]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1173,7 +1173,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 21]
+Robles, et al.            Expires May 16, 2021                 [Page 21]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 22]
+Robles, et al.            Expires May 16, 2021                 [Page 22]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1263,7 +1263,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
        Figure 10: SM: Summary of the use of headers from root to RUL
 
-   IP-in-IP encapsulation MAY be avoided for Root to RUL communication.
+   IP-in-IP encapsulation may be avoided for Root to RUL communication.
    In SM, it can be replaced by a loose RH3 header that indicates the
    RUL, in which case the packet is routed to the 6LR as a normal SM
    operation, then the 6LR forwards to the RUL based on the RH3, and the
@@ -1285,7 +1285,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 23]
+Robles, et al.            Expires May 16, 2021                 [Page 23]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1341,7 +1341,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 24]
+Robles, et al.            Expires May 16, 2021                 [Page 24]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1397,7 +1397,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 25]
+Robles, et al.            Expires May 16, 2021                 [Page 25]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 26]
+Robles, et al.            Expires May 16, 2021                 [Page 26]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1509,7 +1509,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 27]
+Robles, et al.            Expires May 16, 2021                 [Page 27]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1565,7 +1565,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 28]
+Robles, et al.            Expires May 16, 2021                 [Page 28]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1621,7 +1621,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 29]
+Robles, et al.            Expires May 16, 2021                 [Page 29]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1677,7 +1677,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 30]
+Robles, et al.            Expires May 16, 2021                 [Page 30]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1733,7 +1733,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 31]
+Robles, et al.            Expires May 16, 2021                 [Page 31]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1789,7 +1789,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 32]
+Robles, et al.            Expires May 16, 2021                 [Page 32]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1845,7 +1845,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 33]
+Robles, et al.            Expires May 16, 2021                 [Page 33]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1901,7 +1901,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 34]
+Robles, et al.            Expires May 16, 2021                 [Page 34]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -1957,7 +1957,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 35]
+Robles, et al.            Expires May 16, 2021                 [Page 35]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2013,7 +2013,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 36]
+Robles, et al.            Expires May 16, 2021                 [Page 36]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2069,7 +2069,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 37]
+Robles, et al.            Expires May 16, 2021                 [Page 37]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2125,7 +2125,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 38]
+Robles, et al.            Expires May 16, 2021                 [Page 38]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2181,7 +2181,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 39]
+Robles, et al.            Expires May 16, 2021                 [Page 39]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2237,7 +2237,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 40]
+Robles, et al.            Expires May 16, 2021                 [Page 40]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2293,7 +2293,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 41]
+Robles, et al.            Expires May 16, 2021                 [Page 41]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2349,7 +2349,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 42]
+Robles, et al.            Expires May 16, 2021                 [Page 42]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2405,7 +2405,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 43]
+Robles, et al.            Expires May 16, 2021                 [Page 43]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2461,7 +2461,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 44]
+Robles, et al.            Expires May 16, 2021                 [Page 44]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2517,7 +2517,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 45]
+Robles, et al.            Expires May 16, 2021                 [Page 45]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2573,7 +2573,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 46]
+Robles, et al.            Expires May 16, 2021                 [Page 46]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2629,7 +2629,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 47]
+Robles, et al.            Expires May 16, 2021                 [Page 47]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2685,7 +2685,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 48]
+Robles, et al.            Expires May 16, 2021                 [Page 48]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2741,7 +2741,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 49]
+Robles, et al.            Expires May 16, 2021                 [Page 49]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2797,7 +2797,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 50]
+Robles, et al.            Expires May 16, 2021                 [Page 50]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2853,7 +2853,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 51]
+Robles, et al.            Expires May 16, 2021                 [Page 51]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2909,7 +2909,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 52]
+Robles, et al.            Expires May 16, 2021                 [Page 52]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -2965,7 +2965,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 53]
+Robles, et al.            Expires May 16, 2021                 [Page 53]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -3021,7 +3021,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 54]
+Robles, et al.            Expires May 16, 2021                 [Page 54]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -3052,16 +3052,17 @@ Internet-Draft               RPL-data-plane                November 2020
    Figure 39: DODAG Configuration option Flag to indicate the RPI-flag-
                                    day.
 
-11.2.  Changes to DODAG Configuration Options Flags
+11.2.  Change to the DODAG Configuration Options Flags registry
 
-   This document changes the name of the "DODAG Configuration Option
-   Flags" [dodagcfg] to "DODAG Configuration Option Flags for MOP 0..6".
+   This document requests IANA to change the name of the "DODAG
+   Configuration Option Flags" registry to "DODAG Configuration Option
+   Flags for MOP 0..6".
 
 11.3.  Change MOP value 7 to Reserved
 
-   This document changes the allocation status of the Mode of Operation
-   (MOP) [ianamop] value 7 from Unassigned to Reserved.  This change is
-   in support of future work related to capabilities.
+   This document requests the changing the registration status of value
+   7 in the Mode of Operation registry from Unassigned to Reserved.
+   This change is in support of future work.
 
 12.  Security Considerations
 
@@ -3076,8 +3077,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-
-Robles, et al.            Expires May 15, 2021                 [Page 55]
+Robles, et al.            Expires May 16, 2021                 [Page 55]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -3133,7 +3133,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 56]
+Robles, et al.            Expires May 16, 2021                 [Page 56]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -3189,7 +3189,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 57]
+Robles, et al.            Expires May 16, 2021                 [Page 57]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -3245,7 +3245,7 @@ Internet-Draft               RPL-data-plane                November 2020
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 58]
+Robles, et al.            Expires May 16, 2021                 [Page 58]
 
 Internet-Draft               RPL-data-plane                November 2020
 
@@ -3289,23 +3289,6 @@ Internet-Draft               RPL-data-plane                November 2020
               Address Spoofing", BCP 38, RFC 2827, DOI 10.17487/RFC2827,
               May 2000, <https://www.rfc-editor.org/info/bcp38>.
 
-   [dodagcfg]
-              IANA, "DODAG Configuration Option Flags", Sept 2020,
-              <https://www.iana.org/assignments/rpl/rpl.xhtml#dodag-
-              config-option-flags>.
-
-   [ianamop]  IANA, "Mode Of Operation", Sept 2020,
-              <https://www.iana.org/assignments/rpl/rpl.xhtml#mop>.
-
-
-
-
-
-Robles, et al.            Expires May 15, 2021                 [Page 59]
-
-Internet-Draft               RPL-data-plane                November 2020
-
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -3314,6 +3297,14 @@ Internet-Draft               RPL-data-plane                November 2020
    [RFC6040]  Briscoe, B., "Tunnelling of Explicit Congestion
               Notification", RFC 6040, DOI 10.17487/RFC6040, November
               2010, <https://www.rfc-editor.org/info/rfc6040>.
+
+
+
+
+Robles, et al.            Expires May 16, 2021                 [Page 59]
+
+Internet-Draft               RPL-data-plane                November 2020
+
 
    [RFC6282]  Hui, J., Ed. and P. Thubert, "Compression Format for IPv6
               Datagrams over IEEE 802.15.4-Based Networks", RFC 6282,
@@ -3354,14 +3345,6 @@ Internet-Draft               RPL-data-plane                November 2020
               (6LoWPAN) Routing Header", RFC 8138, DOI 10.17487/RFC8138,
               April 2017, <https://www.rfc-editor.org/info/rfc8138>.
 
-
-
-
-Robles, et al.            Expires May 15, 2021                 [Page 60]
-
-Internet-Draft               RPL-data-plane                November 2020
-
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
@@ -3371,9 +3354,13 @@ Internet-Draft               RPL-data-plane                November 2020
               DOI 10.17487/RFC8200, July 2017,
               <https://www.rfc-editor.org/info/rfc8200>.
 
-   [RFC8504]  Chown, T., Loughney, J., and T. Winters, "IPv6 Node
-              Requirements", BCP 220, RFC 8504, DOI 10.17487/RFC8504,
-              January 2019, <https://www.rfc-editor.org/info/rfc8504>.
+
+
+
+Robles, et al.            Expires May 16, 2021                 [Page 60]
+
+Internet-Draft               RPL-data-plane                November 2020
+
 
 14.2.  Informative References
 
@@ -3410,14 +3397,6 @@ Internet-Draft               RPL-data-plane                November 2020
               Infrastructures (BRSKI)", draft-ietf-anima-bootstrapping-
               keyinfra-45 (work in progress), November 2020.
 
-
-
-
-Robles, et al.            Expires May 15, 2021                 [Page 61]
-
-Internet-Draft               RPL-data-plane                November 2020
-
-
    [I-D.ietf-intarea-tunnels]
               Touch, J. and M. Townsley, "IP Tunnels in the Internet
               Architecture", draft-ietf-intarea-tunnels-10 (work in
@@ -3431,6 +3410,13 @@ Internet-Draft               RPL-data-plane                November 2020
    [RFC2460]  Deering, S. and R. Hinden, "Internet Protocol, Version 6
               (IPv6) Specification", RFC 2460, DOI 10.17487/RFC2460,
               December 1998, <https://www.rfc-editor.org/info/rfc2460>.
+
+
+
+Robles, et al.            Expires May 16, 2021                 [Page 61]
+
+Internet-Draft               RPL-data-plane                November 2020
+
 
    [RFC2473]  Conta, A. and S. Deering, "Generic Packet Tunneling in
               IPv6 Specification", RFC 2473, DOI 10.17487/RFC2473,
@@ -3467,13 +3453,6 @@ Internet-Draft               RPL-data-plane                November 2020
               Lossy Networks", RFC 7102, DOI 10.17487/RFC7102, January
               2014, <https://www.rfc-editor.org/info/rfc7102>.
 
-
-
-Robles, et al.            Expires May 15, 2021                 [Page 62]
-
-Internet-Draft               RPL-data-plane                November 2020
-
-
    [RFC7416]  Tsao, T., Alexander, R., Dohler, M., Daza, V., Lozano, A.,
               and M. Richardson, Ed., "A Security Threat Analysis for
               the Routing Protocol for Low-Power and Lossy Networks
@@ -3484,6 +3463,20 @@ Internet-Draft               RPL-data-plane                November 2020
               IPv6 over the TSCH Mode of IEEE 802.15.4e (6TiSCH)
               Configuration", BCP 210, RFC 8180, DOI 10.17487/RFC8180,
               May 2017, <https://www.rfc-editor.org/info/rfc8180>.
+
+
+
+
+
+
+Robles, et al.            Expires May 16, 2021                 [Page 62]
+
+Internet-Draft               RPL-data-plane                November 2020
+
+
+   [RFC8504]  Chown, T., Loughney, J., and T. Winters, "IPv6 Node
+              Requirements", BCP 220, RFC 8504, DOI 10.17487/RFC8504,
+              January 2019, <https://www.rfc-editor.org/info/rfc8504>.
 
    [RFC8505]  Thubert, P., Ed., Nordmark, E., Chakrabarti, S., and C.
               Perkins, "Registration Extensions for IPv6 over Low-Power
@@ -3525,4 +3518,11 @@ Authors' Addresses
 
 
 
-Robles, et al.            Expires May 15, 2021                 [Page 63]
+
+
+
+
+
+
+
+Robles, et al.            Expires May 16, 2021                 [Page 63]
