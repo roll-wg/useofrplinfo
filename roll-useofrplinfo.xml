@@ -390,23 +390,20 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             <t>
               Section 6.7.6 of RFC6550 describes the DODAG Configuration Option as
               containing a series of Flags in the first octet of the payload.
-	      These flags are described by the DODAG Configuration
-              Option Flags registry <xref target="dodagcfg" />, in section
-              20.14 of RFC6550.
-            </t>
+          </t>
+          <t>
+              Anticipating future work to revise RPL relating to how the LLN and DODAG
+              are configured, this document renames the DODAG Configuration Option
+              Flags registry so that it applies to Mode of Operation (MOP) values zero
+              (0) to six (6) only, leaving the flags unassigned for MOP value seven
+              (7).The MOP is described in RFC6550 section 6.3.1.
+          </t>
             <t>
-              Anticipating future work to revise RPL relating to how the
-              LLN and DODAG is configured, this document changes the
-              interpretation of the <xref target="dodagcfg" /> Registry to be
-              limited to Mode-of-Operation (MOP) specific values.  The MOP is
-              described in <xref target="RFC6550" /> section 6.3.1.  The
-              Options Flags Registry is renamed, and applies to MOP values
-              zero (0) to six (6) only.
-            </t>
-            <t>
-              In addition, this document reserves MOP value 7 for future
-              expansion.
-            </t>
+              In addition, this document reserves MOP value 7 for future expansion.
+          </t>
+          <t>
+            See Sections 11.2 and 11.3.
+          </t>
           </section>
           <section title="Indicating the new RPI in the
                           DODAG Configuration option Flag. " anchor="update6550">
@@ -428,10 +425,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
               for MOP value between 0 to 6.
             </t>
             <t>
-              For a MOP value of 7 or above, the flag MAY indicate something
-              different and MUST NOT be interpreted as "RPI 0x23 enable" unless
-              the specification of the MOP indicates to do so.  For a MOP value
-              of 7, a node SHOULD assume that the RPI 0x23 option is enabled.
+              For a MOP value of 7, a node MUST use the RPI 0x23 option.
             </t>
             <t>
               As stated in <xref target="RFC6550"/> the DODAG Configuration option is present in DIO messages.
@@ -998,7 +992,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                 - In the uses cases, we assume that the RAL supports IP-in-IP encapsulation.
               </t>
               <t>
-                - In the uses cases, we dont assume that the RUL supports IP-in-IP encapsulation.
+                - In the uses cases, we don't assume that the RUL supports IP-in-IP encapsulation.
               </t>
               <t>
                 - For traffic leaving a RUL, if the RUL adds an opaque RPI then the description of the RAL applies.
@@ -1270,7 +1264,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                        ]]></artwork></figure>
                        </t>
                        <t>
-                       IP-in-IP encapsulation MAY be avoided for Root to RUL communication.
+                       IP-in-IP encapsulation may be avoided for Root to RUL communication.
                        In SM, it can be replaced by a loose RH3 header that indicates the RUL,
                        in which case the packet is routed to the 6LR as a normal SM operation,
                        then the 6LR forwards to the RUL based on the RH3, and the RUL ignores
@@ -2906,19 +2900,18 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
               ]]></artwork></figure>
           </t>
         </section>
-        <section title="Changes to DODAG Configuration Options Flags">
+        <section title="Change to the DODAG Configuration Options Flags registry">
           <t>
-            This document changes the name of the
-            "DODAG Configuration Option Flags" <xref target="dodagcfg" />
-            to "DODAG Configuration Option Flags for MOP 0..6".
+            This document requests IANA to change the name of the "DODAG
+            Configuration Option Flags" registry to "DODAG Configuration Option Flags
+            for MOP 0..6".
           </t>
         </section>
         <section title="Change MOP value 7 to Reserved">
           <t>
-            This document changes the allocation status of the Mode of
-            Operation (MOP) <xref target="ianamop" /> value 7
-            from Unassigned to Reserved.
-            This change is in support of future work related to capabilities.
+            This document requests the changing the registration status of value 7 in
+            the Mode of Operation registry from Unassigned to Reserved.  This change
+            is in support of future work.
           </t>
         </section>
       </section>
@@ -3153,28 +3146,11 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
      <?ref include="reference.RFC.8200" ?>
      <?rfc include="reference.RFC.8025" ?>
-     <?rfc include="reference.RFC.8504" ?>
+
      <?rfc include="reference.RFC.8138" ?>
      <?rfc include="reference.RFC.6282" ?>
 
      &RFC6550;
-
-     <reference  anchor='dodagcfg' target='https://www.iana.org/assignments/rpl/rpl.xhtml#dodag-config-option-flags'>
-       <front>
-         <title>DODAG Configuration Option Flags</title>
-         <author fullname='IANA'><organization>IANA</organization></author>
-         <date year='2020' month='Sept' />
-       </front>
-     </reference>
-
-     <reference  anchor='ianamop' target='https://www.iana.org/assignments/rpl/rpl.xhtml#mop'>
-       <front>
-         <title>Mode Of Operation</title>
-         <author fullname='IANA'><organization>IANA</organization></author>
-         <date year='2020' month='Sept' />
-       </front>
-     </reference>
-
 
      <reference  anchor='BCP38' target='https://www.rfc-editor.org/info/bcp38'>
      <front>
@@ -3195,6 +3171,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
 
    <references title="Informative References">
 
+     <?rfc include="reference.RFC.8504" ?>
 
    <?rfc include="reference.I-D.ietf-6lo-ap-nd"?>
 
