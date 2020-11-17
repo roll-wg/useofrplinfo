@@ -310,3 +310,10 @@ Section 11: IANA Considerations, added:
    This document changes the allocation status of the Mode of Operation
    (MOP) [ianamop] from Unassigned to Reserved.  This change is in
    support of future work related to capabilities."
+   
+   ChangeLog v41 to v42: 
+   
+   Section added: 4.1.2.  Configuration Options and Mode of Operation 
+   Added in Section 6: "The 6LR as a RPL border	router SHOULD rewrite the RPI to indicate the selected Instance and set the flags."
+   Security Considerations updated For traffic leaving a RUL
+   Nits fixed 
