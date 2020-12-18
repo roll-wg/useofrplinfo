@@ -178,8 +178,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                 Most of the use cases described therein require the use of IPv6-in-IPv6 packet encapsulation.
                 When encapsulating and decapsulating packets, RFC 6040 [RFC6040] MUST be applied to map the
                 setting of the explicit congestion notification (ECN) field between inner and outer headers.
-                Additionally, it is recommended the reading of <xref target="I-D.ietf-intarea-tunnels"/>
-                that explains the relationship of IP tunnels to existing protocol layers and the challenges
+                Additionally, <xref target="I-D.ietf-intarea-tunnels"/> is
+		recommended reading to explains the relationship of IP tunnels to existing protocol layers and the challenges
                 in supporting IP tunneling.
               </t>
               <t>
@@ -413,7 +413,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             defines a flag in the DIO Configuration option, to indicate when
             the new RPI Option Type can be safely used. This means, the flag is going
             to indicate the value of Option Type that the network will be using for the RPL Option. Thus, when a
-            node joins to a network will know which value to use.
+            node joins to a network it will know which value to use.
             With this, RPL-capable nodes know if it is safe to use 0x23 when creating a new RPL Option.
             A node that forwards a packet with an RPI MUST NOT modify the Option Type of the RPL Option.
           </t>
@@ -439,7 +439,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             </t>
             <t>
               Currently, the DODAG Configuration option in <xref target="RFC6550"/> states:
-              "the unused bits MUST be initialize to zero by the sender
+              "the unused bits MUST be initialized to zero by the sender
                and MUST be ignored by the receiver".  If the flag is received with a
             value zero (which is the default), then new nodes will remain in
               RFC6553 Compatible Mode; originating traffic with the old-RPI Option Type (0x63) value.
@@ -800,7 +800,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             of the LLN (e.g. see <xref target="sm-nRal2i" />).
         </t>
          <t>
-             The uses cases are as follows:
+             The use cases are as follows:
          </t>
          <t>
              Interaction between Leaf and Root:
@@ -933,7 +933,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             interest in creating an exception to this rule and removing the RPI for downward flows in non-storing
             mode.  This exception covered a very small number of cases, and
             caused significant interoperability challenges while adding
-            significant in the code and tests.  The ability to compress
+            significant interest in the code and tests.  The ability to compress
             the RPI down to three bytes or less removes much of the pressure
             to optimize this any further <xref target="I-D.ietf-anima-autonomic-control-plane" />.
           </t>
@@ -2803,7 +2803,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
               Node G, or Node C is the 6LR prior to leaf Node J.
             </t>
             <t>
-              traffic originating from the RPL root (such as when the data
+              Traffic originating from the RPL root (such as when the data
               collection system is co-located on the RPL root), does not
               require an IPv6-in-IPv6 header (in storing or non-storing mode), as the packet
               is originating at the root, and the root can insert the RPI
@@ -2935,7 +2935,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             (as the networks tend to be very slow,
             and the nodes often have very low duty cycles), given enough
             nodes, LLNs could still have a
-            significant impact, particularly if attack is targeting another LLN.
+            significant impact, particularly if the attack is targeting another LLN.
             Additionally, some uses of RPL involve large backbone ISP scale
             equipment <xref target="I-D.ietf-anima-autonomic-control-plane"/>,
             which may be equipped with multiple 100Gb/s interfaces.
