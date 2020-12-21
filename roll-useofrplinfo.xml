@@ -531,7 +531,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
           </t>
           <t>
            Thus, this document updates the Option Type of the RPL Option <xref target="RFC6553"/>,
-           abusively naming it RPI Option Type for simplicity,
+           naming it RPI Option Type for simplicity,
            to (<xref target="fig_RPIOption_new"/>):
            the two high order bits MUST be set to '00'
            and the third bit is equal to '1'.
@@ -595,7 +595,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
         <t>
           The change of RPI Option Type from 0x63 to 0x23, makes all
           <xref target="RFC8200"/> Section 4.2 compliant nodes tolerant of the RPL artifacts.  There
-          is therefore no longer a necessity to remove the artifacts when
+          is therefore no longer a need to remove the artifacts when
           sending traffic to the Internet.  This change clarifies when
           to use IPv6-in-IPv6 headers, and how to address them:
           The Hop-by-Hop Options header containing the RPI MUST always
@@ -2912,6 +2912,10 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             This document requests the changing the registration status of value 7 in
             the Mode of Operation registry from Unassigned to Reserved.  This change
             is in support of future work.
+          </t>
+	  <t>
+            This document requests to be mentioned as a reference for this entry in 
+	    the registry. 
           </t>
         </section>
       </section>
