@@ -216,6 +216,11 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
         Terminology defined in <xref target="RFC7102"/> applies to this document: LLN, RPL, RPL domain and ROLL.
         </t>
         <t>
+        Consumed: A Routing Header is consumed when the Segments Left field is zero, which indicates that the
+        destination in the IPv6 header is the final destination of the packet and that the hops in the Routing Header
+        have been traversed.
+        </t>
+        <t>
         RPL Leaf: An IPv6 host that is attached to a RPL router and obtains connectivity
         through a RPL Destination Oriented Directed Acyclic Graph (DODAG). As an IPv6 node,
         a RPL Leaf is expected to ignore a consumed Routing Header and as an IPv6 host, it
@@ -2914,8 +2919,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             is in support of future work.
           </t>
 	  <t>
-            This document requests to be mentioned as a reference for this entry in 
-	    the registry. 
+            This document requests to be mentioned as a reference for this entry in
+	    the registry.
           </t>
         </section>
       </section>
@@ -3034,7 +3039,9 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             where an RH3 is inserted in a non-storing network on traffic that
             is leaving the LLN, but this document should not preclude such a
             future innovation.  It should just be noted that an incoming RH3
-            must be fully consumed, or very carefully inspected.
+            must be fully consumed, or very carefully inspected to match a
+            policy that applies to this network and is correctly processed by
+            the leaves.
           </t>
           <t>
             The RPI, if permitted to enter the LLN, could be used by
