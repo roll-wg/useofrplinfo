@@ -269,8 +269,9 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
       the isolated network."
         </t>
         <t>
-          Flag Day:  In this document, refers to a transition that involves having a network with different values of RPI Option Type.
-
+          Flag Day: It is a mechanism for resolving an interoperability situation
+          (e.g. lack of interoperation between new RPI Option Type (0x23) and old RPI Option Type (0x63) nodes) by making an abrupt,
+           planned changeover from one to the other.
         </t>
          <t>
            Non-Storing Mode (Non-SM): RPL mode of operation in which the RPL-
@@ -2857,12 +2858,11 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
              The migration procedure is triggered when the DIO is sent with the flag
              indicating the new RPI Option Type.
              Namely, it remains at 0x63 until it is sure that the network is capable of 0x23, then it abruptly changes to 0x23.
-             This options allows to send packets to not-RPL nodes, which should ignore the option and continue processing the packets.
-
+             The 0x23 RPI Option allows to send packets to not-RPL nodes. The not-RPL nodes should ignore the option and continue processing the packets.
            </t>
            <t>
              As mentioned previously, indicating the new RPI in the DODAG Configuration option flag is a way to avoid the flag day
-             (lack of interoperation) in a network using 0x63 as the RPI Option Type value. It is suggested that RPL implementations
+             (abrupt changeover) in a network using 0x63 as the RPI Option Type value. It is suggested that RPL implementations
              accept both 0x63 and 0x23 RPI Option type values when processing the header  to enable interoperability.
            </t>
 
