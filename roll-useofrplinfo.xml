@@ -2914,6 +2914,9 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
             Configuration Option Flags" registry to "DODAG Configuration Option Flags
             for MOP 0..6".
           </t>
+
+          <t>This document requests to be mentioned as a reference for this change.</t>
+          
         </section>
         <section title="Change MOP value 7 to Reserved">
           <t>
