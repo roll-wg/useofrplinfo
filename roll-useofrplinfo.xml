@@ -48,7 +48,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-useofrplinfo-42" ipr="trust200902" updates="6553, 6550, 8138">
+<rfc category="std" docName="draft-ietf-roll-useofrplinfo-43" ipr="trust200902" updates="6553, 6550, 8138">
  <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -65,7 +65,7 @@
 
   <author  initials="M.I." surname="Robles" fullname="Maria Ines Robles">
      <organization abbrev="UTN-FRM/Aalto">
-Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
+Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
      </organization>
     <address>
 
@@ -175,11 +175,11 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                 defines a mechanism for compressing RPL Option information and Routing Header type 3 (RH3)
                 <xref target="RFC6554"/>, as well as an efficient IPv6-in-IPv6 technique.
              </t><t>
-                Most of the use cases described therein require the use of IPv6-in-IPv6 packet encapsulation.
+                Most of the use cases described herein require the use of IPv6-in-IPv6 packet encapsulation.
                 When encapsulating and decapsulating packets, RFC 6040 [RFC6040] MUST be applied to map the
                 setting of the explicit congestion notification (ECN) field between inner and outer headers.
-                Additionally, <xref target="I-D.ietf-intarea-tunnels"/> is
-		recommended reading to explains the relationship of IP tunnels to existing protocol layers and the challenges
+                Additionally, <xref target="I-D.ietf-intarea-tunnels"/> is recommended reading to explain
+                the relationship of IP tunnels to existing protocol layers and the challenges
                 in supporting IP tunneling.
               </t>
               <t>
@@ -193,7 +193,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                Section 3 provides a RPL Overview.
 	       Section 4 describes the updates to RFC6553, RFC6550 and RFC 8138.
                Section 5 provides the reference topology used for the uses cases.
-               Section 6  describes the uses cases included.
+               Section 6  describes the use cases included.
                Section 7 describes the storing mode cases and section 8 the non-storing mode cases.
                Section 9 describes the operational considerations of supporting RPL-unaware-leaves.
                Section 10 depicts operational considerations for the proposed change on RPI Option Type, section 11 the
@@ -323,9 +323,11 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
         RPL supports two modes of Downward traffic: in storing mode (SM),
         it is fully stateful; in non-storing mode (Non-SM), it is fully source
         routed. A RPL Instance is either fully storing or fully
-        non-storing, i.e. a RPL Instance with a combination of
+        non-storing, i.e. a RPL Instance with a combination of a fully
         storing and non-storing nodes is not supported with the
         current specifications at the time of writing this document.
+        Notice that external routes are advertised (Upwards traffic) with non-storing-mode messaging
+        even in a storing-mode network.
         </t>
 
 
@@ -600,7 +602,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
         <t>
           The change of RPI Option Type from 0x63 to 0x23, makes all
           <xref target="RFC8200"/> Section 4.2 compliant nodes tolerant of the RPL artifacts.  There
-          is therefore no longer a need to remove the artifacts when
+          is no longer a need to remove the artifacts when
           sending traffic to the Internet.  This change clarifies when
           to use IPv6-in-IPv6 headers, and how to address them:
           The Hop-by-Hop Options header containing the RPI MUST always
@@ -1000,8 +1002,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
                 - In the uses cases, we don't assume that the RUL supports IP-in-IP encapsulation.
               </t>
               <t>
-                - For traffic leaving a RUL, if the RUL adds an opaque RPI then the description of the RAL applies.
-                The 6LR as a RPL border router SHOULD rewrite the RPI to indicate the selected Instance and set the flags.
+                - For traffic leaving a RUL, if the RUL adds an opaque RPI then the 6LR as a RPL border router SHOULD rewrite
+                 the RPI to indicate the selected Instance and set the flags.
               </t>
               <t>
                 - The description for RALs applies to RAN in general.
@@ -3059,14 +3061,13 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina / Aalto University, Finland
             been identified as being at it's final destination.
           </t>
           <t>
-            For traffic leaving a RUL, if the RUL adds an opaque RPI then the
-            description of the RAL applies.  The 6LR as a RPL border router SHOULD
-            rewrite the RPI to indicate the selected Instance and set the flags.
+            For traffic leaving a RUL, if the RUL adds an opaque RPI then the 6LR as a RPL border
+            router SHOULD rewrite the RPI to indicate the selected Instance and set the flags.
             This is done in order to avoid: 1) The leaf is an external router that
             passes a packet that it did not generate and that carries an unrelated RPI
             and 2) The leaf is an attacker or presents misconfiguration and
             tries to inject traffic in a protected instance.
-            Also, this applies in the case where the leaf is aware of the RPL instance and passes a correct RPI,
+            Also, this applies in the case where the leaf is aware of the RPL instance and passes a correct RPI;
             the 6LR needs a configuration that allows that leaf to inject in that instance.
           </t>
           <t>
