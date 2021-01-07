@@ -136,7 +136,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
                 defines the RPL Option carried within the IPv6 Hop-by-Hop
                 Header to carry the RPLInstanceID and quickly identify inconsistencies (loops) in the routing topology.
                 The RPL Option is commonly referred to as the RPL Packet Information
-                (RPI) though the RPI is really the abstract information that is defined
+                (RPI) though the RPI is the routing information that is defined
                 in <xref target="RFC6550"/> and transported in the RPL Option.
                 RFC6554 <xref target="RFC6554"/> defines the "RPL Source Route Header" (RH3), an
                 IPv6 Extension Header to deliver datagrams within a RPL
@@ -362,7 +362,9 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
           Mode DAO informs the Root of the address of the 6LR that injects the
           external route, and the root uses IP-in-IP encapsulation to that 6LR,
           which terminates the IP-in-IP tunnel and forwards the original packet
-          outside the RPL domain free of RPL artifacts. In the other direction,
+          outside the RPL domain free of RPL artifacts.
+          </t><t>
+          In the other direction,
           for traffic coming from an external target into the LLN, the parent
           (6LR) that injects the traffic always encapsulates to the root.
           This whole operation is
@@ -589,9 +591,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
           </t>
           <t>
             When originating new packets,
-            implementations SHOULD have an option to determine which value to
-            originate with, this option is controlled by the DIO option
-            described below.
+            implementations should have an option to determine which value to
+            originate with, this option is controlled by the DIO Configuration option (Section <xref target="update6550"/>).
           </t>
           <!--
           A network which is switching from straight 6LoWPAN compression
@@ -1483,7 +1484,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
                                 the RPI is added in a outer
                                 IPv6-in-IPv6 header (with the IPv6-in-IPv6 destination address set to the RAL) and sent to 6LR, which
                                 modifies the rank in the RPI. When the packet
-                                arrives at the RAL the RPI is removed and the
+                                arrives at the RAL, the IPv6-in-IPv6 header is decapsulated, the RPI is removed and the
                                 packet processed.
                         </t>
                         <t>
@@ -2788,10 +2789,10 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
               that nodes that have not been configured (explicitly) to
               examine Hop-by-Hop headers, should ignore those headers, and
               continue processing the packet.  Despite this, and despite the
-              switch from 0x63 to 0x23, there may be hosts that are pre-RFC8200,
-              or simply intolerant.  Those hosts will drop packets that
+              switch from 0x63 to 0x23, there may be nodes that are pre-RFC8200,
+              or simply intolerant.  Those nodes will drop packets that
               continue to have RPL artifacts in them.  In general, such
-              hosts can not be easily supported in RPL LLNs.
+              nodes can not be easily supported in RPL LLNs.
             </t>
             <t>
               There are some specific cases where it is possible to remove
