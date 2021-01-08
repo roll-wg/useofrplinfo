@@ -230,9 +230,11 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
         this document uses the standalone term leaf to mean a RPL leaf.
         </t>
         <t>
-        RPL Packet Information (RPI): The abstract information that <xref target="RFC6550"/> places in IP packets.
+        RPL Packet Information (RPI):
+        The information defined abstractly in <xref target="RFC6550"/> to be placed in IP packets.
         The term is commonly used, including in this document, to refer to the RPL Option <xref target="RFC6553"/>
-        that transports that abstract information in an IPv6 Hop-by-Hop Header.
+        that transports that abstract information in an IPv6 Hop-by-Hop Header. <xref target="RFC8138"/> provides
+        an alternate (more compressed) formating for the same abstract information.
         </t>
         <t>
         RPL-aware-node (RAN): A device which implements RPL. Please note that the device can be found inside the LLN or outside LLN.
@@ -1484,8 +1486,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
                                 the RPI is added in a outer
                                 IPv6-in-IPv6 header (with the IPv6-in-IPv6 destination address set to the RAL) and sent to 6LR, which
                                 modifies the rank in the RPI. When the packet
-                                arrives at the RAL, the IPv6-in-IPv6 header is decapsulated, the RPI is removed and the
-                                packet processed.
+                                arrives at the RAL, the packet is decapsulated, which removes the RPI before the
+                                packet is processed.
                         </t>
                         <t>
                         The <xref target="Storing-int2rpl"/> shows the table that summarizes what headers are needed for this use case.
