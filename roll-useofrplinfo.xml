@@ -103,7 +103,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
       </address>
    </author>
 
-  <date year="2020" />
+  <date />
 
    <area>Internet</area>
 
@@ -176,7 +176,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
                 <xref target="RFC6554"/>, as well as an efficient IPv6-in-IPv6 technique.
              </t><t>
                 Most of the use cases described herein require the use of IPv6-in-IPv6 packet encapsulation.
-                When encapsulating and decapsulating packets, RFC 6040 [RFC6040] MUST be applied to map the
+                When encapsulating and decapsulating packets, <xref target="RFC6040"/> MUST be applied to map the
                 setting of the explicit congestion notification (ECN) field between inner and outer headers.
                 Additionally, <xref target="I-D.ietf-intarea-tunnels"/> is recommended reading to explain
                 the relationship of IP tunnels to existing protocol layers and the challenges
@@ -321,14 +321,14 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
         ]]></artwork></figure>
 </t>
         <t>
-        RPL supports two modes of Downward traffic: in storing mode (SM),
+        RPL supports two modes of Downward internal traffic: in storing mode (SM),
         it is fully stateful; in non-storing mode (Non-SM), it is fully source
         routed. A RPL Instance is either fully storing or fully
         non-storing, i.e. a RPL Instance with a combination of a fully
         storing and non-storing nodes is not supported with the
         current specifications at the time of writing this document.
-        Notice that external routes are advertised (Upwards traffic) with non-storing-mode messaging
-        even in a storing-mode network.
+        External routes are advertised with non-storing-mode messaging
+        even in a storing mode network, see <xref target="nnstext"/>
         </t>
 
 
@@ -1337,7 +1337,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
                         </t>
                         <t>
                         <figure title="SM: Summary of the use of headers from RUL to root." anchor="Storing-notrpl2root" align="center">
-                          <artwork><![CDATA[
+<artwork><![CDATA[
 +-----------+------+--------------+----------------+-----------------+
 |   Header  | RUL  |     6LR_1    |     6LR_i      |       6LBR dst  |
 |           | src  |              |                |                 |
@@ -2916,7 +2916,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
           </t>
 
           <t>This document requests to be mentioned as a reference for this change.</t>
-          
+
         </section>
         <section title="Change MOP value 7 to Reserved">
           <t>
