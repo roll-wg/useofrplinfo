@@ -103,7 +103,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
       </address>
    </author>
 
-  <date year="2020" />
+  <date />
 
    <area>Internet</area>
 
@@ -176,7 +176,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
                 <xref target="RFC6554"/>, as well as an efficient IPv6-in-IPv6 technique.
              </t><t>
                 Most of the use cases described herein require the use of IPv6-in-IPv6 packet encapsulation.
-                When encapsulating and decapsulating packets, RFC 6040 [RFC6040] MUST be applied to map the
+                When encapsulating and decapsulating packets, <xref target="RFC6040"/> MUST be applied to map the
                 setting of the explicit congestion notification (ECN) field between inner and outer headers.
                 Additionally, <xref target="I-D.ietf-intarea-tunnels"/> is recommended reading to explain
                 the relationship of IP tunnels to existing protocol layers and the challenges
@@ -230,9 +230,11 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
         this document uses the standalone term leaf to mean a RPL leaf.
         </t>
         <t>
-        RPL Packet Information (RPI): The abstract information that <xref target="RFC6550"/> places in IP packets.
+        RPL Packet Information (RPI):
+        The information defined abstractly in <xref target="RFC6550"/> to be placed in IP packets.
         The term is commonly used, including in this document, to refer to the RPL Option <xref target="RFC6553"/>
-        that transports that abstract information in an IPv6 Hop-by-Hop Header.
+        that transports that abstract information in an IPv6 Hop-by-Hop Header. <xref target="RFC8138"/> provides
+        an alternate (more compressed) formating for the same abstract information.
         </t>
         <t>
         RPL-aware-node (RAN): A device which implements RPL. Please note that the device can be found inside the LLN or outside LLN.
@@ -271,7 +273,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
         <t>
           Flag Day: It is a mechanism for resolving an interoperability situation
           (e.g. lack of interoperation between new RPI Option Type (0x23) and old RPI Option Type (0x63) nodes) by making an abrupt,
-           planned changeover from one to the other.
+           disruptive changeover from one to the other.
         </t>
          <t>
            Non-Storing Mode (Non-SM): RPL mode of operation in which the RPL-
@@ -321,14 +323,14 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
         ]]></artwork></figure>
 </t>
         <t>
-        RPL supports two modes of Downward traffic: in storing mode (SM),
+        RPL supports two modes of Downward internal traffic: in storing mode (SM),
         it is fully stateful; in non-storing mode (Non-SM), it is fully source
         routed. A RPL Instance is either fully storing or fully
         non-storing, i.e. a RPL Instance with a combination of a fully
         storing and non-storing nodes is not supported with the
         current specifications at the time of writing this document.
-        Notice that external routes are advertised (Upwards traffic) with non-storing-mode messaging
-        even in a storing-mode network.
+        External routes are advertised with non-storing-mode messaging
+        even in a storing mode network, see <xref target="nnstext"/>
         </t>
 
 
@@ -1337,7 +1339,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
                         </t>
                         <t>
                         <figure title="SM: Summary of the use of headers from RUL to root." anchor="Storing-notrpl2root" align="center">
-                          <artwork><![CDATA[
+<artwork><![CDATA[
 +-----------+------+--------------+----------------+-----------------+
 |   Header  | RUL  |     6LR_1    |     6LR_i      |       6LBR dst  |
 |           | src  |              |                |                 |
@@ -1484,8 +1486,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
                                 the RPI is added in a outer
                                 IPv6-in-IPv6 header (with the IPv6-in-IPv6 destination address set to the RAL) and sent to 6LR, which
                                 modifies the rank in the RPI. When the packet
-                                arrives at the RAL, the IPv6-in-IPv6 header is decapsulated, the RPI is removed and the
-                                packet processed.
+                                arrives at the RAL, the packet is decapsulated, which removes the RPI before the
+                                packet is processed.
                         </t>
                         <t>
                         The <xref target="Storing-int2rpl"/> shows the table that summarizes what headers are needed for this use case.
@@ -2916,7 +2918,7 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
           </t>
 
           <t>This document requests to be mentioned as a reference for this change.</t>
-          
+
         </section>
         <section title="Change MOP value 7 to Reserved">
           <t>
