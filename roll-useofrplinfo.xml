@@ -3160,13 +3160,13 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
      &RFC2119;
      &RFC6040;
 
-     <?ref include="reference.RFC.8174" ?>
+     <?rfc include="reference.RFC.8174.xml" ?>
 
-     <?ref include="reference.RFC.8200" ?>
-     <?rfc include="reference.RFC.8025" ?>
+     <?rfc include="reference.RFC.8200.xml" ?>
+     <?rfc include="reference.RFC.8025.xml" ?>
 
-     <?rfc include="reference.RFC.8138" ?>
-     <?rfc include="reference.RFC.6282" ?>
+     <?rfc include="reference.RFC.8138.xml" ?>
+     <?rfc include="reference.RFC.6282.xml" ?>
 
      &RFC6550;
 
@@ -3183,19 +3183,20 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
      <seriesInfo name='DOI' value='10.17487/RFC2827'/>
      </reference>
 
-     <?rfc include="reference.RFC.7045" ?>
+     <?rfc include="reference.RFC.7045.xml" ?>
 
    </references>
 
    <references title="Informative References">
 
-     <?rfc include="reference.RFC.8504" ?>
+     <?rfc include="reference.RFC.0801.xml" ?>
+     <?rfc include="reference.RFC.8504.xml" ?>
 
-   <?rfc include="reference.I-D.ietf-6lo-ap-nd"?>
+   <?rfc include="reference.I-D.ietf-6lo-ap-nd.xml"?>
 
-    <?rfc include="reference.I-D.ietf-intarea-tunnels"?>
+    <?rfc include="reference.I-D.ietf-intarea-tunnels.xml"?>
 
-   <?rfc include="reference.I-D.ietf-roll-unaware-leaves" ?>
+   <?rfc include="reference.I-D.ietf-roll-unaware-leaves.xml" ?>
 
      &RFC6775;
      &RFC6437;
@@ -3208,16 +3209,16 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
      &RFC2460;
 
 
-     <?rfc include="reference.I-D.ietf-anima-autonomic-control-plane" ?>
-     <?rfc include="reference.RFC.5406" ?>
+     <?rfc include="reference.I-D.ietf-anima-autonomic-control-plane.xml" ?>
+     <?rfc include="reference.RFC.5406.xml" ?>
 
-     <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra" ?>
-     <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-zerotouch-join" ?>
-     <?rfc include="reference.I-D.ietf-6lo-backbone-router" ?>
+     <?rfc include="reference.I-D.ietf-anima-bootstrapping-keyinfra.xml" ?>
+     <?rfc include="reference.I-D.ietf-6tisch-dtsecurity-zerotouch-join.xml" ?>
+     <?rfc include="reference.I-D.ietf-6lo-backbone-router.xml" ?>
 
 
 
-     <?rfc include="reference.RFC.6997" ?>
+     <?rfc include="reference.RFC.6997.xml" ?>
 
 
      <reference anchor="DDOS-KREBS" target="http://arstechnica.com/security/2016/09/botnet-of-145k-cameras-reportedly-deliver-internets-biggest-ddos-ever/">
