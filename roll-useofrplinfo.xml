@@ -271,9 +271,8 @@ Universidad Tecno. Nac.(UTN)-FRM, Argentina/ Aalto University Finland
       the isolated network."
         </t>
         <t>
-          Flag Day: It is a mechanism for resolving an interoperability situation
-          (e.g. lack of interoperation between new RPI Option Type (0x23) and old RPI Option Type (0x63) nodes) by making an abrupt,
-           disruptive changeover from one to the other.
+          Flag Day: A Flag Day is caused when a network is reconfigured in a way that nodes running the older configuration can not communicate with nodes running the new configuration.  For instance, when the ARPANET changed from IP version 3 to IP version 4 on January 1, 1983 (<xref target="RFC0801" />).
+          In the context of this document, a switch from RPI Option Type (0x63) and Option Type (0x23) presents as a disruptive changeover.  In order to reduce the amount of time for such a changeover, <xref target="update6550" /> provides a mechanism to allow nodes to be incrementally upgraded.
         </t>
          <t>
            Non-Storing Mode (Non-SM): RPL mode of operation in which the RPL-
